@@ -1,0 +1,45 @@
+{
+  "entry_id": "UB_20260301_3NFT_BipD",
+  "timestamp": "2026-03-01T00:00:00Z",
+  "target_protein": {
+    "pdb_id": "3NFT",
+    "name": "BipD",
+    "organism": "Burkholderia pseudomallei",
+    "function": "Type III secretion system translocator",
+    "sequence_length": 309,
+    "resolution": "1.51 Angstrom"
+  },
+  "topological_fingerprint": {
+    "mtf_hash": "99cdd617993d604d",
+    "hydrophobic_fraction": 0.414,
+    "charge_balance": -0.009708737864077666,
+    "structural_complexity": 48,
+    "secondary_structures": {
+      "alpha_helices": 16,
+      "beta_sheets": 3,
+      "disulfide_bonds": 0
+    }
+  },
+  "computational_status": {
+    "structure_fetched": true,
+    "boltz2_prediction": "failed_unicode_encoding",
+    "mtf_generated": true,
+    "biosecurity_check": "flagged_pathogen_derived"
+  },
+  "biosecurity_assessment": {
+    "organism_classification": "BSL-3_pathogen",
+    "virulence_factors": ["type_iii_secretion", "host_cell_translocation"],
+    "research_authorization": "biodefense_hackathon_nottingham_chemistry",
+    "risk_level": "controlled_research_environment"
+  },
+  "hardware_profile": {
+    "target_gpu": "RTX_5070_Ti_16GB",
+    "compute_optimization": "batch_size_reduced_for_vram"
+  },
+  "next_steps": [
+    "resolve_amina_cli_unicode_issues",
+    "retry_boltz2_prediction",
+    "compare_predicted_vs_crystal_structure",
+    "identify_binding_interface_residues"
+  ]
+}
