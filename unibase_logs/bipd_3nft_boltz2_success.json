@@ -1,0 +1,49 @@
+{
+  "entry_id": "UB_20260301_3NFT_BipD_Boltz2",
+  "timestamp": "2026-03-01T00:15:00Z",
+  "target_protein": {
+    "pdb_id": "3NFT",
+    "name": "BipD",
+    "organism": "Burkholderia pseudomallei",
+    "function": "Type III secretion system translocator",
+    "sequence_length": 309
+  },
+  "prediction_results": {
+    "method": "Boltz-2",
+    "runtime_seconds": 98.3,
+    "cost_usd": 0.068,
+    "hardware": "RTX_5070_Ti_16GB",
+    "encoding_fix": "PYTHONIOENCODING=utf-8"
+  },
+  "quality_metrics": {
+    "plddt": 64.1278,
+    "ptm": 0.5658,
+    "confidence_score": 0.6262,
+    "min_pae_angstrom": 0.25,
+    "complex_pde": 1.9428
+  },
+  "topological_fingerprint_updated": {
+    "mtf_hash": "99cdd617993d604d",
+    "crystal_vs_predicted": {
+      "crystal_resolution": "1.51_angstrom",
+      "predicted_confidence": "moderate_64.1",
+      "structural_comparison": "pending_rmsd_analysis"
+    }
+  },
+  "output_files": [
+    "boltz2_bipd_boltz2_retry_structure.pdb",
+    "boltz2_bipd_boltz2_retry_confidence_scores.json",
+    "boltz2_bipd_boltz2_retry_config.yaml",
+    "boltz2_bipd_boltz2_retry_pae.npz"
+  ],
+  "research_status": {
+    "structure_prediction": "completed",
+    "next_phase": "interface_analysis_and_binder_design",
+    "biosecurity_approval": "maintained"
+  },
+  "credits_earned": {
+    "successful_prediction": 15,
+    "mtf_validation": 5,
+    "total_anyways_credits": 20
+  }
+}
