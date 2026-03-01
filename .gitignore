@@ -3,3 +3,5 @@ __pycache__/
 .amina/credentials.json
 amina_results/*.pdb
 .env
+amina_tools/
+continuum-discovery/
