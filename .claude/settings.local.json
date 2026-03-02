@@ -20,7 +20,9 @@
       "Bash(export:*)",
       "Bash(git clone:*)",
       "Bash(nvidia-smi:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
     ]
   }
 }
