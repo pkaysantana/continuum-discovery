@@ -1,0 +1,17 @@
+{
+  "agent_id": "f9781cd5d5f1",
+  "agent_name": "Continuum Discovery BioDefense Agent",
+  "total_credits": 1000,
+  "discoveries_minted": 6,
+  "revenue_generated": 0,
+  "active_licenses": [
+    "LIC_f88ebf15d1042af6",
+    "LIC_3eb12ff5492b1d9c",
+    "LIC_42763bf579218033",
+    "LIC_90d886cf9326a773",
+    "LIC_560c47aa13011cbd",
+    "LIC_b35b3c013872d5a9"
+  ],
+  "creation_date": "2026-03-02T15:38:19.768651+00:00",
+  "last_updated": "2026-03-02T15:45:19.191910+00:00"
+}

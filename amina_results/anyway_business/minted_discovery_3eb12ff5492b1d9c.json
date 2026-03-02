@@ -1,0 +1,16 @@
+{
+  "mint_id": "3eb12ff5492b1d9c",
+  "discovery_type": "universal_countermeasure",
+  "original_result_id": "20260302_152503_9aad25b76c7407ae",
+  "agent_id": "f9781cd5d5f1",
+  "mint_timestamp": "2026-03-02T15:38:19.770258+00:00",
+  "credit_value": 250,
+  "marketable": true,
+  "product_key": "universal_platform",
+  "metadata": {
+    "target": "Y. pestis LcrV (Cross-pathogen validation)",
+    "performance_metric": 5.119789855072463,
+    "sequence_hash": "e3b0c44298fc",
+    "validation_status": "VERIFIED"
+  }
+}

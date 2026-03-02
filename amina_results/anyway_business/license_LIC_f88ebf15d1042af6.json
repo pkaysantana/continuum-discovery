@@ -1,0 +1,20 @@
+{
+  "license_id": "LIC_f88ebf15d1042af6",
+  "minted_asset_id": "f88ebf15d1042af6",
+  "product_info": {
+    "name": "B. pseudomallei BipD Countermeasure License",
+    "price": 50000,
+    "currency": "USD",
+    "description": "Exclusive license for validated BipD binding sequence",
+    "stripe_product_id": "prod_mock_bipd_license_001"
+  },
+  "payment_link": "https://buy.stripe.com/mock_prod_mock_bipd_license_001_f88ebf15d1042af6",
+  "license_status": "AVAILABLE",
+  "created_at": "2026-03-02T15:38:19.769208+00:00",
+  "terms": {
+    "exclusive": true,
+    "duration": "5 years",
+    "territory": "Worldwide",
+    "field_of_use": "Biodefense applications"
+  }
+}

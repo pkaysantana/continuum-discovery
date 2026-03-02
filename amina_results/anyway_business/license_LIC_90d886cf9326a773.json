@@ -1,0 +1,56 @@
+{
+  "license_id": "LIC_90d886cf9326a773",
+  "minted_asset_id": "90d886cf9326a773",
+  "product_info": {
+    "name": "B. pseudomallei BipD Countermeasure License",
+    "price": 50000,
+    "currency": "USD",
+    "description": "Exclusive license for validated BipD binding sequence",
+    "stripe_product_id": "prod_mock_bipd_license_001"
+  },
+  "dynamic_pricing": {
+    "base_price_cents": 50000,
+    "surge_multiplier": 1.3,
+    "dynamic_price_cents": 65000,
+    "threat_level": "medium",
+    "ndwi_trigger": 12.5
+  },
+  "ip_tokenization": {
+    "token_symbol": "$BIPD-SHIELD",
+    "token_name": "BipD Countermeasure Token",
+    "total_supply": 428473,
+    "token_price_usd": 3.54142968168356,
+    "funding_target": 1517407,
+    "validation_score": 0.428473818010334,
+    "rmsd_score": 1.714578545968998,
+    "target_pathogen": "B. pseudomallei BipD",
+    "blockchain": "BNB Chain (BSC)",
+    "contract_address": "0xacca4f35f995b916e2a390a5acff9f2ecdcde7df",
+    "token_standard": "BEP-20",
+    "initial_liquidity": 128541.9,
+    "milestones": {
+      "preclinical": {
+        "funding_pct": 25,
+        "timeline": "6 months"
+      },
+      "phase_1": {
+        "funding_pct": 35,
+        "timeline": "12 months"
+      },
+      "phase_2": {
+        "funding_pct": 40,
+        "timeline": "24 months"
+      }
+    },
+    "launch_timestamp": "2026-03-02T15:45:19.170778+00:00"
+  },
+  "payment_link": "https://buy.stripe.com/test_mock_prod_mock_bipd_license_001_90d886cf9326a773_surge_1.3x",
+  "license_status": "AVAILABLE",
+  "created_at": "2026-03-02T15:45:19.171166+00:00",
+  "terms": {
+    "exclusive": true,
+    "duration": "5 years",
+    "territory": "Worldwide",
+    "field_of_use": "Biodefense applications"
+  }
+}

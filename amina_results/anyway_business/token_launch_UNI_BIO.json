@@ -1,0 +1,29 @@
+{
+  "token_symbol": "$UNI-BIO",
+  "token_name": "Universal Biodefense Token",
+  "total_supply": 100000,
+  "token_price_usd": 19.99453,
+  "funding_target": 1999453,
+  "validation_score": 0.1,
+  "rmsd_score": 5.119789855072463,
+  "target_pathogen": "Y. pestis LcrV (Cross-pathogen validation)",
+  "blockchain": "BNB Chain (BSC)",
+  "contract_address": "0xa4b879c72ce5438c4b9ed58f0791f20b271a1e0a",
+  "token_standard": "BEP-20",
+  "initial_liquidity": 30000.0,
+  "milestones": {
+    "preclinical": {
+      "funding_pct": 25,
+      "timeline": "6 months"
+    },
+    "phase_1": {
+      "funding_pct": 35,
+      "timeline": "12 months"
+    },
+    "phase_2": {
+      "funding_pct": 40,
+      "timeline": "24 months"
+    }
+  },
+  "launch_timestamp": "2026-03-02T15:45:19.172768+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "license_id": "LIC_42763bf579218033",
+  "minted_asset_id": "42763bf579218033",
+  "product_info": {
+    "name": "Evolution Oracle Prediction Service",
+    "price": 75000,
+    "currency": "USD",
+    "description": "6-18 month pathogen evolution forecasting",
+    "stripe_product_id": "prod_mock_evolution_001"
+  },
+  "payment_link": "https://buy.stripe.com/mock_prod_mock_evolution_001_42763bf579218033",
+  "license_status": "AVAILABLE",
+  "created_at": "2026-03-02T15:38:19.771676+00:00",
+  "terms": {
+    "exclusive": true,
+    "duration": "5 years",
+    "territory": "Worldwide",
+    "field_of_use": "Biodefense applications"
+  }
+}

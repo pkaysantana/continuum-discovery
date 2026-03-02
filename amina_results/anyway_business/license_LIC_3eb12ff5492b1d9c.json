@@ -1,0 +1,20 @@
+{
+  "license_id": "LIC_3eb12ff5492b1d9c",
+  "minted_asset_id": "3eb12ff5492b1d9c",
+  "product_info": {
+    "name": "Universal Biodefense Platform License",
+    "price": 150000,
+    "currency": "USD",
+    "description": "Multi-pathogen countermeasure platform access",
+    "stripe_product_id": "prod_mock_universal_001"
+  },
+  "payment_link": "https://buy.stripe.com/mock_prod_mock_universal_001_3eb12ff5492b1d9c",
+  "license_status": "AVAILABLE",
+  "created_at": "2026-03-02T15:38:19.770870+00:00",
+  "terms": {
+    "exclusive": true,
+    "duration": "5 years",
+    "territory": "Worldwide",
+    "field_of_use": "Biodefense applications"
+  }
+}

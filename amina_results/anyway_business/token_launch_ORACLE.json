@@ -1,0 +1,29 @@
+{
+  "token_symbol": "$ORACLE",
+  "token_name": "Evolution Oracle Token",
+  "total_supply": 333333,
+  "token_price_usd": 4.883485883485884,
+  "funding_target": 1627827,
+  "validation_score": 0.3333333333333333,
+  "rmsd_score": 2.0,
+  "target_pathogen": "PREDICTED VARIANT: temperature_spike -> A178F",
+  "blockchain": "BNB Chain (BSC)",
+  "contract_address": "0x43794d1cc216c85a56b5b56e52a94c2e807ea8fd",
+  "token_standard": "BEP-20",
+  "initial_liquidity": 99999.9,
+  "milestones": {
+    "preclinical": {
+      "funding_pct": 25,
+      "timeline": "6 months"
+    },
+    "phase_1": {
+      "funding_pct": 35,
+      "timeline": "12 months"
+    },
+    "phase_2": {
+      "funding_pct": 40,
+      "timeline": "24 months"
+    }
+  },
+  "launch_timestamp": "2026-03-02T15:45:19.173867+00:00"
+}

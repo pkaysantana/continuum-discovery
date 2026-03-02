@@ -1,0 +1,16 @@
+{
+  "mint_id": "42763bf579218033",
+  "discovery_type": "evolution_prediction",
+  "original_result_id": "20260302_153241_099f0a4fb41da51e",
+  "agent_id": "f9781cd5d5f1",
+  "mint_timestamp": "2026-03-02T15:38:19.771344+00:00",
+  "credit_value": 150,
+  "marketable": true,
+  "product_key": "evolution_oracle",
+  "metadata": {
+    "target": "PREDICTED VARIANT: temperature_spike -> A178F",
+    "performance_metric": null,
+    "sequence_hash": "e3b0c44298fc",
+    "validation_status": "VERIFIED"
+  }
+}

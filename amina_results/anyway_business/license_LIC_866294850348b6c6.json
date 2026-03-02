@@ -1,0 +1,56 @@
+{
+  "license_id": "LIC_866294850348b6c6",
+  "minted_asset_id": "866294850348b6c6",
+  "product_info": {
+    "name": "Universal Biodefense Platform License",
+    "price": 150000,
+    "currency": "USD",
+    "description": "Multi-pathogen countermeasure platform access",
+    "stripe_product_id": "prod_mock_universal_001"
+  },
+  "dynamic_pricing": {
+    "base_price_cents": 150000,
+    "surge_multiplier": 1.3,
+    "dynamic_price_cents": 195000,
+    "threat_level": "medium",
+    "ndwi_trigger": 12.5
+  },
+  "ip_tokenization": {
+    "token_symbol": "$UNI-BIO",
+    "token_name": "Universal Biodefense Token",
+    "total_supply": 100000,
+    "token_price_usd": 19.70394,
+    "funding_target": 1970394,
+    "validation_score": 0.1,
+    "rmsd_score": 5.119789855072463,
+    "target_pathogen": "Y. pestis LcrV (Cross-pathogen validation)",
+    "blockchain": "BNB Chain (BSC)",
+    "contract_address": "0xae2cd69d84c57710c136d6a34a6b320e96b2a3ff",
+    "token_standard": "BEP-20",
+    "initial_liquidity": 30000.0,
+    "milestones": {
+      "preclinical": {
+        "funding_pct": 25,
+        "timeline": "6 months"
+      },
+      "phase_1": {
+        "funding_pct": 35,
+        "timeline": "12 months"
+      },
+      "phase_2": {
+        "funding_pct": 40,
+        "timeline": "24 months"
+      }
+    },
+    "launch_timestamp": "2026-03-02T15:44:38.655335+00:00"
+  },
+  "payment_link": "https://buy.stripe.com/test_mock_prod_mock_universal_001_866294850348b6c6_surge_1.3x",
+  "license_status": "AVAILABLE",
+  "created_at": "2026-03-02T15:44:38.655688+00:00",
+  "terms": {
+    "exclusive": true,
+    "duration": "5 years",
+    "territory": "Worldwide",
+    "field_of_use": "Biodefense applications"
+  }
+}

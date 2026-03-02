@@ -1,0 +1,16 @@
+{
+  "mint_id": "910bec323362ada0",
+  "discovery_type": "high_affinity_binder",
+  "original_result_id": "20260302_151131_da485cde19d2dd12",
+  "agent_id": "f9781cd5d5f1",
+  "mint_timestamp": "2026-03-02T15:44:38.652847+00:00",
+  "credit_value": 100,
+  "marketable": true,
+  "product_key": "bipd_countermeasure",
+  "metadata": {
+    "target": "B. pseudomallei BipD",
+    "performance_metric": 1.714578545968998,
+    "sequence_hash": "da485cde19d2",
+    "validation_status": "VERIFIED"
+  }
+}
