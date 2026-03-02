@@ -174,6 +174,16 @@ This publication-quality visualisation demonstrates the successful structural in
 
 ---
 
+## 7. Forward Folding Validation
+
+### ESMFold Structural Integrity Assessment
+
+![BipD Structural Fidelity](assets/esmatlas_folded_validation_0_688_rmsd.png)
+
+**Figure 3: Mathematical validation of the BipD countermeasure. The locally generated ProteinMPNN sequence was forward-folded using the ESMFold API, achieving a sub-ångstrom RMSD of 0.688 Å against the original RFdiffusion scaffold, confirming extreme structural fidelity.**
+
+---
+
 ## Conclusion: Autonomous Science with Built-In Integrity
 
 The Continuum Discovery platform demonstrates that AI-driven scientific research can embody the highest standards of scientific rigour through systematic implementation of quality controls, safety filters, and computational efficiency measures. Our MTF-based biosecurity framework represents not just a technical achievement, but a fundamental advancement in responsible AI development for high-stakes biological research.
