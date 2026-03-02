@@ -22,7 +22,9 @@
   },
   "computational_status": {
     "structure_fetched": true,
-    "boltz2_prediction": "failed_unicode_encoding",
+    "boltz2_prediction": "low_confidence",
+    "boltz2_plDDT": 64.1,
+    "structure_quality": "insufficient_for_needle_tip_design",
     "mtf_generated": true,
     "biosecurity_check": "flagged_pathogen_derived"
   },
@@ -37,9 +39,21 @@
     "compute_optimization": "batch_size_reduced_for_vram"
   },
   "next_steps": [
-    "resolve_amina_cli_unicode_issues",
-    "retry_boltz2_prediction",
-    "compare_predicted_vs_crystal_structure",
-    "identify_binding_interface_residues"
-  ]
+    "pivot_to_crystal_structure_3nft_original",
+    "prepare_rfdiffusion_job_pocket1_residues",
+    "generate_50_binder_candidates",
+    "validate_high_affinity_sequences"
+  ],
+  "pocket_analysis": {
+    "highest_ranked_pocket": 1,
+    "pocket1_residues": [51, 55, 90, 130, 291, 295],
+    "pocket1_residue_details": [
+      {"id": 51, "name": "ILE", "probability": 0.1795},
+      {"id": 55, "name": "PHE", "probability": 0.1315},
+      {"id": 90, "name": "ALA", "probability": 0.0393},
+      {"id": 130, "name": "LEU", "probability": 0.1219},
+      {"id": 291, "name": "VAL", "probability": 0.1545},
+      {"id": 295, "name": "ALA", "probability": 0.2140}
+    ]
+  }
 }

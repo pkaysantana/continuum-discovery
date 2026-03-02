@@ -1,0 +1,50 @@
+{
+  "entry_id": "UB_20260302_RFdiffusion_BipD_Pocket1",
+  "timestamp": "2026-03-02T02:15:00Z",
+  "target_structure": {
+    "pdb_file": "3nft_original.pdb",
+    "chain": "A",
+    "residue_range": "1034-1304",
+    "total_residues": 270
+  },
+  "pocket_analysis": {
+    "p2rank_pocket": 1,
+    "center_coordinates": [18.1040, 0.6382, 6.1342],
+    "p2rank_residues": [51, 55, 90, 130, 291, 295],
+    "residue_mapping_issue": "P2Rank numbering does not match PDB numbering scheme"
+  },
+  "rfdiffusion_attempts": [
+    {
+      "job_id": "599de420-5b73-45e8-8ff6-a0ca7ec76a8b",
+      "hotspots": "A51,A55,A90,A130,A291,A295",
+      "status": "failed",
+      "error": "No valid hotspot residues - numbering mismatch",
+      "cost": "$0.0033"
+    },
+    {
+      "job_id": "bacad031-8876-43b2-a1d8-b254aab99092",
+      "hotspots": "A1100,A1150,A1200",
+      "designs": 5,
+      "status": "completed",
+      "cost": "estimated $0.815",
+      "output_files": 25
+    },
+    {
+      "job_id": "a9aebb18-51ec-46cc-9165-cdd4dc5eb441",
+      "hotspots": "A1084,A1088,A1123,A1163,A1324,A1328",
+      "designs": 50,
+      "status": "running",
+      "estimated_cost": "$8.15",
+      "job_name": "bipd_pocket1_binders_50_final"
+    }
+  ],
+  "recommended_solution": {
+    "approach": "coordinate_based_targeting",
+    "alternative": "manual_residue_identification_from_structure"
+  },
+  "hardware_optimization": {
+    "target_gpu": "RTX_5070_Ti_16GB",
+    "encoding_fix": "PYTHONIOENCODING=utf-8",
+    "batch_size_recommendation": "start_with_10_designs"
+  }
+}
