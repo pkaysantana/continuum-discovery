@@ -170,7 +170,7 @@ Unlike traditional computational biology platforms, Continuum Discovery operates
 
 **Figure 2: High-fidelity PyMOL render showing the designed helical binder (marine) successfully docked into the 1.51Å BipD crystal structure (green) with highlighted hotspots (firebrick).**
 
-This publication-quality visualization demonstrates the successful structural integration of our autonomously designed binder with the B. pseudomallei BipD translocator protein. The marine-colored helical binder precisely targets the firebrick-highlighted hotspot residues (A_51, A_55, A_90, A_130, A_291, A_295) identified through our pocket analysis workflow. The structural complementarity visible in this high-resolution render validates both the autonomous quality control decisions and the computational efficiency of our MTF-based approach.
+This publication-quality visualisation demonstrates the successful structural integration of our autonomously designed binder with the B. pseudomallei BipD translocator protein. The marine-colored helical binder precisely targets the firebrick-highlighted hotspot residues (A_51, A_55, A_90, A_130, A_291, A_295) identified through our pocket analysis workflow. The structural complementarity visible in this high-resolution render validates both the autonomous quality control decisions and the computational efficiency of our MTF-based approach.
 
 ---
 
