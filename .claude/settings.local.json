@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(source:*)",
+      "Bash(echo:*)",
+      "Bash(pip install:*)",
+      "Bash(.venv/Scripts/activate:*)",
+      "Bash(.venv/Scripts/amina.exe auth:*)",
+      "Bash(.venv/Scripts/amina.exe tools:*)",
+      "Bash(.venv/Scripts/amina.exe run:*)",
+      "Bash(PYTHONIOENCODING=utf-8 .venv/Scripts/amina.exe run:*)",
+      "Bash(PYTHONIOENCODING=utf-8 .venv/Scripts/amina.exe jobs:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(conda list:*)",
+      "Bash(xargs grep:*)",
+      "Bash($env:PYTHONIOENCODING=\"utf-8\":*)",
+      "Bash(export:*)"
+    ]
+  }
+}
