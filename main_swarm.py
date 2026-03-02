@@ -11,6 +11,15 @@ import signal
 from datetime import datetime, timezone
 from typing import Dict, Any
 
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+    print("[MAIN] Loaded configuration from .env file")
+except ImportError:
+    print("[MAIN] python-dotenv not installed - using system environment only")
+    print("[MAIN] To install: pip install python-dotenv")
+
 # Add project root to path
 sys.path.append(os.path.dirname(__file__))
 

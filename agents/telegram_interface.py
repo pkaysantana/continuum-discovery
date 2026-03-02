@@ -49,8 +49,15 @@ class TelegramInterface(OpenClawAgent):
 
         # Telegram configuration
         self.bot_token = bot_token or "DEMO_BOT_TOKEN"
-        self.chat_ids = []  # User chat IDs for broadcasting
+
+        # Load chat IDs from environment variable
+        chat_ids_env = os.environ.get('TELEGRAM_CHAT_IDS', '')
+        self.chat_ids = [cid.strip() for cid in chat_ids_env.split(',') if cid.strip()]
+
         self.bot_active = TELEGRAM_AVAILABLE and bot_token
+
+        if self.chat_ids:
+            print(f"[TELEGRAM] Loaded {len(self.chat_ids)} chat subscribers from environment")
 
         if self.bot_active:
             try:
