@@ -17,7 +17,10 @@
       "Bash(conda list:*)",
       "Bash(xargs grep:*)",
       "Bash($env:PYTHONIOENCODING=\"utf-8\":*)",
-      "Bash(export:*)"
+      "Bash(export:*)",
+      "Bash(git clone:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(python:*)"
     ]
   }
 }
