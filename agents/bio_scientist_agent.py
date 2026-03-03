@@ -16,6 +16,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from openclaw.base_agent import OpenClawAgent, Message
 from scripts.memory_layer import BiodefenseMemory
+from anyway_integration.traceloop_config import workflow, task
 
 class BioScientistAgent(OpenClawAgent):
     """
@@ -56,6 +57,7 @@ class BioScientistAgent(OpenClawAgent):
         self.current_targets = []
         self.synthesis_history = []
 
+    @workflow(name="protein_synthesis_pipeline")
     async def run_primary_function(self) -> Dict[str, Any]:
         """
         Primary function: Synthesize and validate protein countermeasures
@@ -83,6 +85,7 @@ class BioScientistAgent(OpenClawAgent):
             print(f"[BIO_SCIENTIST] Synthesis error: {e}")
             return error_result
 
+    @task(name="proteinmpnn_generation")
     async def _run_synthesis_pipeline(self) -> Dict[str, Any]:
         """
         Run the complete protein synthesis and validation pipeline
@@ -141,6 +144,7 @@ class BioScientistAgent(OpenClawAgent):
 
         return synthesis_result
 
+    @task(name="emergency_countermeasure_synthesis")
     async def handle_flood_threat_detected(self, message: Message):
         """
         Handle flood threat from EarthWatcherAgent and synthesize countermeasures

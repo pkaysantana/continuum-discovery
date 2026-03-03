@@ -23,6 +23,10 @@ except ImportError:
 # Add project root to path
 sys.path.append(os.path.dirname(__file__))
 
+# Initialize Anyway SDK before any agent imports
+from anyway_integration.traceloop_config import initialize_anyway_sdk
+initialize_anyway_sdk()
+
 from openclaw.base_agent import SwarmCoordinator
 from agents.earth_watcher_agent import EarthWatcherAgent
 from agents.bio_scientist_agent import BioScientistAgent

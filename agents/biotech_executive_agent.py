@@ -15,6 +15,7 @@ import hashlib
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from openclaw.base_agent import OpenClawAgent, Message
+from anyway_integration.traceloop_config import workflow, task
 
 class BiotechExecutiveAgent(OpenClawAgent):
     """
@@ -76,6 +77,7 @@ class BiotechExecutiveAgent(OpenClawAgent):
 
         self.state['commercial_status'] = 'operational'
 
+    @workflow(name="commercial_operations")
     async def run_primary_function(self) -> Dict[str, Any]:
         """
         Primary function: Manage commercial operations and asset creation
@@ -174,6 +176,7 @@ class BiotechExecutiveAgent(OpenClawAgent):
 
         print(f"[BIOTECH_EXECUTIVE] Asset commercialized: {asset['asset_id']}")
 
+    @task(name="asset_creation")
     async def _create_commercial_asset(self, synthesis_data: Dict, threat_context: Dict) -> Dict[str, Any]:
         """
         Create a commercial asset from synthesis results
@@ -213,6 +216,7 @@ class BiotechExecutiveAgent(OpenClawAgent):
         self.assets_created.append(asset)
         return asset
 
+    @task(name="stripe_payment_generation")
     async def _generate_stripe_link(self, asset: Dict[str, Any]) -> str:
         """
         Generate Stripe Connect payment link
@@ -223,9 +227,22 @@ class BiotechExecutiveAgent(OpenClawAgent):
         # Generate Stripe-style link (simulation)
         stripe_link = f"https://buy.stripe.com/test_multiagent_{asset_id[:8]}_{price}"
 
+        # Inject Stripe payment link into Anyway span attributes
+        try:
+            from traceloop.sdk import Traceloop
+            current_span = Traceloop.get_current_span()
+            if current_span:
+                current_span.set_attribute("stripe.payment.link", stripe_link)
+                current_span.set_attribute("stripe.payment.amount", price)
+                current_span.set_attribute("stripe.asset.id", asset_id)
+                current_span.set_attribute("commercial.operation.type", "payment_link_generation")
+        except Exception as e:
+            print(f"[ANYWAY] Warning: Could not set Stripe span attributes: {e}")
+
         print(f"[BIOTECH_EXECUTIVE] Stripe Connect: ${price/100:.2f} - {stripe_link}")
         return stripe_link
 
+    @task(name="ip_tokenization")
     async def _launch_ip_token(self, asset: Dict[str, Any]) -> Dict[str, Any]:
         """
         Launch IP tokenization on BNB Chain

@@ -17,6 +17,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from openclaw.base_agent import OpenClawAgent, Message
 from scripts.watchdog import BiodefenseWatchdog
+from anyway_integration.traceloop_config import workflow, task
 
 class EarthWatcherAgent(OpenClawAgent):
     """
@@ -53,6 +54,7 @@ class EarthWatcherAgent(OpenClawAgent):
         self.last_scan_time = None
         self.monitoring_interval = 300  # 5 minutes
 
+    @workflow(name="earth_watcher_satellite_scan")
     async def run_primary_function(self) -> Dict[str, Any]:
         """
         Primary function: Monitor environmental threats via satellite data
@@ -66,12 +68,27 @@ class EarthWatcherAgent(OpenClawAgent):
             # Run satellite monitoring (wrapping watchdog.py logic)
             result = self.watchdog.monitor_region("northern_australia")
 
+            # Generate Sentinel-2 event ID for Anyway span attributes
+            sentinel2_event_id = f"s2_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_northern_australia"
+
             scan_result = {
                 'scan_timestamp': datetime.now(timezone.utc).isoformat(),
                 'status': 'completed',
                 'monitoring_region': 'northern_australia',
+                'sentinel2_event_id': sentinel2_event_id,
                 'result': result
             }
+
+            # Add Sentinel-2 event ID to span attributes for Anyway tracing
+            try:
+                from traceloop.sdk import Traceloop
+                current_span = Traceloop.get_current_span()
+                if current_span:
+                    current_span.set_attribute("sentinel2.event.id", sentinel2_event_id)
+                    current_span.set_attribute("earth.monitoring.region", "northern_australia")
+                    current_span.set_attribute("earth.scan.status", "completed")
+            except Exception as e:
+                print(f"[ANYWAY] Warning: Could not set span attributes: {e}")
 
             # Check if flood threat detected
             if result and result.get("status") == "ALERT_TRIGGERED":
@@ -91,6 +108,7 @@ class EarthWatcherAgent(OpenClawAgent):
             print(f"[EARTH_WATCHER] Scan error: {e}")
             return error_result
 
+    @task(name="process_flood_alert")
     async def _handle_flood_alert(self, alert_data: Dict[str, Any]):
         """
         Handle detected flood alert and coordinate swarm response
@@ -159,6 +177,7 @@ class EarthWatcherAgent(OpenClawAgent):
             priority=2  # Critical for public health
         )
 
+    @task(name="continuous_monitoring")
     async def start_continuous_monitoring(self):
         """
         Start continuous environmental monitoring loop
