@@ -257,9 +257,9 @@ class MultiTargetPlatform:
                     "confidence_level": validation_metrics.confidence_level,
                     "predicted_affinity": self._estimate_binding_affinity(validation_metrics)
                 })
-                print(f"    ✓ PASS: {validation_metrics.confidence_level} confidence")
+                print(f"    PASS: {validation_metrics.confidence_level} confidence")
             else:
-                print(f"    ✗ FAIL: Below threshold")
+                print(f"    FAIL: Below threshold")
 
         print(f"\n[TIER 1 SUMMARY] BipD Primary Target:")
         print(f"  Candidates tested: 10")

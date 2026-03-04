@@ -262,7 +262,18 @@ class ShifaBipdFramework:
         """
         strip_segments = []
         for start, end in region.residue_ranges:
-            strip_segments.append(sequence[start-1:end])  # Convert to 0-indexed
+            segment = self._extract_region_residues(sequence, [(start, end)])
+            if segment:  # Only add non-empty segments
+                strip_segments.append(segment)
+
+        if not strip_segments:
+            return {
+                "oligomerization_potential": 0.0,
+                "hydrophobicity_profile": [],
+                "needle_interface_compatibility": 0.0,
+                "translocon_binding_sites": [],
+                "integrity_score": 0.0
+            }
 
         return {
             "oligomerization_potential": self._predict_oligomerization_potential(strip_segments),
@@ -382,8 +393,16 @@ class ShifaBipdFramework:
     def _extract_region_residues(self, sequence: str, ranges: List[Tuple[int, int]]) -> str:
         """Extract residues from specified ranges"""
         residues = ""
+        seq_len = len(sequence)
+
         for start, end in ranges:
-            residues += sequence[start-1:end]  # Convert to 0-indexed
+            # Convert to 0-indexed and ensure bounds
+            start_idx = max(0, min(start-1, seq_len-1))
+            end_idx = max(0, min(end, seq_len))
+
+            if start_idx < end_idx:
+                residues += sequence[start_idx:end_idx]
+
         return residues
 
     def _calculate_masking_efficiency(self, residues: str) -> float:
@@ -428,6 +447,8 @@ class ShifaBipdFramework:
 
     def _calculate_hydrophobicity(self, segment: str) -> float:
         """Calculate hydrophobicity of segment"""
+        if len(segment) == 0:
+            return 0.0
         hydrophobic_aa = set('AILMFPWYV')
         return sum(1 for aa in segment if aa in hydrophobic_aa) / len(segment)
 
@@ -442,6 +463,15 @@ class ShifaBipdFramework:
     def _analyze_flexibility(self, sequence: str, structure: str, region: BipdRegion) -> Dict:
         """Analyze flexible loop region"""
         loop_residues = self._extract_region_residues(sequence, region.residue_ranges)
+
+        if len(loop_residues) == 0:
+            return {
+                "glycine_content": 0.0,
+                "proline_content": 0.0,
+                "flexibility_score": 0.0,
+                "conformational_freedom": 0.0,
+                "integrity_score": 0.0  # No residues means no integrity
+            }
 
         return {
             "glycine_content": loop_residues.count('G') / len(loop_residues),
@@ -477,6 +507,8 @@ class ShifaBipdFramework:
 
     def _predict_loop_flexibility(self, residues: str) -> float:
         """Predict loop flexibility score"""
+        if len(residues) == 0:
+            return 0.0
         flexible_aa = set('GPST')
         return sum(1 for aa in residues if aa in flexible_aa) / len(residues)
 
