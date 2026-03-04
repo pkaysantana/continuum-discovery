@@ -47,9 +47,7 @@ def initialize_anyway_sdk():
             api_endpoint=api_endpoint,
             app_name=app_name,
             disable_batch=disable_batch,
-            api_key=None,  # Will use TRACELOOP_HEADERS from environment
-            generate_logs=True,  # Enable logging for debugging
-            exporter='otlp_http'  # Use HTTP exporter for sandbox
+            api_key=None  # Will use TRACELOOP_HEADERS from environment
         )
 
         print(f"[ANYWAY] ✅ SDK initialized successfully")

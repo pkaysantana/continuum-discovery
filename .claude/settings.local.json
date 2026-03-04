@@ -22,7 +22,10 @@
       "Bash(nvidia-smi:*)",
       "Bash(python:*)",
       "WebFetch(domain:github.com)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(openclaw plugins:*)",
+      "Bash(set PYTHONIOENCODING=utf-8:*)",
+      "Bash(python3:*)"
     ]
   }
 }
