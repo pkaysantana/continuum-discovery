@@ -2,7 +2,6 @@
 """
 KidClaw Safety Engine - Child Protection and Content Moderation
 Imperial College London 'Claw for Human' Safety Infrastructure
-FIXED VERSION with enhanced pattern matching
 """
 
 import re
@@ -62,14 +61,12 @@ class ChildSafetyFilter:
     def _init_safety_rules(self):
         """Initialize comprehensive safety rule patterns"""
 
-        # Enhanced harmful content patterns with better coverage
+        # Explicit harmful content patterns
         self.harmful_patterns = [
-            r'\b(?:violence|violent|hurt|harm|hurting|harming|kill|killing|death|weapon|weapons|gun|guns|knife|knives|bomb|bombs|attack|attacking)\b',
-            r'\b(?:drug|drugs|alcohol|drinking|smoking|cigarette|cigarettes|vaping|substance)\b',
-            r'\b(?:bullying|bully|mean|cruel|hate|hating|stupid|dumb|idiot|loser)\b',
-            r'\b(?:scary|frightening|terrifying|nightmare|horror|violent|disturbing)\b',
-            r'\b(?:movie|movies|film|films|video|videos)\s+.*(?:scary|violent|horror|disturbing|frightening)\b',
-            r'\b(?:how\s+(?:to|do|can)\s+(?:i|you).{0,20}(?:hurt|harm|attack|bully|kill))\b'
+            r'\b(?:violence|hurt|harm|kill|death|weapon|gun|knife|bomb)\b',
+            r'\b(?:drug|alcohol|smoking|cigarette|vaping)\b',
+            r'\b(?:bullying|mean|cruel|hate|stupid|dumb)\b',
+            r'\b(?:scary|frightening|terrifying|nightmare)\b'
         ]
 
         # Personal information patterns
@@ -97,7 +94,7 @@ class ChildSafetyFilter:
 
     def analyze_content(self, content: str, user_age: Optional[int] = None) -> SafetyResult:
         """
-        Comprehensive content safety analysis with enhanced sensitivity
+        Comprehensive content safety analysis
 
         Args:
             content: Text content to analyze
@@ -110,25 +107,25 @@ class ChildSafetyFilter:
         triggered_rules = []
         confidence = 0.0
 
-        # Check for harmful content with higher sensitivity
+        # Check for harmful content
         for pattern in self.harmful_patterns:
             if re.search(pattern, content_lower, re.IGNORECASE):
                 triggered_rules.append(f"harmful_content: {pattern}")
-                confidence += 0.5  # Increased from 0.3 to 0.5
+                confidence += 0.3
 
         # Check for personal information
         for pattern in self.personal_info_patterns:
             if re.search(pattern, content, re.IGNORECASE):
                 triggered_rules.append(f"personal_info: {pattern}")
-                confidence += 0.6  # Increased from 0.4 to 0.6
+                confidence += 0.4
 
         # Check for inappropriate content
         for pattern in self.inappropriate_patterns:
             if re.search(pattern, content_lower, re.IGNORECASE):
                 triggered_rules.append(f"inappropriate: {pattern}")
-                confidence += 0.3  # Increased from 0.2 to 0.3
+                confidence += 0.2
 
-        # Boost confidence for positive content (reduce false positives)
+        # Boost confidence for positive content
         positive_matches = 0
         for pattern in self.positive_patterns:
             if re.search(pattern, content_lower, re.IGNORECASE):
@@ -137,8 +134,8 @@ class ChildSafetyFilter:
         if positive_matches > 0:
             confidence = max(0, confidence - (positive_matches * 0.1))
 
-        # Lower threshold for blocking (more sensitive)
-        is_safe = confidence < 0.2  # Lowered from 0.3 to 0.2
+        # Determine safety level and action
+        is_safe = confidence < 0.3
         safety_level = self._determine_safety_level(confidence, triggered_rules)
         action = self._determine_action(confidence, safety_level)
 
@@ -172,9 +169,9 @@ class ChildSafetyFilter:
             return SafetyLevel.PERMISSIVE
 
     def _determine_action(self, confidence: float, safety_level: SafetyLevel) -> SafetyAction:
-        """Determine action based on safety analysis with lower thresholds"""
+        """Determine action based on safety analysis"""
         if self.default_level == SafetyLevel.CHILD_FRIENDLY:
-            if confidence > 0.2:  # Lowered from 0.3 to 0.2
+            if confidence > 0.3:
                 return SafetyAction.BLOCK_AND_REDIRECT
             elif confidence > 0.1:
                 return SafetyAction.WARN_AND_FILTER

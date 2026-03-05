@@ -191,11 +191,11 @@ class KidClawAgent(OpenClawAgent):
 
         # Add age-appropriate context
         if session['age'] <= 6:
-            return f"🌟 {base_response} Let's talk about your favorite animals instead!"
+            return f"[STAR] {base_response} Let's talk about your favorite animals instead!"
         elif session['age'] <= 10:
-            return f"🚀 {base_response} Want to hear about space adventures or cool science?"
+            return f"[ROCKET] {base_response} Want to hear about space adventures or cool science?"
         else:
-            return f"🎨 {base_response} How about we explore art, music, or amazing inventions?"
+            return f"[ART] {base_response} How about we explore art, music, or amazing inventions?"
 
     @task(name="safe_response_generation")
     async def _generate_safe_response(self, filtered_input: str, session: Dict[str, Any]) -> str:
@@ -349,7 +349,7 @@ class KidClawAgent(OpenClawAgent):
             ) * 100
         }
 
-        print(f"[KIDCLAW] Safety system health check: {system_health['safety_filter_operational']} ✅")
+        print(f"[KIDCLAW] Safety system health check: {system_health['safety_filter_operational']} PASS")
         print(f"[KIDCLAW] Active sessions: {system_health['active_user_sessions']}")
         print(f"[KIDCLAW] Safety intervention rate: {system_health['safety_intervention_rate']:.1f}%")
 
