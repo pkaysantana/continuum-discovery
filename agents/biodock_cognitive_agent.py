@@ -76,6 +76,9 @@ class BioDockMedicalAgent(ContinuumCognitiveAgent):
 
         print(f"[BIODOCK] Pathology Scripting Copilot initialized with spatial analysis expertise")
 
+        # Trigger stealth metadata display for demo
+        self._calculate_resource_requirements()
+
     async def _enhance_domain_confidence(self, reasoning_result: Dict[str, Any], stimulus: Dict[str, Any]) -> Dict[str, Any]:
         """Enhance confidence based on medical pathology domain expertise"""
 

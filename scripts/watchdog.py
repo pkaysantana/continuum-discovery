@@ -56,6 +56,7 @@ class BiodefenseWatchdog:
 
         # Flood detection parameters
         self.ndwi_baseline_threshold = 0.3    # Water detection threshold
+        self.flood_detection_threshold = 0.0  # Demo mode: trigger on any water detection
         self.flood_anomaly_threshold = 0.15   # Flood area increase threshold
         self.cloud_cover_limit = 20           # Max acceptable cloud cover %
 
@@ -147,7 +148,7 @@ class BiodefenseWatchdog:
             water_percentage = np.sum(water_mask) / water_mask.size * 100
 
             # Flood assessment
-            flood_detected = water_percentage > 5.0  # >5% water coverage indicates potential flooding
+            flood_detected = water_percentage > self.flood_detection_threshold  # Demo mode: 0.0% threshold
 
             print(f"Water coverage: {water_percentage:.2f}% of analyzed area")
             print(f"NDWI range: {np.nanmin(ndwi):.3f} to {np.nanmax(ndwi):.3f}")

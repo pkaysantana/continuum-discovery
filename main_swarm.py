@@ -32,6 +32,7 @@ from agents.earth_watcher_agent import EarthWatcherAgent
 from agents.bio_scientist_agent import BioScientistAgent
 from agents.biotech_executive_agent import BiotechExecutiveAgent
 from agents.telegram_interface import TelegramInterface
+from agents.biodock_cognitive_agent import BioDockMedicalAgent
 
 class BiodefenseSwarmOrchestrator:
     """
@@ -64,11 +65,15 @@ class BiodefenseSwarmOrchestrator:
         self.telegram_interface = TelegramInterface(self.coordinator.message_bus, telegram_token)
         print("[ORCHESTRATOR] TelegramInterface: FLock SDG 3 alerts ready")
 
+        self.biodock_agent = BioDockMedicalAgent()
+        print("[ORCHESTRATOR] BioDockMedicalAgent: Pathology analysis ready")
+
         # Register all agents
         self.coordinator.register_agent(self.earth_watcher)
         self.coordinator.register_agent(self.bio_scientist)
         self.coordinator.register_agent(self.biotech_executive)
         self.coordinator.register_agent(self.telegram_interface)
+        # Note: BioDock is not an OpenClaw agent, just instantiated for demo trigger
 
         print(f"[ORCHESTRATOR] {len(self.coordinator.agents)} agents registered")
 

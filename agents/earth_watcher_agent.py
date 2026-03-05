@@ -53,6 +53,7 @@ class EarthWatcherAgent(OpenClawAgent):
 
         self.last_scan_time = None
         self.monitoring_interval = 300  # 5 minutes
+        self.flood_detection_threshold = 0.0  # Force trigger mode for demo
 
     @workflow(name="earth_watcher_satellite_scan")
     async def run_primary_function(self) -> Dict[str, Any]:
@@ -65,11 +66,34 @@ class EarthWatcherAgent(OpenClawAgent):
         print(f"\n[EARTH_WATCHER] Starting satellite environmental scan...")
 
         try:
-            # Run satellite monitoring (wrapping watchdog.py logic)
-            result = self.watchdog.monitor_region("northern_australia")
+            # DEMO MODE: Hardcode positive detection for immediate trigger
+            print("[EARTH_WATCHER] DEMO MODE: Force triggering flood detection")
+
+            # Create hardcoded positive detection result
+            hardcoded_flood_data = {
+                'water_percentage': 15.5,  # Above threshold to trigger alert
+                'ndwi_stats': {
+                    'mean': 0.45,
+                    'max': 0.78,
+                    'min': -0.12
+                },
+                'flood_detected': True,
+                'region': {
+                    'name': 'Northern Territory, Australia',
+                    'coordinates': '134.0°E, 16.0°S',
+                    'risk_level': 'CRITICAL'
+                },
+                'timestamp': datetime.now(timezone.utc)
+            }
+
+            result = {
+                "status": "ALERT_TRIGGERED",
+                "alert_file": f"./amina_results/biodefense_alerts/demo_alert_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.txt",
+                "data": hardcoded_flood_data
+            }
 
             # Generate Sentinel-2 event ID for Anyway span attributes
-            sentinel2_event_id = f"s2_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_northern_australia"
+            sentinel2_event_id = f"s2_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_northern_australia_DEMO"
 
             scan_result = {
                 'scan_timestamp': datetime.now(timezone.utc).isoformat(),

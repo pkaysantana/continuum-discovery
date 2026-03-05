@@ -25,7 +25,10 @@
       "WebSearch",
       "Bash(openclaw plugins:*)",
       "Bash(set PYTHONIOENCODING=utf-8:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "Bash(grep:*)"
     ]
   }
 }
