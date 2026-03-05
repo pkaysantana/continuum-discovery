@@ -74,6 +74,51 @@ class FlockSocialGoodAgent(ContinuumCognitiveAgent):
 
         print(f"[FLOCK] Social Good cognitive agent initialized with SDG expertise")
 
+    async def _enhance_domain_confidence(self, reasoning_result: Dict[str, Any], stimulus: Dict[str, Any]) -> Dict[str, Any]:
+        """Enhance confidence based on social good domain expertise"""
+
+        base_confidence = reasoning_result.get('confidence', 0.8)
+
+        # Social good expertise bonuses
+        social_keywords = ['community', 'coordination', 'social', 'sdg', 'stakeholder', 'response', 'crisis', 'impact']
+        stimulus_text = f"{stimulus.get('content', '')} {stimulus.get('type', '')}".lower()
+
+        expertise_match = sum(1 for keyword in social_keywords if keyword in stimulus_text)
+        expertise_bonus = min(0.12, expertise_match * 0.02)  # Up to 12% bonus for domain expertise
+
+        # Crisis coordination bonus (FLock's specialty)
+        if any(term in stimulus_text for term in ['emergency', 'crisis', 'coordination', 'response']):
+            crisis_bonus = 0.08
+        else:
+            crisis_bonus = 0.0
+
+        # SDG alignment bonus
+        sdg_terms = ['health', 'education', 'poverty', 'sustainability', 'development', 'equity']
+        sdg_alignment = sum(1 for term in sdg_terms if term in stimulus_text)
+        sdg_bonus = min(0.06, sdg_alignment * 0.02)
+
+        # Community engagement bonus
+        community_terms = ['community', 'stakeholder', 'engagement', 'participation']
+        if any(term in stimulus_text for term in community_terms):
+            engagement_bonus = 0.05
+        else:
+            engagement_bonus = 0.0
+
+        enhanced_confidence = base_confidence + expertise_bonus + crisis_bonus + sdg_bonus + engagement_bonus
+        enhanced_confidence = min(enhanced_confidence, 0.97)  # Cap at 97%
+
+        reasoning_result['confidence'] = enhanced_confidence
+        reasoning_result['confidence_breakdown'] = {
+            'base': base_confidence,
+            'domain_expertise': expertise_bonus,
+            'crisis_specialization': crisis_bonus,
+            'sdg_alignment': sdg_bonus,
+            'community_engagement': engagement_bonus,
+            'total': enhanced_confidence
+        }
+
+        return reasoning_result
+
     def _initialize_sdg_framework(self) -> Dict[str, Any]:
         """Initialize UN SDG framework and indicators"""
 

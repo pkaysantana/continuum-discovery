@@ -205,6 +205,10 @@ class ContinuumCognitiveAgent:
             goals=self.identity.current_goals
         )
 
+        # 3.5. Enhance confidence based on domain expertise (if implemented by subclass)
+        if hasattr(self, '_enhance_domain_confidence'):
+            reasoning_result = await self._enhance_domain_confidence(reasoning_result, stimulus)
+
         # 4. Plan actions
         action_plan = await self.cognitive_engine.plan(
             reasoning_result=reasoning_result,
@@ -342,36 +346,139 @@ class ContinuumCognitiveAgent:
         all_domains = [my_knowledge['domain']] + [pk['domain'] for pk in peer_knowledge]
         all_capabilities = my_knowledge['capabilities'] + [cap for pk in peer_knowledge for cap in pk['knowledge']['capabilities']]
 
+        # Enhanced confidence calculation
+        collective_confidence = await self._calculate_enhanced_collective_confidence(
+            my_knowledge, peer_knowledge, all_domains, goal
+        )
+
         return {
             'participating_domains': all_domains,
             'combined_capabilities': list(set(all_capabilities)),
             'knowledge_integration_score': 0.85,
             'synergy_opportunities': await self._identify_synergy_opportunities(all_domains),
-            'collective_confidence': sum([pk['knowledge']['contribution_confidence'] for pk in peer_knowledge] + [my_knowledge['contribution_confidence']]) / (len(peer_knowledge) + 1)
+            'collective_confidence': collective_confidence
         }
+
+    async def _calculate_enhanced_collective_confidence(self, my_knowledge: Dict[str, Any],
+                                                      peer_knowledge: List[Dict[str, Any]],
+                                                      all_domains: List[str],
+                                                      goal: Dict[str, Any]) -> float:
+        """Calculate enhanced collective confidence that increases with expert collaboration"""
+
+        # Base confidence from individual contributions
+        individual_confidences = [my_knowledge['contribution_confidence']]
+        individual_confidences.extend([pk['knowledge']['contribution_confidence'] for pk in peer_knowledge])
+
+        # 1. Expert Agreement Bonus (when experts agree, confidence increases)
+        agreement_bonus = 0.0
+        if len(individual_confidences) > 1:
+            confidence_variance = sum([(c - sum(individual_confidences)/len(individual_confidences))**2 for c in individual_confidences]) / len(individual_confidences)
+            # Lower variance (higher agreement) = higher bonus
+            agreement_bonus = max(0, 0.15 - confidence_variance)
+
+        # 2. Domain Diversity Bonus (different perspectives reduce blind spots)
+        unique_domains = len(set(all_domains))
+        domain_diversity_bonus = min(0.1, unique_domains * 0.025)  # Up to 10% bonus for domain diversity
+
+        # 3. Specialization Bonus (experts working in their domain)
+        specialization_bonus = 0.0
+        goal_keywords = goal.get('description', '').lower().split()
+
+        domain_expertise_match = {
+            'biotech': ['protein', 'therapeutic', 'biodefense', 'pathogen', 'bacteria'],
+            'social_good': ['community', 'coordination', 'social', 'response', 'stakeholder'],
+            'medical': ['health', 'disease', 'clinical', 'pathology', 'diagnosis'],
+            'intelligence': ['monitoring', 'surveillance', 'intelligence', 'analysis'],
+            'family': ['family', 'children', 'education', 'safety']
+        }
+
+        for domain in all_domains:
+            domain_keywords = domain_expertise_match.get(domain, [])
+            if any(keyword in goal_keywords for keyword in domain_keywords):
+                specialization_bonus += 0.03  # 3% bonus per relevant domain
+
+        # 4. Cross-Domain Validation Bonus (multiple experts validating)
+        validation_bonus = 0.0
+        if len(all_domains) >= 2:
+            # When multiple domains address the same challenge, they validate each other
+            validation_bonus = min(0.12, (len(all_domains) - 1) * 0.04)
+
+        # 5. Synergy Identification Bonus
+        synergies = await self._identify_synergy_opportunities(all_domains)
+        synergy_bonus = min(0.08, len(synergies) * 0.02)
+
+        # Calculate enhanced confidence
+        base_confidence = sum(individual_confidences) / len(individual_confidences)
+        enhanced_confidence = base_confidence + agreement_bonus + domain_diversity_bonus + specialization_bonus + validation_bonus + synergy_bonus
+
+        # Cap at reasonable maximum (0.98 to maintain some uncertainty)
+        enhanced_confidence = min(enhanced_confidence, 0.98)
+
+        print(f"[CONFIDENCE] Enhanced calculation:")
+        print(f"[CONFIDENCE]   Base: {base_confidence:.3f}")
+        print(f"[CONFIDENCE]   Agreement bonus: +{agreement_bonus:.3f}")
+        print(f"[CONFIDENCE]   Diversity bonus: +{domain_diversity_bonus:.3f}")
+        print(f"[CONFIDENCE]   Specialization bonus: +{specialization_bonus:.3f}")
+        print(f"[CONFIDENCE]   Validation bonus: +{validation_bonus:.3f}")
+        print(f"[CONFIDENCE]   Synergy bonus: +{synergy_bonus:.3f}")
+        print(f"[CONFIDENCE]   Enhanced total: {enhanced_confidence:.3f}")
+
+        return enhanced_confidence
 
     async def _identify_synergy_opportunities(self, domains: List[str]) -> List[Dict[str, Any]]:
         """Identify potential synergies between domains"""
 
         synergies = []
 
-        # Define domain synergy patterns
+        # Define domain synergy patterns with enhanced impact assessment
         synergy_patterns = {
-            ('biotech', 'medical'): 'therapeutic_development',
-            ('intelligence', 'social_good'): 'crisis_response',
-            ('medical', 'family'): 'health_education',
-            ('biotech', 'intelligence'): 'biodefense',
-            ('family', 'social_good'): 'community_education'
+            ('biotech', 'medical'): {
+                'type': 'therapeutic_development',
+                'impact': 0.92,
+                'confidence_boost': 0.08
+            },
+            ('biotech', 'social_good'): {
+                'type': 'community_therapeutic_deployment',
+                'impact': 0.89,
+                'confidence_boost': 0.07
+            },
+            ('intelligence', 'social_good'): {
+                'type': 'crisis_response_coordination',
+                'impact': 0.91,
+                'confidence_boost': 0.06
+            },
+            ('medical', 'social_good'): {
+                'type': 'community_health_systems',
+                'impact': 0.88,
+                'confidence_boost': 0.05
+            },
+            ('medical', 'family'): {
+                'type': 'family_health_education',
+                'impact': 0.85,
+                'confidence_boost': 0.04
+            },
+            ('biotech', 'intelligence'): {
+                'type': 'biodefense_monitoring',
+                'impact': 0.94,
+                'confidence_boost': 0.09
+            },
+            ('family', 'social_good'): {
+                'type': 'community_education_empowerment',
+                'impact': 0.83,
+                'confidence_boost': 0.03
+            }
         }
 
         for i, domain1 in enumerate(domains):
             for j, domain2 in enumerate(domains[i+1:], i+1):
                 synergy_key = tuple(sorted([domain1, domain2]))
                 if synergy_key in synergy_patterns:
+                    synergy_info = synergy_patterns[synergy_key]
                     synergies.append({
                         'domains': [domain1, domain2],
-                        'synergy_type': synergy_patterns[synergy_key],
-                        'potential_impact': 0.9,
+                        'synergy_type': synergy_info['type'],
+                        'potential_impact': synergy_info['impact'],
+                        'confidence_boost': synergy_info['confidence_boost'],
                         'implementation_complexity': 0.6
                     })
 
@@ -561,7 +668,7 @@ class CognitivePlatformOrchestrator:
                 for result in execution_results.values()
             ])) if execution_results else ['none'],
             'collaboration_effectiveness': len(successful_executions) / len(execution_results) if execution_results else 0,
-            'collective_confidence': collaboration_result.get('coordinated_plan', {}).get('success_probability', 0.5),
+            'collective_confidence': await self._calculate_final_collective_confidence(collaboration_result, execution_results),
             'detailed_results': execution_results,
             'synthesis_timestamp': datetime.utcnow().isoformat(),
             'next_steps': await self._generate_next_steps(challenge, execution_results)
@@ -594,6 +701,53 @@ class CognitivePlatformOrchestrator:
             ])
 
         return next_steps
+
+    async def _calculate_final_collective_confidence(self, collaboration_result: Dict[str, Any],
+                                                   execution_results: Dict[str, Any]) -> float:
+        """Calculate final collective confidence incorporating execution success"""
+
+        # Base collective confidence from collaboration
+        base_collective = collaboration_result.get('collective_understanding', {}).get('collective_confidence', 0.8)
+
+        # Execution success rate
+        successful_executions = sum(1 for result in execution_results.values()
+                                  if result.get('response', {}).get('status') == 'success')
+        total_executions = len(execution_results)
+        execution_success_rate = successful_executions / total_executions if total_executions > 0 else 0
+
+        # Individual agent confidence scores
+        agent_confidences = [result.get('confidence_score', 0.8) for result in execution_results.values()]
+        avg_agent_confidence = sum(agent_confidences) / len(agent_confidences) if agent_confidences else 0.8
+
+        # Multi-domain validation bonus
+        unique_domains = len(set([
+            result.get('response', {}).get('domain', 'unknown')
+            for result in execution_results.values()
+        ]))
+        multi_domain_bonus = min(0.1, (unique_domains - 1) * 0.03)
+
+        # Execution quality bonus
+        execution_quality_bonus = (execution_success_rate - 0.8) * 0.2 if execution_success_rate > 0.8 else 0
+
+        # Calculate final confidence
+        final_confidence = (base_collective * 0.4 +
+                          avg_agent_confidence * 0.4 +
+                          execution_success_rate * 0.2 +
+                          multi_domain_bonus +
+                          execution_quality_bonus)
+
+        # Cap at 0.99 to maintain some uncertainty
+        final_confidence = min(final_confidence, 0.99)
+
+        print(f"[FINAL_CONFIDENCE] Calculation breakdown:")
+        print(f"[FINAL_CONFIDENCE]   Base collective: {base_collective:.3f}")
+        print(f"[FINAL_CONFIDENCE]   Avg agent confidence: {avg_agent_confidence:.3f}")
+        print(f"[FINAL_CONFIDENCE]   Execution success rate: {execution_success_rate:.3f}")
+        print(f"[FINAL_CONFIDENCE]   Multi-domain bonus: +{multi_domain_bonus:.3f}")
+        print(f"[FINAL_CONFIDENCE]   Execution quality bonus: +{execution_quality_bonus:.3f}")
+        print(f"[FINAL_CONFIDENCE]   Final collective: {final_confidence:.3f}")
+
+        return final_confidence
 
 # Demo function to test the cognitive backbone
 async def demo_cognitive_backbone():

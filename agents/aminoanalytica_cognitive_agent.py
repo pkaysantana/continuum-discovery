@@ -100,6 +100,45 @@ class AminoAnalyticaCognitiveAgent(ContinuumCognitiveAgent):
 
         print(f"[AMINOANALYTICA] Cognitive agent initialized with biotech expertise")
 
+    async def _enhance_domain_confidence(self, reasoning_result: Dict[str, Any], stimulus: Dict[str, Any]) -> Dict[str, Any]:
+        """Enhance confidence based on biotech domain expertise"""
+
+        base_confidence = reasoning_result.get('confidence', 0.8)
+
+        # Biotech expertise bonuses
+        biotech_keywords = ['protein', 'therapeutic', 'biodefense', 'pathogen', 'bacteria', 'bipd', 'sequence', 'drug']
+        stimulus_text = f"{stimulus.get('content', '')} {stimulus.get('type', '')}".lower()
+
+        expertise_match = sum(1 for keyword in biotech_keywords if keyword in stimulus_text)
+        expertise_bonus = min(0.15, expertise_match * 0.02)  # Up to 15% bonus for domain expertise
+
+        # Safety and validation bonus (AminoAnalytica's strength)
+        if any(term in stimulus_text for term in ['safety', 'validation', 'compliance', 'assessment']):
+            safety_bonus = 0.08
+        else:
+            safety_bonus = 0.0
+
+        # Existing framework availability bonus
+        framework_bonus = 0.0
+        if SHIFA_AVAILABLE:
+            framework_bonus += 0.05
+        if MULTI_TARGET_AVAILABLE:
+            framework_bonus += 0.03
+
+        enhanced_confidence = base_confidence + expertise_bonus + safety_bonus + framework_bonus
+        enhanced_confidence = min(enhanced_confidence, 0.98)  # Cap at 98%
+
+        reasoning_result['confidence'] = enhanced_confidence
+        reasoning_result['confidence_breakdown'] = {
+            'base': base_confidence,
+            'domain_expertise': expertise_bonus,
+            'safety_specialization': safety_bonus,
+            'framework_support': framework_bonus,
+            'total': enhanced_confidence
+        }
+
+        return reasoning_result
+
     async def _execute_plan(self, action_plan: Dict[str, Any]) -> Dict[str, Any]:
         """Execute protein engineering specific actions"""
 
