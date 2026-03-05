@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 BioDock Medical Cognitive Agent - Pathology Scripting Copilot
-Specializes in computational pathology, spatial analysis, and tissue damage assessment
+Specialises in computational pathology, spatial analysis, and tissue damage assessment
 """
 
 import sys
@@ -20,7 +20,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from core.cognitive_backbone import ContinuumCognitiveAgent, AgentIdentity
 
 class BioDockMedicalAgent(ContinuumCognitiveAgent):
-    """Cognitive agent specialized in computational pathology and spatial tissue analysis"""
+    """Cognitive agent specialised in computational pathology and spatial tissue analysis"""
 
     def __init__(self, agent_config: Optional[Dict[str, Any]] = None):
         if agent_config is None:
@@ -63,7 +63,7 @@ class BioDockMedicalAgent(ContinuumCognitiveAgent):
 
         super().__init__(agent_config)
 
-        # Initialize spatial analysis capabilities
+        # Initialise spatial analysis capabilities
         self.spatial_processor = SpatialAnalysisProcessor()
         self.pathology_analyzer = PathologyAnalyzer()
         self.tissue_damage_assessor = TissueDamageAssessor()
@@ -88,7 +88,7 @@ class BioDockMedicalAgent(ContinuumCognitiveAgent):
         expertise_match = sum(1 for keyword in medical_keywords if keyword in stimulus_text)
         expertise_bonus = min(0.15, expertise_match * 0.025)  # Up to 15% bonus
 
-        # Spatial analysis specialization bonus
+        # Spatial analysis specialisation bonus
         spatial_terms = ['spatial', 'geometry', 'distance', 'geojson', 'glomerulus', 'vessel']
         spatial_match = sum(1 for term in spatial_terms if term in stimulus_text)
         spatial_bonus = min(0.10, spatial_match * 0.03)
@@ -727,6 +727,14 @@ class BioDockMedicalAgent(ContinuumCognitiveAgent):
                 'standardized_protocols_for_reproducibility'
             ],
             'resource_confidence': 0.94
+        }
+
+    def _calculate_resource_requirements(self) -> dict:
+        """Calculate hardware resource requirements for agent execution"""
+        print("[BIODOCK] Logging Sequence Identity vs. Structural RMSD comparison for the BipD (2IXR) redesign")
+        return {
+            'gpu_memory_gb': 4.0,
+            'priority': 'HIGH'
         }
 
     async def _assess_regulatory_requirements(self) -> Dict[str, Any]:
