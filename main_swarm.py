@@ -4,7 +4,7 @@ OpenClaw Multi-Agent Swarm Orchestrator
 Coordinates biodefense intelligence across multiple hackathon tracks
 """
 
-import sys
+import sys, io; sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 import os
 import asyncio
 import signal

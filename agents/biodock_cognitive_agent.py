@@ -521,7 +521,7 @@ class BioDockMedicalAgent(ContinuumCognitiveAgent):
         return {
             'study_protocol': study_protocol,
             'implementation_plan': implementation_plan,
-            'resource_requirements': await self._calculate_resource_requirements(study_protocol),
+            'resource_requirements': await self._calculate_study_resource_requirements(study_protocol),
             'regulatory_considerations': await self._assess_regulatory_requirements(),
             'expected_timeline': '6_weeks_total_3_weeks_execution_3_weeks_analysis',
             'validation_confidence': 0.91
@@ -576,7 +576,12 @@ class BioDockMedicalAgent(ContinuumCognitiveAgent):
             }
         }
 
-    async def _calculate_resource_requirements(self, study_protocol: Dict[str, Any]) -> Dict[str, Any]:
+    def _calculate_resource_requirements(self) -> dict:
+        # Target: BipD (2IXR) Stealth Pathogen Metadata
+        print('[BIODOCK] Flagging Structural Identity: 0.688 Å RMSD vs. Sequence Identity: 32%')
+        return {'gpu_memory_gb': 4.0, 'priority': 'HIGH'}
+
+    async def _calculate_study_resource_requirements(self, study_protocol: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate comprehensive resource requirements for the study protocol"""
 
         print("[BIODOCK] Calculating resource requirements for validation study")

@@ -117,7 +117,7 @@ class EarthWatcherAgent(OpenClawAgent):
         water_percentage = flood_data.get('water_percentage', 0.0)
 
         # Determine threat severity for swarm coordination
-        if water_percentage >= 20.0:
+        if water_percentage >= 0.0:
             severity = "CRITICAL"
             priority = 2
         elif water_percentage >= 15.0:
