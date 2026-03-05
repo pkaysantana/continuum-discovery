@@ -434,10 +434,17 @@ class CognitivePlatformOrchestrator:
         # 1. Identify relevant agents for the challenge
         relevant_agents = await self._identify_relevant_agents(global_challenge)
 
+        print(f"[ORCHESTRATOR] Found {len(relevant_agents)} relevant agents for challenge")
+        for agent in relevant_agents:
+            print(f"[ORCHESTRATOR]   - {agent.identity.name} ({agent.identity.domain_expertise})")
+
         if not relevant_agents:
+            print(f"[ORCHESTRATOR] WARNING: No relevant agents found for challenge type: {global_challenge.get('type', 'unknown')}")
             return {
                 'error': 'No relevant agents found for challenge',
-                'challenge': global_challenge
+                'challenge': global_challenge,
+                'available_agents': [agent.identity.name for agent in self.agents.values()],
+                'challenge_keywords': [global_challenge.get('type', ''), global_challenge.get('description', '')]
             }
 
         # 2. Initiate collaboration between relevant agents
@@ -499,7 +506,7 @@ class CognitivePlatformOrchestrator:
 
         # Define domain relevance patterns
         domain_keywords = {
-            'biotech': ['protein', 'therapeutic', 'drug', 'molecule', 'bioengineering', 'biotechnology'],
+            'biotech': ['protein', 'therapeutic', 'drug', 'molecule', 'bioengineering', 'biotechnology', 'biodefense', 'pathogen', 'bacteria', 'bipd'],
             'medical': ['pathology', 'diagnosis', 'health', 'disease', 'clinical', 'medical'],
             'intelligence': ['satellite', 'monitoring', 'surveillance', 'intelligence', 'geospatial'],
             'social_good': ['community', 'sdg', 'social', 'humanitarian', 'development', 'impact'],
@@ -550,9 +557,9 @@ class CognitivePlatformOrchestrator:
             'challenge_type': challenge.get('type'),
             'response_summary': f"Multi-domain response coordinated across {len(execution_results)} agents",
             'participating_domains': list(set([
-                result.get('response', {}).get('domain', 'unknown')
+                result.get('response', {}).get('domain', result.get('agent_name', 'unknown'))
                 for result in execution_results.values()
-            ])),
+            ])) if execution_results else ['none'],
             'collaboration_effectiveness': len(successful_executions) / len(execution_results) if execution_results else 0,
             'collective_confidence': collaboration_result.get('coordinated_plan', {}).get('success_probability', 0.5),
             'detailed_results': execution_results,

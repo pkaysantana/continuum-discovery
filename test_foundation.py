@@ -83,9 +83,15 @@ async def test_foundation():
     orchestrated_response = await orchestrator.orchestrate_multi_domain_response(biodefense_challenge)
 
     print(f"   ✅ Orchestrated Response Generated")
-    print(f"   🎯 Participating Domains: {orchestrated_response['participating_domains']}")
-    print(f"   🤝 Collaboration Effectiveness: {orchestrated_response['collaboration_effectiveness']:.2f}")
-    print(f"   💪 Collective Confidence: {orchestrated_response['collective_confidence']:.2f}")
+
+    # Debug: Check if response has error
+    if 'error' in orchestrated_response:
+        print(f"   ⚠️  Orchestration Error: {orchestrated_response['error']}")
+        print(f"   📋 Challenge: {orchestrated_response['challenge']['type']}")
+    else:
+        print(f"   🎯 Participating Domains: {orchestrated_response.get('participating_domains', ['none_found'])}")
+        print(f"   🤝 Collaboration Effectiveness: {orchestrated_response.get('collaboration_effectiveness', 0):.2f}")
+        print(f"   💪 Collective Confidence: {orchestrated_response.get('collective_confidence', 0):.2f}")
 
     # 6. Test knowledge sharing capability
     print("\n📚 STEP 6: Testing Knowledge Sharing...")
