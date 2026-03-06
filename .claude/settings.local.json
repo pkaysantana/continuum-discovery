@@ -28,7 +28,9 @@
       "Bash(python3:*)",
       "Bash(pkill:*)",
       "Bash(taskkill:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "Bash(sed:*)"
     ]
   }
 }
