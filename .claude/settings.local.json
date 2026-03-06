@@ -36,7 +36,8 @@
       "Bash(\"C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe\" tools:*)",
       "Bash(\"C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe\" run:*)",
       "Bash(timeout 10s C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe run:*)",
-      "Bash(\"C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe\" auth:*)"
+      "Bash(\"C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe\" auth:*)",
+      "Bash(cp:*)"
     ]
   }
 }

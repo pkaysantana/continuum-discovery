@@ -385,7 +385,8 @@ class BioScientistAgent(OpenClawAgent):
                         if threats_count != 6:  # Expected number of threats
                             print(f"[BIO_SCIENTIST] Biosecurity warning: Expected 6 threats, found {threats_count}")
 
-                await asyncio.sleep(60)  # Check every minute
+                await asyncio.sleep(60)  # Check every min
+                ute
 
             except asyncio.CancelledError:
                 break
