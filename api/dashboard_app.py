@@ -24,8 +24,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 try:
     from openclaw.base_agent import MessageBus
     from agents.bio_scientist_agent import BioScientistAgent
-    from agents.biodock_cognitive_agent import BioDockCognitiveAgent
-    from agents.flock_cognitive_agent import FlockSDGCognitiveAgent
+    from agents.biodock_cognitive_agent import BioDockMedicalAgent as BioDockCognitiveAgent
+    from agents.flock_cognitive_agent import FlockSocialGoodAgent as FlockSDGCognitiveAgent
     from agents.biotech_executive_agent import BiotechExecutiveAgent
     from agents.kidclaw_agent import KidClawAgent
     from agents.earth_watcher_agent import EarthWatcherAgent
