@@ -39,18 +39,18 @@ async def test_aminoanalytica_integration():
 
         pipeline = AminoAnalyticaGenerativePipeline()
 
-        # Check default target (workshop specification)
+        # Check default target (biothreat specification)
         default_target = pipeline.default_target
-        expected_pdb = '7K43'
-        expected_hotspots = [417, 453, 455, 489, 500, 501, 505]
+        expected_pdb = '2IXR'
+        expected_hotspots = [128, 135, 142, 156, 166, 243, 256, 289, 301]
 
         if (default_target['pdb_id'] == expected_pdb and
             default_target['hotspots'] == expected_hotspots):
-            print(f"[PASS] Workshop target configured correctly: {expected_pdb}")
+            print(f"[PASS] BipD biothreat target configured correctly: {expected_pdb}")
             print(f"       Hotspots: {expected_hotspots}")
             passed_tests += 1
         else:
-            print(f"[FAIL] Workshop target misconfigured")
+            print(f"[FAIL] BipD biothreat target misconfigured")
             print(f"       Expected: {expected_pdb}, Got: {default_target['pdb_id']}")
             failed_tests += 1
 
@@ -87,13 +87,13 @@ async def test_aminoanalytica_integration():
 
         workshop_targets = bio_agent.workshop_targets
 
-        if ('7K43' in workshop_targets and '2IXR' in workshop_targets and
-            workshop_targets['7K43']['target_type'] == 'workshop_default'):
-            print(f"[PASS] Workshop targets configured correctly")
+        if ('2IXR' in workshop_targets and
+            workshop_targets['2IXR']['target_type'] == 'biothreat_countermeasure'):
+            print(f"[PASS] BipD biothreat targets configured correctly")
             print(f"       Targets: {list(workshop_targets.keys())}")
             passed_tests += 1
         else:
-            print(f"[FAIL] Workshop targets misconfigured")
+            print(f"[FAIL] BipD biothreat targets misconfigured")
             failed_tests += 1
 
         # Test 4: Pipeline Synthesis Integration
@@ -202,7 +202,7 @@ async def test_aminoanalytica_integration():
                 'iptm_score': 0.78,
                 'interface_pae': 3.2,
                 'hotspot_coverage': 65.5,
-                'target': '7K43 (AminoAnalytica)',
+                'target': '2IXR (AminoAnalytica)',
                 'security_score': 0.15,
                 'biosecurity_screening': True,
                 'pipeline_method': 'aminoanalytica'
@@ -231,7 +231,7 @@ async def test_aminoanalytica_integration():
         if bio_agent.pipeline_enabled and bio_agent.aminoanalytica:
             try:
                 # Run complete pipeline standalone
-                complete_results = bio_agent.aminoanalytica.run_complete_pipeline()
+                complete_results = await bio_agent.aminoanalytica.run_complete_pipeline()
 
                 pipeline_steps = ['rfdiffusion_result', 'proteinmpnn_result',
                                 'boltz2_result', 'pesto_result']
@@ -285,7 +285,7 @@ async def test_aminoanalytica_integration():
         print("Integration requires immediate attention")
 
     print("\nAminoAnalytica Integration Summary:")
-    print("  • Workshop Target: 7K43 (Chain A) with 7 hotspots")
+    print("  • Workshop Target: 2IXR (Chain A) with 7 hotspots")
     print("  • Pipeline Stack: RFDiffusion > ProteinMPNN > Boltz-2 > PeSTo")
     print("  • Metrics: ipTM and pAE confidence scores")
     print("  • Biosecurity: Hard Mode screening preserved")

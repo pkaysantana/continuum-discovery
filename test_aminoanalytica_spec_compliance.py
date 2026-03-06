@@ -68,18 +68,18 @@ class SpecComplianceValidator:
         if not has_workshop_targets:
             return False
 
-        # Test 2: 7K43 target exists
-        has_7k43 = '7K43' in agent.workshop_targets
+        # Test 2: 2IXR target exists
+        has_2ixr = '2IXR' in agent.workshop_targets
         self.log_test(
-            "7K43 Target Exists",
-            has_7k43,
-            f"7K43 in workshop_targets: {has_7k43}"
+            "2IXR BipD Target Exists",
+            has_2ixr,
+            f"2IXR in workshop_targets: {has_2ixr}"
         )
 
-        if not has_7k43:
+        if not has_2ixr:
             return False
 
-        target = agent.workshop_targets['7K43']
+        target = agent.workshop_targets['2IXR']
 
         # Test 3: PDB ID matches spec
         pdb_matches = target['pdb_id'] == target_spec.pdb_id
@@ -113,7 +113,7 @@ class SpecComplianceValidator:
             f"Expected: {target_spec.description}, Got: {target['description']}"
         )
 
-        return all([has_workshop_targets, has_7k43, pdb_matches, chain_matches, hotspots_match, desc_matches])
+        return all([has_workshop_targets, has_2ixr, pdb_matches, chain_matches, hotspots_match, desc_matches])
 
     async def validate_capability_spec(self, agent: BioScientistAgent) -> bool:
         """SPEC VALIDATION: Agent capabilities"""

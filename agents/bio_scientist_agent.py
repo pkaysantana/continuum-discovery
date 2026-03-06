@@ -90,21 +90,14 @@ class BioScientistAgent(OpenClawAgent):
         self.current_targets = []
         self.synthesis_history = []
 
-        # AminoAnalytica workshop targets
+        # Primary biothreat targets
         self.workshop_targets = {
-            '7K43': {
-                'pdb_id': '7K43',
-                'chain': 'A',
-                'description': 'SARS-CoV-2 Spike RBD - ACE2 Complex',
-                'hotspots': [417, 453, 455, 489, 500, 501, 505],
-                'target_type': 'workshop_default'
-            },
             '2IXR': {
                 'pdb_id': '2IXR',
                 'chain': 'A',
-                'description': 'B. pseudomallei BipD (Biodefense target)',
+                'description': 'B. pseudomallei BipD - Burkholderia Invasion Protein D',
                 'hotspots': [128, 135, 142, 156, 166, 243, 256, 289, 301],
-                'target_type': 'biodefense_legacy'
+                'target_type': 'biothreat_countermeasure'
             }
         }
 
@@ -141,8 +134,8 @@ class BioScientistAgent(OpenClawAgent):
         """
         Run AminoAnalytica generative pipeline: RFDiffusion → ProteinMPNN → Boltz-2 → PeSTo
         """
-        # Determine target (workshop default or biodefense)
-        target_info = self.workshop_targets['7K43'].copy()  # Default to workshop target
+        # Determine target (primary biothreat target)
+        target_info = self.workshop_targets['2IXR'].copy()  # Default to BipD biothreat target
 
         print(f"[BIO_SCIENTIST] Target: {target_info['pdb_id']} - {target_info['description']}")
         print(f"[BIO_SCIENTIST] Hotspots: {target_info['hotspots']}")
@@ -151,7 +144,7 @@ class BioScientistAgent(OpenClawAgent):
             print(f"[BIO_SCIENTIST] Running AminoAnalytica workshop-compliant pipeline...")
 
             # Run complete generative pipeline
-            pipeline_results = self.aminoanalytica.run_complete_pipeline(target_info)
+            pipeline_results = await self.aminoanalytica.run_complete_pipeline(target_info)
 
             if pipeline_results['status'] == 'success':
                 # Extract key results

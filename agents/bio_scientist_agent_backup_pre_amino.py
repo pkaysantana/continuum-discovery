@@ -45,9 +45,9 @@ class BioScientistAgent(OpenClawAgent):
             "unibase_memory_management",
             "cross_pathogen_analysis",
             "rmsd_scoring",
-            "biosecurity_screening",  # NEW: Hard Mode capability
-            "threat_detection",       # NEW: Threat database screening
-            "motif_analysis"         # NEW: Dangerous motif detection
+            "biosecurity_screening",  # Hard Mode capability
+            "threat_detection",       # Threat database screening
+            "motif_analysis"         # Dangerous motif detection
         ]
 
         # Initialize Unibase Membase
@@ -66,7 +66,7 @@ class BioScientistAgent(OpenClawAgent):
         self.current_targets = []
         self.synthesis_history = []
 
-        # Initialize Hard Mode Biosecurity Screening System
+        # Initialise Hard Mode Biosecurity Screening System
         try:
             self.biosecurity = BiosecurityScreening()
             self.biosecurity_enabled = True
@@ -236,7 +236,7 @@ class BioScientistAgent(OpenClawAgent):
     @task(name="emergency_countermeasure_synthesis")
     async def handle_flood_threat_detected(self, message: Message):
         """
-        Handle flood threat from EarthWatcherAgent and synthesize countermeasures with biosecurity
+        Handle flood threat from EarthWatcherAgent and synthesise countermeasures with biosecurity
         """
         threat_data = message.payload
         severity = threat_data.get('severity', 'UNKNOWN')

@@ -52,13 +52,13 @@ class AminoAnalyticaWorkshopSpecs:
 
     @staticmethod
     def get_workshop_target_spec() -> WorkshopTarget:
-        """SPEC: Workshop default target - PDB 7K43"""
+        """SPEC: Primary biothreat target - PDB 2IXR (B. pseudomallei BipD)"""
         return WorkshopTarget(
-            pdb_id="7K43",
+            pdb_id="2IXR",
             chain="A",
-            description="SARS-CoV-2 Spike RBD - ACE2 Complex",
-            hotspots=[417, 453, 455, 489, 500, 501, 505],
-            target_type="workshop_default"
+            description="B. pseudomallei BipD - Burkholderia Invasion Protein D",
+            hotspots=[128, 135, 142, 156, 166, 243, 256, 289, 301],
+            target_type="biothreat_countermeasure"
         )
 
     @staticmethod
