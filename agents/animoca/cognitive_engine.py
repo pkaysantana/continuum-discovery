@@ -42,8 +42,8 @@ class EnhancedCognitiveMemory(CognitiveMemory):
 
         # Track access patterns
         self.access_patterns[memory_id] = {
-            'creation_time': datetime.utcnow(),
-            'last_access': datetime.utcnow(),
+            'creation_time': datetime.now(timezone.utc),
+            'last_access': datetime.now(timezone.utc),
             'access_count': 0,
             'relevance_decay': 1.0
         }
@@ -63,7 +63,7 @@ class EnhancedCognitiveMemory(CognitiveMemory):
 
         # Enhance with importance and recency scoring
         scored_memories = []
-        current_time = datetime.utcnow()
+        current_time = datetime.now(timezone.utc)
 
         for memory in basic_memories:
             memory_id = memory.get('memory_id')
@@ -174,7 +174,7 @@ class EnhancedCognitiveMemory(CognitiveMemory):
 
         # Calculate removal scores (inverse of importance + age)
         removal_candidates = []
-        current_time = datetime.utcnow()
+        current_time = datetime.now(timezone.utc)
 
         for memory_id in self.memory_store:
             importance = self.importance_weights.get(memory_id, 0.5)
@@ -252,7 +252,7 @@ class EnhancedEthoswarmAgent(MockEthoswarmAgent):
             'goal_alignment_score': goal_alignment['overall_score'],
             'context_analysis': context_analysis,
             'decision_factors': conclusion['factors'],
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
 
         self.reasoning_history.append(reasoning_result)
@@ -295,12 +295,12 @@ class EnhancedEthoswarmAgent(MockEthoswarmAgent):
         # Add current perception to pattern buffer
         self.pattern_recognition_buffer.append({
             'perception': perception,
-            'timestamp': datetime.utcnow(),
+            'timestamp': datetime.now(timezone.utc),
             'processed': False
         })
 
         # Keep only recent items in buffer
-        cutoff_time = datetime.utcnow() - timedelta(hours=24)
+        cutoff_time = datetime.now(timezone.utc) - timedelta(hours=24)
         self.pattern_recognition_buffer = [
             item for item in self.pattern_recognition_buffer
             if item['timestamp'] > cutoff_time
@@ -563,7 +563,7 @@ class CognitivePlatformEngine(ContinuumCognitiveAgent):
             'relevant_memories_count': len(relevant_memories),
             'confidence': reasoning_result.get('confidence', 0.5),
             'reasoning_type': reasoning_result.get('reasoning_type', 'standard'),
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
 
     async def _assess_cognitive_complexity(self, stimulus: Dict[str, Any], result: Dict[str, Any]) -> float:

@@ -8,7 +8,7 @@ import sys
 import os
 import asyncio
 import unittest
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, List
 
 # Add project root to path
@@ -513,7 +513,7 @@ class AnimocaSpecComplianceTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_performance_validation(self):
         """TEST 13: Test performance requirements"""
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
 
         # Batch cognitive processing
         stimuli = [
@@ -536,7 +536,7 @@ class AnimocaSpecComplianceTest(unittest.IsolatedAsyncioTestCase):
         ]
         blockchain_results = await asyncio.gather(*blockchain_tasks)
 
-        end_time = datetime.utcnow()
+        end_time = datetime.now(timezone.utc)
         total_time = (end_time - start_time).total_seconds()
 
         # Performance validation

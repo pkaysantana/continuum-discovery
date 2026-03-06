@@ -30,7 +30,8 @@
       "Bash(taskkill:*)",
       "Bash(grep:*)",
       "Bash(mkdir:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(rm:*)"
     ]
   }
 }

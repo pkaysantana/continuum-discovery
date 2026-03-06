@@ -103,7 +103,7 @@ class AgentWalletManager:
             wallet_address=wallet_address,
             public_key=simulated_public_key,
             network=network.value,
-            creation_timestamp=datetime.utcnow().isoformat(),
+            creation_timestamp=datetime.now(timezone.utc).isoformat(),
             balance_simulation={
                 'BNB': 0.0,
                 'ETH': 0.0,
@@ -237,7 +237,7 @@ class BlockchainAgentIntegration:
                 'revenue_tracking',
                 'gas_optimization'
             ],
-            'onboarding_timestamp': datetime.utcnow().isoformat()
+            'onboarding_timestamp': datetime.now(timezone.utc).isoformat()
         }
 
         print(f"[BLOCKCHAIN_INTEGRATION] Agent onboarding completed: {agent_id}")
@@ -246,40 +246,103 @@ class BlockchainAgentIntegration:
     @task(name="transaction_intent_simulation")
     async def simulate_transaction_intent(self, intent: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Simulate blockchain transaction intent (NO REAL TRANSACTIONS)
+        Simulate blockchain transaction intent (NO REAL TRANSACTIONS) with robust error handling
         """
         intent_id = str(uuid.uuid4())
         print(f"[BLOCKCHAIN_INTEGRATION] Simulating transaction intent: {intent_id[:8]}")
 
-        # Create transaction intent
-        transaction_intent = TransactionIntent(
-            intent_id=intent_id,
-            transaction_type=TransactionType(intent['transaction_type']),
-            from_agent=intent['from_agent'],
-            to_address=intent['to_address'],
-            amount=intent['amount'],
-            currency=intent['currency'],
-            network=BlockchainNetwork(intent['network']),
-            metadata=intent.get('metadata', {}),
-            gas_estimate=await self._estimate_gas(intent),
-            status='simulated'
-        )
+        try:
+            # Validate required fields
+            required_fields = ['transaction_type', 'from_agent', 'to_address', 'amount', 'currency', 'network']
+            missing_fields = [field for field in required_fields if field not in intent or intent[field] is None]
 
-        # Store intent
-        self.transaction_intents[intent_id] = transaction_intent
+            if missing_fields:
+                return {
+                    'intent_id': intent_id,
+                    'status': 'error',
+                    'error': f'Missing required fields: {missing_fields}',
+                    'simulation_result': {'status': 'validation_failed'},
+                    'simulation_timestamp': datetime.now(timezone.utc).isoformat()
+                }
 
-        # Simulate transaction execution
-        simulation_result = await self._simulate_transaction_execution(transaction_intent)
+            # Validate transaction type
+            try:
+                transaction_type = TransactionType(intent['transaction_type'])
+            except ValueError:
+                return {
+                    'intent_id': intent_id,
+                    'status': 'error',
+                    'error': f'Invalid transaction type: {intent["transaction_type"]}',
+                    'simulation_result': {'status': 'invalid_transaction_type'},
+                    'simulation_timestamp': datetime.now(timezone.utc).isoformat()
+                }
 
-        print(f"[BLOCKCHAIN_INTEGRATION] Transaction simulated: {simulation_result['status']}")
+            # Validate network
+            try:
+                network = BlockchainNetwork(intent['network'])
+            except ValueError:
+                return {
+                    'intent_id': intent_id,
+                    'status': 'error',
+                    'error': f'Invalid network: {intent["network"]}',
+                    'simulation_result': {'status': 'invalid_network'},
+                    'simulation_timestamp': datetime.now(timezone.utc).isoformat()
+                }
 
-        return {
-            'intent_id': intent_id,
-            'simulation_result': simulation_result,
-            'transaction_details': asdict(transaction_intent),
-            'gas_estimate_usd': simulation_result['gas_cost_usd'],
-            'simulation_timestamp': datetime.utcnow().isoformat()
-        }
+            # Validate amount
+            try:
+                amount = float(intent['amount'])
+                if amount <= 0:
+                    raise ValueError("Amount must be positive")
+            except (ValueError, TypeError):
+                return {
+                    'intent_id': intent_id,
+                    'status': 'error',
+                    'error': f'Invalid amount: {intent["amount"]}',
+                    'simulation_result': {'status': 'invalid_amount'},
+                    'simulation_timestamp': datetime.now(timezone.utc).isoformat()
+                }
+
+            # Create transaction intent
+            transaction_intent = TransactionIntent(
+                intent_id=intent_id,
+                transaction_type=transaction_type,
+                from_agent=intent['from_agent'],
+                to_address=intent['to_address'],
+                amount=amount,
+                currency=intent['currency'],
+                network=network,
+                metadata=intent.get('metadata', {}),
+                gas_estimate=await self._estimate_gas(intent),
+                status='simulated'
+            )
+
+            # Store intent
+            self.transaction_intents[intent_id] = transaction_intent
+
+            # Simulate transaction execution
+            simulation_result = await self._simulate_transaction_execution(transaction_intent)
+
+            print(f"[BLOCKCHAIN_INTEGRATION] Transaction simulated: {simulation_result['status']}")
+
+            return {
+                'intent_id': intent_id,
+                'simulation_result': simulation_result,
+                'transaction_details': asdict(transaction_intent),
+                'gas_estimate_usd': simulation_result['gas_cost_usd'],
+                'simulation_timestamp': datetime.now(timezone.utc).isoformat()
+            }
+
+        except Exception as e:
+            # Catch any unexpected errors
+            print(f"[BLOCKCHAIN_INTEGRATION] Simulation error: {str(e)}")
+            return {
+                'intent_id': intent_id,
+                'status': 'error',
+                'error': f'Simulation failed: {str(e)}',
+                'simulation_result': {'status': 'simulation_error'},
+                'simulation_timestamp': datetime.now(timezone.utc).isoformat()
+            }
 
     @task(name="revenue_stream_linking")
     async def link_revenue_stream(self, stripe_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -307,7 +370,7 @@ class BlockchainAgentIntegration:
             'stripe_revenue': revenue_amount,
             'blockchain_allocation': await self._calculate_blockchain_allocation(revenue_amount),
             'distribution_schedule': await self._create_distribution_schedule(revenue_amount, agent_id),
-            'creation_timestamp': datetime.utcnow().isoformat(),
+            'creation_timestamp': datetime.now(timezone.utc).isoformat(),
             'status': 'active'
         }
 
@@ -332,7 +395,7 @@ class BlockchainAgentIntegration:
                 'currency': 'SWARM',
                 'recipient_agent': agent_id
             },
-            'linking_timestamp': datetime.utcnow().isoformat()
+            'linking_timestamp': datetime.now(timezone.utc).isoformat()
         }
 
     async def _initialize_revenue_stream(self, agent_id: str, wallet_address: str) -> str:
@@ -346,7 +409,7 @@ class BlockchainAgentIntegration:
             'total_revenue': 0.0,
             'token_balance': 0.0,
             'distribution_history': [],
-            'creation_timestamp': datetime.utcnow().isoformat()
+            'creation_timestamp': datetime.now(timezone.utc).isoformat()
         }
 
         self.revenue_streams[stream_id] = initial_stream
@@ -482,7 +545,7 @@ class BlockchainAgentIntegration:
                 'amount': token_amount * 0.6,  # 60% immediate
                 'currency': 'SWARM',
                 'distribution_type': 'immediate',
-                'scheduled_date': datetime.utcnow().isoformat()
+                'scheduled_date': datetime.now(timezone.utc).isoformat()
             },
             {
                 'distribution_id': str(uuid.uuid4()),
@@ -490,7 +553,7 @@ class BlockchainAgentIntegration:
                 'amount': token_amount * 0.4,  # 40% vested over time
                 'currency': 'SWARM',
                 'distribution_type': 'vested',
-                'scheduled_date': (datetime.utcnow().replace(day=datetime.utcnow().day + 30)).isoformat()
+                'scheduled_date': ((datetime.now(timezone.utc) + timedelta(days=30))).isoformat()
             }
         ]
 
@@ -516,7 +579,7 @@ class BlockchainAgentIntegration:
             'active_intents': len([intent for intent in self.transaction_intents.values()
                                  if intent.from_agent == agent_id]),
             'blockchain_participation_score': self._calculate_participation_score(agent_id),
-            'status_timestamp': datetime.utcnow().isoformat()
+            'status_timestamp': datetime.now(timezone.utc).isoformat()
         }
 
     def _calculate_participation_score(self, agent_id: str) -> float:
