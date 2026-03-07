@@ -270,10 +270,10 @@ COMPND    MOL_ID: 1; MOLECULE: DESIGNED BINDER; ENGINEERED: YES
     return None
 
 class AminoAnalyticaGenerativePipeline:
-    """
+            """
     Workshop-compliant generative protein design pipeline with ESMFold hybrid compute
     Implements RFDiffusion → ProteinMPNN → ESMFold Local Filter → Boltz-2 → PeSTo validation stack
-    """
+            """
 
     def __init__(self):
         # Primary target: PDB 2IXR (B. pseudomallei BipD) - Live Biothreat Target
@@ -454,18 +454,18 @@ class AminoAnalyticaGenerativePipeline:
 
         if service == 'rfdiffusion':
         return {
-                'backbone_coords': {
-                    'ca_coords': [[random.uniform(-50, 50), random.uniform(-50, 50), random.uniform(-50, 50)]
+            'backbone_coords': {
+            'ca_coords': [[random.uniform(-50, 50), random.uniform(-50, 50), random.uniform(-50, 50)]
                                  for _ in range(random.randint(80, 150))],
-                    'length': random.randint(80, 150),
-                    'secondary_structure': ['H'] * random.randint(80, 150)
+            'length': random.randint(80, 150),
+            'secondary_structure': ['H'] * random.randint(80, 150)
                 },
-                'quality_metrics': {
-                    'rmsd_to_native': 1.85,
-                    'clash_score': 0.12,
-                    'geometry_score': 0.89,
-                    'hotspot_alignment': 0.84
-                }
+            'quality_metrics': {
+            'rmsd_to_native': 1.85,
+            'clash_score': 0.12,
+            'geometry_score': 0.89,
+            'hotspot_alignment': 0.84
+        }
             }
 
         elif service == 'proteinmpnn':
@@ -480,31 +480,31 @@ class AminoAnalyticaGenerativePipeline:
                 })
 
         return {
-                'designed_sequence': candidates[0]['sequence'],
-                'sequence_confidence': {
-                    'mean_confidence': 0.82,
-                    'min_confidence': 0.61,
-                    'hotspot_confidence': 0.87,
-                    'per_residue_confidence': [random.uniform(0.6, 0.95) for _ in range(length)]
+            'designed_sequence': candidates[0]['sequence'],
+            'sequence_confidence': {
+            'mean_confidence': 0.82,
+            'min_confidence': 0.61,
+            'hotspot_confidence': 0.87,
+            'per_residue_confidence': [random.uniform(0.6, 0.95) for _ in range(length)]
                 },
-                'design_candidates': candidates
-            }
+            'design_candidates': candidates
+        }
 
         elif service == 'boltz2':
         return {
-                'iptm_score': 0.860,
-                'pae_scores': {
-                    'mean_pae': 3.4,
-                    'interface_pae': 2.8,
-                    'intra_pae': 2.1,
-                    'inter_pae': 4.2
+            'iptm_score': 0.860,
+            'pae_scores': {
+            'mean_pae': 3.4,
+            'interface_pae': 2.8,
+            'intra_pae': 2.1,
+            'inter_pae': 4.2
                 },
-                'complex_metrics': {
-                    'interface_area': 1240,
-                    'binding_energy': -28.5,
-                    'shape_complementarity': 0.78,
-                    'clash_score': 0.08
-                }
+            'complex_metrics': {
+            'interface_area': 1240,
+            'binding_energy': -28.5,
+            'shape_complementarity': 0.78,
+            'clash_score': 0.08
+        }
             }
 
         elif service == 'pesto':
@@ -513,13 +513,13 @@ class AminoAnalyticaGenerativePipeline:
             contacted_hotspots = random.sample(hotspots, 9)  # All 9 hotspots for testing
 
         return {
-                'binding_metrics': {
-                    'interface_residues': random.sample(range(50, 100), random.randint(12, 18)),
-                    'hotspot_contacts': contacted_hotspots,
-                    'contact_probability': 0.85,
-                    'binding_affinity_predicted': -18.2,
-                    'interface_stability': 0.89
-                }
+            'binding_metrics': {
+            'interface_residues': random.sample(range(50, 100), random.randint(12, 18)),
+            'hotspot_contacts': contacted_hotspots,
+            'contact_probability': 0.85,
+            'binding_affinity_predicted': -18.2,
+            'interface_stability': 0.89
+        }
             }
 
         return {
@@ -527,10 +527,10 @@ class AminoAnalyticaGenerativePipeline:
     async def run_hybrid_esmfold_filtering(self,
                                           sequence_result: Dict[str, Any],
                                           target_info: Dict[str, Any]) -> Dict[str, Any]:
-        """
+            """
         Hybrid compute step: Mock ESMFold filtering for testing
         In production would use actual ESMFold for α-Helix 8 targeting
-        """
+            """
         if not self.hybrid_compute_enabled:
             return sequence_result
 
@@ -556,7 +556,7 @@ class AminoAnalyticaGenerativePipeline:
 
     @task(name="rfdiffusion_backbone_generation")
     async def generate_backbone_rfdiffusion(self, target_info: Dict[str, Any], design_params: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Step 1: RFDiffusion backbone generation"""
+            """Step 1: RFDiffusion backbone generation"""
         if design_params is None:
             design_params = {}
 
