@@ -135,7 +135,7 @@ class DesignArchivalSystem:
         print(f"[ARCHIVAL]    Files: {pdb_path}")
         print(f"[ARCHIVAL]           {json_path}")
 
-        return {
+                return {
             'pdb_file': pdb_path,
             'json_file': json_path,
             'base_filename': base_filename
@@ -266,7 +266,7 @@ COMPND    MOL_ID: 1; MOLECULE: DESIGNED BINDER; ENGINEERED: YES
         print(f'[ARCHIVAL] ipTM: {iptm:.3f} | Coverage: {coverage:.1f}%')
         print(f'[ARCHIVAL] Files: {pdb_path}')
         print(f'[ARCHIVAL]        {json_path}')
-        return {'pdb': pdb_path, 'json': json_path}
+                return {'pdb': pdb_path, 'json': json_path}
     return None
 
 class AminoAnalyticaGenerativePipeline:
@@ -453,7 +453,7 @@ class AminoAnalyticaGenerativePipeline:
         """Parse Amina CLI output and extract results"""
 
         if service == 'rfdiffusion':
-            return {
+                    return {
                 'backbone_coords': {
                     'ca_coords': [[random.uniform(-50, 50), random.uniform(-50, 50), random.uniform(-50, 50)]
                                  for _ in range(random.randint(80, 150))],
@@ -479,7 +479,7 @@ class AminoAnalyticaGenerativePipeline:
                     'rank': i + 1
                 })
 
-            return {
+                    return {
                 'designed_sequence': candidates[0]['sequence'],
                 'sequence_confidence': {
                     'mean_confidence': 0.82,
@@ -491,7 +491,7 @@ class AminoAnalyticaGenerativePipeline:
             }
 
         elif service == 'boltz2':
-            return {
+                    return {
                 'iptm_score': 0.860,
                 'pae_scores': {
                     'mean_pae': 3.4,
@@ -512,7 +512,7 @@ class AminoAnalyticaGenerativePipeline:
             hotspots = [128, 135, 142, 156, 166, 243, 256, 289, 301]
             contacted_hotspots = random.sample(hotspots, 9)  # All 9 hotspots for testing
 
-            return {
+                    return {
                 'binding_metrics': {
                     'interface_residues': random.sample(range(50, 100), random.randint(12, 18)),
                     'hotspot_contacts': contacted_hotspots,
@@ -522,7 +522,7 @@ class AminoAnalyticaGenerativePipeline:
                 }
             }
 
-        return {}
+                return {}
 
     async def run_hybrid_esmfold_filtering(self,
                                           sequence_result: Dict[str, Any],
@@ -849,21 +849,21 @@ class AminoAnalyticaGenerativePipeline:
 
         def _compile_final_metrics(self, pipeline_results: Dict[str, Any]) -> Dict[str, Any]:
         """Compile final design quality metrics"""
-        boltz2_result = pipeline_results.get('boltz2_result', {})
-        pesto_result = pipeline_results.get('pesto_result', {})
+                boltz2_result = pipeline_results.get('boltz2_result', {})
+                pesto_result = pipeline_results.get('pesto_result', {})
 
-        iptm_score = boltz2_result.get('iptm_score', 0.0)
-        interface_pae = boltz2_result.get('pae_scores', {}).get('interface_pae', 999.0)
-        hotspot_coverage = pesto_result.get('hotspot_coverage_percent', 0.0)
-        binding_validated = pesto_result.get('binding_validated', False)
+                iptm_score = boltz2_result.get('iptm_score', 0.0)
+                interface_pae = boltz2_result.get('pae_scores', {}).get('interface_pae', 999.0)
+                hotspot_coverage = pesto_result.get('hotspot_coverage_percent', 0.0)
+                binding_validated = pesto_result.get('binding_validated', False)
 
-        overall_score = (
+                overall_score = (
             iptm_score * 0.4 +
             (1.0 - min(interface_pae / 10.0, 1.0)) * 0.3 +
             (hotspot_coverage / 100.0) * 0.3
         )
 
-        return {
+                return {
             'iptm_score': iptm_score,
             'interface_pae': interface_pae,
             'hotspot_coverage_percent': hotspot_coverage,
