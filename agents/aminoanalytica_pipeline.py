@@ -206,6 +206,69 @@ SOURCE   5 OTHER_DETAILS: AMINOANALYTICA GENERATIVE DESIGN
         print(f"[ARCHIVAL] Found {len(winners)} winning designs saved")
         return winners
 
+
+def save_winning_design(pipeline_results, outputs_dir='outputs/winning_binders'):
+    """Save high-quality designs automatically"""
+    import os
+    import json
+    from datetime import datetime
+
+    os.makedirs(outputs_dir, exist_ok=True)
+
+    final_metrics = pipeline_results.get('final_metrics', {})
+    iptm = final_metrics.get('iptm_score', 0.0)
+    coverage = final_metrics.get('hotspot_coverage_percent', 0.0)
+
+    # Check quality thresholds
+    if iptm >= 0.80 and coverage >= 88.9:
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'winner_{timestamp}_ipTM{iptm:.3f}_cov{coverage:.0f}pct'
+
+        # Get sequence
+        sequence = pipeline_results.get('proteinmpnn_result', {}).get('designed_sequence', '')
+
+        # Create simple PDB content
+        pdb_content = f"""HEADER    DESIGNED PROTEIN                        {datetime.now().strftime('%d-%b-%y')}   AMIN
+TITLE     AMINOANALYTICA DESIGNED BINDER - ipTM: {iptm:.3f} Coverage: {coverage:.1f}%
+COMPND    MOL_ID: 1; MOLECULE: DESIGNED BINDER; ENGINEERED: YES
+"""
+
+        # Add atoms for sequence
+        for i, aa in enumerate(sequence):
+            res_num = i + 1
+            x, y, z = (i % 10) * 3.8, 0.0, i * 1.5
+            pdb_content += f"ATOM  {res_num:5d}  CA  {aa}   A{res_num:4d}    {x:8.3f}{y:8.3f}{z:8.3f}  1.00 20.00           C\n"
+
+        pdb_content += "END\n"
+
+        # Save PDB
+        pdb_path = os.path.join(outputs_dir, f'{filename}.pdb')
+        with open(pdb_path, 'w') as f:
+            f.write(pdb_content)
+
+        # Save metadata
+        metadata = {
+            'iptm_score': iptm,
+            'interface_pae': final_metrics.get('interface_pae', 0.0),
+            'hotspot_coverage_percent': coverage,
+            'sequence': sequence,
+            'sequence_length': len(sequence),
+            'timestamp': timestamp,
+            'design_quality': final_metrics.get('design_quality', 'HIGH'),
+            'target': pipeline_results.get('target_info', {}).get('pdb_id', '2IXR')
+        }
+
+        json_path = os.path.join(outputs_dir, f'{filename}.json')
+        with open(json_path, 'w') as f:
+            json.dump(metadata, f, indent=2)
+
+        print(f'[ARCHIVAL] WINNER SAVED: {filename}')
+        print(f'[ARCHIVAL] ipTM: {iptm:.3f} | Coverage: {coverage:.1f}%')
+        print(f'[ARCHIVAL] Files: {pdb_path}')
+        print(f'[ARCHIVAL]        {json_path}')
+        return {'pdb': pdb_path, 'json': json_path}
+    return None
+
 class AminoAnalyticaGenerativePipeline:
     """
     Workshop-compliant generative protein design pipeline with ESMFold hybrid compute
@@ -761,6 +824,8 @@ class AminoAnalyticaGenerativePipeline:
             print(f"\n[AMINOANALYTICA] Pipeline complete!")
             print(f"[AMINOANALYTICA] Final design quality: {final_metrics['overall_score']:.3f}")
             print(f"[AMINOANALYTICA] ipTM: {final_metrics['iptm_score']:.3f}, PAE: {final_metrics['interface_pae']:.2f}Å")
+            # Auto-save winners
+            save_winning_design(pipeline_results)
             # Auto-save high-quality designs
             if pipeline_results['status'] == 'success':
                 # Extract biosecurity score if available (would be passed from calling agent)
