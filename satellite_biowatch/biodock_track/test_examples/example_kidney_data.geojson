@@ -1,0 +1,159 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [100, 100],
+          [120, 100],
+          [120, 120],
+          [100, 120],
+          [100, 100]
+        ]]
+      },
+      "properties": {
+        "id": "glomerulus_1",
+        "type": "glomerulus",
+        "classification": "Glomerulus",
+        "area": 400,
+        "circularity": 0.85
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [200, 150],
+          [230, 150],
+          [230, 180],
+          [200, 180],
+          [200, 150]
+        ]]
+      },
+      "properties": {
+        "id": "glomerulus_2",
+        "type": "glomerulus",
+        "classification": "Glomerulus",
+        "area": 900,
+        "circularity": 0.92
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [300, 200],
+          [325, 200],
+          [325, 225],
+          [300, 225],
+          [300, 200]
+        ]]
+      },
+      "properties": {
+        "id": "glomerulus_3",
+        "type": "glomerulus",
+        "classification": "Glomerulus",
+        "area": 625,
+        "circularity": 0.78
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [80, 110],
+          [140, 110],
+          [140, 130]
+        ]
+      },
+      "properties": {
+        "id": "vessel_1",
+        "type": "vessel",
+        "classification": "Blood_Vessel",
+        "vessel_type": "artery",
+        "diameter": 15
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [180, 160],
+          [250, 160],
+          [250, 190]
+        ]
+      },
+      "properties": {
+        "id": "vessel_2",
+        "type": "vessel",
+        "classification": "Blood_Vessel",
+        "vessel_type": "vein",
+        "diameter": 12
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [320, 180],
+          [320, 230],
+          [350, 230]
+        ]
+      },
+      "properties": {
+        "id": "vessel_3",
+        "type": "vessel",
+        "classification": "Blood_Vessel",
+        "vessel_type": "capillary",
+        "diameter": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [150, 250],
+          [180, 250],
+          [180, 280],
+          [150, 280],
+          [150, 250]
+        ]]
+      },
+      "properties": {
+        "id": "epithelial_1",
+        "type": "epithelial_cell",
+        "classification": "Epithelial_Cell",
+        "cell_type": "proximal_tubule",
+        "area": 900
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [250, 300],
+          [270, 300],
+          [270, 320],
+          [250, 320],
+          [250, 300]
+        ]]
+      },
+      "properties": {
+        "id": "immune_1",
+        "type": "immune_cell",
+        "classification": "Immune_Cell",
+        "cell_type": "macrophage",
+        "area": 400
+      }
+    }
+  ]
+}

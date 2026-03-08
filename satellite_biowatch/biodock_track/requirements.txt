@@ -1,0 +1,41 @@
+# BioDock Hackathon - Dependencies
+# Baseline Task: Glomerulus-Vessel Distance Analysis
+
+# Core data processing
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Geospatial analysis
+shapely>=1.8.0
+geopandas>=0.10.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Scientific computing
+scipy>=1.7.0
+
+# Command line interface
+argparse  # Built into Python
+
+# File I/O and utilities
+pathlib  # Built into Python
+json     # Built into Python
+logging  # Built into Python
+
+# For the AI Copilot (Bounty Task)
+openai>=1.0.0
+langchain>=0.1.0
+langchain-openai>=0.0.5
+langchain-community>=0.0.20
+
+# Additional ML dependencies for copilot
+scikit-learn>=1.0.0
+transformers>=4.20.0
+torch>=1.12.0
+
+# Code generation and parsing
+ast      # Built into Python
+textwrap # Built into Python
+black>=22.0.0  # Code formatting

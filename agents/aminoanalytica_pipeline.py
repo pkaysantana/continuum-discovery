@@ -267,13 +267,16 @@ COMPND    MOL_ID: 1; MOLECULE: DESIGNED BINDER; ENGINEERED: YES
         print(f'[ARCHIVAL] Files: {pdb_path}')
         print(f'[ARCHIVAL]        {json_path}')
         return {
-    return None
+            'pdb_path': pdb_path,
+            'json_path': json_path,
+            'filename': filename
+        }
 
 class AminoAnalyticaGenerativePipeline:
-            """
+    """
     Workshop-compliant generative protein design pipeline with ESMFold hybrid compute
-    Implements RFDiffusion → ProteinMPNN → ESMFold Local Filter → Boltz-2 → PeSTo validation stack
-            """
+    Implements RFDiffusion -> ProteinMPNN -> ESMFold Local Filter -> Boltz-2 -> PeSTo validation stack
+    """
 
     def __init__(self):
         # Primary target: PDB 2IXR (B. pseudomallei BipD) - Live Biothreat Target
@@ -453,7 +456,7 @@ class AminoAnalyticaGenerativePipeline:
         """Parse Amina CLI output and extract results"""
 
         if service == 'rfdiffusion':
-        return {
+            return {
             'backbone_coords': {
             'ca_coords': [[random.uniform(-50, 50), random.uniform(-50, 50), random.uniform(-50, 50)]
                                  for _ in range(random.randint(80, 150))],
@@ -490,8 +493,8 @@ class AminoAnalyticaGenerativePipeline:
             'design_candidates': candidates
         }
 
-        elif service == 'boltz2':
-        return {
+        if service == 'boltz2':
+            return {
             'iptm_score': 0.860,
             'pae_scores': {
             'mean_pae': 3.4,
@@ -523,6 +526,7 @@ class AminoAnalyticaGenerativePipeline:
             }
 
         return {
+        }
 
     async def run_hybrid_esmfold_filtering(self,
                                           sequence_result: Dict[str, Any],
@@ -531,32 +535,30 @@ class AminoAnalyticaGenerativePipeline:
         Hybrid compute step: Mock ESMFold filtering for testing
         In production would use actual ESMFold for α-Helix 8 targeting
             """
-        if not self.hybrid_compute_enabled:
-            return sequence_result
+            if not self.hybrid_compute_enabled:
+                return sequence_result
 
-        designed_sequence = sequence_result['designed_sequence']
-        design_candidates = sequence_result.get('design_candidates', [])
+                designed_sequence = sequence_result['designed_sequence']
+                design_candidates = sequence_result.get('design_candidates', [])
 
-        print(f"\n[HYBRID-COMPUTE] Local ESMFold pre-filtering for α-Helix 8 targeting")
-        print(f"[HYBRID-COMPUTE] Testing {len(design_candidates)} ProteinMPNN candidates locally")
+                print(f"\n[HYBRID-COMPUTE] Local ESMFold pre-filtering for α-Helix 8 targeting")
+                print(f"[HYBRID-COMPUTE] Testing {len(design_candidates)} ProteinMPNN candidates locally")
 
-        # Mock filtering - select best candidate
-        if design_candidates:
-            best_candidate = max(design_candidates, key=lambda x: x['confidence'])
-            print(f"[HYBRID-COMPUTE] ✓ Selected candidate with confidence: {best_candidate['confidence']:.3f}")
+                # Mock filtering - select best candidate
+                if design_candidates:
+                    best_candidate = max(design_candidates, key=lambda x: x['confidence'])
+                    print(f"[HYBRID-COMPUTE] Selected candidate with confidence: {best_candidate['confidence']:.3f}")
 
-            filtered_result = sequence_result.copy()
-            filtered_result['designed_sequence'] = best_candidate['sequence']
-            filtered_result['sequence_length'] = len(best_candidate['sequence'])
-
-            return filtered_result
-        else:
-            print(f"[HYBRID-COMPUTE] Using primary sequence")
-            return sequence_result
+                    filtered_result = sequence_result.copy()
+                    filtered_result['designed_sequence'] = best_candidate['sequence']
+                    return filtered_result
+                else:
+                    print(f"[HYBRID-COMPUTE] Using primary sequence")
+                    return sequence_result
 
     @task(name="rfdiffusion_backbone_generation")
     async def generate_backbone_rfdiffusion(self, target_info: Dict[str, Any], design_params: Dict[str, Any] = None) -> Dict[str, Any]:
-            """Step 1: RFDiffusion backbone generation"""
+        """Step 1: RFDiffusion backbone generation"""
         if design_params is None:
             design_params = {}
 
@@ -848,7 +850,7 @@ class AminoAnalyticaGenerativePipeline:
         self._last_biosecurity_score = score
 
         def _compile_final_metrics(self, pipeline_results: Dict[str, Any]) -> Dict[str, Any]:
-        """Compile final design quality metrics"""
+                """Compile final design quality metrics"""
                 boltz2_result = pipeline_results.get('boltz2_result', {})
                 pesto_result = pipeline_results.get('pesto_result', {})
 

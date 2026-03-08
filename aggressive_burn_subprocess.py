@@ -143,7 +143,10 @@ try:
     asyncio.run(run_pipeline())
 
 except Exception as e:
+    import traceback
     print(f"PIPELINE_ERROR: {e}")
+    print("FULL_TRACEBACK:")
+    traceback.print_exc()
 '''
 
             # Write temporary script
@@ -174,6 +177,20 @@ except Exception as e:
             output = stdout.decode('utf-8', errors='ignore')
             error_output = stderr.decode('utf-8', errors='ignore')
 
+            print(f"\n{'='*60}")
+            print(f"DEBUG: SUBPROCESS EXECUTION DETAILS")
+            print(f"{'='*60}")
+            print(f"Return Code: {process.returncode}")
+            print(f"{'='*60}")
+            print(f"RAW STDOUT:")
+            print(f"{'='*60}")
+            print(output if output else "(no stdout)")
+            print(f"{'='*60}")
+            print(f"RAW STDERR:")
+            print(f"{'='*60}")
+            print(error_output if error_output else "(no stderr)")
+            print(f"{'='*60}")
+
             # Extract result from structured output
             if 'PIPELINE_RESULT_START' in output and 'PIPELINE_RESULT_END' in output:
                 start_idx = output.find('PIPELINE_RESULT_START') + len('PIPELINE_RESULT_START\n')
@@ -182,18 +199,28 @@ except Exception as e:
 
                 try:
                     result = json.loads(result_json)
+                    print(f"[SUCCESS] Parsed structured result successfully")
                     return result
-                except json.JSONDecodeError:
-                    print(f"[ERROR] Failed to parse result JSON")
+                except json.JSONDecodeError as e:
+                    print(f"[ERROR] Failed to parse result JSON: {e}")
+                    print(f"[DEBUG] Raw JSON string: {repr(result_json[:200])}...")
                     return None
             else:
                 print(f"[ERROR] No structured result found in output")
-                if error_output:
-                    print(f"[STDERR] {error_output}")
+                print(f"[DEBUG] Looking for PIPELINE_RESULT_START and PIPELINE_RESULT_END markers")
+                if 'PIPELINE_ERROR:' in output:
+                    print(f"[DEBUG] Pipeline error detected in output")
+                if 'FULL_TRACEBACK:' in output:
+                    print(f"[DEBUG] Full traceback detected in output")
                 return None
 
+        except asyncio.TimeoutError:
+            print(f"[ERROR] Subprocess execution timed out after 120 seconds")
+            return None
         except Exception as e:
             print(f"[ERROR] Subprocess execution failed: {e}")
+            import traceback
+            traceback.print_exc()
             return None
 
         finally:

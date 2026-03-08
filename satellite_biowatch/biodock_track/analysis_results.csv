@@ -1,0 +1,9 @@
+id,area,centroid_x,centroid_y
+glomerulus_1,400.0,110.0,110.0
+glomerulus_2,900.0,215.0,165.0
+glomerulus_3,625.0,312.5,212.5
+vessel_1,0.0,117.5,112.5
+vessel_2,0.0,225.5,164.5
+vessel_3,0.0,325.625,214.375
+epithelial_1,900.0,165.0,265.0
+immune_1,400.0,260.0,310.0

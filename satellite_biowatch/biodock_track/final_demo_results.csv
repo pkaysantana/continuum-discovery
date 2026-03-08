@@ -1,0 +1,4 @@
+glomerulus_id,nearest_vessel_id,distance,glomerulus_area,vessel_area,glomerulus_centroid_x,glomerulus_centroid_y
+glomerulus_1,vessel_1,0.0,400.0,0.0,110.0,110.0
+glomerulus_2,vessel_2,5.0,900.0,0.0,215.0,165.0
+glomerulus_3,vessel_3,7.5,625.0,0.0,312.5,212.5

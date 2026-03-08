@@ -38,7 +38,8 @@
       "Bash(timeout 10s C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe run:*)",
       "Bash(\"C:\\\\Users\\\\Don\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\Scripts\\\\amina.exe\" auth:*)",
       "Bash(cp:*)",
-      "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python:*)"
+      "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python:*)",
+      "WebFetch(domain:dorahacks.io)"
     ]
   }
 }

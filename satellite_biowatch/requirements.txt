@@ -1,0 +1,46 @@
+# BioWatch Continuum - Satellite + Protein Engineering Requirements
+
+# Core scientific computing
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+scipy>=1.7.0
+
+# Satellite data processing
+rasterio>=1.2.0
+geopandas>=0.10.0
+shapely>=1.8.0
+folium>=0.12.0
+planetary-computer>=0.4.0
+pystac-client>=0.4.0
+pystac>=1.6.0
+
+# Computer vision and ML
+scikit-image>=0.18.0
+opencv-python>=4.5.0
+tensorflow>=2.8.0
+scikit-learn>=1.0.0
+
+# Web requests and data handling
+requests>=2.25.0
+aiohttp>=3.8.0
+
+# Jupyter notebook support
+jupyter>=1.0.0
+ipywidgets>=7.6.0
+notebook>=6.4.0
+
+# Protein engineering (existing dependencies)
+# These should already be installed for Continuum Discovery platform
+biopython>=1.79
+rdkit-pypi>=2022.3.1
+
+# Database and storage
+sqlite3  # Built into Python
+sqlalchemy>=1.4.0
+
+# Optional: For production deployment
+# gunicorn>=20.1.0
+# fastapi>=0.75.0
+# uvicorn>=0.17.0

@@ -1,0 +1,770 @@
+---
+# BioDock Enterprise Healthcare Platform
+# Kubernetes Deployment Manifests for Global Healthcare Systems
+
+# Namespace for BioDock Enterprise
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: biodock-enterprise
+  labels:
+    environment: production
+    compliance: hipaa-gdpr
+    tier: healthcare
+
+---
+# ConfigMap for BioDock Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: biodock-config
+  namespace: biodock-enterprise
+data:
+  # Application Configuration
+  app.properties: |
+    # BioDock Enterprise Configuration
+    app.name=BioDock Enterprise Computational Pathology Platform
+    app.version=2.0.0
+    app.environment=production
+
+    # Medical Device Configuration
+    medical_device.class=Class_II
+    medical_device.fda_510k_number=K241234567
+    medical_device.iso_13485_certified=true
+
+    # Compliance Configuration
+    compliance.hipaa_enabled=true
+    compliance.gdpr_enabled=true
+    compliance.audit_retention_days=2555  # 7 years
+    compliance.encryption_level=AES-256
+
+    # Healthcare Integration
+    healthcare.pacs_enabled=true
+    healthcare.lims_enabled=true
+    healthcare.fhir_version=R4
+    healthcare.dicom_version=3.0
+
+    # Performance Configuration
+    analysis.max_concurrent_cases=50
+    analysis.gpu_acceleration=true
+    analysis.batch_size=8
+    analysis.timeout_minutes=30
+
+    # Multi-tenancy Configuration
+    tenancy.enabled=true
+    tenancy.isolation_level=strict
+    tenancy.resource_allocation=per_hospital
+
+  # Logging Configuration
+  logging.properties: |
+    # HIPAA-Compliant Logging Configuration
+    log.level.root=INFO
+    log.level.biodock=DEBUG
+    log.level.audit=INFO
+    log.level.security=WARN
+
+    # Audit Trail Configuration
+    audit.enabled=true
+    audit.phi_access_logging=true
+    audit.file_retention=7_years
+    audit.encryption=true
+
+    # Security Event Logging
+    security.failed_login_threshold=3
+    security.intrusion_detection=true
+    security.anomaly_detection=true
+
+---
+# Secret for Healthcare System Credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: biodock-credentials
+  namespace: biodock-enterprise
+type: Opaque
+data:
+  # Database Credentials (base64 encoded)
+  database_url: cG9zdGdyZXNxbDovL2Jpb2RvY2s6cGFzc3dvcmRAcG9zdGdyZXMtc2VydmljZTo1NDMyL2Jpb2RvY2tfZGI=
+  database_password: c2VjdXJlX2RiX3Bhc3N3b3Jk
+
+  # PACS Integration Credentials
+  pacs_api_token: cGFjc19hcGlfdG9rZW5fcHJvZA==
+  pacs_username: cGFjc191c2Vy
+  pacs_password: cGFjc19wYXNzd29yZA==
+
+  # LIMS Integration Credentials
+  lims_api_key: bGltc19hcGlfa2V5X3Byb2Q=
+
+  # FHIR/EMR Integration Credentials
+  fhir_oauth_token: Zmhpcl9vYXV0aF90b2tlbl9wcm9k
+  fhir_client_secret: Zmhpcl9jbGllbnRfc2VjcmV0
+
+  # Encryption Keys
+  phi_encryption_key: YWVzMjU2X2VuY3J5cHRpb25fa2V5X2Zvcl9waGk=
+  audit_signing_key: YXVkaXRfc2lnbmluZ19rZXlfaGFzaA==
+
+---
+# PersistentVolumeClaim for Audit Logs
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: biodock-audit-storage
+  namespace: biodock-enterprise
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi  # 7 years of audit logs
+  storageClassName: fast-ssd-encrypted
+
+---
+# PersistentVolumeClaim for DICOM Images
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: biodock-dicom-storage
+  namespace: biodock-enterprise
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Ti  # Large storage for medical images
+  storageClassName: high-performance-storage
+
+---
+# BioDock Core Application Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biodock-core
+  namespace: biodock-enterprise
+  labels:
+    app: biodock-core
+    tier: application
+    component: computational-pathology
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  # Zero downtime for healthcare
+  selector:
+    matchLabels:
+      app: biodock-core
+  template:
+    metadata:
+      labels:
+        app: biodock-core
+        tier: application
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: biodock-core
+        image: biodock/enterprise:2.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 8443
+          name: https
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: database_url
+        - name: PHI_ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: phi_encryption_key
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+        - name: audit-storage
+          mountPath: /app/audit
+        - name: dicom-storage
+          mountPath: /app/dicom
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+            nvidia.com/gpu: "1"  # GPU for analysis acceleration
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+            nvidia.com/gpu: "1"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+      volumes:
+      - name: config-volume
+        configMap:
+          name: biodock-config
+      - name: audit-storage
+        persistentVolumeClaim:
+          claimName: biodock-audit-storage
+      - name: dicom-storage
+        persistentVolumeClaim:
+          claimName: biodock-dicom-storage
+      nodeSelector:
+        gpu: "nvidia-tesla"
+        zone: "healthcare-compliant"
+      tolerations:
+      - key: "gpu-node"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+
+---
+# BioDock Analysis Engine (GPU-accelerated)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biodock-analysis-engine
+  namespace: biodock-enterprise
+  labels:
+    app: biodock-analysis-engine
+    tier: compute
+    component: ai-analysis
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: biodock-analysis-engine
+  template:
+    metadata:
+      labels:
+        app: biodock-analysis-engine
+        tier: compute
+    spec:
+      containers:
+      - name: analysis-engine
+        image: biodock/analysis-engine:2.0.0
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+            nvidia.com/gpu: "2"
+          limits:
+            memory: "16Gi"
+            cpu: "8"
+            nvidia.com/gpu: "2"
+        env:
+        - name: GPU_MEMORY_FRACTION
+          value: "0.8"
+        - name: BATCH_SIZE
+          value: "8"
+        - name: MODEL_CACHE_SIZE
+          value: "10Gi"
+        volumeMounts:
+        - name: dicom-storage
+          mountPath: /data/dicom
+        - name: model-cache
+          mountPath: /app/models
+      volumes:
+      - name: dicom-storage
+        persistentVolumeClaim:
+          claimName: biodock-dicom-storage
+      - name: model-cache
+        emptyDir:
+          sizeLimit: 10Gi
+      nodeSelector:
+        gpu: "nvidia-tesla"
+        node-type: "compute-intensive"
+
+---
+# BioDock Healthcare Integration Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biodock-integration
+  namespace: biodock-enterprise
+  labels:
+    app: biodock-integration
+    tier: integration
+    component: healthcare-systems
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: biodock-integration
+  template:
+    metadata:
+      labels:
+        app: biodock-integration
+        tier: integration
+    spec:
+      containers:
+      - name: integration-service
+        image: biodock/integration:2.0.0
+        ports:
+        - containerPort: 8090
+          name: integration-api
+        env:
+        - name: PACS_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: pacs_api_token
+        - name: LIMS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: lims_api_key
+        - name: FHIR_OAUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: fhir_oauth_token
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+        - name: audit-storage
+          mountPath: /app/audit
+      volumes:
+      - name: config-volume
+        configMap:
+          name: biodock-config
+      - name: audit-storage
+        persistentVolumeClaim:
+          claimName: biodock-audit-storage
+
+---
+# BioDock HIPAA Compliance Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biodock-compliance
+  namespace: biodock-enterprise
+  labels:
+    app: biodock-compliance
+    tier: security
+    component: hipaa-gdpr
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: biodock-compliance
+  template:
+    metadata:
+      labels:
+        app: biodock-compliance
+        tier: security
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        fsGroup: 999
+      containers:
+      - name: compliance-engine
+        image: biodock/compliance:2.0.0
+        ports:
+        - containerPort: 8100
+          name: compliance-api
+        env:
+        - name: AUDIT_RETENTION_DAYS
+          value: "2555"  # 7 years
+        - name: ENCRYPTION_LEVEL
+          value: "AES-256"
+        - name: PHI_ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: phi_encryption_key
+        - name: AUDIT_SIGNING_KEY
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: audit_signing_key
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: audit-storage
+          mountPath: /app/audit
+        - name: compliance-config
+          mountPath: /app/compliance
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+      volumes:
+      - name: audit-storage
+        persistentVolumeClaim:
+          claimName: biodock-audit-storage
+      - name: compliance-config
+        configMap:
+          name: biodock-config
+
+---
+# PostgreSQL Database for BioDock
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: biodock-postgres
+  namespace: biodock-enterprise
+spec:
+  serviceName: "postgres-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: biodock-postgres
+  template:
+    metadata:
+      labels:
+        app: biodock-postgres
+        tier: database
+    spec:
+      securityContext:
+        runAsUser: 70
+        fsGroup: 70
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          value: "biodock_db"
+        - name: POSTGRES_USER
+          value: "biodock"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: biodock-credentials
+              key: database_password
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/pgdata"
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+        securityContext:
+          allowPrivilegeEscalation: false
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Gi
+      storageClassName: encrypted-ssd
+
+---
+# Redis Cache for BioDock
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biodock-redis
+  namespace: biodock-enterprise
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: biodock-redis
+  template:
+    metadata:
+      labels:
+        app: biodock-redis
+        tier: cache
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+          name: redis
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
+          allowPrivilegeEscalation: false
+
+---
+# Load Balancer Service for BioDock Core
+apiVersion: v1
+kind: Service
+metadata:
+  name: biodock-core-service
+  namespace: biodock-enterprise
+  labels:
+    app: biodock-core
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:123456789012:certificate/cert-id"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+spec:
+  type: LoadBalancer
+  selector:
+    app: biodock-core
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+
+---
+# Internal Service for Analysis Engine
+apiVersion: v1
+kind: Service
+metadata:
+  name: biodock-analysis-service
+  namespace: biodock-enterprise
+spec:
+  type: ClusterIP
+  selector:
+    app: biodock-analysis-engine
+  ports:
+  - port: 8081
+    targetPort: 8081
+    name: analysis-api
+
+---
+# Internal Service for Integration
+apiVersion: v1
+kind: Service
+metadata:
+  name: biodock-integration-service
+  namespace: biodock-enterprise
+spec:
+  type: ClusterIP
+  selector:
+    app: biodock-integration
+  ports:
+  - port: 8090
+    targetPort: 8090
+    name: integration-api
+
+---
+# Internal Service for Compliance
+apiVersion: v1
+kind: Service
+metadata:
+  name: biodock-compliance-service
+  namespace: biodock-enterprise
+spec:
+  type: ClusterIP
+  selector:
+    app: biodock-compliance
+  ports:
+  - port: 8100
+    targetPort: 8100
+    name: compliance-api
+
+---
+# Internal Service for PostgreSQL
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: biodock-enterprise
+spec:
+  type: ClusterIP
+  selector:
+    app: biodock-postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgres
+
+---
+# Internal Service for Redis
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: biodock-enterprise
+spec:
+  type: ClusterIP
+  selector:
+    app: biodock-redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+    name: redis
+
+---
+# Horizontal Pod Autoscaler for Core Application
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: biodock-core-hpa
+  namespace: biodock-enterprise
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: biodock-core
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 25
+        periodSeconds: 60
+
+---
+# Network Policy for Security
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: biodock-network-policy
+  namespace: biodock-enterprise
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: biodock-enterprise
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: biodock-enterprise
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443  # HTTPS only for external communication
+    - protocol: TCP
+      port: 53   # DNS
+    - protocol: UDP
+      port: 53   # DNS
+
+---
+# Pod Disruption Budget for High Availability
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: biodock-core-pdb
+  namespace: biodock-enterprise
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: biodock-core
+
+---
+# RBAC for BioDock Service Account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: biodock-service-account
+  namespace: biodock-enterprise
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: biodock-role
+  namespace: biodock-enterprise
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: biodock-role-binding
+  namespace: biodock-enterprise
+subjects:
+- kind: ServiceAccount
+  name: biodock-service-account
+  namespace: biodock-enterprise
+roleRef:
+  kind: Role
+  name: biodock-role
+  apiGroup: rbac.authorization.k8s.io
