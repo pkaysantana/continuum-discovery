@@ -1,0 +1,100 @@
+{
+  "optimization_summary": {
+    "total_credits_earned": 3852.807934752328,
+    "total_compute_spent": 1197.0,
+    "credit_efficiency": 3.2187200791581687,
+    "successful_designs": 89,
+    "target_pdb": "2IBX"
+  },
+  "top_designs": [
+    {
+      "sequence": "HFQCSACFQHGWKLCPHKWPKTLYRQDWNRPKHNKQNKNFRSVDNHGGFWRCTECRWIGLKNARPTHWTYNPKEYINKYQIRKSEHYCDMEVTIMDL",
+      "iptm_score": 0.949789235520891,
+      "credits_earned": 50.36206239376039,
+      "timestamp": "2026-03-08T03:24:08.225430+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 90.53759706215607
+    },
+    {
+      "sequence": "QNMMADKQWLQAWSQPRSRQFSTFATYVEANSSEDDNQDWNNGCSAWNSWVESEQWDQNTERLWNMSGCWPSFTVRHTYYAS",
+      "iptm_score": 0.949215027787038,
+      "credits_earned": 50.25870500166685,
+      "timestamp": "2026-03-08T03:23:50.958334+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 91.16583079037817
+    },
+    {
+      "sequence": "MDFLQQHMEAKTECDWWVQEWPQVVGINWNVMVFGFFTTHTKNAPFNCHSTQMQVCFDFTIIIYEGKFPHSEWYVWWDDRFHYSAFGGREIWDSFTLEGYADPLQKREHTHYCIF",
+      "iptm_score": 0.9491429387658763,
+      "credits_earned": 50.24572897785772,
+      "timestamp": "2026-03-08T03:23:59.081487+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 91.75808679238901
+    },
+    {
+      "sequence": "PIYYRQALPLIKKAWPGSPTRLLRLVGWIGHVGIPVPRRYCEWFYSGIHCLRSFNNMDRCDSWDRIWCEFMAVTDTVQKREYTEENMCRRSGNDDFMMCLVCTV",
+      "iptm_score": 0.9476242233442871,
+      "credits_earned": 49.972360201971675,
+      "timestamp": "2026-03-08T03:23:34.744085+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 94.61261431738417
+    },
+    {
+      "sequence": "VQRCNYCGSIPNRLKGEGNYEDSWYWIRVHMGQPAKIIQHGCHNFTQRHFLFCNMLPRVYKWIKRLREWGNRHCNAFALHGFEKSQHSKRDYVQAGRDHCLQA",
+      "iptm_score": 0.9471095728760295,
+      "credits_earned": 49.879723117685295,
+      "timestamp": "2026-03-08T03:23:43.853292+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 81.42312801920302
+    },
+    {
+      "sequence": "SQMEKPYYEYFQAAYHSTKYMFIYNNGDPHYAFSPEWSNNAKLHVNQDNWSSGEVGNHKLEYTHTKECTKMNLLRVRDATEIFKVNVN",
+      "iptm_score": 0.9467125508969143,
+      "credits_earned": 49.808259161444575,
+      "timestamp": "2026-03-08T03:23:58.067171+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 84.49442983911074
+    },
+    {
+      "sequence": "CHHCPTKGYDMFFENDKIIRPDDLGYVDYVQHMSTCKHCKWSHPICRMKYTLHKWWHGGANYCLVQMFNYNRPFATIAIRWDCDRYLFLLNHRQERDWPQMRLYNLEQKNSQCT",
+      "iptm_score": 0.9463132780555559,
+      "credits_earned": 49.736390050000054,
+      "timestamp": "2026-03-08T03:23:27.655368+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 92.95873029086475
+    },
+    {
+      "sequence": "WLAHSCWCSEYMGMSTYNRAHDVPCIWIFRIDLSLKVYMPDPCKYKKRDEMVCWTVCLKCGYQVYPNTATYSQLAFCKNQYYQSVICRPSQGGLM",
+      "iptm_score": 0.9462253124557347,
+      "credits_earned": 49.720556242032245,
+      "timestamp": "2026-03-08T03:24:13.304194+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 87.6363185044884
+    },
+    {
+      "sequence": "VRHAMYNGNRHNPVIWIFEMIVSETPDINIPSDYEEDRVRMCLFTCRKAKQATRFEIACAFTFTKWRYHGFCVNIEHDEHWWH",
+      "iptm_score": 0.9423146438694331,
+      "credits_earned": 49.01663589649795,
+      "timestamp": "2026-03-08T03:23:35.755449+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 89.66291997282669
+    },
+    {
+      "sequence": "LIFVIDLVLENFWHFDARTIGSMEWSLMWCVWCHTTWGSLMSRFFFANDNRLQAFPCPAVKEIKAVQWQYGIMPTGKHKVDDLMMMEYCDMWTKTLCN",
+      "iptm_score": 0.9409685917300982,
+      "credits_earned": 48.77434651141767,
+      "timestamp": "2026-03-08T03:23:53.002503+00:00",
+      "target": "2IBX",
+      "hotspot_coverage": 75.93812152113111
+    }
+  ],
+  "optimization_config": {
+    "batch_size": 4,
+    "high_affinity_threshold": 0.87,
+    "efficiency_threshold": 0.85
+  },
+  "failure_avoidance": {
+    "sequences_filtered": 0,
+    "topologies_tracked": 0
+  }
+}

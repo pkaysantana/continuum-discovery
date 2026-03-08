@@ -1,0 +1,10 @@
+{
+  "iptm_score": 0.918345298882487,
+  "interface_pae": 5.984675347031329,
+  "hotspot_coverage_percent": 91.41878576400806,
+  "sequence": "NAGRLLFIIHVCRNPDCGIWAYWTTNVQQAHHIIHPWSDCKKLHFFYLGWLYAFCGQVSRAMAELSEIYFMLDGTHEQENHDDGFDEKDRMYCTMVYMTSK",
+  "sequence_length": 101,
+  "timestamp": "20260308_032329",
+  "design_quality": "HIGH",
+  "target": "2IBX"
+}
