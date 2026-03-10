@@ -1,0 +1,6 @@
+﻿[SWARM] Loaded configuration from .env file
+[ANYWAY] ERROR: Traceloop SDK not installed
+[ANYWAY] Install with: pip install traceloop-sdk
+[ANYWAY] WARNING: Using mock decorators - install traceloop-sdk for real tracing
+CRITICAL: Missing required libraries - No module named 'matplotlib'
+Install with: pip install planetary-computer pystac-client rasterio rioxarray

@@ -8,7 +8,7 @@ Date: 2026-03-10
 License: Proprietary - Continuum Discovery Platform
 """
 
-import sys, io; sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+import sys, io
 import os
 import asyncio
 import signal
@@ -118,7 +118,7 @@ class ContinuumDiscoverySwarm:
             print(f"\n🌊 [SWARM] FLOOD DETECTION EVENT TRIGGERED")
             print(f"   Water Coverage: {water_percentage:.2f}%")
             print(f"   Severity: {severity}")
-            print(f"   Region: {region.get('name', 'Unknown')}")
+            print(f"   Region: {region if isinstance(region, str) else region.get('name', 'Unknown')}")
 
             if not payload.get('requires_countermeasures', False):
                 print("[SWARM] Severity too low, no countermeasures required")

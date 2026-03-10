@@ -1,0 +1,159 @@
+Header format invalid! Header values in environment variables must be URL encoded per the OpenTelemetry Protocol Exporter specification: Authorization%3DBearer%20sk_test_JzxiTiBLLvo66QneEP0EWXygDBxENlVC
+WARNING:opentelemetry.util.re:Header format invalid! Header values in environment variables must be URL encoded per the OpenTelemetry Protocol Exporter specification: Authorization%3DBearer%20sk_test_JzxiTiBLLvo66QneEP0EWXygDBxENlVC
+INFO:openclaw.base_agent:[BUS] EarthWatcherAgent subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] EarthWatcherAgent (environmental_monitor) initialized
+INFO:openclaw.base_agent:[BUS] BioScientistAgent subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent (protein_scientist) initialized
+INFO:scripts.memory_layer:BiodefenseMemory initialized with 1365 cached sequences
+INFO:openclaw.base_agent:[BUS] BiotechExecutiveAgent subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent (commercial_executive) initialized
+INFO:openclaw.base_agent:[BUS] TelegramInterface subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] TelegramInterface (communication_channel) initialized
+INFO:openclaw.base_agent:[SWARM] Registered agent: EarthWatcherAgent
+INFO:openclaw.base_agent:[SWARM] Registered agent: BioScientistAgent
+INFO:openclaw.base_agent:[SWARM] Registered agent: BiotechExecutiveAgent
+INFO:openclaw.base_agent:[SWARM] Registered agent: TelegramInterface
+INFO:openclaw.base_agent:[BUS] flood_threat_detected subscribed to message bus
+INFO:openclaw.base_agent:[BUS] fda_compliance_completed subscribed to message bus
+INFO:openclaw.base_agent:[SWARM] Starting 4 agents
+INFO:openclaw.base_agent:[AGENT] EarthWatcherAgent activated
+INFO:openclaw.base_agent:[BUS] Message 496dc776: EarthWatcherAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent activated
+INFO:openclaw.base_agent:[BUS] Message 802ef75c: BioScientistAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent activated
+INFO:openclaw.base_agent:[BUS] Message 557c04f3: BiotechExecutiveAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[AGENT] TelegramInterface activated
+INFO:openclaw.base_agent:[BUS] Message d631766b: TelegramInterface -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[SWARM] All agents activated and ready
+INFO:openclaw.base_agent:[SWARM] Stopping swarm
+INFO:openclaw.base_agent:[BUS] Message 8e4489e4: EarthWatcherAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: emergency_stop, Priority: 2
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent received emergency_stop from EarthWatcherAgent
+INFO:scripts.memory_layer:Created backup snapshot: biodefense_backup_20260310_191155
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent deactivated
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent received emergency_stop from EarthWatcherAgent
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent deactivated
+INFO:openclaw.base_agent:[AGENT] TelegramInterface received emergency_stop from EarthWatcherAgent
+INFO:openclaw.base_agent:[AGENT] TelegramInterface deactivated
+INFO:openclaw.base_agent:[AGENT] EarthWatcherAgent deactivated
+INFO:openclaw.base_agent:[BUS] Message 6e5f0ce3: BioScientistAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: emergency_stop, Priority: 2
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent deactivated
+INFO:openclaw.base_agent:[BUS] Message 3f31d3ff: BiotechExecutiveAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: emergency_stop, Priority: 2
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent deactivated
+INFO:openclaw.base_agent:[BUS] Message f8cede87: TelegramInterface -> *
+INFO:openclaw.base_agent:[BUS] Type: emergency_stop, Priority: 2
+INFO:openclaw.base_agent:[AGENT] TelegramInterface deactivated
+[SWARM] Loaded configuration from .env file
+[ANYWAY] Traceloop SDK available
+[32mTraceloop exporting traces to https://api.anyway.sh authenticating with bearer token
+[39m
+[ANYWAY] ✅ SDK initialized successfully
+[ANYWAY] API Endpoint: https://api.anyway.sh
+[ANYWAY] App Name: continuum-discovery
+[ANYWAY] Disable Batch: True
+[32mTraceloop exporting traces to https://api.anyway.sh authenticating with bearer token
+[39m
+[TELEGRAM] python-telegram-bot not available - using simulation mode
+🚀 Starting Continuum Discovery Biodefense Platform
+Real-time automation: Satellite → AI → FDA → Deployment
+Press Ctrl+C for graceful shutdown
+
+================================================================================
+CONTINUUM DISCOVERY BIODEFENSE SWARM - GENUINE AUTOMATION
+Real-time Satellite → Protein Engineering → FDA Compliance → Deployment
+================================================================================
+
+[SWARM] Initializing core agents...
+[SWARM] ✅ EarthWatcherAgent: Sentinel-2 STAC monitoring ready
+[BIOSECURITY] Hard Mode Screening Initialized
+[BIOSECURITY] Monitoring 6 known threat structures
+[BIO_SCIENTIST] Hard Mode Biosecurity Screening: ENABLED
+[AMINOANALYTICA] Live compute pipeline initialized
+[AMINOANALYTICA] Primary target: 2IXR (B. pseudomallei BipD - Burkholderia Invasion Protein D)
+[AMINOANALYTICA] Hotspots: [128, 135, 142, 156, 166, 243, 256, 289, 301]
+[AMINOANALYTICA] Live CLI tools configured: 4 services
+[ARCHIVAL] Automatic saving enabled: outputs/winning_binders
+[ARCHIVAL] Quality thresholds: ipTM > 0.8, Hotspots >= 88.9%
+[BIO_SCIENTIST] AminoAnalytica Generative Pipeline: ENABLED
+[BIO_SCIENTIST] Default target: 2IXR (B. pseudomallei BipD - Burkholderia Invasion Protein D)
+[SWARM] ✅ BioScientistAgent: AminoAnalytica pipeline ready
+[SWARM] ✅ BiotechExecutiveAgent: Stripe sandbox ready
+[TELEGRAM] Loaded 1 chat subscribers from environment
+[SWARM] ✅ TelegramInterface: Alert system ready
+[SWARM] 4 agents registered
+[SWARM] FDA Compliance Engine initialized with 40% homology threshold
+
+[SWARM] Starting continuous biodefense automation...
+[SWARM] ✅ All 4 agent monitoring loops started
+[SWARM] 🔄 Continuous automation ACTIVE - monitoring for satellite anomalies...
+[SWARM] 🛡️  FDA compliance guardrails ENABLED
+
+📊 [SWARM] === OPERATIONAL STATUS ===
+🔄 Swarm Running: True
+🤖 Active Agents: 4
+💬 Messages Processed: 4
+🛡️  FDA Screenings: 0
+✅ FDA Approvals: 0
+❌ FDA Rejection Rate: 0.0%
+   EarthWatcherAgent: active (last: 19:10:55)
+   BioScientistAgent: active (last: 19:10:55)
+   BiotechExecutiveAgent: active (last: 19:10:55)
+   TelegramInterface: active (last: 19:10:55)
+[EARTH_WATCHER] Starting continuous monitoring (interval: 300s)
+
+[EARTH_WATCHER] Starting satellite environmental scan via Planetary Computer STAC...
+[EARTH_WATCHER] No recent clear Sentinel-2 images found for the endemic zone.
+[BIO_SCIENTIST] Starting enhanced monitoring with AminoAnalytica pipeline...
+[BIOTECH_EXECUTIVE] Starting commercial monitoring...
+
+[BIOTECH_EXECUTIVE] Running commercial operations...
+[TELEGRAM] Starting FLock SDG 3 interface monitoring...
+[TELEGRAM] Interface status: 1 subscribers, 0 alerts sent
+
+[MAIN] Signal 2 received - requesting shutdown
+
+[SWARM] Initiating graceful shutdown...
+[EARTH_WATCHER] Continuous monitoring stopped
+[BIO_SCIENTIST] Enhanced monitoring stopped
+[BIOTECH_EXECUTIVE] Commercial monitoring stopped
+[TELEGRAM] Interface monitoring stopped
+[BIO_SCIENTIST] Emergency stop received: swarm_shutdown
+[BIO_SCIENTIST] Memory backup created: biodefense_backup_20260310_191155
+[BIOTECH_EXECUTIVE] Emergency stop received: swarm_shutdown
+[BIOTECH_EXECUTIVE] Final revenue: $0.00
+[TELEGRAM] Emergency stop received: swarm_shutdown
+[TELEGRAM] SIMULATION - Would send to Telegram:
+[TELEGRAM] [STOP] Multi-Agent Swarm Shutdown: Emergency stop initiated. Total alerts sent: 0. FLock SDG 3 session complete.
+
+🌊 [SWARM] FLOOD DETECTION EVENT TRIGGERED
+   Water Coverage: 0.00%
+   Severity: UNKNOWN
+   Region: Unknown
+[SWARM] Severity too low, no countermeasures required
+
+🌊 [SWARM] FLOOD DETECTION EVENT TRIGGERED
+   Water Coverage: 0.00%
+   Severity: UNKNOWN
+   Region: Unknown
+[SWARM] Severity too low, no countermeasures required
+
+🌊 [SWARM] FLOOD DETECTION EVENT TRIGGERED
+   Water Coverage: 0.00%
+   Severity: UNKNOWN
+   Region: Unknown
+[SWARM] Severity too low, no countermeasures required
+
+🌊 [SWARM] FLOOD DETECTION EVENT TRIGGERED
+   Water Coverage: 0.00%
+   Severity: UNKNOWN
+   Region: Unknown
+[SWARM] Severity too low, no countermeasures required
+[SWARM] Final FDA Summary: 0 screenings, 0 approved
+[SWARM] ✅ Graceful shutdown complete
+[MAIN] ✅ Continuum Discovery automation terminated

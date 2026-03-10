@@ -1,0 +1,235 @@
+(.venv) PS C:\Users\Don\continuum-discovery\continuum-discovery> python main_swarm.py
+[SWARM] Loaded configuration from .env file
+[ANYWAY] Traceloop SDK available
+Header format invalid! Header values in environment variables must be URL encoded per the OpenTelemetry Protocol Exporter specification: Authorization=Bearer sk_test_JzxiTiBLLvo66QneEP0EWXygDBxENlVC
+Traceloop exporting traces to https://api.anyway.sh authenticating with bearer token
+
+[ANYWAY] ✅ SDK initialized successfully
+[ANYWAY] API Endpoint: https://api.anyway.sh
+[ANYWAY] App Name: continuum-discovery
+[ANYWAY] Disable Batch: True
+WARNING:opentelemetry.util.re:Header format invalid! Header values in environment variables must be URL encoded per the OpenTelemetry Protocol Exporter specification: Authorization=Bearer sk_test_JzxiTiBLLvo66QneEP0EWXygDBxENlVC
+Traceloop exporting traces to https://api.anyway.sh authenticating with bearer token
+
+[TELEGRAM] python-telegram-bot not available - using simulation mode
+🚀 Starting Continuum Discovery Biodefense Platform
+Real-time automation: Satellite → AI → FDA → Deployment
+Press Ctrl+C for graceful shutdown
+
+================================================================================
+CONTINUUM DISCOVERY BIODEFENSE SWARM - GENUINE AUTOMATION
+Real-time Satellite → Protein Engineering → FDA Compliance → Deployment
+================================================================================
+
+[SWARM] Initializing core agents...
+INFO:openclaw.base_agent:[BUS] EarthWatcherAgent subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] EarthWatcherAgent (environmental_monitor) initialized
+[SWARM] ✅ EarthWatcherAgent: Sentinel-2 STAC monitoring ready
+INFO:openclaw.base_agent:[BUS] BioScientistAgent subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent (protein_scientist) initialized
+INFO:scripts.memory_layer:BiodefenseMemory initialized with 1366 cached sequences
+[BIOSECURITY] Hard Mode Screening Initialized
+[BIOSECURITY] Monitoring 6 known threat structures
+[BIO_SCIENTIST] Hard Mode Biosecurity Screening: ENABLED
+[AMINOANALYTICA] Live compute pipeline initialized
+[AMINOANALYTICA] Primary target: 2IXR (B. pseudomallei BipD - Burkholderia Invasion Protein D)
+[AMINOANALYTICA] Hotspots: [128, 135, 142, 156, 166, 243, 256, 289, 301]
+[AMINOANALYTICA] Live CLI tools configured: 4 services
+[ARCHIVAL] Automatic saving enabled: outputs/winning_binders
+[ARCHIVAL] Quality thresholds: ipTM > 0.8, Hotspots >= 88.9%
+[BIO_SCIENTIST] AminoAnalytica Generative Pipeline: ENABLED
+[BIO_SCIENTIST] Default target: 2IXR (B. pseudomallei BipD - Burkholderia Invasion Protein D)
+[SWARM] ✅ BioScientistAgent: AminoAnalytica pipeline ready
+INFO:openclaw.base_agent:[BUS] BiotechExecutiveAgent subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent (commercial_executive) initialized
+[SWARM] ✅ BiotechExecutiveAgent: Stripe sandbox ready
+INFO:openclaw.base_agent:[BUS] TelegramInterface subscribed to message bus
+INFO:openclaw.base_agent:[AGENT] TelegramInterface (communication_channel) initialized
+[TELEGRAM] Loaded 1 chat subscribers from environment
+[SWARM] ✅ TelegramInterface: Alert system ready
+INFO:openclaw.base_agent:[SWARM] Registered agent: EarthWatcherAgent
+INFO:openclaw.base_agent:[SWARM] Registered agent: BioScientistAgent
+INFO:openclaw.base_agent:[SWARM] Registered agent: BiotechExecutiveAgent
+INFO:openclaw.base_agent:[SWARM] Registered agent: TelegramInterface
+INFO:openclaw.base_agent:[BUS] flood_threat_detected subscribed to message bus
+INFO:openclaw.base_agent:[BUS] fda_compliance_completed subscribed to message bus
+[SWARM] 4 agents registered
+[SWARM] FDA Compliance Engine initialized with 40% homology threshold
+
+[SWARM] Starting continuous biodefense automation...
+INFO:openclaw.base_agent:[SWARM] Starting 4 agents
+INFO:openclaw.base_agent:[AGENT] EarthWatcherAgent activated
+INFO:openclaw.base_agent:[BUS] Message 82381007: EarthWatcherAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent activated
+INFO:openclaw.base_agent:[BUS] Message 22b80c93: BioScientistAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent activated
+INFO:openclaw.base_agent:[BUS] Message 70613fdd: BiotechExecutiveAgent -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[AGENT] TelegramInterface activated
+INFO:openclaw.base_agent:[BUS] Message 52076437: TelegramInterface -> *
+INFO:openclaw.base_agent:[BUS] Type: agent_activated, Priority: 0
+INFO:openclaw.base_agent:[SWARM] All agents activated and ready
+[SWARM] ✅ All 4 agent monitoring loops started
+[SWARM] 🔄 Continuous automation ACTIVE - monitoring for satellite anomalies...
+[SWARM] 🛡️  FDA compliance guardrails ENABLED
+
+📊 [SWARM] === OPERATIONAL STATUS ===
+🔄 Swarm Running: True
+🤖 Active Agents: 4
+💬 Messages Processed: 4
+🛡️  FDA Screenings: 0
+✅ FDA Approvals: 0
+❌ FDA Rejection Rate: 0.0%
+   EarthWatcherAgent: active (last: 19:34:06)
+   BioScientistAgent: active (last: 19:34:06)
+   BiotechExecutiveAgent: active (last: 19:34:06)
+   TelegramInterface: active (last: 19:34:06)
+[EARTH_WATCHER] Starting continuous monitoring (interval: 300s)
+
+[EARTH_WATCHER] Starting satellite environmental scan via Planetary Computer STAC...
+[EARTH_WATCHER] Found Sentinel-2 image: S2B_MSIL2A_20260304T013659_R031_T52LGM_20260304T050624
+[EARTH_WATCHER] Reading spectral bands (B03 and B08) and calculating NDWI...
+[EARTH_WATCHER] ANOMALY DETECTED: Water surface area 29.26% triggers swarm alert.
+[ANYWAY] Warning: Could not set span attributes: type object 'Traceloop' has no attribute 'get_current_span'
+[EARTH_WATCHER] FLOOD ALERT: CRITICAL severity, 29.3% water coverage
+INFO:openclaw.base_agent:[BUS] Message e9b08d88: EarthWatcherAgent -> BioScientistAgent
+INFO:openclaw.base_agent:[BUS] Type: flood_threat_detected, Priority: 2
+INFO:openclaw.base_agent:[AGENT] BioScientistAgent received flood_threat_detected from EarthWatcherAgent
+[BIO_SCIENTIST] Flood threat received: CRITICAL (29.3% water)
+[BIO_SCIENTIST] Initiating AminoAnalytica emergency countermeasure synthesis...
+[BIO_SCIENTIST] Emergency mode: Switched to biodefense target 2IXR
+
+[BIO_SCIENTIST] Running AminoAnalytica generative pipeline with biosecurity...
+[BIO_SCIENTIST] Target: 2IXR - B. pseudomallei BipD - Burkholderia Invasion Protein D
+[BIO_SCIENTIST] Hotspots: [128, 135, 142, 156, 166, 243, 256, 289, 301]
+[BIO_SCIENTIST] Running AminoAnalytica workshop-compliant pipeline...
+
+[AMINOANALYTICA] Starting complete generative pipeline
+[AMINOANALYTICA] Target: 2IXR - B. pseudomallei BipD - Burkholderia Invasion Protein D
+
+[PIPELINE] Step 1/4: RFDiffusion backbone generation
+[RFDIFFUSION] Generating backbone for target 2IXR (Chain A)
+[RFDIFFUSION] Conditioning on hotspots: [128, 135, 142, 156, 166, 243, 256, 289, 301]
+[AMINA-CLI] Running live RFDIFFUSION tool...
+[AMINA-CLI] Command: C:\Users\Don\AppData\Roaming\Python\Python314\Scripts\amina.exe run rfdiffusion ...
+[BIO_SCIENTIST] Starting enhanced monitoring with AminoAnalytica pipeline...
+[BIOTECH_EXECUTIVE] Starting commercial monitoring...
+
+[BIOTECH_EXECUTIVE] Running commercial operations...
+[TELEGRAM] Starting FLock SDG 3 interface monitoring...
+[TELEGRAM] Interface status: 1 subscribers, 0 alerts sent
+[AMINA-CLI] RFDIFFUSION failed (exit code 1), using fallback
+[RFDIFFUSION] Backbone generated: 132 residues
+[RFDIFFUSION] Quality: RMSD 1.85Å
+
+[PIPELINE] Step 2/4: ProteinMPNN sequence design
+[PROTEINMPNN] Designing sequence for 132-residue backbone
+[AMINA-CLI] Running live PROTEINMPNN tool...
+[AMINA-CLI] Command: C:\Users\Don\AppData\Roaming\Python\Python314\Scripts\amina.exe run proteinmpnn ...
+[AMINA-CLI] PROTEINMPNN failed (exit code 1), using fallback
+[PROTEINMPNN] Generated 8 candidates for filtering
+
+[PIPELINE] Step 2.5/4: Local ESMFold filtering for α-Helix 8 targeting
+
+[PIPELINE] Step 3/4: Boltz-2 complex validation (only on filtered candidates)
+[AMINOANALYTICA] Pipeline error: 'NoneType' object is not subscriptable
+[BIO_SCIENTIST] Pipeline failed, falling back to legacy simulation...
+[BIO_SCIENTIST] Running Hard Mode Biosecurity Screening...
+[BIOSECURITY] Scanning query structure (RMSD: 2.500, TM: 0.575)
+[BIOSECURITY] WARNING THREAT DETECTED: LOW risk (6 matches)
+[BIOSECURITY]   • BipD (T3SS_translocon) - Risk: 0.150
+[BIOSECURITY]   • IpaD (T3SS_needle_tip) - Risk: 0.142
+[BIOSECURITY]   • SipD (T3SS_translocon) - Risk: 0.133
+[BIOSECURITY] Scanning 94 amino acids for dangerous motifs...
+[BIOSECURITY] CLEARED - No dangerous motifs detected in sequence
+[BIOSECURITY] COMPREHENSIVE SCREENING: CLEARED
+[BIOSECURITY] Security Score: 0.163 (LOW RISK)
+INFO:scripts.memory_layer:Logged folding result: 20260310_193420_176e934fbb58d47d | FAILED | RMSD: 2.500
+[BIO_SCIENTIST] Memory logged with AminoAnalytica validation: LOW_CONFIDENCE
+[BIO_SCIENTIST] ipTM: 0.575, PAE: 6.19Å, Security: 0.163
+[BIO_SCIENTIST] Synthesis complete: ipTM 0.575, PAE 6.19Å
+[BIO_SCIENTIST] Security: 0.163 (LOW), Hotspots: 40.1%
+INFO:openclaw.base_agent:[BUS] Message 66e352cf: BioScientistAgent -> BiotechExecutiveAgent
+INFO:openclaw.base_agent:[BUS] Type: countermeasure_ready, Priority: 1
+INFO:openclaw.base_agent:[AGENT] BiotechExecutiveAgent received countermeasure_ready from BioScientistAgent
+[BIOTECH_EXECUTIVE] New countermeasure ready - creating commercial asset...
+[ANYWAY] Warning: Could not set Stripe span attributes: type object 'Traceloop' has no attribute 'get_current_span'
+[BIOTECH_EXECUTIVE] Stripe Connect: $600.00 - https://buy.stripe.com/test_multiagent_87115834_60000
+[BIOTECH_EXECUTIVE] IP Token: $SWARM-BIPD - $1,000,000 funding target
+[BIOTECH_EXECUTIVE] Purchase simulated: $600.00 from emergency_response_agency
+INFO:openclaw.base_agent:[BUS] Message 3f4cd680: BiotechExecutiveAgent -> TelegramInterface
+INFO:openclaw.base_agent:[BUS] Type: asset_commercialized, Priority: 1
+INFO:openclaw.base_agent:[AGENT] TelegramInterface received asset_commercialized from BiotechExecutiveAgent
+[TELEGRAM] SIMULATION - Would send to Telegram:
+[TELEGRAM] [MONEY] Swarm Commercialization: Asset 87115834 ready! Dynamic price: $600.00. IP token $SWARM-BIPD launched on BNB Chain via multi-agent coordination.
+[TELEGRAM] Commercial update: 87115834 at $600.00
+[BIOTECH_EXECUTIVE] Asset commercialized: 87115834dbf935f4
+INFO:openclaw.base_agent:[BUS] Message 1e533a21: BioScientistAgent -> TelegramInterface
+INFO:openclaw.base_agent:[BUS] Type: synthesis_progress, Priority: 1
+INFO:openclaw.base_agent:[AGENT] TelegramInterface received synthesis_progress from BioScientistAgent
+[TELEGRAM] SIMULATION - Would send to Telegram:
+[TELEGRAM] [SYNTH] FLock Synthesis Update: Countermeasure generated! RMSD: 0.000A (SUCCESS). Open-source validation complete via multi-agent collaboration.
+[TELEGRAM] Synthesis progress: synthesis_complete - RMSD 0.000A
+
+🌊 [SWARM] FLOOD DETECTION EVENT TRIGGERED
+   Water Coverage: 29.26%
+   Severity: CRITICAL
+   Region: Northern Territory, Australia (STAC ROI)
+
+🧬 [SWARM] Initiating protein synthesis pipeline...
+
+[BIO_SCIENTIST] Running AminoAnalytica generative pipeline with biosecurity...
+[BIO_SCIENTIST] Target: 2IXR - B. pseudomallei BipD - Burkholderia Invasion Protein D
+[BIO_SCIENTIST] Hotspots: [128, 135, 142, 156, 166, 243, 256, 289, 301]
+[BIO_SCIENTIST] Running AminoAnalytica workshop-compliant pipeline...
+
+[AMINOANALYTICA] Starting complete generative pipeline
+[AMINOANALYTICA] Target: 2IXR - B. pseudomallei BipD - Burkholderia Invasion Protein D
+
+[PIPELINE] Step 1/4: RFDiffusion backbone generation
+[RFDIFFUSION] Generating backbone for target 2IXR (Chain A)
+[RFDIFFUSION] Conditioning on hotspots: [128, 135, 142, 156, 166, 243, 256, 289, 301]
+[AMINA-CLI] Running live RFDIFFUSION tool...
+[AMINA-CLI] Command: C:\Users\Don\AppData\Roaming\Python\Python314\Scripts\amina.exe run rfdiffusion ...
+[AMINA-CLI] RFDIFFUSION failed (exit code 1), using fallback
+[RFDIFFUSION] Backbone generated: 144 residues
+[RFDIFFUSION] Quality: RMSD 1.85Å
+
+[PIPELINE] Step 2/4: ProteinMPNN sequence design
+[PROTEINMPNN] Designing sequence for 144-residue backbone
+[AMINA-CLI] Running live PROTEINMPNN tool...
+[AMINA-CLI] Command: C:\Users\Don\AppData\Roaming\Python\Python314\Scripts\amina.exe run proteinmpnn ...
+[AMINA-CLI] PROTEINMPNN failed (exit code 1), using fallback
+[PROTEINMPNN] Generated 8 candidates for filtering
+
+[PIPELINE] Step 2.5/4: Local ESMFold filtering for α-Helix 8 targeting
+
+[PIPELINE] Step 3/4: Boltz-2 complex validation (only on filtered candidates)
+[AMINOANALYTICA] Pipeline error: 'NoneType' object is not subscriptable
+[BIO_SCIENTIST] Pipeline failed, falling back to legacy simulation...
+[BIO_SCIENTIST] Running Hard Mode Biosecurity Screening...
+[BIOSECURITY] Scanning query structure (RMSD: 2.500, TM: 0.786)
+[BIOSECURITY] WARNING THREAT DETECTED: HIGH risk (6 matches)
+[BIOSECURITY]   • BipD (T3SS_translocon) - Risk: 0.515
+[BIOSECURITY]   • IpaD (T3SS_needle_tip) - Risk: 0.486
+[BIOSECURITY]   • SipD (T3SS_translocon) - Risk: 0.457
+[BIOSECURITY] Scanning 132 amino acids for dangerous motifs...
+[BIOSECURITY] MOTIF ALERT: 1 dangerous... DANGEROUS: RGD at positions [67]
+[BIO_SCIENTIST] WARNING Emergency synthesis flagged by biosecurity - manual review required
+[BIOSECURITY] COMPREHENSIVE SCREENING: FLAGGED
+[BIOSECURITY] Security Score: 0.560 (HIGH RISK)
+[BIO_SCIENTIST] WARNING BIOSECURITY ALERT: Design flagged as potential threat
+INFO:scripts.memory_layer:Logged folding result: 20260310_193429_be27eac3a29d783c | FAILED | RMSD: 2.500
+[BIO_SCIENTIST] Memory logged with AminoAnalytica validation: FLAGGED
+[BIO_SCIENTIST] ipTM: 0.786, PAE: 4.11Å, Security: 0.560
+[BIO_SCIENTIST] Synthesis complete: ipTM 0.786, PAE 4.11Å
+[BIO_SCIENTIST] Security: 0.560 (HIGH), Hotspots: 42.2%
+[SWARM] ❌ Protein synthesis failed: Biosecurity Threat Detected
+
+[BIOTECH_EXECUTIVE] Updating pricing for CRITICAL threat (29.3% water)
+[BIOTECH_EXECUTIVE] Pricing multiplier updated: 2.5x
+[BIOTECH_EXECUTIVE] Stripe Connect: $3750.00 - https://buy.stripe.com/test_multiagent_threat_response
+[TELEGRAM] [EARTH] SDG 3 Alert: High-risk flood detected in Northern Territory.
+[TELEGRAM] SDG 3 Alert sent: CRITICAL severity flood detected
