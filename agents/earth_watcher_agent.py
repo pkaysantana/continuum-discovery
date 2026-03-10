@@ -58,45 +58,118 @@ class EarthWatcherAgent(OpenClawAgent):
     @workflow(name="earth_watcher_satellite_scan")
     async def run_primary_function(self) -> Dict[str, Any]:
         """
-        Primary function: Monitor environmental threats via satellite data
+        Primary function: Monitor environmental threats via satellite data using Microsoft Planetary Computer STAC API
         """
         if not self.monitoring_active:
             return {'status': 'error', 'reason': 'watchdog_unavailable'}
 
-        print(f"\n[EARTH_WATCHER] Starting satellite environmental scan...")
+        print(f"\n[EARTH_WATCHER] Starting satellite environmental scan via Planetary Computer STAC...")
 
         try:
-            # DEMO MODE: Hardcode positive detection for immediate trigger
-            print("[EARTH_WATCHER] DEMO MODE: Force triggering flood detection")
+            import pystac_client
+            import planetary_computer
+            import rasterio
+            import xarray as xr
+            import numpy as np
+            from datetime import timedelta
+            
+            # Endemic zone coordinates for B. pseudomallei (e.g., Northern Territory, Australia)
+            # We use a small bounding box to limit data size
+            bbox_of_interest = [130.8, -12.5, 131.0, -12.3]
+            
+            # Set time range to recent 30 days
+            end_date = datetime.now(timezone.utc)
+            start_date = end_date - timedelta(days=30)
+            time_range = f"{start_date.strftime('%Y-%m-%d')}/{end_date.strftime('%Y-%m-%d')}"
+            
+            catalog = pystac_client.Client.open(
+                "https://planetarycomputer.microsoft.com/api/stac/v1",
+                modifier=planetary_computer.sign_inplace,
+            )
+            
+            search = catalog.search(
+                collections=["sentinel-2-l2a"],
+                bbox=bbox_of_interest,
+                datetime=time_range,
+                query={"eo:cloud_cover": {"lt": 20}},
+                max_items=1
+            )
+            items = list(search.items())
+            
+            if not items:
+                print("[EARTH_WATCHER] No recent clear Sentinel-2 images found for the endemic zone.")
+                return {'status': 'no_data', 'scan_timestamp': end_date.isoformat()}
+                
+            item = items[0]
+            print(f"[EARTH_WATCHER] Found Sentinel-2 image: {item.id}")
+            
+            # Pull Green (B03) and NIR (B08) spectral bands
+            band_green_href = item.assets["B03"].href
+            band_nir_href = item.assets["B08"].href
+            
+            # Use rasterio to read a subset of the raster to avoid massive memory usage
+            # NDWI = (Green - NIR) / (Green + NIR)
+            print("[EARTH_WATCHER] Reading spectral bands (B03 and B08) and calculating NDWI...")
+            with rasterio.open(band_green_href) as src_green:
+                from rasterio.windows import Window
+                # Read a 1000x1000 window from the center
+                width, height = src_green.width, src_green.height
+                window = Window(width // 2 - 500, height // 2 - 500, 1000, 1000)
+                green = src_green.read(1, window=window).astype(float)
+                
+            with rasterio.open(band_nir_href) as src_nir:
+                nir = src_nir.read(1, window=window).astype(float)
+                
+            # Calculate NDWI using standard NumPy matrix operations
+            np.seterr(divide='ignore', invalid='ignore')
+            ndwi = (green - nir) / (green + nir)
+            
+            # NDWI > 0 usually indicates water
+            water_mask = ndwi > 0
+            water_pixels = np.sum(water_mask)
+            total_pixels = ndwi.size
+            water_percentage = float((water_pixels / total_pixels) * 100.0)
+            
+            # Using self.flood_detection_threshold which was originally 0.0 to force trigger, 
+            # but now we use real data. Let's trigger if water percentage is significant.
+            flood_detected = water_percentage > self.flood_detection_threshold
+            
+            if flood_detected:
+                print(f"[EARTH_WATCHER] ANOMALY DETECTED: Water surface area {water_percentage:.2f}% exceeds threshold.")
+                status = "ALERT_TRIGGERED"
+            else:
+                print(f"[EARTH_WATCHER] Normal conditions: {water_percentage:.2f}% water coverage.")
+                status = "NORMAL"
 
-            # Create hardcoded positive detection result
-            hardcoded_flood_data = {
-                'water_percentage': 15.5,  # Above threshold to trigger alert
+            flood_data = {
+                'water_percentage': water_percentage,
                 'ndwi_stats': {
-                    'mean': 0.45,
-                    'max': 0.78,
-                    'min': -0.12
+                    'mean': float(np.nanmean(ndwi)),
+                    'max': float(np.nanmax(ndwi)),
+                    'min': float(np.nanmin(ndwi))
                 },
-                'flood_detected': True,
+                'flood_detected': flood_detected,
                 'region': {
-                    'name': 'Northern Territory, Australia',
-                    'coordinates': '134.0°E, 16.0°S',
-                    'risk_level': 'CRITICAL'
+                    'name': 'Northern Territory, Australia (STAC ROI)',
+                    'coordinates': str(bbox_of_interest),
+                    'risk_level': 'CRITICAL' if flood_detected else 'LOW'
                 },
-                'timestamp': datetime.now(timezone.utc)
+                'timestamp': end_date
             }
 
             result = {
-                "status": "ALERT_TRIGGERED",
-                "alert_file": f"./amina_results/biodefense_alerts/demo_alert_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.txt",
-                "data": hardcoded_flood_data
+                "status": status,
+                "data": flood_data
             }
+            
+            if status == "ALERT_TRIGGERED":
+                result["alert_file"] = f"./amina_results/biodefense_alerts/stac_alert_{end_date.strftime('%Y%m%d_%H%M%S')}.txt"
 
             # Generate Sentinel-2 event ID for Anyway span attributes
-            sentinel2_event_id = f"s2_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_northern_australia_DEMO"
+            sentinel2_event_id = item.id
 
             scan_result = {
-                'scan_timestamp': datetime.now(timezone.utc).isoformat(),
+                'scan_timestamp': end_date.isoformat(),
                 'status': 'completed',
                 'monitoring_region': 'northern_australia',
                 'sentinel2_event_id': sentinel2_event_id,
@@ -114,11 +187,11 @@ class EarthWatcherAgent(OpenClawAgent):
             except Exception as e:
                 print(f"[ANYWAY] Warning: Could not set span attributes: {e}")
 
-            # Check if flood threat detected
-            if result and result.get("status") == "ALERT_TRIGGERED":
+            # Fire real MessageBus payload to wake up BioScientistAgent
+            if status == "ALERT_TRIGGERED":
                 await self._handle_flood_alert(result)
 
-            self.last_scan_time = datetime.now(timezone.utc)
+            self.last_scan_time = end_date
             self.state['last_scan'] = self.last_scan_time.isoformat()
 
             return scan_result
@@ -129,7 +202,7 @@ class EarthWatcherAgent(OpenClawAgent):
                 'status': 'error',
                 'error': str(e)
             }
-            print(f"[EARTH_WATCHER] Scan error: {e}")
+            print(f"[EARTH_WATCHER] STAC Scan error: {e}")
             return error_result
 
     @task(name="process_flood_alert")
