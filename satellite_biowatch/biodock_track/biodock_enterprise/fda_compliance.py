@@ -17,13 +17,17 @@ from datetime import datetime, timezone
 from typing import Dict, List, Tuple, Any
 
 try:
-    from skbio import Protein
+    from skbio.sequence import Protein
     from skbio.alignment import local_pairwise_align_protein
 except ImportError:
-    raise ImportError(
-        "scikit-bio is required for homology screening. "
-        "Install with: pip install scikit-bio"
-    )
+    try:
+        from skbio import Protein
+        from skbio.alignment import local_pairwise_align_protein
+    except ImportError:
+        raise ImportError(
+            "scikit-bio is required for homology screening. "
+            "Install with: pip install scikit-bio"
+        )
 
 
 class BiosecurityHomologyError(Exception):
