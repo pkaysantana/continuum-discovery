@@ -31,6 +31,9 @@ from openclaw.base_agent import OpenClawAgent, Message
 # Import HIPAA compliance engine
 from satellite_biowatch.biodock_track.biodock_enterprise.compliance.hipaa_engine import HIPAAComplianceEngine
 
+# Import pathology automation engine
+from satellite_biowatch.biodock_track.biodock_enterprise.pathology_engine import PathologyAutomationEngine
+
 # Import cognitive backbone for legacy compatibility
 try:
     from core.cognitive_backbone import ContinuumCognitiveAgent, AgentIdentity
@@ -56,12 +59,15 @@ class BioDockMedicalAgent(OpenClawAgent):
         self.capabilities = [
             "hipaa_phi_deidentification",
             "clinical_sample_processing",
-            "pathological_analysis",
+            "spatial_pathology_analysis",
             "tissue_damage_assessment",
+            "geojson_spatial_processing",
+            "biodefense_threat_detection",
             "therapeutic_validation",
             "biodefense_countermeasure_coordination",
             "regulatory_compliance_enforcement",
-            "safe_harbor_method_implementation"
+            "safe_harbor_method_implementation",
+            "automated_pathology_reporting"
         ]
 
         # Initialize HIPAA compliance engine
@@ -76,6 +82,18 @@ class BioDockMedicalAgent(OpenClawAgent):
             self.state['hipaa_status'] = f'error: {e}'
             print(f"[BIODOCK] ❌ HIPAA engine failed to initialize: {e}")
 
+        # Initialize Pathology Automation Engine
+        try:
+            self.pathology_engine = PathologyAutomationEngine()
+            self.pathology_enabled = True
+            self.state['pathology_status'] = 'operational'
+            print(f"[BIODOCK] ✅ Pathology Automation Engine initialized")
+        except Exception as e:
+            self.pathology_engine = None
+            self.pathology_enabled = False
+            self.state['pathology_status'] = f'error: {e}'
+            print(f"[BIODOCK] ❌ Pathology engine failed to initialize: {e}")
+
         # Clinical processing configuration
         self.clinical_config = {
             'max_phi_exposure_time': 300,  # 5 minutes max for PHI exposure
@@ -89,7 +107,11 @@ class BioDockMedicalAgent(OpenClawAgent):
             'clinical_samples_processed': 0,
             'phi_redactions_performed': 0,
             'compliance_certificates_issued': 0,
-            'last_clinical_processing': None
+            'pathology_analyses_performed': 0,
+            'biodefense_threats_detected': 0,
+            'tissue_damage_assessments': 0,
+            'last_clinical_processing': None,
+            'last_pathology_analysis': None
         })
 
         # Legacy compatibility configuration
@@ -141,29 +163,112 @@ class BioDockMedicalAgent(OpenClawAgent):
             print(f"   Categories: {categories_redacted}")
             print(f"   Certificate Hash: {compliance_cert.get('certificate_hash', 'N/A')[:16]}...")
 
-            # Step 2: Extract clinical intelligence for countermeasure development
+            # Step 2: Spatial pathology analysis (if GeoJSON data present)
+            tissue_damage_report = None
+            if 'spatial_pathology_data' in deidentified_payload and self.pathology_enabled:
+                print(f"[BIODOCK] 🧪 Running spatial pathology analysis...")
+
+                try:
+                    geojson_data = deidentified_payload['spatial_pathology_data']
+                    tissue_damage_report = self.pathology_engine.analyze_tissue_sample(geojson_data)
+
+                    if tissue_damage_report.get('status') != 'error':
+                        damage_pct = tissue_damage_report.get('damage_assessment', {}).get('damage_percentage', 0)
+                        severity = tissue_damage_report.get('damage_assessment', {}).get('severity_classification', 'UNKNOWN')
+                        biodefense_alert = tissue_damage_report.get('biodefense_assessment', {}).get('biodefense_alert', False)
+
+                        print(f"[BIODOCK] ✅ Pathology analysis complete:")
+                        print(f"   Tissue damage: {damage_pct:.1f}%")
+                        print(f"   Severity: {severity}")
+                        print(f"   Biodefense alert: {'YES' if biodefense_alert else 'NO'}")
+
+                        # Update pathology statistics
+                        self.state['pathology_analyses_performed'] += 1
+                        self.state['tissue_damage_assessments'] += 1
+                        if biodefense_alert:
+                            self.state['biodefense_threats_detected'] += 1
+                        self.state['last_pathology_analysis'] = datetime.now(timezone.utc).isoformat()
+
+                    else:
+                        print(f"[BIODOCK] ⚠️  Pathology analysis failed: {tissue_damage_report.get('error_message', 'unknown error')}")
+
+                except Exception as e:
+                    print(f"[BIODOCK] ❌ Pathology analysis error: {e}")
+                    tissue_damage_report = None
+
+            elif 'spatial_pathology_data' in deidentified_payload and not self.pathology_enabled:
+                print(f"[BIODOCK] ⚠️  Spatial pathology data present but pathology engine unavailable")
+
+            # Step 3: Extract clinical intelligence for countermeasure development
             clinical_intelligence = self._extract_clinical_intelligence(deidentified_payload)
 
-            # Step 3: Trigger BioScientistAgent for countermeasure synthesis
+            # Step 4: Enhance clinical intelligence with pathology analysis
+            if tissue_damage_report and tissue_damage_report.get('status') != 'error':
+                print(f"[BIODOCK] 🔬 Integrating pathological findings with clinical intelligence...")
+
+                # Add tissue damage report to clinical intelligence
+                if clinical_intelligence:
+                    clinical_intelligence['tissue_damage_report'] = tissue_damage_report
+                    clinical_intelligence['spatial_pathology_available'] = True
+
+                    # Update urgency based on pathology findings
+                    biodefense_assessment = tissue_damage_report.get('biodefense_assessment', {})
+                    if biodefense_assessment.get('biodefense_alert', False):
+                        clinical_intelligence['urgency_level'] = 'critical'
+                        clinical_intelligence['biodefense_relevance'] = 'high'
+
+                        # Add suspected pathogens from pathology
+                        suspected_pathogens = biodefense_assessment.get('suspected_pathogens', [])
+                        if suspected_pathogens:
+                            clinical_intelligence['pathogen_indicators'].extend(suspected_pathogens)
+
+                    # Add pathological insights
+                    pathology_summary = tissue_damage_report.get('pathology_summary', '')
+                    if pathology_summary:
+                        clinical_intelligence['pathological_insights'] = pathology_summary
+
+                    print(f"[BIODOCK] ✅ Clinical intelligence enhanced with spatial pathology data")
+
+            # Step 5: Trigger BioScientistAgent for countermeasure synthesis
             print(f"[BIODOCK] 🧬 Triggering biodefense countermeasure synthesis...")
 
-            # Send message to BioScientistAgent with de-identified clinical data
+            # Send message to BioScientistAgent with de-identified clinical data and pathology analysis
+            payload_for_bioscientist = {
+                'clinical_intelligence': clinical_intelligence,
+                'deidentified_data': deidentified_payload,
+                'compliance_certificate': compliance_cert,
+                'processing_metadata': {
+                    'source_agent': 'BioDockMedicalAgent',
+                    'hipaa_compliant': True,
+                    'safe_for_research': True,
+                    'phi_removed': True,
+                    'pathology_analysis_performed': tissue_damage_report is not None,
+                    'spatial_data_processed': 'spatial_pathology_data' in deidentified_payload,
+                    'processing_timestamp': datetime.now(timezone.utc).isoformat()
+                },
+                'countermeasure_priority': self._assess_clinical_priority(clinical_intelligence)
+            }
+
+            # Include tissue damage report if available
+            if tissue_damage_report and tissue_damage_report.get('status') != 'error':
+                payload_for_bioscientist['tissue_damage_report'] = tissue_damage_report
+                payload_for_bioscientist['pathological_analysis'] = {
+                    'damage_percentage': tissue_damage_report.get('damage_assessment', {}).get('damage_percentage', 0),
+                    'severity_classification': tissue_damage_report.get('damage_assessment', {}).get('severity_classification', 'UNKNOWN'),
+                    'biodefense_alert': tissue_damage_report.get('biodefense_assessment', {}).get('biodefense_alert', False),
+                    'suspected_pathogens': tissue_damage_report.get('biodefense_assessment', {}).get('suspected_pathogens', []),
+                    'countermeasure_recommendations': tissue_damage_report.get('countermeasure_recommendations', [])
+                }
+
+                # Elevate priority for biodefense alerts
+                biodefense_alert = tissue_damage_report.get('biodefense_assessment', {}).get('biodefense_alert', False)
+                if biodefense_alert:
+                    payload_for_bioscientist['countermeasure_priority'] = 'critical'
+
             await self.send_message(
                 recipient="BioScientistAgent",
                 message_type="clinical_sample_analysis",
-                payload={
-                    'clinical_intelligence': clinical_intelligence,
-                    'deidentified_data': deidentified_payload,
-                    'compliance_certificate': compliance_cert,
-                    'processing_metadata': {
-                        'source_agent': 'BioDockMedicalAgent',
-                        'hipaa_compliant': True,
-                        'safe_for_research': True,
-                        'phi_removed': True,
-                        'processing_timestamp': datetime.now(timezone.utc).isoformat()
-                    },
-                    'countermeasure_priority': self._assess_clinical_priority(clinical_intelligence)
-                },
+                payload=payload_for_bioscientist,
                 priority=2
             )
 
@@ -173,6 +278,7 @@ class BioDockMedicalAgent(OpenClawAgent):
             self.state['compliance_certificates_issued'] += 1
             self.state['last_clinical_processing'] = datetime.now(timezone.utc).isoformat()
 
+            # Prepare comprehensive processing result
             processing_result = {
                 'status': 'success',
                 'processing_timestamp': datetime.now(timezone.utc).isoformat(),
@@ -183,10 +289,39 @@ class BioDockMedicalAgent(OpenClawAgent):
                     'certificate_issued': True,
                     'safe_for_research': True
                 },
+                'pathology_analysis': {
+                    'analysis_performed': tissue_damage_report is not None and tissue_damage_report.get('status') != 'error',
+                    'spatial_data_available': 'spatial_pathology_data' in deidentified_payload,
+                    'pathology_engine_enabled': self.pathology_enabled
+                },
                 'clinical_intelligence_extracted': clinical_intelligence is not None,
                 'biodefense_synthesis_triggered': True,
                 'countermeasure_priority': self._assess_clinical_priority(clinical_intelligence)
             }
+
+            # Add pathology-specific results if analysis was performed
+            if tissue_damage_report and tissue_damage_report.get('status') != 'error':
+                damage_assessment = tissue_damage_report.get('damage_assessment', {})
+                biodefense_assessment = tissue_damage_report.get('biodefense_assessment', {})
+
+                processing_result['pathology_analysis'].update({
+                    'tissue_damage_percentage': damage_assessment.get('damage_percentage', 0),
+                    'severity_classification': damage_assessment.get('severity_classification', 'UNKNOWN'),
+                    'biodefense_alert': biodefense_assessment.get('biodefense_alert', False),
+                    'suspected_pathogens': biodefense_assessment.get('suspected_pathogens', []),
+                    'threat_level': biodefense_assessment.get('threat_level', 'LOW'),
+                    'pathology_summary': tissue_damage_report.get('pathology_summary', '')
+                })
+
+                # Log biodefense alert
+                if biodefense_assessment.get('biodefense_alert', False):
+                    print(f"[BIODOCK] 🚨 BIODEFENSE ALERT: {biodefense_assessment.get('suspected_pathogens', [])} detected in tissue analysis")
+
+            elif tissue_damage_report and tissue_damage_report.get('status') == 'error':
+                processing_result['pathology_analysis'].update({
+                    'analysis_error': tissue_damage_report.get('error_message', 'Unknown pathology analysis error'),
+                    'error_type': tissue_damage_report.get('error_type', 'UnknownError')
+                })
 
             print(f"[BIODOCK] ✅ Clinical sample processing complete - biodefense synthesis initiated")
             return processing_result
@@ -277,15 +412,28 @@ class BioDockMedicalAgent(OpenClawAgent):
             return 'routine'
 
     def get_clinical_processing_status(self) -> Dict[str, Any]:
-        """Get status of clinical processing operations."""
+        """Get comprehensive status of clinical processing and pathology analysis operations."""
         return {
             'agent_name': self.agent_name,
-            'hipaa_enabled': self.hipaa_enabled,
-            'clinical_samples_processed': self.state.get('clinical_samples_processed', 0),
-            'phi_redactions_performed': self.state.get('phi_redactions_performed', 0),
-            'compliance_certificates_issued': self.state.get('compliance_certificates_issued', 0),
-            'last_processing': self.state.get('last_clinical_processing', 'never'),
-            'hipaa_engine_status': self.state.get('hipaa_status', 'unknown')
+            'system_status': {
+                'hipaa_enabled': self.hipaa_enabled,
+                'pathology_enabled': self.pathology_enabled,
+                'hipaa_engine_status': self.state.get('hipaa_status', 'unknown'),
+                'pathology_engine_status': self.state.get('pathology_status', 'unknown')
+            },
+            'processing_metrics': {
+                'clinical_samples_processed': self.state.get('clinical_samples_processed', 0),
+                'phi_redactions_performed': self.state.get('phi_redactions_performed', 0),
+                'compliance_certificates_issued': self.state.get('compliance_certificates_issued', 0),
+                'pathology_analyses_performed': self.state.get('pathology_analyses_performed', 0),
+                'tissue_damage_assessments': self.state.get('tissue_damage_assessments', 0),
+                'biodefense_threats_detected': self.state.get('biodefense_threats_detected', 0)
+            },
+            'last_operations': {
+                'last_clinical_processing': self.state.get('last_clinical_processing', 'never'),
+                'last_pathology_analysis': self.state.get('last_pathology_analysis', 'never')
+            },
+            'capabilities': self.capabilities
         }
 
     async def _enhance_domain_confidence(self, reasoning_result: Dict[str, Any], stimulus: Dict[str, Any]) -> Dict[str, Any]:
