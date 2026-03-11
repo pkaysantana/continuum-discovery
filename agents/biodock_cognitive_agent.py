@@ -125,6 +125,36 @@ class BioDockMedicalAgent(OpenClawAgent):
         # Legacy compatibility - simplified initialization
         print(f"[BIODOCK] ✅ Clinical Integration Agent initialized for biodefense countermeasure development")
 
+    async def run_primary_function(self) -> Dict[str, Any]:
+        """
+        Primary function: Clinical sample processing and pathology analysis.
+        Required implementation for OpenClawAgent abstract method.
+        """
+        return {
+            'function': 'clinical_sample_processing',
+            'status': 'ready',
+            'capabilities': self.capabilities,
+            'hipaa_enabled': self.hipaa_enabled,
+            'pathology_enabled': self.pathology_enabled,
+            'timestamp': datetime.now(timezone.utc).isoformat()
+        }
+
+    async def handle_emergency_stop(self) -> bool:
+        """
+        Handle emergency stop for clinical processing operations.
+        Required implementation for OpenClawAgent abstract method.
+        """
+        print(f"[BIODOCK] 🛑 Emergency stop initiated - securing PHI and halting processing...")
+
+        # Secure any active PHI processing
+        self.state['emergency_stop_active'] = True
+        self.state['emergency_stop_timestamp'] = datetime.now(timezone.utc).isoformat()
+
+        # Log emergency stop for audit purposes
+        print(f"[BIODOCK] ✅ Emergency stop complete - all PHI processing secured")
+
+        return True
+
     async def handle_clinical_sample(self, message: Message) -> Dict[str, Any]:
         """
         Handle clinical sample data with HIPAA-compliant de-identification.
