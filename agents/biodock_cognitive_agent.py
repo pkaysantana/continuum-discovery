@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
-BioDock Medical Cognitive Agent - Pathology Scripting Copilot
-Specialises in computational pathology, spatial analysis, and tissue damage assessment
+BioDock Medical Cognitive Agent - Clinical Integration Platform
+Specializes in HIPAA-compliant clinical data processing for biodefense countermeasure development
+
+Integrates with the Continuum Discovery platform for genuine clinical sample processing
+with full regulatory compliance and PHI protection.
+
+Author: Don Samuel Aborah
+Date: 2026-03-11
+License: Proprietary - BioDock Enterprise Clinical Module
 """
 
 import sys, io
@@ -11,75 +18,275 @@ import os
 import asyncio
 import json
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Any, Optional, Tuple
 import math
 
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Import cognitive backbone
-from core.cognitive_backbone import ContinuumCognitiveAgent, AgentIdentity
+# Import OpenClaw agent base and messaging
+from openclaw.base_agent import OpenClawAgent, Message
 
-class BioDockMedicalAgent(ContinuumCognitiveAgent):
-    """Cognitive agent specialised in computational pathology and spatial tissue analysis"""
+# Import HIPAA compliance engine
+from satellite_biowatch.biodock_track.biodock_enterprise.compliance.hipaa_engine import HIPAAComplianceEngine
 
-    def __init__(self, agent_config: Optional[Dict[str, Any]] = None):
-        if agent_config is None:
-            agent_config = {
-                'name': 'BioDock-PathologyScripting',
-                'domain': 'medical',
-                'personality': {
-                    'analytical': 0.98,
-                    'precise': 0.95,
-                    'methodical': 0.92,
-                    'evidence_based': 0.96,
-                    'collaborative': 0.88
+# Import cognitive backbone for legacy compatibility
+try:
+    from core.cognitive_backbone import ContinuumCognitiveAgent, AgentIdentity
+except ImportError:
+    print("[BIODOCK] Warning: Legacy cognitive backbone not available")
+
+class BioDockMedicalAgent(OpenClawAgent):
+    """
+    OpenClaw Agent for HIPAA-compliant clinical data processing and biodefense countermeasure development.
+
+    Integrates clinical sample analysis with the Continuum Discovery biodefense platform,
+    ensuring full PHI protection and regulatory compliance throughout the workflow.
+    """
+
+    def __init__(self, message_bus):
+        super().__init__(
+            agent_name="BioDockMedicalAgent",
+            agent_type="clinical_medical_processor",
+            message_bus=message_bus
+        )
+
+        # Enhanced capabilities for clinical integration
+        self.capabilities = [
+            "hipaa_phi_deidentification",
+            "clinical_sample_processing",
+            "pathological_analysis",
+            "tissue_damage_assessment",
+            "therapeutic_validation",
+            "biodefense_countermeasure_coordination",
+            "regulatory_compliance_enforcement",
+            "safe_harbor_method_implementation"
+        ]
+
+        # Initialize HIPAA compliance engine
+        try:
+            self.hipaa_engine = HIPAAComplianceEngine()
+            self.hipaa_enabled = True
+            self.state['hipaa_status'] = 'operational'
+            print(f"[BIODOCK] ✅ HIPAA Compliance Engine initialized")
+        except Exception as e:
+            self.hipaa_engine = None
+            self.hipaa_enabled = False
+            self.state['hipaa_status'] = f'error: {e}'
+            print(f"[BIODOCK] ❌ HIPAA engine failed to initialize: {e}")
+
+        # Clinical processing configuration
+        self.clinical_config = {
+            'max_phi_exposure_time': 300,  # 5 minutes max for PHI exposure
+            'auto_deidentification': True,
+            'audit_all_access': True,
+            'require_compliance_certificates': True
+        }
+
+        # Agent state tracking
+        self.state.update({
+            'clinical_samples_processed': 0,
+            'phi_redactions_performed': 0,
+            'compliance_certificates_issued': 0,
+            'last_clinical_processing': None
+        })
+
+        # Legacy compatibility configuration
+        self.agent_config = {
+            'name': 'BioDock-ClinicalIntegration',
+            'domain': 'medical_biodefense',
+            'clinical_focus': True,
+            'biodefense_integration': True
+        }
+
+        # Legacy compatibility - simplified initialization
+        print(f"[BIODOCK] ✅ Clinical Integration Agent initialized for biodefense countermeasure development")
+
+    async def handle_clinical_sample(self, message: Message) -> Dict[str, Any]:
+        """
+        Handle clinical sample data with HIPAA-compliant de-identification.
+
+        Receives raw hospital data, de-identifies PHI using the HIPAA engine,
+        then triggers BioScientistAgent for countermeasure development using
+        safe, anonymized clinical data.
+
+        Args:
+            message: OpenClaw message containing raw clinical data
+
+        Returns:
+            Result of clinical processing and countermeasure initiation
+        """
+        if not self.hipaa_enabled:
+            raise RuntimeError("HIPAA compliance engine not available - cannot process clinical data")
+
+        payload = message.payload
+        sender_id = message.sender
+
+        print(f"\n🏥 [BIODOCK] Processing clinical sample from {sender_id}")
+        print(f"   Raw data keys: {list(payload.keys())}")
+
+        try:
+            # Step 1: HIPAA-compliant de-identification
+            print(f"[BIODOCK] 🔒 Running HIPAA Safe Harbor de-identification...")
+            deidentified_payload = self.hipaa_engine.deidentify_clinical_payload(payload)
+
+            # Extract compliance certificate
+            compliance_cert = deidentified_payload.get('compliance_certificate', {})
+            redaction_count = compliance_cert.get('total_redactions_performed', 0)
+            categories_redacted = compliance_cert.get('phi_categories_redacted', [])
+
+            print(f"[BIODOCK] ✅ PHI de-identification complete:")
+            print(f"   Redactions: {redaction_count}")
+            print(f"   Categories: {categories_redacted}")
+            print(f"   Certificate Hash: {compliance_cert.get('certificate_hash', 'N/A')[:16]}...")
+
+            # Step 2: Extract clinical intelligence for countermeasure development
+            clinical_intelligence = self._extract_clinical_intelligence(deidentified_payload)
+
+            # Step 3: Trigger BioScientistAgent for countermeasure synthesis
+            print(f"[BIODOCK] 🧬 Triggering biodefense countermeasure synthesis...")
+
+            # Send message to BioScientistAgent with de-identified clinical data
+            await self.send_message(
+                recipient="BioScientistAgent",
+                message_type="clinical_sample_analysis",
+                payload={
+                    'clinical_intelligence': clinical_intelligence,
+                    'deidentified_data': deidentified_payload,
+                    'compliance_certificate': compliance_cert,
+                    'processing_metadata': {
+                        'source_agent': 'BioDockMedicalAgent',
+                        'hipaa_compliant': True,
+                        'safe_for_research': True,
+                        'phi_removed': True,
+                        'processing_timestamp': datetime.now(timezone.utc).isoformat()
+                    },
+                    'countermeasure_priority': self._assess_clinical_priority(clinical_intelligence)
                 },
-                'ethics': [
-                    'patient_safety_first',
-                    'evidence_based_practice',
-                    'diagnostic_accuracy',
-                    'privacy_protection',
-                    'continuous_learning',
-                    'interdisciplinary_collaboration'
-                ],
-                'goals': [
-                    'accurate_pathological_analysis',
-                    'tissue_damage_assessment',
-                    'therapeutic_validation',
-                    'spatial_analysis_optimization',
-                    'clinical_decision_support'
-                ],
-                'capabilities': [
-                    'spatial_tissue_analysis',
-                    'geojson_geometry_processing',
-                    'distance_computation',
-                    'pathological_assessment',
-                    'tissue_damage_quantification',
-                    'therapeutic_efficacy_validation',
-                    'clinical_study_design',
-                    'biomarker_analysis'
-                ]
+                priority=2
+            )
+
+            # Update agent statistics
+            self.state['clinical_samples_processed'] += 1
+            self.state['phi_redactions_performed'] += redaction_count
+            self.state['compliance_certificates_issued'] += 1
+            self.state['last_clinical_processing'] = datetime.now(timezone.utc).isoformat()
+
+            processing_result = {
+                'status': 'success',
+                'processing_timestamp': datetime.now(timezone.utc).isoformat(),
+                'hipaa_compliance': {
+                    'phi_redacted': redaction_count > 0,
+                    'redaction_count': redaction_count,
+                    'categories_redacted': categories_redacted,
+                    'certificate_issued': True,
+                    'safe_for_research': True
+                },
+                'clinical_intelligence_extracted': clinical_intelligence is not None,
+                'biodefense_synthesis_triggered': True,
+                'countermeasure_priority': self._assess_clinical_priority(clinical_intelligence)
             }
 
-        super().__init__(agent_config)
+            print(f"[BIODOCK] ✅ Clinical sample processing complete - biodefense synthesis initiated")
+            return processing_result
 
-        # Initialise spatial analysis capabilities
-        self.spatial_processor = SpatialAnalysisProcessor()
-        self.pathology_analyzer = PathologyAnalyzer()
-        self.tissue_damage_assessor = TissueDamageAssessor()
+        except Exception as e:
+            error_result = {
+                'status': 'error',
+                'error_type': type(e).__name__,
+                'error_message': str(e),
+                'processing_timestamp': datetime.now(timezone.utc).isoformat(),
+                'hipaa_compliance_attempted': True,
+                'biodefense_synthesis_triggered': False
+            }
 
-        # Clinical study frameworks
-        self.study_designer = ClinicalStudyDesigner()
+            print(f"[BIODOCK] ❌ Clinical processing failed: {e}")
+            return error_result
 
-        # Integration interfaces
-        self.biotech_interface = BiotechMedicalInterface()
+    def _extract_clinical_intelligence(self, deidentified_payload: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """
+        Extract actionable clinical intelligence from de-identified payload.
 
-        print(f"[BIODOCK] Pathology Scripting Copilot initialized with spatial analysis expertise")
+        Args:
+            deidentified_payload: HIPAA-compliant de-identified clinical data
 
-        # Trigger stealth metadata display for demo
-        self._calculate_resource_requirements()
+        Returns:
+            Clinical intelligence suitable for biodefense countermeasure development
+        """
+        try:
+            # Extract non-PHI clinical indicators
+            clinical_intelligence = {
+                'pathogen_indicators': [],
+                'symptom_patterns': [],
+                'tissue_damage_markers': [],
+                'biodefense_relevance': 'unknown',
+                'urgency_level': 'routine'
+            }
+
+            # Look for biodefense-relevant patterns in de-identified data
+            payload_text = json.dumps(deidentified_payload).lower()
+
+            # Check for potential biodefense threats
+            biodefense_keywords = [
+                'burkholderia', 'pseudomallei', 'melioidosis', 'bioterror', 'biothreat',
+                'unusual_pathogen', 'rare_infection', 'outbreak', 'cluster', 'syndromic'
+            ]
+
+            for keyword in biodefense_keywords:
+                if keyword in payload_text:
+                    clinical_intelligence['pathogen_indicators'].append(keyword)
+                    clinical_intelligence['biodefense_relevance'] = 'high'
+
+            # Extract symptom patterns (common text patterns)
+            symptom_keywords = [
+                'fever', 'respiratory', 'pneumonia', 'sepsis', 'organ_failure',
+                'skin_lesions', 'neurological', 'gastrointestinal'
+            ]
+
+            for symptom in symptom_keywords:
+                if symptom in payload_text:
+                    clinical_intelligence['symptom_patterns'].append(symptom)
+
+            # Assess urgency based on clinical indicators
+            if clinical_intelligence['biodefense_relevance'] == 'high':
+                clinical_intelligence['urgency_level'] = 'critical'
+            elif clinical_intelligence['pathogen_indicators'] or len(clinical_intelligence['symptom_patterns']) >= 3:
+                clinical_intelligence['urgency_level'] = 'high'
+
+            return clinical_intelligence
+
+        except Exception as e:
+            print(f"[BIODOCK] Warning: Could not extract clinical intelligence: {e}")
+            return None
+
+    def _assess_clinical_priority(self, clinical_intelligence: Optional[Dict[str, Any]]) -> str:
+        """Assess priority level for biodefense countermeasure development."""
+        if not clinical_intelligence:
+            return 'routine'
+
+        biodefense_relevance = clinical_intelligence.get('biodefense_relevance', 'unknown')
+        urgency_level = clinical_intelligence.get('urgency_level', 'routine')
+        pathogen_count = len(clinical_intelligence.get('pathogen_indicators', []))
+
+        if biodefense_relevance == 'high' or urgency_level == 'critical':
+            return 'critical'
+        elif pathogen_count > 0 or urgency_level == 'high':
+            return 'high'
+        else:
+            return 'routine'
+
+    def get_clinical_processing_status(self) -> Dict[str, Any]:
+        """Get status of clinical processing operations."""
+        return {
+            'agent_name': self.agent_name,
+            'hipaa_enabled': self.hipaa_enabled,
+            'clinical_samples_processed': self.state.get('clinical_samples_processed', 0),
+            'phi_redactions_performed': self.state.get('phi_redactions_performed', 0),
+            'compliance_certificates_issued': self.state.get('compliance_certificates_issued', 0),
+            'last_processing': self.state.get('last_clinical_processing', 'never'),
+            'hipaa_engine_status': self.state.get('hipaa_status', 'unknown')
+        }
 
     async def _enhance_domain_confidence(self, reasoning_result: Dict[str, Any], stimulus: Dict[str, Any]) -> Dict[str, Any]:
         """Enhance confidence based on medical pathology domain expertise"""
