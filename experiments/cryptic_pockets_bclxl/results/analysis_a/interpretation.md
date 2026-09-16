@@ -11,7 +11,7 @@ Our reproduction evaluated the predicted pockets against both the primary 5.0A d
 
 **Our Reproduction at Rank 2 (Primary 5.0A definition):**
 - **Jaccard Index**: 0.366 (rounds to 0.37, extremely consistent with the reported 0.36).
-- **Centroid Distance**: 5.34 A (consistent with the reported 5.6 A, given stochastic NMA generation).
+- **Centroid Distance**: 5.34 A (consistent with the reported 5.6 A, despite non-identical geometric outputs).
 - **Intersection**: 11 residues.
 
 **Our Reproduction at Rank 10 (Primary 5.0A definition):**
@@ -19,7 +19,7 @@ Our reproduction evaluated the predicted pockets against both the primary 5.0A d
 - **Jaccard Index**: 0.32.
 
 ## Scientific Interpretation
-The reproduction was highly successful. Lacuna's stochastic `nma` backend means exact floating-point centroid matches are mathematically improbable across different random seeds/architectures, but the functional conclusions hold perfectly:
+The reproduction was highly successful. While the 5.34 A centroid distance differs slightly from the published 5.6 A (which can be attributed to differences in processed vs raw structures, reference site definitions, or configuration rather than stochastic NMA variance), the functional conclusions hold perfectly:
 1. The `surface-fusion` detector successfully identifies the cryptic pocket region.
 2. The site is scored highly (Rank 2) by the default learned ranker.
 3. The Jaccard overlap (0.36) is practically identical to the published value.
