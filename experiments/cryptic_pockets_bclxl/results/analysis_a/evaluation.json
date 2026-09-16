@@ -1,0 +1,186 @@
+{
+  "primary_5_0A": [
+    {
+      "rank": 1,
+      "centroid_distance_angstrom": 12.546296558497815,
+      "recovered": false,
+      "intersection_count": 2,
+      "reference_site_recall": 0.08333333333333333,
+      "predicted_site_precision": 0.14285714285714285,
+      "jaccard": 0.05555555555555555
+    },
+    {
+      "rank": 2,
+      "centroid_distance_angstrom": 5.338763960963455,
+      "recovered": false,
+      "intersection_count": 11,
+      "reference_site_recall": 0.4583333333333333,
+      "predicted_site_precision": 0.6470588235294118,
+      "jaccard": 0.36666666666666664
+    },
+    {
+      "rank": 3,
+      "centroid_distance_angstrom": 8.668501555052714,
+      "recovered": false,
+      "intersection_count": 6,
+      "reference_site_recall": 0.25,
+      "predicted_site_precision": 0.46153846153846156,
+      "jaccard": 0.1935483870967742
+    },
+    {
+      "rank": 4,
+      "centroid_distance_angstrom": 4.374248123140196,
+      "recovered": false,
+      "intersection_count": 11,
+      "reference_site_recall": 0.4583333333333333,
+      "predicted_site_precision": 0.9166666666666666,
+      "jaccard": 0.44
+    },
+    {
+      "rank": 5,
+      "centroid_distance_angstrom": 5.951680630628572,
+      "recovered": false,
+      "intersection_count": 7,
+      "reference_site_recall": 0.2916666666666667,
+      "predicted_site_precision": 0.3888888888888889,
+      "jaccard": 0.2
+    },
+    {
+      "rank": 6,
+      "centroid_distance_angstrom": 4.937320930440805,
+      "recovered": false,
+      "intersection_count": 8,
+      "reference_site_recall": 0.3333333333333333,
+      "predicted_site_precision": 0.8,
+      "jaccard": 0.3076923076923077
+    },
+    {
+      "rank": 7,
+      "centroid_distance_angstrom": 12.87126581709722,
+      "recovered": false,
+      "intersection_count": 0,
+      "reference_site_recall": 0.0,
+      "predicted_site_precision": 0.0,
+      "jaccard": 0.0
+    },
+    {
+      "rank": 8,
+      "centroid_distance_angstrom": 11.68852744144418,
+      "recovered": false,
+      "intersection_count": 1,
+      "reference_site_recall": 0.041666666666666664,
+      "predicted_site_precision": 0.0625,
+      "jaccard": 0.02564102564102564
+    },
+    {
+      "rank": 9,
+      "centroid_distance_angstrom": 19.440906794577163,
+      "recovered": false,
+      "intersection_count": 0,
+      "reference_site_recall": 0.0,
+      "predicted_site_precision": 0.0,
+      "jaccard": 0.0
+    },
+    {
+      "rank": 10,
+      "centroid_distance_angstrom": 3.334053955471013,
+      "recovered": true,
+      "intersection_count": 8,
+      "reference_site_recall": 0.3333333333333333,
+      "predicted_site_precision": 0.8888888888888888,
+      "jaccard": 0.32
+    }
+  ],
+  "sensitivity_4_5A": [
+    {
+      "rank": 1,
+      "centroid_distance_angstrom": 12.748226113590924,
+      "recovered": false,
+      "intersection_count": 2,
+      "reference_site_recall": 0.09090909090909091,
+      "predicted_site_precision": 0.14285714285714285,
+      "jaccard": 0.058823529411764705
+    },
+    {
+      "rank": 2,
+      "centroid_distance_angstrom": 5.034383671949949,
+      "recovered": false,
+      "intersection_count": 11,
+      "reference_site_recall": 0.5,
+      "predicted_site_precision": 0.6470588235294118,
+      "jaccard": 0.39285714285714285
+    },
+    {
+      "rank": 3,
+      "centroid_distance_angstrom": 8.661696629523384,
+      "recovered": false,
+      "intersection_count": 5,
+      "reference_site_recall": 0.22727272727272727,
+      "predicted_site_precision": 0.38461538461538464,
+      "jaccard": 0.16666666666666666
+    },
+    {
+      "rank": 4,
+      "centroid_distance_angstrom": 4.621865228653342,
+      "recovered": false,
+      "intersection_count": 11,
+      "reference_site_recall": 0.5,
+      "predicted_site_precision": 0.9166666666666666,
+      "jaccard": 0.4782608695652174
+    },
+    {
+      "rank": 5,
+      "centroid_distance_angstrom": 6.270758262450583,
+      "recovered": false,
+      "intersection_count": 7,
+      "reference_site_recall": 0.3181818181818182,
+      "predicted_site_precision": 0.3888888888888889,
+      "jaccard": 0.21212121212121213
+    },
+    {
+      "rank": 6,
+      "centroid_distance_angstrom": 4.630961219879128,
+      "recovered": false,
+      "intersection_count": 8,
+      "reference_site_recall": 0.36363636363636365,
+      "predicted_site_precision": 0.8,
+      "jaccard": 0.3333333333333333
+    },
+    {
+      "rank": 7,
+      "centroid_distance_angstrom": 13.150047425646463,
+      "recovered": false,
+      "intersection_count": 0,
+      "reference_site_recall": 0.0,
+      "predicted_site_precision": 0.0,
+      "jaccard": 0.0
+    },
+    {
+      "rank": 8,
+      "centroid_distance_angstrom": 11.798762509826545,
+      "recovered": false,
+      "intersection_count": 1,
+      "reference_site_recall": 0.045454545454545456,
+      "predicted_site_precision": 0.0625,
+      "jaccard": 0.02702702702702703
+    },
+    {
+      "rank": 9,
+      "centroid_distance_angstrom": 19.54356674825757,
+      "recovered": false,
+      "intersection_count": 0,
+      "reference_site_recall": 0.0,
+      "predicted_site_precision": 0.0,
+      "jaccard": 0.0
+    },
+    {
+      "rank": 10,
+      "centroid_distance_angstrom": 3.2353007068583306,
+      "recovered": true,
+      "intersection_count": 8,
+      "reference_site_recall": 0.36363636363636365,
+      "predicted_site_precision": 0.8888888888888888,
+      "jaccard": 0.34782608695652173
+    }
+  ]
+}

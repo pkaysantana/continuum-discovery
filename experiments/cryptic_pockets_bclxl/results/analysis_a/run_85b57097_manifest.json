@@ -1,0 +1,24 @@
+{
+  "status": "FAILED",
+  "started_at": "2026-09-16T12:20:26.629027+00:00",
+  "command_argv": [
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\lacuna.exe",
+    "discover",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\data\\processed\\apo_matched_core.pdb",
+    "--conformers",
+    "20",
+    "--detector",
+    "surface-fusion",
+    "--out",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\results\\analysis_a\\raw\\run_85b57097"
+  ],
+  "input_sha256": "b0d20bfd4907b92929161c78790051471de261a917371b40da3aa418a3d64693",
+  "stdout": "",
+  "stderr": "Usage: lacuna discover [OPTIONS] INPUT_PATH\nTry 'lacuna discover --help' for help.\n\nError: No such option '--out'. (Did you mean one of: '--output', '--quiet', '--top'?)\n",
+  "runtime": 3.2073053999993135,
+  "return_code": 2,
+  "outputs": {},
+  "tool_version": "1.2.0",
+  "error": "Lacuna exited with code 2",
+  "finished_at": "2026-09-16T12:20:29.833844+00:00"
+}

@@ -3,6 +3,7 @@ import subprocess
 import time
 import json
 import traceback
+import sys
 from pathlib import Path
 from provenance import now, sha256
 
@@ -44,11 +45,32 @@ def run_lacuna(input_pdb: Path, output_dir: Path) -> dict:
         if type(backend).__name__ == 'RandomBackend':
             raise RuntimeError("NMABackend fell back to RandomBackend silently.")
             
-        # Instead of actually running, since this is just the wrapper preflight (no execution authorized):
-        # We simulate the exact safety checks needed for Execution Plan Section 6.
-        # But we do not execute the detection algorithm on the scientific input.
+        # Execute the actual detection algorithm via CLI
+        lacuna_exe = Path(sys.executable).parent / 'lacuna.exe' if os.name == 'nt' else Path(sys.executable).parent / 'lacuna'
         
-        result['status'] = 'SUCCESS'
+        command_argv = [
+            str(lacuna_exe), 'discover',
+            str(input_pdb),
+            '--conformers', '20',
+            '--detector', 'surface-fusion',
+            '--output', str(output_dir)
+        ]
+        result['command_argv'] = command_argv
+        
+        process_res = subprocess.run(command_argv, capture_output=True, text=True, check=False)
+        result['stdout'] = process_res.stdout
+        result['stderr'] = process_res.stderr
+        result['return_code'] = process_res.returncode
+        
+        if process_res.returncode == 0:
+            result['status'] = 'SUCCESS'
+            # Record output hashes
+            for out_file in output_dir.iterdir():
+                if out_file.is_file():
+                    result['outputs'][out_file.name] = sha256(out_file)
+        else:
+            result['status'] = 'FAILED'
+            result['error'] = f"Lacuna exited with code {process_res.returncode}"
     except Exception as e:
         result['error'] = str(e)
         result['traceback'] = traceback.format_exc()
