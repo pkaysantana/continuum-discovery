@@ -1,0 +1,42 @@
+[INFO] Console - predicting pockets for proteins from dataset [apo_matched_core.pdb]
+[INFO] PredictPocketsRoutine - outdir: results\analysis_b\raw\p2rank_apo\run_7423b798
+[INFO] Model - Loading model from directory (v3 format): C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\p2rank_2.5.1/models/default
+[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
+[INFO] Dataset - processing dataset [apo_matched_core.pdb] using 1 thread
+[INFO] Dataset - 
+------------------------------------------------------------------------------------------------------------------------
+processing [apo_matched_core.pdb] (1/1)
+------------------------------------------------------------------------------------------------------------------------
+
+[INFO] Console - processing [apo_matched_core.pdb] (1/1)
+[INFO] Protein - loading protein [C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\data\processed\apo_matched_core.pdb]
+[INFO] PdbUtils - loading file [data\processed\apo_matched_core.pdb]
+[INFO] Struct - all groups in chain A: 22
+[INFO] Struct - all groups in chain A: 115
+[INFO] Struct - all groups in chain A: 22
+[INFO] Struct - 22 groups in chain A
+[INFO] Struct - all groups in chain A: 115
+[INFO] Struct - 115 groups in chain A
+[WARN] Protein - Two protein chains with the same authorId: A(id:B)(115) A(22)
+[INFO] Protein - structure atoms: 1113
+[INFO] Protein - protein   atoms: 1086
+[INFO] Protein - ignoring ligands
+[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
+[INFO] Protein - SAS points: 2664
+[INFO] Protein - exposed protein atoms: 780 of 1086
+[INFO] SLinkClusterer - clustering [31] elements
+[INFO] SLinkClusterer - clusters: [id:0( 1 ), id:5( 5 ), id:22( 13 ), id:24( 4 ), id:26( 2 ), id:27( 1 ), id:28( 1 ), id:29( 1 ), id:30( 3 )]
+[INFO] SLinkClusterer - clusters together: 31 / 31
+[INFO] PocketPredictor - PREDICTING POCKETS.... ====================================
+[INFO] PocketPredictor - SAS POINTS: 2664
+[INFO] PocketPredictor - LIGANDABLE POINTS: 31
+[INFO] PocketPredictor - CLUSTERS: 9
+[INFO] PocketPredictor - FILTERED CLUSTERS: 4
+[INFO] PocketPredictor - pocket 1 -  surf_atoms:  25   points:  13   score:    3.9
+[INFO] PocketPredictor - pocket 2 -  surf_atoms:  13   points:   4   score:    2.0
+[INFO] PocketPredictor - pocket 3 -  surf_atoms:  19   points:   5   score:    1.9
+[INFO] PocketPredictor - pocket 4 -  surf_atoms:  10   points:   3   score:    1.3
+[INFO] Console - predicting pockets finished in 0 hours 0 minutes 5.449 seconds
+[INFO] Console - results saved to directory [C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\results\analysis_b\raw\p2rank_apo\run_7423b798]
+[INFO] Console - 
+[INFO] Console - Finished successfully in 0 hours 0 minutes 7.430 seconds.

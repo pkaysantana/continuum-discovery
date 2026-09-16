@@ -1,0 +1,944 @@
+[
+  {
+    "method": "p2rank",
+    "condition": "apo",
+    "candidate_id": "p2rank_apo_1",
+    "rank": 1,
+    "residues": [
+      "TYR101:A",
+      "ALA104:A",
+      "LEU108:A",
+      "GLU129:A",
+      "LEU130:A",
+      "GLY138:A",
+      "ARG139:A",
+      "ALA142:A",
+      "PHE143:A",
+      "PHE97:A"
+    ],
+    "centroid": [
+      16.7941,
+      -6.7849,
+      3.62
+    ],
+    "method_specific_scores": {
+      "score": 3.86,
+      "probability": 0.151,
+      "sas_points": 48,
+      "surf_atoms": 25
+    }
+  },
+  {
+    "method": "p2rank",
+    "condition": "apo",
+    "candidate_id": "p2rank_apo_2",
+    "rank": 2,
+    "residues": [
+      "ARG102:A",
+      "PHE105:A",
+      "THR109:A",
+      "SER145:A",
+      "ALA149:A",
+      "PHE97:A",
+      "GLU98:A"
+    ],
+    "centroid": [
+      12.0683,
+      -9.416,
+      -4.3197
+    ],
+    "method_specific_scores": {
+      "score": 2.02,
+      "probability": 0.044,
+      "sas_points": 25,
+      "surf_atoms": 13
+    }
+  },
+  {
+    "method": "p2rank",
+    "condition": "apo",
+    "candidate_id": "p2rank_apo_3",
+    "rank": 3,
+    "residues": [
+      "PHE12:A",
+      "TYR15:A",
+      "LYS16:A",
+      "GLN19:A",
+      "ARG91:A",
+      "GLY94:A",
+      "ASP95:A"
+    ],
+    "centroid": [
+      7.9198,
+      -2.3384,
+      -7.3539
+    ],
+    "method_specific_scores": {
+      "score": 1.94,
+      "probability": 0.04,
+      "sas_points": 23,
+      "surf_atoms": 19
+    }
+  },
+  {
+    "method": "p2rank",
+    "condition": "apo",
+    "candidate_id": "p2rank_apo_4",
+    "rank": 4,
+    "residues": [
+      "TYR101:A",
+      "GLY138:A",
+      "TYR195:A",
+      "GLU96:A",
+      "PHE97:A"
+    ],
+    "centroid": [
+      18.214,
+      -0.1144,
+      -0.9317
+    ],
+    "method_specific_scores": {
+      "score": 1.29,
+      "probability": 0.014,
+      "sas_points": 23,
+      "surf_atoms": 10
+    }
+  },
+  {
+    "method": "p2rank",
+    "condition": "holo_control",
+    "candidate_id": "p2rank_holo_control_1",
+    "rank": 1,
+    "residues": [
+      "TYR101:A",
+      "ALA104:A",
+      "PHE105:A",
+      "LEU108:A",
+      "VAL126:A",
+      "GLU129:A",
+      "LEU130:A",
+      "ARG139:A",
+      "ALA142:A",
+      "SER145:A",
+      "PHE146:A",
+      "PHE97:A"
+    ],
+    "centroid": [
+      -10.4472,
+      -23.1016,
+      9.5747
+    ],
+    "method_specific_scores": {
+      "score": 11.29,
+      "probability": 0.604,
+      "sas_points": 66,
+      "surf_atoms": 36
+    }
+  },
+  {
+    "method": "p2rank",
+    "condition": "holo_control",
+    "candidate_id": "p2rank_holo_control_2",
+    "rank": 2,
+    "residues": [
+      "TRP137:A",
+      "GLY138:A",
+      "VAL141:A",
+      "TYR195:A",
+      "ALA93:A",
+      "GLU96:A"
+    ],
+    "centroid": [
+      -7.3357,
+      -9.8517,
+      8.42
+    ],
+    "method_specific_scores": {
+      "score": 1.86,
+      "probability": 0.036,
+      "sas_points": 32,
+      "surf_atoms": 19
+    }
+  },
+  {
+    "method": "p2rank",
+    "condition": "holo_control",
+    "candidate_id": "p2rank_holo_control_3",
+    "rank": 3,
+    "residues": [
+      "TYR120:A",
+      "PHE123:A",
+      "GLU124:A",
+      "VAL127:A",
+      "ASN128:A",
+      "TRP169:A",
+      "THR172:A",
+      "TYR173:A",
+      "ASP176:A",
+      "HIS177:A"
+    ],
+    "centroid": [
+      -16.626,
+      -26.05,
+      -3.4666
+    ],
+    "method_specific_scores": {
+      "score": 1.47,
+      "probability": 0.02,
+      "sas_points": 30,
+      "surf_atoms": 17
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_1",
+    "rank": 1,
+    "residues": [
+      "ALA104:A",
+      "ALA142:A",
+      "ARG103:A",
+      "ARG139:A",
+      "GLU129:A",
+      "GLY138:A",
+      "GLY147:A",
+      "ILE140:A",
+      "LEU108:A",
+      "LEU130:A",
+      "MET170:A",
+      "PHE105:A",
+      "PHE123:A",
+      "PHE131:A",
+      "PHE143:A",
+      "PHE144:A",
+      "PHE146:A",
+      "PHE97:A",
+      "SER145:A",
+      "VAL126:A",
+      "VAL127:A",
+      "VAL141:A"
+    ],
+    "centroid": [
+      14.44193487146683,
+      -6.628521286782515,
+      3.969522826274297
+    ],
+    "method_specific_scores": {
+      "druggability": 0.803,
+      "volume_A3": 139.7,
+      "persistence": 0.667,
+      "crypticity": 0.472
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_2",
+    "rank": 2,
+    "residues": [
+      "ALA93:A",
+      "ARG91:A",
+      "ASP11:A",
+      "ASP95:A",
+      "GLN19:A",
+      "GLU92:A",
+      "GLU98:A",
+      "GLY94:A",
+      "LEU90:A",
+      "LYS16:A",
+      "PHE12:A",
+      "SER145:A",
+      "SER18:A",
+      "TYR15:A"
+    ],
+    "centroid": [
+      7.394261067668335,
+      -2.5124365373865793,
+      -10.073408753168986
+    ],
+    "method_specific_scores": {
+      "druggability": 0.652,
+      "volume_A3": 127.6,
+      "persistence": 0.857,
+      "crypticity": 0.333
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_3",
+    "rank": 3,
+    "residues": [
+      "ALA142:A",
+      "ALA89:A",
+      "ALA93:A",
+      "ARG100:A",
+      "ARG91:A",
+      "ASN197:A",
+      "ASP95:A",
+      "GLN88:A",
+      "GLU92:A",
+      "GLU96:A",
+      "GLY138:A",
+      "GLY196:A",
+      "GLY94:A",
+      "LEU194:A",
+      "LEU90:A",
+      "LEU99:A",
+      "PHE97:A",
+      "TYR101:A",
+      "TYR195:A",
+      "VAL141:A"
+    ],
+    "centroid": [
+      15.633781941396634,
+      3.1632650653358994,
+      -4.215194491161249
+    ],
+    "method_specific_scores": {
+      "druggability": 0.722,
+      "volume_A3": 164.5,
+      "persistence": 0.286,
+      "crypticity": 0.866
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_4",
+    "rank": 4,
+    "residues": [
+      "ALA142:A",
+      "ALA149:A",
+      "ALA93:A",
+      "ARG100:A",
+      "ARG91:A",
+      "ASP95:A",
+      "GLN19:A",
+      "GLU96:A",
+      "GLU98:A",
+      "GLY148:A",
+      "GLY94:A",
+      "LEU150:A",
+      "LEU99:A",
+      "LYS16:A",
+      "PHE105:A",
+      "PHE12:A",
+      "PHE144:A",
+      "PHE146:A",
+      "PHE97:A",
+      "SER145:A",
+      "TYR101:A"
+    ],
+    "centroid": [
+      12.112041928222506,
+      -6.488130644660437,
+      -5.803729204117246
+    ],
+    "method_specific_scores": {
+      "druggability": 0.703,
+      "volume_A3": 108.5,
+      "persistence": 0.095,
+      "crypticity": 0.754
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_5",
+    "rank": 5,
+    "residues": [
+      "ALA104:A",
+      "ALA142:A",
+      "ARG100:A",
+      "ARG102:A",
+      "ARG103:A",
+      "ARG139:A",
+      "ASN136:A",
+      "GLU98:A",
+      "GLY138:A",
+      "ILE140:A",
+      "PHE105:A",
+      "PHE143:A",
+      "PHE97:A",
+      "TRP137:A",
+      "TYR101:A"
+    ],
+    "centroid": [
+      19.336128546600424,
+      -4.746376452782972,
+      1.6893859970520424
+    ],
+    "method_specific_scores": {
+      "druggability": 0.703,
+      "volume_A3": 101.5,
+      "persistence": 0.095,
+      "crypticity": 0.703
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_6",
+    "rank": 6,
+    "residues": [
+      "ALA89:A",
+      "ARG91:A",
+      "ASP11:A",
+      "GLN88:A",
+      "GLU7:A",
+      "GLU92:A",
+      "GLY94:A",
+      "LEU13:A",
+      "LEU8:A",
+      "LEU90:A",
+      "LYS16:A",
+      "LYS87:A",
+      "PHE12:A",
+      "PHE144:A",
+      "TYR15:A",
+      "VAL10:A",
+      "VAL86:A",
+      "VAL9:A"
+    ],
+    "centroid": [
+      4.437855525508228,
+      1.4767105045201465,
+      -5.370369689029202
+    ],
+    "method_specific_scores": {
+      "druggability": 0.708,
+      "volume_A3": 124.0,
+      "persistence": 0.476,
+      "crypticity": 0.858
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_7",
+    "rank": 7,
+    "residues": [
+      "ALA85:A",
+      "ALA89:A",
+      "ARG91:A",
+      "ASN197:A",
+      "ASP11:A",
+      "GLN88:A",
+      "GLU92:A",
+      "LEU8:A",
+      "LEU90:A",
+      "LYS87:A",
+      "PHE12:A",
+      "TYR15:A",
+      "VAL86:A"
+    ],
+    "centroid": [
+      4.778368493861424,
+      5.025379431681794,
+      -8.690641419711817
+    ],
+    "method_specific_scores": {
+      "druggability": 0.677,
+      "volume_A3": 104.3,
+      "persistence": 0.143,
+      "crypticity": 0.0
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_8",
+    "rank": 8,
+    "residues": [
+      "ALA142:A",
+      "ALA93:A",
+      "ARG139:A",
+      "ASN136:A",
+      "GLU193:A",
+      "GLU96:A",
+      "GLY138:A",
+      "GLY196:A",
+      "ILE140:A",
+      "LEU194:A",
+      "LEU99:A",
+      "PHE191:A",
+      "PHE97:A",
+      "THR190:A",
+      "TRP137:A",
+      "TYR101:A",
+      "TYR195:A",
+      "VAL141:A",
+      "VAL192:A"
+    ],
+    "centroid": [
+      15.805471792056027,
+      3.73310980756687,
+      0.731308686103687
+    ],
+    "method_specific_scores": {
+      "druggability": 0.818,
+      "volume_A3": 124.4,
+      "persistence": 0.381,
+      "crypticity": 0.385
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_9",
+    "rank": 9,
+    "residues": [
+      "ALA142:A",
+      "ALA89:A",
+      "ALA93:A",
+      "ARG91:A",
+      "ASN197:A",
+      "ASP95:A",
+      "GLN88:A",
+      "GLU92:A",
+      "GLY196:A",
+      "GLY94:A",
+      "ILE140:A",
+      "LEU194:A",
+      "LEU8:A",
+      "LEU90:A",
+      "LYS87:A",
+      "PHE12:A",
+      "PHE143:A",
+      "PHE144:A",
+      "PHE146:A",
+      "PHE191:A",
+      "PHE97:A",
+      "SER145:A",
+      "TRP137:A",
+      "TRP188:A",
+      "TYR195:A",
+      "VAL141:A",
+      "VAL192:A",
+      "VAL86:A"
+    ],
+    "centroid": [
+      10.115814837424885,
+      1.4882657596126359,
+      -1.5506431286687148
+    ],
+    "method_specific_scores": {
+      "druggability": 0.804,
+      "volume_A3": 114.6,
+      "persistence": 0.429,
+      "crypticity": 0.83
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "apo",
+    "candidate_id": "lacuna_apo_10",
+    "rank": 10,
+    "residues": [
+      "ALA149:A",
+      "CYS151:A",
+      "GLU153:A",
+      "HIS113:A",
+      "ILE114:A",
+      "ILE166:A",
+      "LEU112:A",
+      "LEU150:A",
+      "LEU162:A",
+      "LYS157:A",
+      "MET159:A",
+      "PRO116:A",
+      "SER154:A",
+      "THR109:A",
+      "THR115:A",
+      "VAL152:A",
+      "VAL155:A"
+    ],
+    "centroid": [
+      3.098127692376899,
+      -19.688925594720374,
+      -1.8459172009634983
+    ],
+    "method_specific_scores": {
+      "druggability": 0.671,
+      "volume_A3": 84.5,
+      "persistence": 0.095,
+      "crypticity": 0.671
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_1",
+    "rank": 1,
+    "residues": [
+      "ALA142:A",
+      "ALA93:A",
+      "ARG100:A",
+      "ARG139:A",
+      "ASN136:A",
+      "GLU96:A",
+      "GLY138:A",
+      "ILE140:A",
+      "LEU130:A",
+      "PHE191:A",
+      "PHE97:A",
+      "TRP137:A",
+      "TYR101:A",
+      "TYR195:A",
+      "VAL141:A"
+    ],
+    "centroid": [
+      -11.045238453872422,
+      -14.559448080171517,
+      10.977135800264394
+    ],
+    "method_specific_scores": {
+      "druggability": 0.61,
+      "volume_A3": 186.5,
+      "persistence": 0.19,
+      "crypticity": 0.722
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_2",
+    "rank": 2,
+    "residues": [
+      "ALA104:A",
+      "ALA142:A",
+      "ALA149:A",
+      "ARG103:A",
+      "ASP107:A",
+      "GLU129:A",
+      "GLY147:A",
+      "LEU108:A",
+      "LEU130:A",
+      "PHE105:A",
+      "PHE143:A",
+      "PHE146:A",
+      "PHE97:A",
+      "SER145:A",
+      "TYR101:A",
+      "VAL126:A"
+    ],
+    "centroid": [
+      -11.30798307065982,
+      -23.933765894066415,
+      10.218192198566378
+    ],
+    "method_specific_scores": {
+      "druggability": 0.719,
+      "volume_A3": 118.7,
+      "persistence": 0.524,
+      "crypticity": 0.796
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_3",
+    "rank": 3,
+    "residues": [
+      "ALA89:A",
+      "ALA93:A",
+      "ARG100:A",
+      "ARG139:A",
+      "ARG91:A",
+      "ASN197:A",
+      "GLN88:A",
+      "GLU92:A",
+      "GLU96:A",
+      "GLY138:A",
+      "GLY196:A",
+      "GLY94:A",
+      "LEU90:A",
+      "PHE191:A",
+      "PHE97:A",
+      "TRP137:A",
+      "TYR101:A",
+      "TYR195:A",
+      "VAL141:A"
+    ],
+    "centroid": [
+      -5.3126329271477,
+      -9.37816275856096,
+      8.614642839305718
+    ],
+    "method_specific_scores": {
+      "druggability": 0.706,
+      "volume_A3": 112.3,
+      "persistence": 0.143,
+      "crypticity": 0.71
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_4",
+    "rank": 4,
+    "residues": [
+      "ALA149:A",
+      "ASP156:A",
+      "ASP95:A",
+      "CYS151:A",
+      "GLN19:A",
+      "GLU153:A",
+      "GLU98:A",
+      "GLY147:A",
+      "GLY148:A",
+      "LEU13:A",
+      "LEU150:A",
+      "LEU17:A",
+      "LYS16:A",
+      "LYS20:A",
+      "PHE105:A",
+      "PHE12:A",
+      "PHE144:A",
+      "PHE146:A",
+      "SER145:A",
+      "SER14:A",
+      "SER18:A",
+      "THR109:A",
+      "TYR15:A",
+      "VAL152:A"
+    ],
+    "centroid": [
+      0.14041454162373013,
+      -24.878510143026563,
+      5.403282421824848
+    ],
+    "method_specific_scores": {
+      "druggability": 0.792,
+      "volume_A3": 144.8,
+      "persistence": 0.762,
+      "crypticity": 0.549
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_5",
+    "rank": 5,
+    "residues": [
+      "ASP107:A",
+      "GLN111:A",
+      "GLN121:A",
+      "GLN125:A",
+      "GLU129:A",
+      "HIS113:A",
+      "LEU108:A",
+      "LEU112:A",
+      "PHE123:A",
+      "PHE146:A",
+      "SER122:A",
+      "VAL126:A",
+      "VAL127:A"
+    ],
+    "centroid": [
+      -13.163801852111368,
+      -31.24844988532224,
+      9.560403302508803
+    ],
+    "method_specific_scores": {
+      "druggability": 0.559,
+      "volume_A3": 102.7,
+      "persistence": 0.143,
+      "crypticity": 0.0
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_6",
+    "rank": 6,
+    "residues": [
+      "ALA168:A",
+      "ALA171:A",
+      "ASN128:A",
+      "ASP176:A",
+      "GLN125:A",
+      "GLU124:A",
+      "HIS177:A",
+      "LEU174:A",
+      "MET170:A",
+      "PHE123:A",
+      "PHE143:A",
+      "THR172:A",
+      "TRP169:A",
+      "TYR120:A",
+      "TYR173:A",
+      "VAL126:A",
+      "VAL127:A"
+    ],
+    "centroid": [
+      -17.19382326390475,
+      -25.710283005300067,
+      -3.32964316131731
+    ],
+    "method_specific_scores": {
+      "druggability": 0.771,
+      "volume_A3": 118.8,
+      "persistence": 0.619,
+      "crypticity": 0.324
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_7",
+    "rank": 7,
+    "residues": [
+      "ALA119:A",
+      "ARG165:A",
+      "CYS151:A",
+      "GLU153:A",
+      "GLY117:A",
+      "ILE114:A",
+      "ILE166:A",
+      "LEU112:A",
+      "LEU150:A",
+      "LEU162:A",
+      "MET159:A",
+      "PHE123:A",
+      "PRO116:A",
+      "SER122:A",
+      "SER154:A",
+      "THR115:A",
+      "THR118:A",
+      "TRP169:A",
+      "TYR120:A",
+      "VAL163:A"
+    ],
+    "centroid": [
+      -8.297022811318369,
+      -33.44218773818142,
+      -0.9062370312341758
+    ],
+    "method_specific_scores": {
+      "druggability": 0.731,
+      "volume_A3": 133.7,
+      "persistence": 0.143,
+      "crypticity": 0.861
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_8",
+    "rank": 8,
+    "residues": [
+      "ALA142:A",
+      "ALA149:A",
+      "ALA167:A",
+      "ARG139:A",
+      "ARG165:A",
+      "ASN128:A",
+      "CYS151:A",
+      "GLN125:A",
+      "GLU129:A",
+      "GLY147:A",
+      "GLY148:A",
+      "ILE140:A",
+      "ILE166:A",
+      "LEU130:A",
+      "LEU13:A",
+      "LEU150:A",
+      "MET170:A",
+      "PHE123:A",
+      "PHE131:A",
+      "PHE143:A",
+      "PHE144:A",
+      "PHE146:A",
+      "SER122:A",
+      "SER145:A",
+      "TRP169:A",
+      "VAL126:A",
+      "VAL127:A"
+    ],
+    "centroid": [
+      -11.162034077582305,
+      -23.766448176800658,
+      2.9321696382740257
+    ],
+    "method_specific_scores": {
+      "druggability": 0.763,
+      "volume_A3": 114.0,
+      "persistence": 0.095,
+      "crypticity": 0.821
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_9",
+    "rank": 9,
+    "residues": [
+      "ASP156:A",
+      "GLN160:A",
+      "GLU153:A",
+      "GLU158:A",
+      "HIS113:A",
+      "ILE114:A",
+      "LEU112:A",
+      "LEU150:A",
+      "LEU162:A",
+      "LYS157:A",
+      "MET159:A",
+      "SER154:A",
+      "THR109:A",
+      "THR115:A",
+      "VAL155:A"
+    ],
+    "centroid": [
+      -3.9008971436447517,
+      -37.10761409271129,
+      5.234658798553562
+    ],
+    "method_specific_scores": {
+      "druggability": 0.634,
+      "volume_A3": 97.0,
+      "persistence": 0.238,
+      "crypticity": 0.666
+    }
+  },
+  {
+    "method": "lacuna",
+    "condition": "holo_control",
+    "candidate_id": "lacuna_holo_control_10",
+    "rank": 10,
+    "residues": [
+      "ARG6:A",
+      "ASN5:A",
+      "ASP11:A",
+      "ASP189:A",
+      "GLU179:A",
+      "GLU7:A",
+      "GLU84:A",
+      "GLY187:A",
+      "ILE182:A",
+      "LEU8:A",
+      "LEU90:A",
+      "LYS87:A",
+      "PHE12:A",
+      "SER4:A",
+      "SER83:A",
+      "TRP188:A",
+      "VAL10:A",
+      "VAL86:A",
+      "VAL9:A"
+    ],
+    "centroid": [
+      -4.711239016058398,
+      -11.328361789854494,
+      -7.520175673251106
+    ],
+    "method_specific_scores": {
+      "druggability": 0.604,
+      "volume_A3": 86.0,
+      "persistence": 0.095,
+      "crypticity": 0.641
+    }
+  }
+]

@@ -1,0 +1,500 @@
+{
+  "protein": "data\\processed\\apo_matched_core.pdb",
+  "n_conformers": 21,
+  "ranked_by": "learned",
+  "n_pockets_found": 10,
+  "n_cryptic_pockets": 9,
+  "pockets": [
+    {
+      "rank": 1,
+      "centroid": [
+        14.44193487146683,
+        -6.628521286782515,
+        3.969522826274297
+      ],
+      "volume_A3": 139.7,
+      "volume_range_A3": [
+        89.0,
+        263.0
+      ],
+      "apo_volume_A3": 123.0,
+      "druggability": 0.803,
+      "max_druggability": 0.888,
+      "persistence": 0.667,
+      "cryptic": true,
+      "crypticity": 0.472,
+      "lining_residues": [
+        "ALA104:A",
+        "ALA142:A",
+        "ARG103:A",
+        "ARG139:A",
+        "GLU129:A",
+        "GLY138:A",
+        "GLY147:A",
+        "ILE140:A",
+        "LEU108:A",
+        "LEU130:A",
+        "MET170:A",
+        "PHE105:A",
+        "PHE123:A",
+        "PHE131:A",
+        "PHE143:A",
+        "PHE144:A",
+        "PHE146:A",
+        "PHE97:A",
+        "SER145:A",
+        "VAL126:A",
+        "VAL127:A",
+        "VAL141:A"
+      ],
+      "appears_in_conformers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        20
+      ]
+    },
+    {
+      "rank": 2,
+      "centroid": [
+        7.394261067668335,
+        -2.5124365373865793,
+        -10.073408753168986
+      ],
+      "volume_A3": 127.6,
+      "volume_range_A3": [
+        86.0,
+        204.0
+      ],
+      "apo_volume_A3": 110.0,
+      "druggability": 0.652,
+      "max_druggability": 0.723,
+      "persistence": 0.857,
+      "cryptic": true,
+      "crypticity": 0.333,
+      "lining_residues": [
+        "ALA93:A",
+        "ARG91:A",
+        "ASP11:A",
+        "ASP95:A",
+        "GLN19:A",
+        "GLU92:A",
+        "GLU98:A",
+        "GLY94:A",
+        "LEU90:A",
+        "LYS16:A",
+        "PHE12:A",
+        "SER145:A",
+        "SER18:A",
+        "TYR15:A"
+      ],
+      "appears_in_conformers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "rank": 3,
+      "centroid": [
+        15.633781941396634,
+        3.1632650653358994,
+        -4.215194491161249
+      ],
+      "volume_A3": 164.5,
+      "volume_range_A3": [
+        88.0,
+        253.0
+      ],
+      "apo_volume_A3": 0.0,
+      "druggability": 0.722,
+      "max_druggability": 0.866,
+      "persistence": 0.286,
+      "cryptic": true,
+      "crypticity": 0.866,
+      "lining_residues": [
+        "ALA142:A",
+        "ALA89:A",
+        "ALA93:A",
+        "ARG100:A",
+        "ARG91:A",
+        "ASN197:A",
+        "ASP95:A",
+        "GLN88:A",
+        "GLU92:A",
+        "GLU96:A",
+        "GLY138:A",
+        "GLY196:A",
+        "GLY94:A",
+        "LEU194:A",
+        "LEU90:A",
+        "LEU99:A",
+        "PHE97:A",
+        "TYR101:A",
+        "TYR195:A",
+        "VAL141:A"
+      ],
+      "appears_in_conformers": [
+        2,
+        3,
+        12,
+        16,
+        17,
+        20
+      ]
+    },
+    {
+      "rank": 4,
+      "centroid": [
+        12.112041928222506,
+        -6.488130644660437,
+        -5.803729204117246
+      ],
+      "volume_A3": 108.5,
+      "volume_range_A3": [
+        95.0,
+        122.0
+      ],
+      "apo_volume_A3": 0.0,
+      "druggability": 0.703,
+      "max_druggability": 0.754,
+      "persistence": 0.095,
+      "cryptic": true,
+      "crypticity": 0.754,
+      "lining_residues": [
+        "ALA142:A",
+        "ALA149:A",
+        "ALA93:A",
+        "ARG100:A",
+        "ARG91:A",
+        "ASP95:A",
+        "GLN19:A",
+        "GLU96:A",
+        "GLU98:A",
+        "GLY148:A",
+        "GLY94:A",
+        "LEU150:A",
+        "LEU99:A",
+        "LYS16:A",
+        "PHE105:A",
+        "PHE12:A",
+        "PHE144:A",
+        "PHE146:A",
+        "PHE97:A",
+        "SER145:A",
+        "TYR101:A"
+      ],
+      "appears_in_conformers": [
+        5,
+        13
+      ]
+    },
+    {
+      "rank": 5,
+      "centroid": [
+        19.336128546600424,
+        -4.746376452782972,
+        1.6893859970520424
+      ],
+      "volume_A3": 101.5,
+      "volume_range_A3": [
+        101.0,
+        102.0
+      ],
+      "apo_volume_A3": 0.0,
+      "druggability": 0.703,
+      "max_druggability": 0.703,
+      "persistence": 0.095,
+      "cryptic": true,
+      "crypticity": 0.703,
+      "lining_residues": [
+        "ALA104:A",
+        "ALA142:A",
+        "ARG100:A",
+        "ARG102:A",
+        "ARG103:A",
+        "ARG139:A",
+        "ASN136:A",
+        "GLU98:A",
+        "GLY138:A",
+        "ILE140:A",
+        "PHE105:A",
+        "PHE143:A",
+        "PHE97:A",
+        "TRP137:A",
+        "TYR101:A"
+      ],
+      "appears_in_conformers": [
+        15,
+        18
+      ]
+    },
+    {
+      "rank": 6,
+      "centroid": [
+        4.437855525508228,
+        1.4767105045201465,
+        -5.370369689029202
+      ],
+      "volume_A3": 124.0,
+      "volume_range_A3": [
+        80.0,
+        184.0
+      ],
+      "apo_volume_A3": 0.0,
+      "druggability": 0.708,
+      "max_druggability": 0.858,
+      "persistence": 0.476,
+      "cryptic": true,
+      "crypticity": 0.858,
+      "lining_residues": [
+        "ALA89:A",
+        "ARG91:A",
+        "ASP11:A",
+        "GLN88:A",
+        "GLU7:A",
+        "GLU92:A",
+        "GLY94:A",
+        "LEU13:A",
+        "LEU8:A",
+        "LEU90:A",
+        "LYS16:A",
+        "LYS87:A",
+        "PHE12:A",
+        "PHE144:A",
+        "TYR15:A",
+        "VAL10:A",
+        "VAL86:A",
+        "VAL9:A"
+      ],
+      "appears_in_conformers": [
+        2,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        18,
+        19
+      ]
+    },
+    {
+      "rank": 7,
+      "centroid": [
+        4.778368493861424,
+        5.025379431681794,
+        -8.690641419711817
+      ],
+      "volume_A3": 104.3,
+      "volume_range_A3": [
+        85.0,
+        129.0
+      ],
+      "apo_volume_A3": 129.0,
+      "druggability": 0.677,
+      "max_druggability": 0.677,
+      "persistence": 0.143,
+      "cryptic": false,
+      "crypticity": 0.0,
+      "lining_residues": [
+        "ALA85:A",
+        "ALA89:A",
+        "ARG91:A",
+        "ASN197:A",
+        "ASP11:A",
+        "GLN88:A",
+        "GLU92:A",
+        "LEU8:A",
+        "LEU90:A",
+        "LYS87:A",
+        "PHE12:A",
+        "TYR15:A",
+        "VAL86:A"
+      ],
+      "appears_in_conformers": [
+        0,
+        1,
+        8
+      ]
+    },
+    {
+      "rank": 8,
+      "centroid": [
+        15.805471792056027,
+        3.73310980756687,
+        0.731308686103687
+      ],
+      "volume_A3": 124.4,
+      "volume_range_A3": [
+        83.0,
+        166.0
+      ],
+      "apo_volume_A3": 89.0,
+      "druggability": 0.818,
+      "max_druggability": 0.831,
+      "persistence": 0.381,
+      "cryptic": true,
+      "crypticity": 0.385,
+      "lining_residues": [
+        "ALA142:A",
+        "ALA93:A",
+        "ARG139:A",
+        "ASN136:A",
+        "GLU193:A",
+        "GLU96:A",
+        "GLY138:A",
+        "GLY196:A",
+        "ILE140:A",
+        "LEU194:A",
+        "LEU99:A",
+        "PHE191:A",
+        "PHE97:A",
+        "THR190:A",
+        "TRP137:A",
+        "TYR101:A",
+        "TYR195:A",
+        "VAL141:A",
+        "VAL192:A"
+      ],
+      "appears_in_conformers": [
+        0,
+        1,
+        2,
+        8,
+        10,
+        14,
+        15,
+        19
+      ]
+    },
+    {
+      "rank": 9,
+      "centroid": [
+        10.115814837424885,
+        1.4882657596126359,
+        -1.5506431286687148
+      ],
+      "volume_A3": 114.6,
+      "volume_range_A3": [
+        83.0,
+        148.0
+      ],
+      "apo_volume_A3": 0.0,
+      "druggability": 0.804,
+      "max_druggability": 0.83,
+      "persistence": 0.429,
+      "cryptic": true,
+      "crypticity": 0.83,
+      "lining_residues": [
+        "ALA142:A",
+        "ALA89:A",
+        "ALA93:A",
+        "ARG91:A",
+        "ASN197:A",
+        "ASP95:A",
+        "GLN88:A",
+        "GLU92:A",
+        "GLY196:A",
+        "GLY94:A",
+        "ILE140:A",
+        "LEU194:A",
+        "LEU8:A",
+        "LEU90:A",
+        "LYS87:A",
+        "PHE12:A",
+        "PHE143:A",
+        "PHE144:A",
+        "PHE146:A",
+        "PHE191:A",
+        "PHE97:A",
+        "SER145:A",
+        "TRP137:A",
+        "TRP188:A",
+        "TYR195:A",
+        "VAL141:A",
+        "VAL192:A",
+        "VAL86:A"
+      ],
+      "appears_in_conformers": [
+        2,
+        3,
+        7,
+        10,
+        11,
+        13,
+        15,
+        16,
+        18
+      ]
+    },
+    {
+      "rank": 10,
+      "centroid": [
+        3.098127692376899,
+        -19.688925594720374,
+        -1.8459172009634983
+      ],
+      "volume_A3": 84.5,
+      "volume_range_A3": [
+        80.0,
+        89.0
+      ],
+      "apo_volume_A3": 0.0,
+      "druggability": 0.671,
+      "max_druggability": 0.671,
+      "persistence": 0.095,
+      "cryptic": true,
+      "crypticity": 0.671,
+      "lining_residues": [
+        "ALA149:A",
+        "CYS151:A",
+        "GLU153:A",
+        "HIS113:A",
+        "ILE114:A",
+        "ILE166:A",
+        "LEU112:A",
+        "LEU150:A",
+        "LEU162:A",
+        "LYS157:A",
+        "MET159:A",
+        "PRO116:A",
+        "SER154:A",
+        "THR109:A",
+        "THR115:A",
+        "VAL152:A",
+        "VAL155:A"
+      ],
+      "appears_in_conformers": [
+        10,
+        16
+      ]
+    }
+  ]
+}

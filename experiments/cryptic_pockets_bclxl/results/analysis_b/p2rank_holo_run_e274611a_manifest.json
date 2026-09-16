@@ -1,0 +1,33 @@
+{
+  "status": "SUCCESS",
+  "started_at": "2026-09-16T13:23:03.915014+00:00",
+  "command_argv": [
+    "p2rank_2.5.1\\prank.bat",
+    "predict",
+    "-f",
+    "data\\processed\\holo_matched_core_no_ligand.pdb",
+    "-o",
+    "results\\analysis_b\\raw\\p2rank_holo\\run_e274611a",
+    "-threads",
+    "1",
+    "-seed",
+    "42",
+    "-visualizations",
+    "0"
+  ],
+  "command": "p2rank_2.5.1\\prank.bat predict -f data\\processed\\holo_matched_core_no_ligand.pdb -o results\\analysis_b\\raw\\p2rank_holo\\run_e274611a -threads 1 -seed 42 -visualizations 0",
+  "input_sha256": "8162ea71785ea6e6ecc75d3be07bca42852cd9eacbcbe75f4039f7423a255ea4",
+  "stdout": "P2Rank 2.5.1\n\nDIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\nDIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\nDIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\nDIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\npredicting pockets for proteins from dataset [holo_matched_core_no_ligand.pdb]\nprocessing [holo_matched_core_no_ligand.pdb] (1/1)\npredicting pockets finished in 0 hours 0 minutes 3.638 seconds\nresults saved to directory [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\results\\analysis_b\\raw\\p2rank_holo\\run_e274611a]\n\nFinished successfully in 0 hours 0 minutes 5.612 seconds.\n",
+  "stderr": "[INFO] Console - P2Rank 2.5.1\n[INFO] Console - \n[INFO] Main - loading default config from [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config\\default.groovy]\n[INFO] Console - DIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\n[INFO] Console - DIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\n[INFO] Console - DIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\n[INFO] Console - DIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\n[INFO] Console - predicting pockets for proteins from dataset [holo_matched_core_no_ligand.pdb]\n[INFO] PredictPocketsRoutine - outdir: results\\analysis_b\\raw\\p2rank_holo\\run_e274611a\n[INFO] Model - Loading model from directory (v3 format): C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1/models/default\n[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]\n[INFO] Dataset - processing dataset [holo_matched_core_no_ligand.pdb] using 1 thread\n[INFO] Dataset - \n------------------------------------------------------------------------------------------------------------------------\nprocessing [holo_matched_core_no_ligand.pdb] (1/1)\n------------------------------------------------------------------------------------------------------------------------\n\n[INFO] Console - processing [holo_matched_core_no_ligand.pdb] (1/1)\n[INFO] Protein - loading protein [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\data\\processed\\holo_matched_core_no_ligand.pdb]\n[INFO] PdbUtils - loading file [data\\processed\\holo_matched_core_no_ligand.pdb]\n[INFO] Struct - all groups in chain A: 22\n[INFO] Struct - all groups in chain A: 115\n[INFO] Struct - all groups in chain A: 22\n[INFO] Struct - 22 groups in chain A\n[INFO] Struct - all groups in chain A: 115\n[INFO] Struct - 115 groups in chain A\n[WARN] Protein - Two protein chains with the same authorId: A(id:B)(115) A(22)\n[INFO] Protein - structure atoms: 1113\n[INFO] Protein - protein   atoms: 1086\n[INFO] Protein - ignoring ligands\n[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]\n[INFO] Protein - SAS points: 2457\n[INFO] Protein - exposed protein atoms: 761 of 1086\n[INFO] SLinkClusterer - clustering [40] elements\n[INFO] SLinkClusterer - clusters: [id:9( 26 ), id:11( 2 ), id:28( 1 ), id:35( 5 ), id:37( 2 ), id:39( 4 )]\n[INFO] SLinkClusterer - clusters together: 40 / 40\n[INFO] PocketPredictor - PREDICTING POCKETS.... ====================================\n[INFO] PocketPredictor - SAS POINTS: 2457\n[INFO] PocketPredictor - LIGANDABLE POINTS: 40\n[INFO] PocketPredictor - CLUSTERS: 6\n[INFO] PocketPredictor - FILTERED CLUSTERS: 3\n[INFO] PocketPredictor - pocket 1 -  surf_atoms:  36   points:  26   score:   11.3\n[INFO] PocketPredictor - pocket 2 -  surf_atoms:  19   points:   4   score:    1.9\n[INFO] PocketPredictor - pocket 3 -  surf_atoms:  17   points:   5   score:    1.5\n[INFO] Console - predicting pockets finished in 0 hours 0 minutes 3.638 seconds\n[INFO] Console - results saved to directory [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\results\\analysis_b\\raw\\p2rank_holo\\run_e274611a]\n[INFO] Console - \n[INFO] Console - Finished successfully in 0 hours 0 minutes 5.612 seconds.\n",
+  "runtime": 8.62850119999348,
+  "return_code": 0,
+  "outputs": {
+    "holo_matched_core_no_ligand.pdb_predictions.csv": "a3e9e69dac44aefef137a25c69c8dc49ad135fd3f2e8570aadfa2fe4686c40e6",
+    "holo_matched_core_no_ligand.pdb_residues.csv": "7fefaad0e4ee5f334a765e4e19f58ce6386c4fe9d6c7e8251a4adce6abee6459",
+    "params.txt": "7637d5b7fa71c14a4c6a5a44820b3fbf69a6d43cfd38516216711235f6fd7bc8",
+    "run.log": "34a9ce997d6a458a94068025fafc5bb3cf5000fbaddd2238ad7be8ad46223e1d"
+  },
+  "finished_at": "2026-09-16T13:23:12.543301+00:00",
+  "run_id": "run_e274611a",
+  "config_name": "p2rank_holo"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "SUCCESS",
+  "started_at": "2026-09-16T13:22:47.464058+00:00",
+  "command_argv": [
+    "p2rank_2.5.1\\prank.bat",
+    "predict",
+    "-f",
+    "data\\processed\\apo_matched_core.pdb",
+    "-o",
+    "results\\analysis_b\\raw\\p2rank_apo\\run_7423b798",
+    "-threads",
+    "1",
+    "-seed",
+    "42",
+    "-visualizations",
+    "0"
+  ],
+  "command": "p2rank_2.5.1\\prank.bat predict -f data\\processed\\apo_matched_core.pdb -o results\\analysis_b\\raw\\p2rank_apo\\run_7423b798 -threads 1 -seed 42 -visualizations 0",
+  "input_sha256": "b0d20bfd4907b92929161c78790051471de261a917371b40da3aa418a3d64693",
+  "stdout": "P2Rank 2.5.1\n\nDIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\nDIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\nDIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\nDIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\npredicting pockets for proteins from dataset [apo_matched_core.pdb]\nprocessing [apo_matched_core.pdb] (1/1)\npredicting pockets finished in 0 hours 0 minutes 5.449 seconds\nresults saved to directory [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\results\\analysis_b\\raw\\p2rank_apo\\run_7423b798]\n\nFinished successfully in 0 hours 0 minutes 7.430 seconds.\n",
+  "stderr": "[INFO] Console - P2Rank 2.5.1\n[INFO] Console - \n[INFO] Main - loading default config from [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config\\default.groovy]\n[INFO] Console - DIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\n[INFO] Console - DIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_data\n[INFO] Console - DIR: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\n[INFO] Console - DIR2: C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1\\config/../test_output\n[INFO] Console - predicting pockets for proteins from dataset [apo_matched_core.pdb]\n[INFO] PredictPocketsRoutine - outdir: results\\analysis_b\\raw\\p2rank_apo\\run_7423b798\n[INFO] Model - Loading model from directory (v3 format): C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\p2rank_2.5.1/models/default\n[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]\n[INFO] Dataset - processing dataset [apo_matched_core.pdb] using 1 thread\n[INFO] Dataset - \n------------------------------------------------------------------------------------------------------------------------\nprocessing [apo_matched_core.pdb] (1/1)\n------------------------------------------------------------------------------------------------------------------------\n\n[INFO] Console - processing [apo_matched_core.pdb] (1/1)\n[INFO] Protein - loading protein [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\data\\processed\\apo_matched_core.pdb]\n[INFO] PdbUtils - loading file [data\\processed\\apo_matched_core.pdb]\n[INFO] Struct - all groups in chain A: 22\n[INFO] Struct - all groups in chain A: 115\n[INFO] Struct - all groups in chain A: 22\n[INFO] Struct - 22 groups in chain A\n[INFO] Struct - all groups in chain A: 115\n[INFO] Struct - 115 groups in chain A\n[WARN] Protein - Two protein chains with the same authorId: A(id:B)(115) A(22)\n[INFO] Protein - structure atoms: 1113\n[INFO] Protein - protein   atoms: 1086\n[INFO] Protein - ignoring ligands\n[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]\n[INFO] Protein - SAS points: 2664\n[INFO] Protein - exposed protein atoms: 780 of 1086\n[INFO] SLinkClusterer - clustering [31] elements\n[INFO] SLinkClusterer - clusters: [id:0( 1 ), id:5( 5 ), id:22( 13 ), id:24( 4 ), id:26( 2 ), id:27( 1 ), id:28( 1 ), id:29( 1 ), id:30( 3 )]\n[INFO] SLinkClusterer - clusters together: 31 / 31\n[INFO] PocketPredictor - PREDICTING POCKETS.... ====================================\n[INFO] PocketPredictor - SAS POINTS: 2664\n[INFO] PocketPredictor - LIGANDABLE POINTS: 31\n[INFO] PocketPredictor - CLUSTERS: 9\n[INFO] PocketPredictor - FILTERED CLUSTERS: 4\n[INFO] PocketPredictor - pocket 1 -  surf_atoms:  25   points:  13   score:    3.9\n[INFO] PocketPredictor - pocket 2 -  surf_atoms:  13   points:   4   score:    2.0\n[INFO] PocketPredictor - pocket 3 -  surf_atoms:  19   points:   5   score:    1.9\n[INFO] PocketPredictor - pocket 4 -  surf_atoms:  10   points:   3   score:    1.3\n[INFO] Console - predicting pockets finished in 0 hours 0 minutes 5.449 seconds\n[INFO] Console - results saved to directory [C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\results\\analysis_b\\raw\\p2rank_apo\\run_7423b798]\n[INFO] Console - \n[INFO] Console - Finished successfully in 0 hours 0 minutes 7.430 seconds.\n",
+  "runtime": 10.866016699998,
+  "return_code": 0,
+  "outputs": {
+    "apo_matched_core.pdb_predictions.csv": "fc872b203e732864dca0bc718ef5a50a6a91b8d62057ae710e0fde9d7645618e",
+    "apo_matched_core.pdb_residues.csv": "900ea64728bd664f14415bb70cd6fd2246583262f7c1ed6426ab6d374ad338ea",
+    "params.txt": "7637d5b7fa71c14a4c6a5a44820b3fbf69a6d43cfd38516216711235f6fd7bc8",
+    "run.log": "74fe786fd57c8337b555b5643d118e4703d720eebb42d197b59bc0c1562fddf3"
+  },
+  "finished_at": "2026-09-16T13:22:58.331225+00:00",
+  "run_id": "run_7423b798",
+  "config_name": "p2rank_apo"
+}

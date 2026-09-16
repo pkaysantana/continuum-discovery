@@ -1,0 +1,54 @@
+[
+  {
+    "condition": "apo",
+    "method": "p2rank",
+    "candidate_count": 4,
+    "first_primary_hit_rank": null,
+    "best_centroid_distance": 4.972601555824285,
+    "first_secondary_hit_rank": 1,
+    "best_jaccard": 0.36,
+    "reference_recall_at_first_primary_hit": null,
+    "precision_at_first_primary_hit": null,
+    "runtime": 10.866016699998,
+    "status": "SUCCESS"
+  },
+  {
+    "condition": "apo",
+    "method": "lacuna",
+    "candidate_count": 10,
+    "first_primary_hit_rank": null,
+    "best_centroid_distance": 4.961590545886739,
+    "first_secondary_hit_rank": 1,
+    "best_jaccard": 0.43333333333333335,
+    "reference_recall_at_first_primary_hit": null,
+    "precision_at_first_primary_hit": null,
+    "runtime": 5.578220000003057,
+    "status": "SUCCESS"
+  },
+  {
+    "condition": "holo_control",
+    "method": "p2rank",
+    "candidate_count": 3,
+    "first_primary_hit_rank": null,
+    "best_centroid_distance": 6.84941138190295,
+    "first_secondary_hit_rank": 1,
+    "best_jaccard": 0.5,
+    "reference_recall_at_first_primary_hit": null,
+    "precision_at_first_primary_hit": null,
+    "runtime": 8.62850119999348,
+    "status": "SUCCESS"
+  },
+  {
+    "condition": "holo_control",
+    "method": "lacuna",
+    "candidate_count": 10,
+    "first_primary_hit_rank": null,
+    "best_centroid_distance": 4.4811975356187395,
+    "first_secondary_hit_rank": 1,
+    "best_jaccard": 0.56,
+    "reference_recall_at_first_primary_hit": null,
+    "precision_at_first_primary_hit": null,
+    "runtime": 4.791971600003308,
+    "status": "SUCCESS"
+  }
+]
