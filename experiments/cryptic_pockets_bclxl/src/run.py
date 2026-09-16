@@ -33,8 +33,9 @@ def versions():
     
     java_version = 'NOT_MEASURED'
     try:
-        import subprocess
-        java_res = subprocess.run(['java', '-version'], capture_output=True, text=True, check=False)
+        import subprocess, os
+        java_exe = Path(os.getcwd()) / 'jdk-21.0.2' / 'bin' / 'java.exe'
+        java_res = subprocess.run([str(java_exe), '-version'], capture_output=True, text=True, check=False)
         java_version = java_res.stderr.splitlines()[0] if java_res.stderr else 'NOT_FOUND'
     except Exception:
         pass

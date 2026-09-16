@@ -1,0 +1,14 @@
+{
+  "errors": 0,
+  "failure_details": [
+    [
+      "test_run_lacuna_no_surface_model_fails (test_wrappers.TestWrappers.test_run_lacuna_no_surface_model_fails)",
+      "Traceback (most recent call last):\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\tests\\test_wrappers.py\", line 11, in test_run_lacuna_no_surface_model_fails\n    self.assertEqual(result['status'], 'FAILED')\nAssertionError: 'SUCCESS' != 'FAILED'\n- SUCCESS\n+ FAILED\n\n"
+    ]
+  ],
+  "failures": 1,
+  "passed": 44,
+  "skipped": 0,
+  "status": "FAILED",
+  "tests_run": 45
+}

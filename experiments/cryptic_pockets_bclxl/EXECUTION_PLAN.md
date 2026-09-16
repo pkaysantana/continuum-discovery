@@ -242,10 +242,10 @@ Part 2 has been completed. The following are **measured** values locked from the
 | Item | Status |
 | --- | --- |
 | Python version and executable path | 3.11.16, `C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\.venv\Scripts\python.exe` |
-| `lacuna-pockets` version, source, install hash | 1.1.0 from PyPI (source editable failed due to missing weights; noted deviation from protocol 1.2.0) |
-| Presence of the fitted surface model artefact (gates Analysis A) | Absent (caused editable install failure; PyPI package does not include `fused_ranker.npz`) |
+| `lacuna-pockets` version, source, install hash | 1.2.0 from PyPI (vendored source lacks the binary `fused_ranker.npz`, but the authentic shipped PyPI wheel contains it) |
+| Presence of the fitted surface model artefact (gates Analysis A) | Present (`fused_ranker.npz` loaded successfully from installed package; SHA-256: `b9e56430b5f51f62504d6617e5d32d5edfd02dd6cf286eb0542ff05150b3eb11`) |
 | P2Rank 2.5.1 distribution path and artefact hash | Downloaded to `p2rank.tar.gz`. Hash: `d243f2d9036ac053fefb9407b5fe1c85f4fe077c519fd975ac585e995feab274` |
-| Java runtime version | `java version "26.0.1" 2026-04-21` (noted deviation from Java 17) |
+| Java runtime version | `openjdk version "21.0.2" 2024-01-16` (pinned dedicated runtime configured for P2Rank execution) |
 | Biopython, NumPy, SciPy, click, rich versions | Biopython 1.85, NumPy 2.2.6, SciPy 1.17.1, Click 8.5.0, Rich 15.0.0 |
 | Pandas (only if genuinely required) | Not installed |
 | Complete transitive dependency lock | Written to `manifests/environment_plan.json` |

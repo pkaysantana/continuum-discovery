@@ -86,9 +86,17 @@ def run_p2rank(p2rank_sh: Path, input_pdb: Path, output_dir: Path) -> dict:
     }
     
     try:
-        # Check Java version internally
-        java_res = subprocess.run(['java', '-version'], capture_output=True, text=True, check=False)
-        if '17.' not in java_res.stderr and '26.' not in java_res.stderr:
+        # Check Java version explicitly using pinned runtime
+        java_exe = Path(os.getcwd()) / 'jdk-21.0.2' / 'bin' / 'java.exe'
+        if not java_exe.exists():
+            raise RuntimeError(f"Pinned Java runtime not found at {java_exe}")
+            
+        env = os.environ.copy()
+        env['JAVA_HOME'] = str(Path(os.getcwd()) / 'jdk-21.0.2')
+        env['PATH'] = str(java_exe.parent) + os.pathsep + env.get('PATH', '')
+        
+        java_res = subprocess.run([str(java_exe), '-version'], capture_output=True, text=True, check=False)
+        if '21.' not in java_res.stderr:
             raise RuntimeError(f"Unexpected Java version: {java_res.stderr.splitlines()[0]}")
             
         # We do not actually run P2Rank here to respect "Do NOT run P2Rank or Lacuna yet."

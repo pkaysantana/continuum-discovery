@@ -6,13 +6,13 @@
       "reason": "Optional WMI query denied by sandbox (HRESULT 0x80041003). No GPU needed.",
       "status": "unavailable"
     },
-    "java": "java version \"26.0.1\" 2026-04-21",
+    "java": "openjdk version \"21.0.2\" 2024-01-16",
     "logical_cpu_count": 32,
     "os": "Windows-10-10.0.26200-SP0",
     "packages": {
       "biopython": "1.85",
       "click": "8.5.0",
-      "lacuna-pockets": "1.1.0",
+      "lacuna-pockets": "1.2.0",
       "numpy": "2.2.6",
       "rich": "15.0.0",
       "scipy": "1.17.1"
