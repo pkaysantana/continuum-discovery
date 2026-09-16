@@ -33,7 +33,7 @@ The project was executed in four distinct phases:
 
 ## Current Status
 
-The structural-pocket project is currently **paused/closed** for the current application cycle. 
+The structural-pocket project is currently **paused/closed**. 
 
 - **BCL-XL Analysis A**: Complete
 - **BCL-XL Analysis B**: Complete
