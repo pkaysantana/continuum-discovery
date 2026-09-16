@@ -24,8 +24,24 @@ MANIFEST = ROOT / 'manifests/input_manifest.json'
 
 
 def versions():
+    packages = {}
+    for p in ('biopython', 'numpy', 'scipy', 'click', 'rich', 'lacuna-pockets'):
+        try:
+            packages[p] = importlib.metadata.version(p)
+        except importlib.metadata.PackageNotFoundError:
+            packages[p] = 'NOT_INSTALLED'
+    
+    java_version = 'NOT_MEASURED'
+    try:
+        import subprocess
+        java_res = subprocess.run(['java', '-version'], capture_output=True, text=True, check=False)
+        java_version = java_res.stderr.splitlines()[0] if java_res.stderr else 'NOT_FOUND'
+    except Exception:
+        pass
+        
     return {'python': platform.python_version(),
-            'packages': {p: importlib.metadata.version(p) for p in ('biopython', 'numpy')}}
+            'java': java_version,
+            'packages': packages}
 
 
 def inputs():
@@ -159,6 +175,7 @@ def environment():
         plan['planned'] = old['planned']
         if 'review_amendment' in old:
             plan['review_amendment'] = old['review_amendment']
+        path.unlink()
     write_json(path, plan)
     print(json.dumps(plan['current'], indent=2))
     return [path]

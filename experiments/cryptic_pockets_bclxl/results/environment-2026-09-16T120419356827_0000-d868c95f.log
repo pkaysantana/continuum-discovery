@@ -1,0 +1,20 @@
+{
+  "os": "Windows-10-10.0.26200-SP0",
+  "python_executable": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe",
+  "python": "3.11.16",
+  "java": "java version \"26.0.1\" 2026-04-21",
+  "packages": {
+    "biopython": "1.85",
+    "numpy": "2.2.6",
+    "scipy": "1.17.1",
+    "click": "8.5.0",
+    "rich": "15.0.0",
+    "lacuna-pockets": "1.1.0"
+  },
+  "cpu": "AMD Ryzen 9 9955HX 16-Core Processor",
+  "logical_cpu_count": 32,
+  "gpu": {
+    "status": "unavailable",
+    "reason": "Optional WMI query denied by sandbox (HRESULT 0x80041003). No GPU needed."
+  }
+}

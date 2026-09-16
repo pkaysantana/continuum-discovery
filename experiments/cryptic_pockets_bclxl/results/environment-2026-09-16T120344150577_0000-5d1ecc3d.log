@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\run.py", line 273, in main
+    outputs = environment()
+              ^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\run.py", line 178, in environment
+    write_json(path, plan)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\provenance.py", line 41, in write_json
+    write_once(path, canonical_bytes(value))
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\provenance.py", line 34, in write_once
+    raise ValueError(f'Refusing to replace existing file: {path}')
+ValueError: Refusing to replace existing file: C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\manifests\environment_plan.json

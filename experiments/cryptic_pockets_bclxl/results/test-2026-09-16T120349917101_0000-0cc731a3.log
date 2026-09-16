@@ -1,0 +1,51 @@
+test_all_reference_sets_retained_and_CA_centroids_correct (test_matched_core.MatchedCoreTests.test_all_reference_sets_retained_and_CA_centroids_correct) ... ok
+test_manifest_and_output_hashes (test_matched_core.MatchedCoreTests.test_manifest_and_output_hashes) ... ok
+test_missing_backbone_excludes_both_counterparts (test_matched_core.MatchedCoreTests.test_missing_backbone_excludes_both_counterparts) ... ok
+test_output_contains_only_core_protein (test_matched_core.MatchedCoreTests.test_output_contains_only_core_protein) ... ok
+test_pdb_round_trip_preserves_atoms_coordinates_occupancy_bfactor (test_matched_core.MatchedCoreTests.test_pdb_round_trip_preserves_atoms_coordinates_occupancy_bfactor) ... ok
+test_real_common_core_and_complete_accounting (test_matched_core.MatchedCoreTests.test_real_common_core_and_complete_accounting) ... ok
+test_selection_independent_of_pocket_or_coordinate_location (test_matched_core.MatchedCoreTests.test_selection_independent_of_pocket_or_coordinate_location) ... ok
+test_serialized_output_is_repeatable (test_matched_core.MatchedCoreTests.test_serialized_output_is_repeatable) ... ok
+test_tags_excluded_even_if_observed_in_both (test_matched_core.MatchedCoreTests.test_tags_excluded_even_if_observed_in_both) ... ok
+test_centroid_distance_translation_invariant (test_matched_core.PrimaryMetricTests.test_centroid_distance_translation_invariant) ... ok
+test_four_angstrom_boundary_is_inclusive (test_matched_core.PrimaryMetricTests.test_four_angstrom_boundary_is_inclusive) ... ok
+test_invalid_center_fails_without_fallback (test_matched_core.PrimaryMetricTests.test_invalid_center_fails_without_fallback) ... ok
+test_jaccard_is_not_a_success_gate (test_matched_core.PrimaryMetricTests.test_jaccard_is_not_a_success_gate) ... ok
+test_recall_precision_and_jaccard_have_distinct_denominators (test_matched_core.PrimaryMetricTests.test_recall_precision_and_jaccard_have_distinct_denominators) ... ok
+test_altloc_occupancy_selection_is_coherent (test_reference_site.GeometryTests.test_altloc_occupancy_selection_is_coherent) ... ok
+test_altloc_tie_is_lexical (test_reference_site.GeometryTests.test_altloc_tie_is_lexical) ... ok
+test_centroid_is_atom_weighted_arithmetic_mean (test_reference_site.GeometryTests.test_centroid_is_atom_weighted_arithmetic_mean) ... ok
+test_empty_centroid_fails (test_reference_site.GeometryTests.test_empty_centroid_fails) ... ok
+test_heavy_atom_contact_residue_extraction (test_reference_site.GeometryTests.test_heavy_atom_contact_residue_extraction) ... ok
+test_hydrogen_alone_does_not_create_contact (test_reference_site.GeometryTests.test_hydrogen_alone_does_not_create_contact) ... ok
+test_hydrogen_deuterium_and_zero_occupancy_excluded (test_reference_site.GeometryTests.test_hydrogen_deuterium_and_zero_occupancy_excluded) ... ok
+test_inclusive_cutoff_and_just_outside (test_reference_site.GeometryTests.test_inclusive_cutoff_and_just_outside) ... ok
+test_model_selection (test_reference_site.GeometryTests.test_model_selection) ... ok
+test_nan_coordinates_fail (test_reference_site.GeometryTests.test_nan_coordinates_fail) ... ok
+test_waters_ions_and_nonpolymer_amino_acids_excluded (test_reference_site.GeometryTests.test_waters_ions_and_nonpolymer_amino_acids_excluded) ... ok
+test_duplicate_ligand_instances_fail (test_reference_site.LigandTests.test_duplicate_ligand_instances_fail) ... ok
+test_exact_ligand_instance_selection (test_reference_site.LigandTests.test_exact_ligand_instance_selection) ... ok
+test_missing_ligand_fails_gracefully (test_reference_site.LigandTests.test_missing_ligand_fails_gracefully) ... ok
+test_other_ligand_chain_not_selected (test_reference_site.LigandTests.test_other_ligand_chain_not_selected) ... ok
+test_polymer_cannot_be_selected_as_ligand (test_reference_site.LigandTests.test_polymer_cannot_be_selected_as_ligand) ... ok
+test_wrong_ligand_synonym_fails (test_reference_site.LigandTests.test_wrong_ligand_synonym_fails) ... ok
+test_ambiguous_alignment_fails (test_reference_site.MappingTests.test_ambiguous_alignment_fails) ... ok
+test_construct_deletion_recorded (test_reference_site.MappingTests.test_construct_deletion_recorded) ... ok
+test_mapping_uses_sequence_not_author_numbers (test_reference_site.MappingTests.test_mapping_uses_sequence_not_author_numbers) ... ok
+test_mismatches_are_unmapped (test_reference_site.MappingTests.test_mismatches_are_unmapped) ... ok
+test_missing_coordinates_do_not_change_alignment (test_reference_site.MappingTests.test_missing_coordinates_do_not_change_alignment) ... ok
+test_missing_position_reporting (test_reference_site.MappingTests.test_missing_position_reporting) ... ok
+test_manifest_known_hash_and_tamper_detection (test_reference_site.ProvenanceAndIntegrationTests.test_manifest_known_hash_and_tamper_detection) ... ok
+test_mock_mmcif_text_round_trip (test_reference_site.ProvenanceAndIntegrationTests.test_mock_mmcif_text_round_trip) ... ok
+test_raw_write_cannot_replace_existing_bytes (test_reference_site.ProvenanceAndIntegrationTests.test_raw_write_cannot_replace_existing_bytes) ... ok
+test_real_evaluation_repeatable_and_matches_saved_output (test_reference_site.ProvenanceAndIntegrationTests.test_real_evaluation_repeatable_and_matches_saved_output) ... ok
+test_real_inputs_match_manifests (test_reference_site.ProvenanceAndIntegrationTests.test_real_inputs_match_manifests) ... ok
+test_run_lacuna_no_surface_model_fails (test_wrappers.TestWrappers.test_run_lacuna_no_surface_model_fails) ... ok
+test_run_p2rank_checks_java_version (test_wrappers.TestWrappers.test_run_p2rank_checks_java_version) ... ok
+test_run_p2rank_missing_executable_fails (test_wrappers.TestWrappers.test_run_p2rank_missing_executable_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 6.369s
+
+OK
+
