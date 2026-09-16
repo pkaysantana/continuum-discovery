@@ -148,7 +148,28 @@
     "residue_mapping_feasible": true,
     "lacuna_overlap": "ELIGIBLE_NO_KNOWN_LACUNA_OVERLAP",
     "p2rank_overlap": "NO_EXACT_ID_OVERLAP",
-    "structural_quality_flag": "ELIGIBLE",
-    "selection_status": "SHORTLISTED"
+    "structural_quality_flag": "REJECTED_MUTATION_CONSTRUCT_CONFOUNDING",
+    "selection_status": "REJECTED (Confounding)"
+  },
+  {
+    "target": "CDK2",
+    "apo_pdb": "1HCL",
+    "holo_pdb": "3PY1",
+    "structural_quality_flag": "REJECTED_MUTATION_CONSTRUCT_CONFOUNDING",
+    "selection_status": "REJECTED (Confounding)"
+  },
+  {
+    "target": "PTP1B",
+    "apo_pdb": "2HNQ",
+    "holo_pdb": "1T49",
+    "structural_quality_flag": "REJECTED (Confounding and Overlap)",
+    "selection_status": "REJECTED (Confounding)"
+  },
+  {
+    "target": "KRAS G12C",
+    "apo_pdb": "6OIM",
+    "holo_pdb": "6OQA",
+    "structural_quality_flag": "REJECTED (No Valid Apo)",
+    "selection_status": "REJECTED (Confounding)"
   }
 ]
