@@ -24,7 +24,7 @@
   (9808a7723be9a94e2ffc21ab5f724cb6ae4ba01e), Java 17, one thread, seed 42.
   NMA cutoff 8 A, 10 modes, maximum RMSD 2 A, seed 42; no optional sequence/MD/Boltz.
   Exact settings and future wrapper requirements are in configs/methods.json and PROTOCOL.md.
-- Frozen Git SHA: **ANCHOR_SHA_PENDING**.
+- Frozen Git SHA: **ff685f115eaee9993e174bdd793f137c8a03c316**.
 - Anchor tag: **cryptic-pocket-bclxl-preregistered-v1**. A commit cannot contain its
   own literal SHA; a subsequent receipt-only commit records the anchor SHA here.
   That receipt changes no scientific definitions. Never amend or move the anchor.
