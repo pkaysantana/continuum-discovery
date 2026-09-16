@@ -1,0 +1,15 @@
+{
+  "protocol_version": 1,
+  "apo_pdb_id": "1LXL",
+  "holo_pdb_id": "2YXJ",
+  "model_number": "1",
+  "apo_label_chain": "A",
+  "holo_label_chain": "A",
+  "ligand_comp_id": "N3C",
+  "ligand_label_chain": "D",
+  "ligand_auth_chain": "A",
+  "ligand_synonym": "ABT-737",
+  "contact_cutoff_angstrom": 5.0,
+  "alignment": {"match": 2.0, "mismatch": -1.0, "open_gap": -10.0, "extend_gap": -0.5},
+  "future_recovery": {"minimum_reference_coverage": 0.5, "minimum_jaccard": 0.25, "primary_top_k": 5}
+}

@@ -1,0 +1,13 @@
+{
+  "byte_size": 324444,
+  "filename": "data/raw/2YXJ.cif",
+  "http_headers": {
+    "Content-Type": "chemical/x-cif",
+    "ETag": null,
+    "Last-Modified": null
+  },
+  "pdb_id": "2YXJ",
+  "retrieved_at": "2026-09-16T10:32:30.962732+00:00",
+  "sha256": "5300ddf32f42624dd5da03cf1b2beee63d224542ad46bb6bdf055f28bfa969a4",
+  "source_url": "https://files.rcsb.org/download/2YXJ.cif"
+}

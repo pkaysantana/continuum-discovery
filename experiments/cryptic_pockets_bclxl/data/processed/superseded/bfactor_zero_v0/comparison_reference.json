@@ -1,0 +1,807 @@
+{
+  "cutoffs": {
+    "4.0": {
+      "apo_reference_centroid_CA": [
+        15.117894736842105,
+        -2.874,
+        1.7406842105263158
+      ],
+      "apo_reference_centroid_heavy_atoms_secondary": [
+        15.371426900584796,
+        -2.4759707602339183,
+        1.626906432748538
+      ],
+      "holo_reference_centroid_CA": [
+        -9.318263157894737,
+        -16.785947368421052,
+        8.445684210526315
+      ],
+      "holo_reference_centroid_heavy_atoms_secondary": [
+        -9.396438596491228,
+        -16.33380701754386,
+        8.459766081871344
+      ],
+      "holo_residues": [
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "93",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 57,
+          "minimum_ligand_distance_angstrom": 3.882750185113639,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "96",
+          "heavy_atom_count": 9,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 60,
+          "minimum_ligand_distance_angstrom": 3.5132597398996843,
+          "resname": "GLU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "97",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 61,
+          "minimum_ligand_distance_angstrom": 3.697837881789844,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "100",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 64,
+          "minimum_ligand_distance_angstrom": 3.843257602607454,
+          "resname": "ARG"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "101",
+          "heavy_atom_count": 12,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 65,
+          "minimum_ligand_distance_angstrom": 3.4924908017058534,
+          "resname": "TYR"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "104",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 68,
+          "minimum_ligand_distance_angstrom": 3.8190202932165747,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "105",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 69,
+          "minimum_ligand_distance_angstrom": 3.3634400544680445,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "126",
+          "heavy_atom_count": 7,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 90,
+          "minimum_ligand_distance_angstrom": 3.6983136697689662,
+          "resname": "VAL"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "129",
+          "heavy_atom_count": 9,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 93,
+          "minimum_ligand_distance_angstrom": 3.5358922494895118,
+          "resname": "GLU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "130",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 94,
+          "minimum_ligand_distance_angstrom": 3.505898173079189,
+          "resname": "LEU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "136",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 100,
+          "minimum_ligand_distance_angstrom": 3.72720672890571,
+          "resname": "ASN"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "137",
+          "heavy_atom_count": 14,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 101,
+          "minimum_ligand_distance_angstrom": 3.7779906034822264,
+          "resname": "TRP"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "138",
+          "heavy_atom_count": 4,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 102,
+          "minimum_ligand_distance_angstrom": 3.0737307949786365,
+          "resname": "GLY"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "139",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 103,
+          "minimum_ligand_distance_angstrom": 3.5715755626893846,
+          "resname": "ARG"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "141",
+          "heavy_atom_count": 7,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 105,
+          "minimum_ligand_distance_angstrom": 3.437133398633226,
+          "resname": "VAL"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "142",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 106,
+          "minimum_ligand_distance_angstrom": 3.363877524524341,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "146",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 110,
+          "minimum_ligand_distance_angstrom": 3.8355496346677618,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "191",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 155,
+          "minimum_ligand_distance_angstrom": 3.727957886028221,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "195",
+          "heavy_atom_count": 12,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 159,
+          "minimum_ligand_distance_angstrom": 3.3161821421628814,
+          "resname": "TYR"
+        }
+      ],
+      "output_residue_ids": [
+        93,
+        96,
+        97,
+        100,
+        101,
+        104,
+        105,
+        126,
+        129,
+        130,
+        136,
+        137,
+        138,
+        139,
+        141,
+        142,
+        146,
+        191,
+        195
+      ],
+      "residue_count": 19,
+      "role": "PRE_RUN_DIAGNOSTIC_ONLY"
+    },
+    "4.5": {
+      "apo_reference_centroid_CA": [
+        14.670272727272726,
+        -2.890318181818182,
+        1.2997727272727273
+      ],
+      "apo_reference_centroid_heavy_atoms_secondary": [
+        15.016792746113989,
+        -2.4815906735751296,
+        1.225119170984456
+      ],
+      "holo_reference_centroid_CA": [
+        -8.63740909090909,
+        -16.93868181818182,
+        8.340499999999999
+      ],
+      "holo_reference_centroid_heavy_atoms_secondary": [
+        -8.795512953367876,
+        -16.452886010362697,
+        8.336424870466322
+      ],
+      "holo_residues": [
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "93",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 57,
+          "minimum_ligand_distance_angstrom": 3.882750185113639,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "96",
+          "heavy_atom_count": 9,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 60,
+          "minimum_ligand_distance_angstrom": 3.5132597398996843,
+          "resname": "GLU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "97",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 61,
+          "minimum_ligand_distance_angstrom": 3.697837881789844,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "100",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 64,
+          "minimum_ligand_distance_angstrom": 3.843257602607454,
+          "resname": "ARG"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "101",
+          "heavy_atom_count": 12,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 65,
+          "minimum_ligand_distance_angstrom": 3.4924908017058534,
+          "resname": "TYR"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "104",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 68,
+          "minimum_ligand_distance_angstrom": 3.8190202932165747,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "105",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 69,
+          "minimum_ligand_distance_angstrom": 3.3634400544680445,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "108",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 72,
+          "minimum_ligand_distance_angstrom": 4.1405301592912,
+          "resname": "LEU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "126",
+          "heavy_atom_count": 7,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 90,
+          "minimum_ligand_distance_angstrom": 3.6983136697689662,
+          "resname": "VAL"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "129",
+          "heavy_atom_count": 9,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 93,
+          "minimum_ligand_distance_angstrom": 3.5358922494895118,
+          "resname": "GLU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "130",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 94,
+          "minimum_ligand_distance_angstrom": 3.505898173079189,
+          "resname": "LEU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "136",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 100,
+          "minimum_ligand_distance_angstrom": 3.72720672890571,
+          "resname": "ASN"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "137",
+          "heavy_atom_count": 14,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 101,
+          "minimum_ligand_distance_angstrom": 3.7779906034822264,
+          "resname": "TRP"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "138",
+          "heavy_atom_count": 4,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 102,
+          "minimum_ligand_distance_angstrom": 3.0737307949786365,
+          "resname": "GLY"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "139",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 103,
+          "minimum_ligand_distance_angstrom": 3.5715755626893846,
+          "resname": "ARG"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "141",
+          "heavy_atom_count": 7,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 105,
+          "minimum_ligand_distance_angstrom": 3.437133398633226,
+          "resname": "VAL"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "142",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 106,
+          "minimum_ligand_distance_angstrom": 3.363877524524341,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "145",
+          "heavy_atom_count": 6,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 109,
+          "minimum_ligand_distance_angstrom": 4.006999001746818,
+          "resname": "SER"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "146",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 110,
+          "minimum_ligand_distance_angstrom": 3.8355496346677618,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "191",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 155,
+          "minimum_ligand_distance_angstrom": 3.727957886028221,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "195",
+          "heavy_atom_count": 12,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 159,
+          "minimum_ligand_distance_angstrom": 3.3161821421628814,
+          "resname": "TYR"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "197",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 161,
+          "minimum_ligand_distance_angstrom": 4.180166743085735,
+          "resname": "ASN"
+        }
+      ],
+      "output_residue_ids": [
+        93,
+        96,
+        97,
+        100,
+        101,
+        104,
+        105,
+        108,
+        126,
+        129,
+        130,
+        136,
+        137,
+        138,
+        139,
+        141,
+        142,
+        145,
+        146,
+        191,
+        195,
+        197
+      ],
+      "residue_count": 22,
+      "role": "SENSITIVITY"
+    },
+    "5.0": {
+      "apo_reference_centroid_CA": [
+        14.400208333333333,
+        -2.6448750000000003,
+        1.012125
+      ],
+      "apo_reference_centroid_heavy_atoms_secondary": [
+        14.867936893203884,
+        -2.199995145631068,
+        1.0734757281553398
+      ],
+      "holo_reference_centroid_CA": [
+        -8.394958333333333,
+        -16.736958333333334,
+        8.093458333333333
+      ],
+      "holo_reference_centroid_heavy_atoms_secondary": [
+        -8.68,
+        -16.172529126213593,
+        8.146349514563106
+      ],
+      "holo_residues": [
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "93",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 57,
+          "minimum_ligand_distance_angstrom": 3.882750185113639,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "96",
+          "heavy_atom_count": 9,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 60,
+          "minimum_ligand_distance_angstrom": 3.5132597398996843,
+          "resname": "GLU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "97",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 61,
+          "minimum_ligand_distance_angstrom": 3.697837881789844,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "100",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 64,
+          "minimum_ligand_distance_angstrom": 3.843257602607454,
+          "resname": "ARG"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "101",
+          "heavy_atom_count": 12,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 65,
+          "minimum_ligand_distance_angstrom": 3.4924908017058534,
+          "resname": "TYR"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "104",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 68,
+          "minimum_ligand_distance_angstrom": 3.8190202932165747,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "105",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 69,
+          "minimum_ligand_distance_angstrom": 3.3634400544680445,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "108",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 72,
+          "minimum_ligand_distance_angstrom": 4.1405301592912,
+          "resname": "LEU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "126",
+          "heavy_atom_count": 7,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 90,
+          "minimum_ligand_distance_angstrom": 3.6983136697689662,
+          "resname": "VAL"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "129",
+          "heavy_atom_count": 9,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 93,
+          "minimum_ligand_distance_angstrom": 3.5358922494895118,
+          "resname": "GLU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "130",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 94,
+          "minimum_ligand_distance_angstrom": 3.505898173079189,
+          "resname": "LEU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "136",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 100,
+          "minimum_ligand_distance_angstrom": 3.72720672890571,
+          "resname": "ASN"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "137",
+          "heavy_atom_count": 14,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 101,
+          "minimum_ligand_distance_angstrom": 3.7779906034822264,
+          "resname": "TRP"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "138",
+          "heavy_atom_count": 4,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 102,
+          "minimum_ligand_distance_angstrom": 3.0737307949786365,
+          "resname": "GLY"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "139",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 103,
+          "minimum_ligand_distance_angstrom": 3.5715755626893846,
+          "resname": "ARG"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "141",
+          "heavy_atom_count": 7,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 105,
+          "minimum_ligand_distance_angstrom": 3.437133398633226,
+          "resname": "VAL"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "142",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 106,
+          "minimum_ligand_distance_angstrom": 3.363877524524341,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "145",
+          "heavy_atom_count": 6,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 109,
+          "minimum_ligand_distance_angstrom": 4.006999001746818,
+          "resname": "SER"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "146",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 110,
+          "minimum_ligand_distance_angstrom": 3.8355496346677618,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "149",
+          "heavy_atom_count": 5,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 113,
+          "minimum_ligand_distance_angstrom": 4.613919158372848,
+          "resname": "ALA"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "191",
+          "heavy_atom_count": 11,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 155,
+          "minimum_ligand_distance_angstrom": 3.727957886028221,
+          "resname": "PHE"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "194",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 158,
+          "minimum_ligand_distance_angstrom": 4.697521261261092,
+          "resname": "LEU"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "195",
+          "heavy_atom_count": 12,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 159,
+          "minimum_ligand_distance_angstrom": 3.3161821421628814,
+          "resname": "TYR"
+        },
+        {
+          "auth_chain": "A",
+          "auth_seq_id": "197",
+          "heavy_atom_count": 8,
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 161,
+          "minimum_ligand_distance_angstrom": 4.180166743085735,
+          "resname": "ASN"
+        }
+      ],
+      "output_residue_ids": [
+        93,
+        96,
+        97,
+        100,
+        101,
+        104,
+        105,
+        108,
+        126,
+        129,
+        130,
+        136,
+        137,
+        138,
+        139,
+        141,
+        142,
+        145,
+        146,
+        149,
+        191,
+        194,
+        195,
+        197
+      ],
+      "residue_count": 24,
+      "role": "PRIMARY"
+    }
+  },
+  "frame_rule": "Apo original frame for apo inputs; holo original frame for holo control. Never subtract across frames.",
+  "original_reference_sha256": "ee9dfa117fdf84f3d36fd07b6e838e9f52f18c8f219df1e2d2d2eed26f389da4",
+  "primary_centroid_definition": "Unweighted mean of reference-residue CA coordinates in evaluated input frame.",
+  "primary_recovery_distance_angstrom": 4.0
+}

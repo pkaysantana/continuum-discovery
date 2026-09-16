@@ -1,0 +1,360 @@
+{
+  "action": "source-review-extra",
+  "code_version_note": "Working source identified by individual SHA-256 hashes in inputs.",
+  "command": "\"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe\" -B \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py\" source-review-extra",
+  "command_argv": [
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py",
+    "source-review-extra"
+  ],
+  "cwd": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1",
+  "finished_at": "2026-09-16T11:06:51.085775+00:00",
+  "inputs": [
+    {
+      "byte_size": 493,
+      "filename": "configs/reference_site.json",
+      "sha256": "06de856ee845df75fc8c4ae67490681f0c8cad31c0c9104c3ca137b1131d437f"
+    },
+    {
+      "byte_size": 29,
+      "filename": "configs/requirements-reference.txt",
+      "sha256": "ecc38b5a8227bf3683c33655a12e6b4cd4342b86748e3ddce8e518578e01ed1c"
+    },
+    {
+      "byte_size": 76918,
+      "filename": "data/processed/reference_site.json",
+      "sha256": "ee9dfa117fdf84f3d36fd07b6e838e9f52f18c8f219df1e2d2d2eed26f389da4"
+    },
+    {
+      "byte_size": 113899,
+      "filename": "data/processed/structure_inspection.json",
+      "sha256": "5a170688ccb42cb193cbf4c11aed9f09dd8faf7ee3275f51761cff02f9eb1a66"
+    },
+    {
+      "byte_size": 349903,
+      "filename": "data/raw/1LXL.cif",
+      "sha256": "03a4e441063e7f832999f9a2cfdd376bc5366a543afae202c7f0608955dcb96c"
+    },
+    {
+      "byte_size": 324444,
+      "filename": "data/raw/2YXJ.cif",
+      "sha256": "5300ddf32f42624dd5da03cf1b2beee63d224542ad46bb6bdf055f28bfa969a4"
+    },
+    {
+      "byte_size": 382,
+      "filename": "manifests/acquisition_1LXL.json",
+      "sha256": "efb556395bf92ec717924ef2315e40aea35a71d15fc7877811051915b5381a0b"
+    },
+    {
+      "byte_size": 382,
+      "filename": "manifests/acquisition_2YXJ.json",
+      "sha256": "0640da42277b2a2a26bee94543063a53f09c6a8310df5ef942e843ddba292ad8"
+    },
+    {
+      "byte_size": 2640,
+      "filename": "manifests/environment_plan.json",
+      "sha256": "7f4151ab7d4fcbb661c3364028baf9fd4d8c05d2a89683cd881fd0241d9193fe"
+    },
+    {
+      "byte_size": 6505,
+      "filename": "manifests/input_manifest.json",
+      "sha256": "a475c822c0748a7aea74c7d70d5756328251fdc08de9d8cce1aff953cb05419b"
+    },
+    {
+      "byte_size": 2479,
+      "filename": "manifests/setup_notes.json",
+      "sha256": "bdd8d5740540797c698cdc325888f67e4a0c65c345708d6b0878856b8b6c1167"
+    },
+    {
+      "byte_size": 10559,
+      "filename": "PROTOCOL.md",
+      "sha256": "f7013d951b54f10cf85525ca8597a7b7b46feaf860e51f9e5cf9630226425177"
+    },
+    {
+      "byte_size": 2326,
+      "filename": "src/bootstrap.ps1",
+      "sha256": "1c24f5760f914b960a70a8259510d5d56a409bc11b5c237a614abaccd452c2c8"
+    },
+    {
+      "byte_size": 1704,
+      "filename": "src/provenance.py",
+      "sha256": "56a5c7b04dc7d26f594e23ff940f1efc822d5fb42b156c491a4ee4bb827c0d96"
+    },
+    {
+      "byte_size": 13868,
+      "filename": "src/reference_site.py",
+      "sha256": "2c07594e1fa5832e2aa02e99e7a2ba57c4870569bd9e1ab87775ec7039379460"
+    },
+    {
+      "byte_size": 16404,
+      "filename": "src/run.py",
+      "sha256": "5467968d00cc69d2cb8b7e043b788bbaccb9e7c9747105b711a9b5948d03ff96"
+    },
+    {
+      "byte_size": 4743,
+      "filename": "src/source_review.py",
+      "sha256": "8bff46e55727c6399636a5a40173b410b8df2f37c62c9d6dbe0cc0b133ffd397"
+    },
+    {
+      "byte_size": 11946,
+      "filename": "tests/test_reference_site.py",
+      "sha256": "cf1e1a545067ce0784d844780c081a36e2b96078afb5b080f80580da6511c570"
+    }
+  ],
+  "outputs": [
+    {
+      "byte_size": 17826,
+      "filename": "manifests/source_review/cryptobench/folds.json",
+      "sha256": "ced97a50b55504007216165167a1b3995312434ee50f7f93f8728fca3c6ac67d"
+    },
+    {
+      "byte_size": 13293,
+      "filename": "manifests/source_review/p2rank/training-tutorial.md",
+      "sha256": "0fc4484cd463c7535f27f2deb99b33faaaa34480777dc154858a2ffd812a9503"
+    },
+    {
+      "byte_size": 7752,
+      "filename": "manifests/source_review/p2rank-datasets/ah4h.holoraw(mlig).ds",
+      "sha256": "ad43f6b44fe7b00794aa4428da81c5f53c501462b1d4ced9dca04b1f23ac0d40"
+    },
+    {
+      "byte_size": 9880,
+      "filename": "manifests/source_review/p2rank-datasets/ah4h.holoraw.ds",
+      "sha256": "75fdf538f225bfd3f4a9dd5186f9a989d1ad13836b4900e8244e714c8e084b35"
+    },
+    {
+      "byte_size": 25224,
+      "filename": "manifests/source_review/p2rank-datasets/chen11-fpocket.ds",
+      "sha256": "57344f47460fe786a62f16eec1168018b5d277008ced13dde206ecf4b2fd8419"
+    },
+    {
+      "byte_size": 8117,
+      "filename": "manifests/source_review/p2rank-datasets/chen11.ds",
+      "sha256": "91caf227eb213f5a5f2c9ce081730bdf6a81c40e03582969bfcb036c9fbec9de"
+    },
+    {
+      "byte_size": 19650,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-deepsite.ds",
+      "sha256": "c8f1920bc3a29560d548be94b8a8decadd911aa8c515486a2969276df94ac495"
+    },
+    {
+      "byte_size": 19950,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-fpocket.ds",
+      "sha256": "72b0aad7458267c2e9296044ed8b7981d76e5fbb78e039ffbd9cc8801b9b6518"
+    },
+    {
+      "byte_size": 19352,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-mpk2.ds",
+      "sha256": "834c1926e2702b459f526780a2e8f1dcdfdbf9b5547079cdc348786b05299200"
+    },
+    {
+      "byte_size": 13945,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-shsubset-sitehound.ds",
+      "sha256": "fa7c26d2aea6393db8592b58668e519420d7c07fc3f0091dd301211aa9d75c7c"
+    },
+    {
+      "byte_size": 5170,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-shsubset.ds",
+      "sha256": "d699cf7f4928cb653f0c0a88bb2ca15ab5a2fee3284368b83302581bcdaad82f"
+    },
+    {
+      "byte_size": 7744,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig).ds",
+      "sha256": "87d6e1724637adfa3dd84c891e80c36f0501c4c2dc7f11b62ec4c585c4f3c417"
+    },
+    {
+      "byte_size": 24842,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-deepsite.ds",
+      "sha256": "9776abd017265d88b850ad7553b908103d8da8a193e8ee4bb4458486af568988"
+    },
+    {
+      "byte_size": 25261,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-fpocket.ds",
+      "sha256": "200ac183bc7dba9f6212459794ebe9a5c6821a66350668e238ecce184226e4e1"
+    },
+    {
+      "byte_size": 22360,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-lssubset-lise.ds",
+      "sha256": "b70e8cbf235f1afc045d1b39f95202ebe43940653261e7c0341cbf8012db6013"
+    },
+    {
+      "byte_size": 7847,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-lssubset.ds",
+      "sha256": "f3fba1618d27d0f1e7fd9f87c85a92aa518be774c8d09a68bbee3154b92edcf3"
+    },
+    {
+      "byte_size": 24668,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-mpsubset-mpk2.ds",
+      "sha256": "c353aaba2ce60e9462b65f2071fdf0421d184a140db38a413e4eabe04fd9adc2"
+    },
+    {
+      "byte_size": 8757,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-mpsubset.ds",
+      "sha256": "d0b11ae97a85acabf345e6ab2944b12db0afc8031f1d2a9c8b38f3b5b3668490"
+    },
+    {
+      "byte_size": 26100,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-p2rank.ds",
+      "sha256": "3d361313a942398c163eb7213586f263a7c803ee45278c18aa197efb2e616e95"
+    },
+    {
+      "byte_size": 17387,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-shsubset-sitehound.ds",
+      "sha256": "427404102c7798332e7df9b9e39b879db10708f32a621d4ea1ad1ba0c8c7439a"
+    },
+    {
+      "byte_size": 5396,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-shsubset.ds",
+      "sha256": "610bebb514fceee2757e00a171bd98fd44adc055ae07f265d6ec50da0fc9bc0a"
+    },
+    {
+      "byte_size": 7980,
+      "filename": "manifests/source_review/p2rank-datasets/coach420.ds",
+      "sha256": "4c33519448ae2df7107cf780cb0d8b38d02f3697173e0071c3751b3411c02bdd"
+    },
+    {
+      "byte_size": 3774,
+      "filename": "manifests/source_review/p2rank-datasets/fptrain.ds",
+      "sha256": "af16cd4819b5947c36ef606942a0e7ff6cc4b19167cb37262129669dcff33715"
+    },
+    {
+      "byte_size": 206991,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-dssubset-deepsite.ds",
+      "sha256": "09356093caa43d90ff28435b52d72ba43337be8f202425717d324469270d2b53"
+    },
+    {
+      "byte_size": 76606,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-dssubset.ds",
+      "sha256": "3989b75c001155ca81242e9cf84b5544f586da6f2a42465eac07c68471dab79b"
+    },
+    {
+      "byte_size": 214960,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-fpocket.ds",
+      "sha256": "b55dd5001948b8720b7afafecd0c8d8f2136bcef2f82c2e4a553b8cab6ed9404"
+    },
+    {
+      "byte_size": 130573,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-mpsubset-mpk2.ds",
+      "sha256": "e92b3701082e9537f3e2211f011b579772a91184348b158eae7b8316146a93fb"
+    },
+    {
+      "byte_size": 49051,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-mpsubset.ds",
+      "sha256": "369ef68f33ce003cd9aa1ebce1f77fe8c2ee2acb1c0212232855a4d3c933e888"
+    },
+    {
+      "byte_size": 153892,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-shsubset-sitehound.ds",
+      "sha256": "ca667c21499d5b3e5aad542b04c673754146758eee7aec8988a7d58d824fefa3"
+    },
+    {
+      "byte_size": 55046,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-shsubset.ds",
+      "sha256": "0ade337ee50f2943b7453e949a4c8306340446e707684925bd237a269e395f1b"
+    },
+    {
+      "byte_size": 76996,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig).ds",
+      "sha256": "28730da34f04848b41d39544bd68fd9310f9ab7201e53aea5c7bf0c3c6d866e1"
+    },
+    {
+      "byte_size": 215578,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-dssubset-deepsite.ds",
+      "sha256": "0e3fe85d4645a3dd1e89875fbf6430ad3489c9c3f60505d874cab2756d87a4db"
+    },
+    {
+      "byte_size": 215574,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-dssubset.ds",
+      "sha256": "1a3e652f52ead8aee482fab5d66d9783d9c891eeb6f053a43d5a70bf1289383d"
+    },
+    {
+      "byte_size": 216549,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-fpocket.ds",
+      "sha256": "126278e48a6af5c8a431bd1c671d2c94105ef84b8440b23eb4858bda82803c8a"
+    },
+    {
+      "byte_size": 136541,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-mpsubset-mpk2.ds",
+      "sha256": "89f8ea453efd302a69ed1bfd350de0dc3e6c425942ff3523b744177ce8392196"
+    },
+    {
+      "byte_size": 41200,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-mpsubset.ds",
+      "sha256": "3ae7cf210043ccd347afeb6274b204db14828159465587deedc36b658eb0f578"
+    },
+    {
+      "byte_size": 161233,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-shsubset-sitehound.ds",
+      "sha256": "9897d2cf9b5f8a7336ac571507179e37052d1df0318ce734366a16e6b55f3db2"
+    },
+    {
+      "byte_size": 46048,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-shsubset.ds",
+      "sha256": "9e9412171501c45994b9d5705b5fc560238d88b12209706dbc851247e20b8777"
+    },
+    {
+      "byte_size": 64144,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k.ds",
+      "sha256": "442a1abb07ee5ff93721262ba270600d1acdf7a75b50eb4c1eb773bd32c9dda0"
+    },
+    {
+      "byte_size": 27480,
+      "filename": "manifests/source_review/p2rank-datasets/joined(mlig)-fpocket.ds",
+      "sha256": "fb7305d61830286c7d08af84918c3b49b46d630666b475b17f4f7d627fcbfa71"
+    },
+    {
+      "byte_size": 10821,
+      "filename": "manifests/source_review/p2rank-datasets/joined(mlig).ds",
+      "sha256": "237286874af9dcff14be5ef397868ca778446cdec0174207b16b897f1f10e15c"
+    },
+    {
+      "byte_size": 36473,
+      "filename": "manifests/source_review/p2rank-datasets/joined-fpocket.ds",
+      "sha256": "7340db5a1aa078313ee8ac432fd651d399ba9f6d3fc3c61e926f04650298a05d"
+    },
+    {
+      "byte_size": 12291,
+      "filename": "manifests/source_review/p2rank-datasets/joined.ds",
+      "sha256": "749f23f5da3bac827f8904c34610467b1b5c1597a9f3fcfbee6e966b11e4da6b"
+    },
+    {
+      "byte_size": 2674,
+      "filename": "manifests/source_review/p2rank-datasets/README.md",
+      "sha256": "42a356ce15ff4d0edfaf817c63107dac5ed7c9b348241b91b0a2edc256b62519"
+    },
+    {
+      "byte_size": 14734,
+      "filename": "manifests/source_review/p2rank-datasets/root_tree.json",
+      "sha256": "ed785263ab46ff3d0e4f1f15e5937d1e46d5144d5fa04a1a6ff2bde6f76786f3"
+    },
+    {
+      "byte_size": 1799,
+      "filename": "manifests/source_review/p2rank-datasets/speed5.ds",
+      "sha256": "ded39bc67e5519b206634af4ba4c9b7e30870219f345d20a66eec5b16f8cca3f"
+    },
+    {
+      "byte_size": 19375,
+      "filename": "manifests/source_review/supplementary_manifest.json",
+      "sha256": "34e3123951f01b30a62af2cab11bca7f5775468d5acf252c767337ed5154094e"
+    },
+    {
+      "byte_size": 46,
+      "filename": "results/source-review-extra-2026-09-16T110632251704_0000-4d7511a8.log",
+      "sha256": "12b418b2087c374b9051c2c3cb985f0b6de7d098ab72bae71f864d0fcac6a7db"
+    }
+  ],
+  "repository_base_commit": "fbe8d7fe7a239bd10712cc09c70f7466c0a4f95e",
+  "run_id": "2026-09-16T110632251704_0000-4d7511a8",
+  "schema_version": 1,
+  "started_at": "2026-09-16T11:06:32.251704+00:00",
+  "status": "SUCCESS",
+  "versions": {
+    "packages": {
+      "biopython": "1.85",
+      "numpy": "2.2.6"
+    },
+    "python": "3.11.16"
+  },
+  "wall_seconds": 18.812140699999873
+}

@@ -1,0 +1,29 @@
+{
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "classification": "BCL-XL reproduction and pipeline-validation benchmark",
+  "lacuna_source": {"version": "1.2.0", "commit": "960523caa75c86f04111970da47c3c06ceeda8b4"},
+  "planned_python_environment": {"python": "3.11.16", "biopython": "1.85", "numpy": "2.2.6", "scipy": "1.15.3", "click": "8.1.8", "rich": "13.9.4", "extras": [], "transitive_lock_status": "REQUIRED_BEFORE_EXECUTION"},
+  "numerical_environment": {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MKL_NUM_THREADS": "1", "PYTHONHASHSEED": "42"},
+  "nma": {"backend": "nma", "cutoff_angstrom": 8.0, "n_modes": 10, "max_rmsd_angstrom": 2.0, "seed": 42, "generated_conformers": 20, "include_original_input": true},
+  "analysis_A": {
+    "purpose": "Approximate Lacuna reproduction/sanity case; not independent validation",
+    "input_rule": "Full model-1 chain A protein from 1LXL, occupied selected heavy atoms, original coordinates/occupancy/B factors, no trimming. Derived input deferred until approval.",
+    "detector": "surface-fusion", "no_sequence": true, "seed_from_sequence": false,
+    "requested_ranker": "learned", "effective_ranker": "learned-fused",
+    "published_configuration_unknowns": ["generating backend", "conformer count", "seed", "sequence-feature availability", "exact input preparation"],
+    "interpretation": "Explicit NMA/no-sequence approximation. Do not attribute these choices to the published showcase."
+  },
+  "analysis_B": {
+    "apo_input": "data/processed/apo_matched_core.pdb",
+    "holo_control_input": "data/processed/holo_matched_core_no_ligand.pdb",
+    "require_identical_input_hashes_between_methods": true,
+    "lacuna": {"detector": "alpha", "ranker": "learned", "no_sequence": true, "seed_from_sequence": false},
+    "p2rank": {"version": "2.5.1", "commit": "9808a7723be9a94e2ffc21ab5f724cb6ae4ba01e", "model": "default", "java_major": 17, "threads": 1, "seed": 42, "visualizations": false,
+      "command_template": ["prank", "predict", "-f", "INPUT", "-o", "OUTPUT", "-threads", "1", "-seed", "42", "-visualizations", "0"]}
+  },
+  "lacuna_output_policy": "Later tested API wrapper emits all clusters in native rank order and native input coordinate frame, no score thresholds, no assembly expansion, no pocket/docking files. No wrapper executes now.",
+  "primary": {"ligand_contact_cutoff_angstrom": 5.0, "centroid": "reference-residue CA mean in evaluated input frame", "recovery_distance_angstrom_inclusive": 4.0, "top_k": 5},
+  "sensitivity": {"ligand_contact_cutoff_angstrom": 4.5, "reuse_same_candidates": true, "no_reranking": true},
+  "failure_policy": "Reject missing artifacts, automatic detector/backend/ranker/sequence fallback, NMA degeneracy fallback, malformed output, invalid centers/ranks, or hash mismatch. Preserve FAILED and actual error; never substitute outputs.",
+  "execution_prerequisites": ["human approval", "hash verified exact source/model artifacts", "complete transitive dependency lock", "tested wrappers enforcing configuration, native-frame output and no fallback", "separately provenance Analysis A full-chain input"]
+}

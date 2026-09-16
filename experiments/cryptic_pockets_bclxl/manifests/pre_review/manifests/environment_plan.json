@@ -1,0 +1,84 @@
+{
+  "captured_at": "2026-09-16T10:32:41.611787+00:00",
+  "current": {
+    "cpu": "AMD Ryzen 9 9955HX 16-Core Processor",
+    "gpu": {
+      "reason": "Optional WMI query denied by sandbox (HRESULT 0x80041003). No GPU needed.",
+      "status": "unavailable"
+    },
+    "logical_cpu_count": 32,
+    "os": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "biopython": "1.85",
+      "numpy": "2.2.6"
+    },
+    "python": "3.11.16",
+    "python_executable": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe"
+  },
+  "current_minimum_dependencies": [
+    "biopython==1.85",
+    "numpy==2.2.6"
+  ],
+  "excluded_backends": [
+    "boltz",
+    "openmm",
+    "plm"
+  ],
+  "future_execution": "Human approval required. Freeze a complete dependency lock, software hashes, seeds, threads and invocation first.",
+  "isolation": "Experiment-local .venv and .cache. No historical environment modifications.",
+  "planned": {
+    "biopython": {
+      "purpose": "mmCIF dictionary parsing and sequence alignment",
+      "version": "1.85"
+    },
+    "lacuna": {
+      "backend": "nma",
+      "backend_selection": "explicit CPU nma; no auto backend switching",
+      "distribution": "lacuna-pockets",
+      "extras": [],
+      "requirements": [
+        "numpy>=1.24",
+        "scipy>=1.10",
+        "biopython>=1.81",
+        "click>=8.1",
+        "rich>=13.0"
+      ],
+      "source_commit": "3ea5633137d53f80ac61120212b9228dfd246ce9",
+      "sources": [
+        "https://pypi.org/project/lacuna-pockets/1.1.0/",
+        "https://github.com/mooreneural/lacuna/blob/3ea5633137d53f80ac61120212b9228dfd246ce9/pyproject.toml"
+      ],
+      "status": "PLANNED_ONLY_NOT_INSTALLED_OR_RUN",
+      "version": "1.1.0"
+    },
+    "numpy": {
+      "purpose": "deterministic geometric distances",
+      "version": "2.2.6"
+    },
+    "pandas": {
+      "requirement": ">=2.2,<3",
+      "status": "optional later; exact lock required before installation"
+    },
+    "plotting": {
+      "package": "matplotlib",
+      "requirement": ">=3.9,<4",
+      "status": "optional later; exact lock required before installation"
+    },
+    "python": {
+      "requirement": ">=3.10 for Lacuna 1.1.0",
+      "version": "3.11.16"
+    },
+    "static_baseline": {
+      "java_major": 17,
+      "name": "P2Rank",
+      "sources": [
+        "https://github.com/rdk/p2rank/releases/tag/2.5.1",
+        "https://github.com/rdk/p2rank/blob/2.5.1/README.md"
+      ],
+      "status": "PLANNED_ONLY_NOT_INSTALLED_OR_RUN",
+      "version": "2.5.1"
+    }
+  },
+  "schema_version": 1,
+  "sources_checked_date": "2026-09-16"
+}

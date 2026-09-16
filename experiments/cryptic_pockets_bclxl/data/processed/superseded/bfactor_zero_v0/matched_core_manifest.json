@@ -1,0 +1,4433 @@
+{
+  "alignment_sha256_source": "ee9dfa117fdf84f3d36fd07b6e838e9f52f18c8f219df1e2d2d2eed26f389da4",
+  "atom_policy": "Existing selected occupied heavy atoms only; coherent altloc rule unchanged; no coordinates moved. Occupancies retained; B-factor set to 0 as neutral serialization metadata in both derived files.",
+  "counts": {
+    "excluded_apo": 84,
+    "excluded_holo": 44,
+    "retained_apo": 137,
+    "retained_holo": 137
+  },
+  "excluded_other_content": "All other chains, models, nonprotein entities including N3C/water/ions/glycerol, hydrogens and unselected alternate atoms.",
+  "excluded_residues": {
+    "apo": [
+      {
+        "amino_acid": "M",
+        "label_seq_id": 1,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "-3",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 1,
+          "resname": "MET"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 2,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "-2",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 2,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 3,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "-1",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 3,
+          "resname": "MET"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 4,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "0",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 4,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 5,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "1",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 5,
+          "resname": "MET"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 6,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "2",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 6,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 7,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "3",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 7,
+          "resname": "GLN"
+        }
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 30,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "26",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 30,
+          "resname": "GLN"
+        }
+      },
+      {
+        "amino_acid": "F",
+        "label_seq_id": 31,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "27",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 31,
+          "resname": "PHE"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 32,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "28",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 32,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "D",
+        "label_seq_id": 33,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "29",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 33,
+          "resname": "ASP"
+        }
+      },
+      {
+        "amino_acid": "V",
+        "label_seq_id": 34,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "30",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 34,
+          "resname": "VAL"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 35,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "31",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 35,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 36,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "32",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 36,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 37,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "33",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 37,
+          "resname": "ASN"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 38,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "34",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 38,
+          "resname": "ARG"
+        }
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 39,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "35",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 39,
+          "resname": "THR"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 40,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "36",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 40,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 41,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "37",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 41,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 42,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "38",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 42,
+          "resname": "PRO"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 43,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "39",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 43,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 44,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "40",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 44,
+          "resname": "GLY"
+        }
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 45,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "41",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 45,
+          "resname": "THR"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 46,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "42",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 46,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 49,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "45",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 49,
+          "resname": "MET"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 50,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "46",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 50,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 51,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "47",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 51,
+          "resname": "THR"
+        }
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 52,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "48",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 52,
+          "resname": "PRO"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 53,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "49",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 53,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 54,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "50",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 54,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "I",
+        "label_seq_id": 55,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "51",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 55,
+          "resname": "ILE"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 56,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "52",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 56,
+          "resname": "ASN"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 57,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "53",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 57,
+          "resname": "GLY"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 58,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "54",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 58,
+          "resname": "ASN"
+        }
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 59,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "55",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 59,
+          "resname": "PRO"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 60,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "56",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 60,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "W",
+        "label_seq_id": 61,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "57",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 61,
+          "resname": "TRP"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 62,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "58",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 62,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "L",
+        "label_seq_id": 63,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "59",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 63,
+          "resname": "LEU"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 64,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "60",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 64,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "D",
+        "label_seq_id": 65,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "61",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 65,
+          "resname": "ASP"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 66,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "62",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 66,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 67,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "63",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 67,
+          "resname": "PRO"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 68,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "64",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 68,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "V",
+        "label_seq_id": 69,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "65",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 69,
+          "resname": "VAL"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 70,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "66",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 70,
+          "resname": "ASN"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 71,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "67",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 71,
+          "resname": "GLY"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 72,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "68",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 72,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 73,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "69",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 73,
+          "resname": "THR"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 74,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "70",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 74,
+          "resname": "GLY"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 75,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "71",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 75,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 76,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "72",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 76,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 77,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "73",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 77,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 78,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "74",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 78,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "L",
+        "label_seq_id": 79,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "75",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 79,
+          "resname": "LEU"
+        }
+      },
+      {
+        "amino_acid": "D",
+        "label_seq_id": 80,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "76",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 80,
+          "resname": "ASP"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 81,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "77",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 81,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 82,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "78",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 82,
+          "resname": "ARG"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 83,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "79",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 83,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "V",
+        "label_seq_id": 84,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "80",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 84,
+          "resname": "VAL"
+        }
+      },
+      {
+        "amino_acid": "I",
+        "label_seq_id": 85,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "81",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 85,
+          "resname": "ILE"
+        }
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 86,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "82",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 86,
+          "resname": "PRO"
+        }
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 87,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "83",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 87,
+          "resname": "MET"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 88,
+        "reasons": [
+          "no_counterpart_in_deposited_sequence"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "84",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 88,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 202,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "198",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 202,
+          "resname": "ASN"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 203,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "199",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 203,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 204,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "200",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 204,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 205,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "201",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 205,
+          "resname": "ALA"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 206,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "202",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 206,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 207,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "203",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 207,
+          "resname": "SER"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 208,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "204",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 208,
+          "resname": "ARG"
+        }
+      },
+      {
+        "amino_acid": "K",
+        "label_seq_id": 209,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "205",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 209,
+          "resname": "LYS"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 210,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "206",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 210,
+          "resname": "GLY"
+        }
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 211,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "207",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 211,
+          "resname": "GLN"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 212,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "208",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 212,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 213,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "209",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 213,
+          "resname": "ARG"
+        }
+      },
+      {
+        "amino_acid": "L",
+        "label_seq_id": 214,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "210",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 214,
+          "resname": "LEU"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 215,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "211",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 215,
+          "resname": "GLU"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 216,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "212",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 216,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 217,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "213",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 217,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 218,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "214",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 218,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 219,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "215",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 219,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 220,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "216",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 220,
+          "resname": "HIS"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 221,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "217",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 221,
+          "resname": "HIS"
+        }
+      }
+    ],
+    "holo": [
+      {
+        "amino_acid": "M",
+        "label_seq_id": 1,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 2,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 3,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 4,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 5,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 6,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 7,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 30,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "F",
+        "label_seq_id": 31,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 32,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "D",
+        "label_seq_id": 33,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "V",
+        "label_seq_id": 34,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 35,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 36,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 37,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 38,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 39,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 40,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 41,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 42,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 43,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 44,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 45,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 46,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 162,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 163,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 164,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 165,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 166,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 167,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 168,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "K",
+        "label_seq_id": 169,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 170,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 171,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 172,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 173,
+        "reasons": [
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "L",
+        "label_seq_id": 174,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 175,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 176,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 177,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 178,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 179,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 180,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 181,
+        "reasons": [
+          "expression_tag_annotation",
+          "holo_coordinates_missing"
+        ],
+        "residue": null
+      }
+    ]
+  },
+  "mapping_method": "unique global affine-gap alignment of full deposited polymer sequences",
+  "output_numbering": "Both states: chain A, original holo author residue numbers; mapping retained explicitly.",
+  "processed_outputs": [
+    {
+      "byte_size": 90309,
+      "filename": "data/processed/apo_matched_core.pdb",
+      "sha256": "96589cc50d116db852e4620915d37a09c3f72210848413cdf8a23e33d7643c81"
+    },
+    {
+      "byte_size": 90309,
+      "filename": "data/processed/holo_matched_core_no_ligand.pdb",
+      "sha256": "a119a26bad32e262ce9faaa3a18bd42173f342b11eab1029777dc8101bf8a6fc"
+    },
+    {
+      "byte_size": 22827,
+      "filename": "data/processed/comparison_reference.json",
+      "sha256": "9eb5472a071d1765048eca179c63e2e88c80ab391ac2e57787aca76143fb962c"
+    }
+  ],
+  "raw_inputs": [
+    {
+      "byte_size": 349903,
+      "filename": "data/raw/1LXL.cif",
+      "sha256": "03a4e441063e7f832999f9a2cfdd376bc5366a543afae202c7f0608955dcb96c"
+    },
+    {
+      "byte_size": 324444,
+      "filename": "data/raw/2YXJ.cif",
+      "sha256": "5300ddf32f42624dd5da03cf1b2beee63d224542ad46bb6bdf055f28bfa969a4"
+    }
+  ],
+  "retained_residues": [
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "4",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 8,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "4",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 8,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 4
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "5",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 9,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "5",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 9,
+        "resname": "ASN"
+      },
+      "output_chain": "A",
+      "output_resseq": 5
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "6",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 10,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "6",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 10,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 6
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "7",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 11,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "7",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 11,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 7
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "8",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 12,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "8",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 12,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 8
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "9",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 13,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "9",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 13,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 9
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "10",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 14,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "10",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 14,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 10
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "11",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 15,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "11",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 15,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 11
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "12",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 16,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "12",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 16,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 12
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "13",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 17,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "13",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 17,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 13
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "14",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 18,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "14",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 18,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 14
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "15",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 19,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "15",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 19,
+        "resname": "TYR"
+      },
+      "output_chain": "A",
+      "output_resseq": 15
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "16",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 20,
+        "resname": "LYS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "16",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 20,
+        "resname": "LYS"
+      },
+      "output_chain": "A",
+      "output_resseq": 16
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "17",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 21,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "17",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 21,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 17
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "18",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 22,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "18",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 22,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 18
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "19",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 23,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "19",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 23,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 19
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "20",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 24,
+        "resname": "LYS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "20",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 24,
+        "resname": "LYS"
+      },
+      "output_chain": "A",
+      "output_resseq": 20
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "21",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 25,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "21",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 25,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 21
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "22",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 26,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "22",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 26,
+        "resname": "TYR"
+      },
+      "output_chain": "A",
+      "output_resseq": 22
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "23",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 27,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "23",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 27,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 23
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "24",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 28,
+        "resname": "TRP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "24",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 28,
+        "resname": "TRP"
+      },
+      "output_chain": "A",
+      "output_resseq": 24
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "25",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 29,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "25",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 29,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 25
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "43",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 47,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "83",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 47,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 83
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "44",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 48,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "84",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 48,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 84
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "85",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 89,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "85",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 49,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 85
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "86",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 90,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "86",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 50,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 86
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "87",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 91,
+        "resname": "LYS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "87",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 51,
+        "resname": "LYS"
+      },
+      "output_chain": "A",
+      "output_resseq": 87
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "88",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 92,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "88",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 52,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 88
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "89",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 93,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "89",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 53,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 89
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "90",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 94,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "90",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 54,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 90
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "91",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 95,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "91",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 55,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 91
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "92",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 96,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "92",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 56,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 92
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "93",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 97,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "93",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 57,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 93
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "94",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 98,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "94",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 58,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 94
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "95",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 99,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "95",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 59,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 95
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "96",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 100,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "96",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 60,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 96
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "97",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 101,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "97",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 61,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 97
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "98",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 102,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "98",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 62,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 98
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "99",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 103,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "99",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 63,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 99
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "100",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 104,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "100",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 64,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 100
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "101",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 105,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "101",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 65,
+        "resname": "TYR"
+      },
+      "output_chain": "A",
+      "output_resseq": 101
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "102",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 106,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "102",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 66,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 102
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "103",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 107,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "103",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 67,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 103
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "104",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 108,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "104",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 68,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 104
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "105",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 109,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "105",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 69,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 105
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "106",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 110,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "106",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 70,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 106
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "107",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 111,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "107",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 71,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 107
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "108",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 112,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "108",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 72,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 108
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "109",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 113,
+        "resname": "THR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "109",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 73,
+        "resname": "THR"
+      },
+      "output_chain": "A",
+      "output_resseq": 109
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "110",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 114,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "110",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 74,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 110
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "111",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 115,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "111",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 75,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 111
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "112",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 116,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "112",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 76,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 112
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "113",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 117,
+        "resname": "HIS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "113",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 77,
+        "resname": "HIS"
+      },
+      "output_chain": "A",
+      "output_resseq": 113
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "114",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 118,
+        "resname": "ILE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "114",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 78,
+        "resname": "ILE"
+      },
+      "output_chain": "A",
+      "output_resseq": 114
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "115",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 119,
+        "resname": "THR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "115",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 79,
+        "resname": "THR"
+      },
+      "output_chain": "A",
+      "output_resseq": 115
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "116",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 120,
+        "resname": "PRO"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "116",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 80,
+        "resname": "PRO"
+      },
+      "output_chain": "A",
+      "output_resseq": 116
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "117",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 121,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "117",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 81,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 117
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "118",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 122,
+        "resname": "THR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "118",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 82,
+        "resname": "THR"
+      },
+      "output_chain": "A",
+      "output_resseq": 118
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "119",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 123,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "119",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 83,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 119
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "120",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 124,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "120",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 84,
+        "resname": "TYR"
+      },
+      "output_chain": "A",
+      "output_resseq": 120
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "121",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 125,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "121",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 85,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 121
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "122",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 126,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "122",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 86,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 122
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "123",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 127,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "123",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 87,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 123
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "124",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 128,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "124",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 88,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 124
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "125",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 129,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "125",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 89,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 125
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "126",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 130,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "126",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 90,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 126
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "127",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 131,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "127",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 91,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 127
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "128",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 132,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "128",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 92,
+        "resname": "ASN"
+      },
+      "output_chain": "A",
+      "output_resseq": 128
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "129",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 133,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "129",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 93,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 129
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "130",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 134,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "130",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 94,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 130
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "131",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 135,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "131",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 95,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 131
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "132",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 136,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "132",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 96,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 132
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "133",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 137,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "133",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 97,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 133
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "134",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 138,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "134",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 98,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 134
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "135",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 139,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "135",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 99,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 135
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "136",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 140,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "136",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 100,
+        "resname": "ASN"
+      },
+      "output_chain": "A",
+      "output_resseq": 136
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "137",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 141,
+        "resname": "TRP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "137",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 101,
+        "resname": "TRP"
+      },
+      "output_chain": "A",
+      "output_resseq": 137
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "138",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 142,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "138",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 102,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 138
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "139",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 143,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "139",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 103,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 139
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "140",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 144,
+        "resname": "ILE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "140",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 104,
+        "resname": "ILE"
+      },
+      "output_chain": "A",
+      "output_resseq": 140
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "141",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 145,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "141",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 105,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 141
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "142",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 146,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "142",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 106,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 142
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "143",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 147,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "143",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 107,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 143
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "144",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 148,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "144",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 108,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 144
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "145",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 149,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "145",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 109,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 145
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "146",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 150,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "146",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 110,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 146
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "147",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 151,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "147",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 111,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 147
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "148",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 152,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "148",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 112,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 148
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "149",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 153,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "149",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 113,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 149
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "150",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 154,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "150",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 114,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 150
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "151",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 155,
+        "resname": "CYS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "151",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 115,
+        "resname": "CYS"
+      },
+      "output_chain": "A",
+      "output_resseq": 151
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "152",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 156,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "152",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 116,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 152
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "153",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 157,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "153",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 117,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 153
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "154",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 158,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "154",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 118,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 154
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "155",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 159,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "155",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 119,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 155
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "156",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 160,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "156",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 120,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 156
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "157",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 161,
+        "resname": "LYS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "157",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 121,
+        "resname": "LYS"
+      },
+      "output_chain": "A",
+      "output_resseq": 157
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "158",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 162,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "158",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 122,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 158
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "159",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 163,
+        "resname": "MET"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "159",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 123,
+        "resname": "MET"
+      },
+      "output_chain": "A",
+      "output_resseq": 159
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "160",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 164,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "160",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 124,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 160
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "161",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 165,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "161",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 125,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 161
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "162",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 166,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "162",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 126,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 162
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "163",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 167,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "163",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 127,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 163
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "164",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 168,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "164",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 128,
+        "resname": "SER"
+      },
+      "output_chain": "A",
+      "output_resseq": 164
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "165",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 169,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "165",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 129,
+        "resname": "ARG"
+      },
+      "output_chain": "A",
+      "output_resseq": 165
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "166",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 170,
+        "resname": "ILE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "166",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 130,
+        "resname": "ILE"
+      },
+      "output_chain": "A",
+      "output_resseq": 166
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "167",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 171,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "167",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 131,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 167
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "168",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 172,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "168",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 132,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 168
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "169",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 173,
+        "resname": "TRP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "169",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 133,
+        "resname": "TRP"
+      },
+      "output_chain": "A",
+      "output_resseq": 169
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "170",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 174,
+        "resname": "MET"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "170",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 134,
+        "resname": "MET"
+      },
+      "output_chain": "A",
+      "output_resseq": 170
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "171",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 175,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "171",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 135,
+        "resname": "ALA"
+      },
+      "output_chain": "A",
+      "output_resseq": 171
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "172",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 176,
+        "resname": "THR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "172",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 136,
+        "resname": "THR"
+      },
+      "output_chain": "A",
+      "output_resseq": 172
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "173",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 177,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "173",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 137,
+        "resname": "TYR"
+      },
+      "output_chain": "A",
+      "output_resseq": 173
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "174",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 178,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "174",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 138,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 174
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "175",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 179,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "175",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 139,
+        "resname": "ASN"
+      },
+      "output_chain": "A",
+      "output_resseq": 175
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "176",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 180,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "176",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 140,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 176
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "177",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 181,
+        "resname": "HIS"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "177",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 141,
+        "resname": "HIS"
+      },
+      "output_chain": "A",
+      "output_resseq": 177
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "178",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 182,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "178",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 142,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 178
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "179",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 183,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "179",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 143,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 179
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "180",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 184,
+        "resname": "PRO"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "180",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 144,
+        "resname": "PRO"
+      },
+      "output_chain": "A",
+      "output_resseq": 180
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "181",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 185,
+        "resname": "TRP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "181",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 145,
+        "resname": "TRP"
+      },
+      "output_chain": "A",
+      "output_resseq": 181
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "182",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 186,
+        "resname": "ILE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "182",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 146,
+        "resname": "ILE"
+      },
+      "output_chain": "A",
+      "output_resseq": 182
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "183",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 187,
+        "resname": "GLN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "183",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 147,
+        "resname": "GLN"
+      },
+      "output_chain": "A",
+      "output_resseq": 183
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "184",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 188,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "184",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 148,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 184
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "185",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 189,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "185",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 149,
+        "resname": "ASN"
+      },
+      "output_chain": "A",
+      "output_resseq": 185
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "186",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 190,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "186",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 150,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 186
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "187",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 191,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "187",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 151,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 187
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "188",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 192,
+        "resname": "TRP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "188",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 152,
+        "resname": "TRP"
+      },
+      "output_chain": "A",
+      "output_resseq": 188
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "189",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 193,
+        "resname": "ASP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "189",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 153,
+        "resname": "ASP"
+      },
+      "output_chain": "A",
+      "output_resseq": 189
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "190",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 194,
+        "resname": "THR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "190",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 154,
+        "resname": "THR"
+      },
+      "output_chain": "A",
+      "output_resseq": 190
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "191",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 195,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "191",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 155,
+        "resname": "PHE"
+      },
+      "output_chain": "A",
+      "output_resseq": 191
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "192",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 196,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "192",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 156,
+        "resname": "VAL"
+      },
+      "output_chain": "A",
+      "output_resseq": 192
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "193",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 197,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "193",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 157,
+        "resname": "GLU"
+      },
+      "output_chain": "A",
+      "output_resseq": 193
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "194",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 198,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "194",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 158,
+        "resname": "LEU"
+      },
+      "output_chain": "A",
+      "output_resseq": 194
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "195",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 199,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "195",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 159,
+        "resname": "TYR"
+      },
+      "output_chain": "A",
+      "output_resseq": 195
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "196",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 200,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "196",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 160,
+        "resname": "GLY"
+      },
+      "output_chain": "A",
+      "output_resseq": 196
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "197",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 201,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "197",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 161,
+        "resname": "ASN"
+      },
+      "output_chain": "A",
+      "output_resseq": 197
+    }
+  ],
+  "schema_version": 1,
+  "selection_rule": "Unique identical sequence alignment pairs; observed N,CA,C,O in both states; exclude archive-annotated expression tags in either state. Independent of pocket location.",
+  "warnings": [
+    "Core is discontinuous; gaps/TER retained, no repair or caps. NMA may still connect spatial neighbors across sequence gaps.",
+    "Matched residues do not eliminate NMR versus crystal differences or missing sidechain-atom differences.",
+    "Same apo file bytes must be supplied to both detectors; same holo control bytes likewise."
+  ]
+}

@@ -1,0 +1,9 @@
+lacuna 960523caa75c86f04111970da47c3c06ceeda8b4 105 source text files; no code executed
+p2rank 9808a7723be9a94e2ffc21ab5f724cb6ae4ba01e 47 source text files; no code executed
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\run.py", line 262, in main
+    outputs = snapshot()
+              ^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\source_review.py", line 24, in snapshot
+    raise ValueError('Source tree truncated; audit cannot claim completeness')
+ValueError: Source tree truncated; audit cannot claim completeness

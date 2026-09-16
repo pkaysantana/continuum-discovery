@@ -1,0 +1,27 @@
+{
+  "alignment": {
+    "extend_gap": -0.5,
+    "match": 2.0,
+    "mismatch": -1.0,
+    "open_gap": -10.0
+  },
+  "apo_label_chain": "A",
+  "apo_pdb_id": "1LXL",
+  "contact_cutoff_angstrom": 5.0,
+  "diagnostic_contact_cutoff_angstrom": 4.0,
+  "future_recovery": {
+    "criterion": "native_candidate_center_to_reference_CA_centroid",
+    "jaccard_role": "SECONDARY_ONLY",
+    "maximum_distance_angstrom_inclusive": 4.0,
+    "primary_top_k": 5
+  },
+  "holo_label_chain": "A",
+  "holo_pdb_id": "2YXJ",
+  "ligand_auth_chain": "A",
+  "ligand_comp_id": "N3C",
+  "ligand_label_chain": "D",
+  "ligand_synonym": "ABT-737",
+  "model_number": "1",
+  "protocol_version": 2,
+  "sensitivity_contact_cutoff_angstrom": 4.5
+}

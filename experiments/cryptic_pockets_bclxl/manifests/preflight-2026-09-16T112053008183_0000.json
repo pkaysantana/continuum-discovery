@@ -1,0 +1,138 @@
+{
+  "checked_at": "2026-09-16T11:20:53.007174+00:00",
+  "detector_execution_status": "No detector invocation in experiment receipts; no invocation by this agent; user pre-review states none occurred.",
+  "detector_output_files_found": [],
+  "git_anchor_policy": "Stage only experiments/cryptic_pockets_bclxl after tests; no existing staged changes may be included.",
+  "matched_core_counts": {
+    "excluded_apo": 84,
+    "excluded_holo": 44,
+    "retained_apo": 137,
+    "retained_holo": 137
+  },
+  "raw_and_processed_hashes_verified": true,
+  "reviewed_execution_receipts": [
+    {
+      "action": "acquire",
+      "file": "manifests/runs/2026-09-16T103208691435_0000-0c7b389a.json",
+      "status": "FAILED"
+    },
+    {
+      "action": "acquire",
+      "file": "manifests/runs/2026-09-16T103228676058_0000-25e3f93c.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "environment",
+      "file": "manifests/runs/2026-09-16T103241273409_0000-c97af8d5.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "inspect",
+      "file": "manifests/runs/2026-09-16T103243387547_0000-7a14b691.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "evaluate",
+      "file": "manifests/runs/2026-09-16T103252929924_0000-48199b28.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "test",
+      "file": "manifests/runs/2026-09-16T103535344003_0000-32146368.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "test",
+      "file": "manifests/runs/2026-09-16T103812811808_0000-582237a3.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "verify",
+      "file": "manifests/runs/2026-09-16T103815308850_0000-64b57a61.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "source-review",
+      "file": "manifests/runs/2026-09-16T110254366045_0000-0c44bbad.json",
+      "status": "FAILED"
+    },
+    {
+      "action": "source-review-extra",
+      "file": "manifests/runs/2026-09-16T110632251704_0000-4d7511a8.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "archive-pre-review",
+      "file": "manifests/runs/2026-09-16T110838816707_0000-d8e07fdb.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "matched-core",
+      "file": "manifests/runs/2026-09-16T110840787491_0000-ed897fcc.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "archive-core-v0",
+      "file": "manifests/runs/2026-09-16T111037666472_0000-bdfa37b7.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "matched-core",
+      "file": "manifests/runs/2026-09-16T111039654399_0000-fb9144d0.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "overlap-audit",
+      "file": "manifests/runs/2026-09-16T111223610224_0000-fe3cd480.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "apply-amendment",
+      "file": "manifests/runs/2026-09-16T111806376596_0000-6a19e93e.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "evaluate",
+      "file": "manifests/runs/2026-09-16T112019127782_0000-bae648bd.json",
+      "status": "SUCCESS"
+    },
+    {
+      "action": "test",
+      "file": "manifests/runs/2026-09-16T112021864891_0000-94d870a4.json",
+      "status": "SUCCESS"
+    }
+  ],
+  "scientific_inputs": [
+    {
+      "byte_size": 90309,
+      "filename": "data/processed/apo_matched_core.pdb",
+      "sha256": "b0d20bfd4907b92929161c78790051471de261a917371b40da3aa418a3d64693"
+    },
+    {
+      "byte_size": 90309,
+      "filename": "data/processed/holo_matched_core_no_ligand.pdb",
+      "sha256": "8162ea71785ea6e6ecc75d3be07bca42852cd9eacbcbe75f4039f7423a255ea4"
+    },
+    {
+      "byte_size": 22827,
+      "filename": "data/processed/comparison_reference.json",
+      "sha256": "9eb5472a071d1765048eca179c63e2e88c80ab391ac2e57787aca76143fb962c"
+    }
+  ],
+  "scope_limitation": "This is an experiment-directory/log audit, not a forensic claim about arbitrary external processes.",
+  "status": "SUCCESS",
+  "test_counts": {
+    "errors": 0,
+    "failure_details": [],
+    "failures": 0,
+    "passed": 42,
+    "skipped": 0,
+    "status": "SUCCESS",
+    "tests_run": 42
+  },
+  "test_report": {
+    "byte_size": 134,
+    "filename": "results/tests-2026-09-16T112021864891_0000-94d870a4.json",
+    "sha256": "4850a52aed4fd2f4d5d9a13c685f5dbe8f5254f363c252f80d1c10345993d036"
+  }
+}

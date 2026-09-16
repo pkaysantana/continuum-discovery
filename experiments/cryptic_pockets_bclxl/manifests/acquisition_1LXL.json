@@ -1,0 +1,13 @@
+{
+  "byte_size": 349903,
+  "filename": "data/raw/1LXL.cif",
+  "http_headers": {
+    "Content-Type": "chemical/x-cif",
+    "ETag": null,
+    "Last-Modified": null
+  },
+  "pdb_id": "1LXL",
+  "retrieved_at": "2026-09-16T10:32:29.880310+00:00",
+  "sha256": "03a4e441063e7f832999f9a2cfdd376bc5366a543afae202c7f0608955dcb96c",
+  "source_url": "https://files.rcsb.org/download/1LXL.cif"
+}

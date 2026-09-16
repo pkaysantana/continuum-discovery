@@ -1,0 +1,100 @@
+{
+  "action": "inspect",
+  "code_version_note": "Working source identified by individual SHA-256 hashes in inputs.",
+  "command": "\"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe\" -B \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py\" inspect",
+  "command_argv": [
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py",
+    "inspect"
+  ],
+  "cwd": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1",
+  "finished_at": "2026-09-16T10:32:44.091739+00:00",
+  "inputs": [
+    {
+      "byte_size": 493,
+      "filename": "configs/reference_site.json",
+      "sha256": "06de856ee845df75fc8c4ae67490681f0c8cad31c0c9104c3ca137b1131d437f"
+    },
+    {
+      "byte_size": 29,
+      "filename": "configs/requirements-reference.txt",
+      "sha256": "ecc38b5a8227bf3683c33655a12e6b4cd4342b86748e3ddce8e518578e01ed1c"
+    },
+    {
+      "byte_size": 349903,
+      "filename": "data/raw/1LXL.cif",
+      "sha256": "03a4e441063e7f832999f9a2cfdd376bc5366a543afae202c7f0608955dcb96c"
+    },
+    {
+      "byte_size": 324444,
+      "filename": "data/raw/2YXJ.cif",
+      "sha256": "5300ddf32f42624dd5da03cf1b2beee63d224542ad46bb6bdf055f28bfa969a4"
+    },
+    {
+      "byte_size": 382,
+      "filename": "manifests/acquisition_1LXL.json",
+      "sha256": "efb556395bf92ec717924ef2315e40aea35a71d15fc7877811051915b5381a0b"
+    },
+    {
+      "byte_size": 382,
+      "filename": "manifests/acquisition_2YXJ.json",
+      "sha256": "0640da42277b2a2a26bee94543063a53f09c6a8310df5ef942e843ddba292ad8"
+    },
+    {
+      "byte_size": 2640,
+      "filename": "manifests/environment_plan.json",
+      "sha256": "7f4151ab7d4fcbb661c3364028baf9fd4d8c05d2a89683cd881fd0241d9193fe"
+    },
+    {
+      "byte_size": 6505,
+      "filename": "manifests/input_manifest.json",
+      "sha256": "a475c822c0748a7aea74c7d70d5756328251fdc08de9d8cce1aff953cb05419b"
+    },
+    {
+      "byte_size": 10559,
+      "filename": "PROTOCOL.md",
+      "sha256": "f7013d951b54f10cf85525ca8597a7b7b46feaf860e51f9e5cf9630226425177"
+    },
+    {
+      "byte_size": 1704,
+      "filename": "src/provenance.py",
+      "sha256": "56a5c7b04dc7d26f594e23ff940f1efc822d5fb42b156c491a4ee4bb827c0d96"
+    },
+    {
+      "byte_size": 13868,
+      "filename": "src/reference_site.py",
+      "sha256": "2c07594e1fa5832e2aa02e99e7a2ba57c4870569bd9e1ab87775ec7039379460"
+    },
+    {
+      "byte_size": 15960,
+      "filename": "src/run.py",
+      "sha256": "0789ff6877119ffb1f8ddabef2b42892670bb0df262b20fc70104b1aad535615"
+    }
+  ],
+  "outputs": [
+    {
+      "byte_size": 113899,
+      "filename": "data/processed/structure_inspection.json",
+      "sha256": "5a170688ccb42cb193cbf4c11aed9f09dd8faf7ee3275f51761cff02f9eb1a66"
+    },
+    {
+      "byte_size": 42344,
+      "filename": "results/inspect-2026-09-16T103243387547_0000-7a14b691.log",
+      "sha256": "6bdac09ecb1452c81eb17b6122c0f2ec3fd5125112444d6f31ff0edae41b075d"
+    }
+  ],
+  "repository_base_commit": "fbe8d7fe7a239bd10712cc09c70f7466c0a4f95e",
+  "run_id": "2026-09-16T103243387547_0000-7a14b691",
+  "schema_version": 1,
+  "started_at": "2026-09-16T10:32:43.387547+00:00",
+  "status": "SUCCESS",
+  "versions": {
+    "packages": {
+      "biopython": "1.85",
+      "numpy": "2.2.6"
+    },
+    "python": "3.11.16"
+  },
+  "wall_seconds": 0.6898594000012963
+}

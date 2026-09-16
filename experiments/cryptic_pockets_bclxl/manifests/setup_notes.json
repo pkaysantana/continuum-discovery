@@ -1,0 +1,18 @@
+{
+  "scope": "Pre-bootstrap environment and repository discovery; no scientific input was processed by these probes.",
+  "date": "2026-09-16",
+  "timestamp_precision": "Individual pre-bootstrap probe timestamps were not persisted. Tool transcript retains their order; no exact times are invented here. Scientific commands have timestamped run receipts.",
+  "repository_base_commit": "fbe8d7fe7a239bd10712cc09c70f7466c0a4f95e",
+  "initial_git_status": "clean",
+  "failures": [
+    {"command": "initial parallel exec process launching skill/instruction read and git status", "status": "FAILED", "error": "CreateProcessWithLogonW failed: 1056", "resolution": "Sequential retry succeeded."},
+    {"command": "python --version; python -m pip show biopython numpy pandas matplotlib", "status": "FAILED", "error": "Program python.exe failed to run: The file cannot be accessed by the system", "resolution": "PATH pointed to WindowsApps alias; an existing standalone uv-managed Python 3.11.16 was located."},
+    {"command": "py -0p", "status": "FAILED", "error": "The term 'py' is not recognized", "resolution": "Used explicit interpreter path."},
+    {"command": "Get-CimInstance Win32_Processor; Get-CimInstance Win32_VideoController", "status": "FAILED", "error": "Access denied; HRESULT 0x80041003", "resolution": "CPU read from registry; GPU information left unavailable, not inferred."},
+    {"command": "uv python find --offline", "status": "FAILED", "error": "Failed to initialize cache at C:\\Users\\Don\\AppData\\Local\\uv\\cache; Access is denied. (os error 5)", "resolution": "Read the existing interpreter installation directory; no shared cache or environment was altered."},
+    {"command": "explicit Python -B -c interpreter/package availability probe", "status": "FAILED", "error": "NameError: name 'Bio' is not defined", "resolution": "Windows shell quoting removed string quotes; package installation was subsequently performed by the file-backed isolated bootstrap."},
+    {"command": "& ./experiments/cryptic_pockets_bclxl/src/bootstrap.ps1", "status": "FAILED", "error": "running scripts is disabled on this system; PSSecurityException", "resolution": "User-authorized process-local ExecutionPolicy Bypass invocation succeeded; see bootstrap execution receipt."}
+  ],
+  "outputs_from_failed_probes": [],
+  "historical_content": "No historical targets, sequences or outputs were opened or used. No files under audit/historical/ or ../ep4-original were modified."
+}

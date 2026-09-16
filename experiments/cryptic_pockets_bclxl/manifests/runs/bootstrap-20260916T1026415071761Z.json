@@ -1,0 +1,18 @@
+﻿{
+    "started_at":  "2026-09-16T10:26:41.5147098Z",
+    "command":  "powershell -File src/bootstrap.ps1 -Python C:/Users/Don/AppData/Roaming/uv/python/cpython-3.11.16-windows-x86_64-none/python.exe",
+    "status":  "SUCCESS",
+    "inputs":  {
+                   "configs/requirements-reference.txt":  "ecc38b5a8227bf3683c33655a12e6b4cd4342b86748e3ddce8e518578e01ed1c",
+                   "PROTOCOL.md":  "f7013d951b54f10cf85525ca8597a7b7b46feaf860e51f9e5cf9630226425177",
+                   "src/bootstrap.ps1":  "1c24f5760f914b960a70a8259510d5d56a409bc11b5c237a614abaccd452c2c8"
+               },
+    "outputs":  {
+                    "results/bootstrap-20260916T1026415071761Z.log":  "40cd263bb488227d29cc118d9cabfd3626c9e0df34612835e8c4dd32351ab1db"
+                },
+    "commands":  [
+                     "C:/Users/Don/AppData/Roaming/uv/python/cpython-3.11.16-windows-x86_64-none/python.exe -B -m venv C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv",
+                     "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe -B -m pip install --disable-pip-version-check -r configs/requirements-reference.txt"
+                 ],
+    "finished_at":  "2026-09-16T10:27:27.1265003Z"
+}

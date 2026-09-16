@@ -1,0 +1,2427 @@
+{
+  "sha": "960523caa75c86f04111970da47c3c06ceeda8b4",
+  "tree": [
+    {
+      "mode": "040000",
+      "path": ".github",
+      "sha": "78d8b82d36e1ef66bdd881030b1ce8373f7738e5",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/78d8b82d36e1ef66bdd881030b1ce8373f7738e5"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/CODE_OF_CONDUCT.md",
+      "sha": "425686c77733abc6d45854d42369060e4c625578",
+      "size": 3399,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/425686c77733abc6d45854d42369060e4c625578"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/CONTRIBUTING.md",
+      "sha": "84ccf5e13ef06c88a633df1ea65e7c833dbcecb3",
+      "size": 2949,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/84ccf5e13ef06c88a633df1ea65e7c833dbcecb3"
+    },
+    {
+      "mode": "040000",
+      "path": ".github/ISSUE_TEMPLATE",
+      "sha": "941c0bb5a9f2008b86824fa004166ed0f67ce7b8",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/941c0bb5a9f2008b86824fa004166ed0f67ce7b8"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "sha": "885682015238f59e4ab02a9b25d3b31eec0853ce",
+      "size": 812,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/885682015238f59e4ab02a9b25d3b31eec0853ce"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "sha": "f7fea7775417db26bff03a03d68e47518b4c142a",
+      "size": 555,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/f7fea7775417db26bff03a03d68e47518b4c142a"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha": "c918b2e58630466c96bf5561ef399fca831bf0aa",
+      "size": 744,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c918b2e58630466c96bf5561ef399fca831bf0aa"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/SECURITY.md",
+      "sha": "ccdf6a1d14c8871f2c33a1493ced6b68b9177cf8",
+      "size": 1342,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ccdf6a1d14c8871f2c33a1493ced6b68b9177cf8"
+    },
+    {
+      "mode": "040000",
+      "path": ".github/workflows",
+      "sha": "03a041802f2f704f6a5da609fa82e1f48867c02e",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/03a041802f2f704f6a5da609fa82e1f48867c02e"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/ci.yml",
+      "sha": "62133d7a5961600204a3979c00eb00f806df3f5d",
+      "size": 721,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/62133d7a5961600204a3979c00eb00f806df3f5d"
+    },
+    {
+      "mode": "100644",
+      "path": ".github/workflows/publish.yml",
+      "sha": "b7733bfcc712a14193209e832ab0a7ee2500666d",
+      "size": 800,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b7733bfcc712a14193209e832ab0a7ee2500666d"
+    },
+    {
+      "mode": "100644",
+      "path": ".gitignore",
+      "sha": "1b6aa7f3cb100ae74f53b188b2967f3d41a3ce4d",
+      "size": 1615,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1b6aa7f3cb100ae74f53b188b2967f3d41a3ce4d"
+    },
+    {
+      "mode": "100644",
+      "path": "CHANGELOG.md",
+      "sha": "bd97c3d89dd7caea147671e0f3652bbc51a363fd",
+      "size": 22852,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/bd97c3d89dd7caea147671e0f3652bbc51a363fd"
+    },
+    {
+      "mode": "100644",
+      "path": "CITATION.cff",
+      "sha": "349b0dca5c9f202ee9fa6cfde1f66bb3ae456408",
+      "size": 3029,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/349b0dca5c9f202ee9fa6cfde1f66bb3ae456408"
+    },
+    {
+      "mode": "100644",
+      "path": "LICENSE",
+      "sha": "76c16d16eae2e0609d44ffe7b458aadaf15838e5",
+      "size": 1070,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/76c16d16eae2e0609d44ffe7b458aadaf15838e5"
+    },
+    {
+      "mode": "100644",
+      "path": "README.md",
+      "sha": "35603b4dc7c0ae90f30f25a09d81ff7ea2911364",
+      "size": 9593,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/35603b4dc7c0ae90f30f25a09d81ff7ea2911364"
+    },
+    {
+      "mode": "040000",
+      "path": "analysis",
+      "sha": "b1ed0a4228e67d91f6bdd7c12507faad87c5b3ce",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/b1ed0a4228e67d91f6bdd7c12507faad87c5b3ce"
+    },
+    {
+      "mode": "040000",
+      "path": "analysis/moores_pocket_law",
+      "sha": "3a831273d4172334f05ea1f8d2271372dc769181",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/3a831273d4172334f05ea1f8d2271372dc769181"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/.gitignore",
+      "sha": "1b2214cffae98c6dd6640dba8f0adafc31533951",
+      "size": 165,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1b2214cffae98c6dd6640dba8f0adafc31533951"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/INPUTS.json",
+      "sha": "936a465978cd8881c2f266b14677324426d95a36",
+      "size": 2060,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/936a465978cd8881c2f266b14677324426d95a36"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/REPORT.md",
+      "sha": "3de945b801486c8fbaf70c2c58f16427c7b04b5d",
+      "size": 13742,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3de945b801486c8fbaf70c2c58f16427c7b04b5d"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/atomistic.py",
+      "sha": "17648a95c4834645ce4fefd1141e54fd15419d3c",
+      "size": 11558,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/17648a95c4834645ce4fefd1141e54fd15419d3c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/atomistic_full.json",
+      "sha": "3037bdbe6ee26bd6917712a06701052139afa025",
+      "size": 514,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3037bdbe6ee26bd6917712a06701052139afa025"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/atomistic_smoke12.json",
+      "sha": "6d4fb6268f4d33d9df9fb82b1c5c007747058cb5",
+      "size": 507,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6d4fb6268f4d33d9df9fb82b1c5c007747058cb5"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/calibration.py",
+      "sha": "725833994c69af69bc101ffebac5a62a2863f22f",
+      "size": 10384,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/725833994c69af69bc101ffebac5a62a2863f22f"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/conformer_confirmation.json",
+      "sha": "c40fd777faf58214a8ca770bdc1b64caf671081c",
+      "size": 2656,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c40fd777faf58214a8ca770bdc1b64caf671081c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/conformer_confirmation.py",
+      "sha": "121350b63e19da04dd05c7cac9549f39b5551e2d",
+      "size": 4414,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/121350b63e19da04dd05c7cac9549f39b5551e2d"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/criterion_analysis.json",
+      "sha": "32d8ead4f0d5311b9a854fb090c2e9b4a7e059df",
+      "size": 858,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/32d8ead4f0d5311b9a854fb090c2e9b4a7e059df"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/criterion_analysis.py",
+      "sha": "f4bf5a95984f9d3b3ea9270d8d654aa81ca9741a",
+      "size": 8247,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/f4bf5a95984f9d3b3ea9270d8d654aa81ca9741a"
+    },
+    {
+      "mode": "040000",
+      "path": "analysis/moores_pocket_law/data",
+      "sha": "03685b3282d15d0e3d2510fecd3346e7e688191c",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/03685b3282d15d0e3d2510fecd3346e7e688191c"
+    },
+    {
+      "mode": "040000",
+      "path": "analysis/moores_pocket_law/data/candidates",
+      "sha": "b4a1c3af16282c9c7865b0a5bf76cbd3f00a4a61",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/b4a1c3af16282c9c7865b0a5bf76cbd3f00a4a61"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/candidates/candidates_test.jsonl",
+      "sha": "c7d618dadf3c9efe0ebafa5fdd272b4d27cc5e9e",
+      "size": 3768587,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c7d618dadf3c9efe0ebafa5fdd272b4d27cc5e9e"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/candidates/candidates_train.jsonl",
+      "sha": "740e622b386c0f85f1233b2c6ac5b3bbc3204615",
+      "size": 16182555,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/740e622b386c0f85f1233b2c6ac5b3bbc3204615"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/conf_1.jsonl",
+      "sha": "2c1c3c84cc12e4dbf442fc75f7d02efd4f49e7c3",
+      "size": 3292879,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2c1c3c84cc12e4dbf442fc75f7d02efd4f49e7c3"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/conf_10.jsonl",
+      "sha": "32c36ead9115c7de02b9c30b86e0ac457b5d08cd",
+      "size": 9448549,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/32c36ead9115c7de02b9c30b86e0ac457b5d08cd"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/conf_3.jsonl",
+      "sha": "5c42f2d4bb3c01d12961fad49bc81abf5acb6826",
+      "size": 6093999,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5c42f2d4bb3c01d12961fad49bc81abf5acb6826"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/conf_5.jsonl",
+      "sha": "07bb2e2960ecf7c89d7678716076cc344d898d4d",
+      "size": 7563389,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/07bb2e2960ecf7c89d7678716076cc344d898d4d"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/protein_lengths.json",
+      "sha": "4002f1a230b5902bbf492f18bfe4679c3410bb9b",
+      "size": 12999,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4002f1a230b5902bbf492f18bfe4679c3410bb9b"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/data/weekend_platform.json",
+      "sha": "85468e9dfd20782be2d09f4bab505351ad008419",
+      "size": 170,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/85468e9dfd20782be2d09f4bab505351ad008419"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/dataio.py",
+      "sha": "a19cc901bf93b2a95f0580d66ce47b96442ae96f",
+      "size": 10116,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a19cc901bf93b2a95f0580d66ce47b96442ae96f"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/dataio_v2.py",
+      "sha": "dc0ffb54e6a7f668e5d7a999bae65d3fdf7cee9c",
+      "size": 4561,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/dc0ffb54e6a7f668e5d7a999bae65d3fdf7cee9c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/detection_gap.json",
+      "sha": "b56187636ae089afd1def85724cd03ab3d299b74",
+      "size": 106,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b56187636ae089afd1def85724cd03ab3d299b74"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/detection_gap.py",
+      "sha": "a905d8830c4fe7556e4665785b9e8b2edd0707c1",
+      "size": 6743,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a905d8830c4fe7556e4665785b9e8b2edd0707c1"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/detector_ablation.py",
+      "sha": "12c4c37606b234b001c2ed902ae962bf71dad550",
+      "size": 13168,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/12c4c37606b234b001c2ed902ae962bf71dad550"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/end_to_end_fusion.py",
+      "sha": "2ed8f9ea7962c50189f1ea374ff1057b8471e067",
+      "size": 16813,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2ed8f9ea7962c50189f1ea374ff1057b8471e067"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/ensemble_features.json",
+      "sha": "b487e550c71cb3536eab923a0666b2d6829474f7",
+      "size": 672,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b487e550c71cb3536eab923a0666b2d6829474f7"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/ensemble_features.py",
+      "sha": "b5e6407a04a3c87b197ed48cf0146952576b0e09",
+      "size": 5456,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b5e6407a04a3c87b197ed48cf0146952576b0e09"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/esmif_route2.py",
+      "sha": "cb183db28654b20a53651d5a0e350b5dd0a76236",
+      "size": 10911,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/cb183db28654b20a53651d5a0e350b5dd0a76236"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/esmif_route2_full.json",
+      "sha": "9a94ed9c6893a8e169cf9cfbe3edc6d59712f138",
+      "size": 752,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9a94ed9c6893a8e169cf9cfbe3edc6d59712f138"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/esmif_route2_smoke20.json",
+      "sha": "27495f38d61bab8759140f427671c2be21d89e51",
+      "size": 648,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/27495f38d61bab8759140f427671c2be21d89e51"
+    },
+    {
+      "mode": "040000",
+      "path": "analysis/moores_pocket_law/figures",
+      "sha": "62c851801a820aa746cd869b636bad3d5ce73ce0",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/62c851801a820aa746cd869b636bad3d5ce73ce0"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figA_burden_vs_conversion.pdf",
+      "sha": "e7bd888eabc613e9bc83960dcc8822df486d6ade",
+      "size": 28577,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e7bd888eabc613e9bc83960dcc8822df486d6ade"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figA_burden_vs_conversion.png",
+      "sha": "3dc56d0926f3e1104b4fbfcb0bd49ab361d30cf3",
+      "size": 200817,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3dc56d0926f3e1104b4fbfcb0bd49ab361d30cf3"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figB_budget_vs_recovery.pdf",
+      "sha": "9092bce449aeec3b718b46239c1e67b1e93c3a94",
+      "size": 28399,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9092bce449aeec3b718b46239c1e67b1e93c3a94"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figB_budget_vs_recovery.png",
+      "sha": "05d1266a58bf3034ca536c73c8ab4e6b7429f61d",
+      "size": 234633,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/05d1266a58bf3034ca536c73c8ab4e6b7429f61d"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figC_budget_vs_conversion.pdf",
+      "sha": "723355099982b7667b637595a06365775a1a213f",
+      "size": 29155,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/723355099982b7667b637595a06365775a1a213f"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figC_budget_vs_conversion.png",
+      "sha": "b7238ab9d4cc47d5d411f4060190b5b3707760ac",
+      "size": 270949,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b7238ab9d4cc47d5d411f4060190b5b3707760ac"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figD_failure_composition.pdf",
+      "sha": "81d2d4f653d439d188e979fc34d3dc0c6f5df9e3",
+      "size": 28974,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/81d2d4f653d439d188e979fc34d3dc0c6f5df9e3"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figD_failure_composition.png",
+      "sha": "ff0cf400884abadf40f5bbc8179ae478b84d992a",
+      "size": 168907,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ff0cf400884abadf40f5bbc8179ae478b84d992a"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figE_rank_vs_burden.pdf",
+      "sha": "7abef1d6276deb44abfff4e7497e45e5b0549845",
+      "size": 70465,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/7abef1d6276deb44abfff4e7497e45e5b0549845"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figE_rank_vs_burden.png",
+      "sha": "450e9578134d3cd6bdbd14dd3dff5b8de7a67332",
+      "size": 766722,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/450e9578134d3cd6bdbd14dd3dff5b8de7a67332"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figF_marginal_yield.pdf",
+      "sha": "3ba62758802c2fd34d19ee6c12acde4ed454be29",
+      "size": 30128,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3ba62758802c2fd34d19ee6c12acde4ed454be29"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figF_marginal_yield.png",
+      "sha": "d2f2bb46647606e8cafd0e03c716043792da1742",
+      "size": 295733,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d2f2bb46647606e8cafd0e03c716043792da1742"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figG2_within_target_effect.pdf",
+      "sha": "d07569e8eba38cb288e39aa97bc526f763e6d245",
+      "size": 26718,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d07569e8eba38cb288e39aa97bc526f763e6d245"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figG2_within_target_effect.png",
+      "sha": "9f774118da6c4d65a9ad46c632ea0259cccaa528",
+      "size": 118420,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9f774118da6c4d65a9ad46c632ea0259cccaa528"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figG_efficiency_by_burden.pdf",
+      "sha": "ad6b563b04023decde3484997bccdcddacee8342",
+      "size": 39778,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ad6b563b04023decde3484997bccdcddacee8342"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/figures/figG_efficiency_by_burden.png",
+      "sha": "ca08852766dcb84dc12182081a67c62fd2c1d0d6",
+      "size": 130309,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ca08852766dcb84dc12182081a67c62fd2c1d0d6"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/fit_fused_ranker.py",
+      "sha": "de8956f6de9a0d3687b5e6ca14dfeddc45d7fd4b",
+      "size": 3237,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/de8956f6de9a0d3687b5e6ca14dfeddc45d7fd4b"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/fused_ranker.npz",
+      "sha": "9ddf3047cffaa787d4e443403f7f820fc5b7b77e",
+      "size": 2906,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9ddf3047cffaa787d4e443403f7f820fc5b7b77e"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/holo_geometry.json",
+      "sha": "4a2e0e7616f305cb53208a2e04d0575e5b3975c4",
+      "size": 219195,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4a2e0e7616f305cb53208a2e04d0575e5b3975c4"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/holo_geometry.py",
+      "sha": "a5df6d9c6a6c9447552df9cde1ca034feeb07af0",
+      "size": 11895,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a5df6d9c6a6c9447552df9cde1ca034feeb07af0"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/lining_trim.json",
+      "sha": "75650f60701c76cd78d5e79584d471559efb4041",
+      "size": 1730,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/75650f60701c76cd78d5e79584d471559efb4041"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/lining_trim.py",
+      "sha": "d3755bbf3e4cad55d598a0e9747d17aaa2f6c770",
+      "size": 7340,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d3755bbf3e4cad55d598a0e9747d17aaa2f6c770"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase10_decoy.json",
+      "sha": "8139d5ca21cc32b07ce6223cccbac3d62f827c35",
+      "size": 3462,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8139d5ca21cc32b07ce6223cccbac3d62f827c35"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase10_decoy_injection.py",
+      "sha": "2426ad174654f6b083ee71d75da9552e75af16a4",
+      "size": 7696,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2426ad174654f6b083ee71d75da9552e75af16a4"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase10b_within_target_decoy.json",
+      "sha": "65d4d25694cdf509d921208c9cf0081cbbaf87fe",
+      "size": 2565,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/65d4d25694cdf509d921208c9cf0081cbbaf87fe"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase10b_within_target_decoys.py",
+      "sha": "5e45067471526729fbb3dac0fcd0c30bcc4f601a",
+      "size": 6298,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5e45067471526729fbb3dac0fcd0c30bcc4f601a"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase11_budget.json",
+      "sha": "92d7e8dae1fdf71b3bf99044c7f2f236950da538",
+      "size": 11382,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/92d7e8dae1fdf71b3bf99044c7f2f236950da538"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase11_budget_allocation.py",
+      "sha": "6eeb033c1e0f3d3a36b8e41b187d8844333c0943",
+      "size": 5988,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6eeb033c1e0f3d3a36b8e41b187d8844333c0943"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase12_platform.json",
+      "sha": "fcc0809559a9279a5d7332dd855bea01a2acf6eb",
+      "size": 1078,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/fcc0809559a9279a5d7332dd855bea01a2acf6eb"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase12_platform_effect.py",
+      "sha": "e9f6278483e31328b202e2e6fb980c62ba901f80",
+      "size": 4906,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e9f6278483e31328b202e2e6fb980c62ba901f80"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase13_v2_table.json",
+      "sha": "0e2c610ca250e0c99b498953dbf66dd71f18659b",
+      "size": 7080,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0e2c610ca250e0c99b498953dbf66dd71f18659b"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase13_v2_table.py",
+      "sha": "65e59712b55bc5f518e56b36fcbd4a0b60e124ab",
+      "size": 4525,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/65e59712b55bc5f518e56b36fcbd4a0b60e124ab"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase14_small_sites.json",
+      "sha": "a8b2675496d92f7191f8950b02c36a320ab88f5b",
+      "size": 2535,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a8b2675496d92f7191f8950b02c36a320ab88f5b"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase14_small_sites.py",
+      "sha": "0153e0c5653cd0b0eac6ac667b168532bc5a453e",
+      "size": 6731,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0153e0c5653cd0b0eac6ac667b168532bc5a453e"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase15_heldout_injection.json",
+      "sha": "b6f340ef62319ed0c5753270df55cb4460f9e1e6",
+      "size": 2378,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b6f340ef62319ed0c5753270df55cb4460f9e1e6"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase15_heldout_injection.py",
+      "sha": "5386bffc172c256a385fc3c5fc08fe16206f90ff",
+      "size": 6728,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5386bffc172c256a385fc3c5fc08fe16206f90ff"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase2_reproduce.py",
+      "sha": "15610e24054bcf45458813d6670ed449b915139a",
+      "size": 4039,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/15610e24054bcf45458813d6670ed449b915139a"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase2_reproduction.json",
+      "sha": "83f4b77f65b99806a4b359c31b7c13b51aa4f202",
+      "size": 1379,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/83f4b77f65b99806a4b359c31b7c13b51aa4f202"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase3_table.py",
+      "sha": "ba80dbca58946eae7d4e2d5fa8800ffae417c925",
+      "size": 1986,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ba80dbca58946eae7d4e2d5fa8800ffae417c925"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase4_hypotheses.py",
+      "sha": "26dbe6a5b93f077016db01907d3553c997fd5406",
+      "size": 11833,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/26dbe6a5b93f077016db01907d3553c997fd5406"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase4_results.json",
+      "sha": "aeb623949ce742f0efee70104f8bdddeeba61467",
+      "size": 34319,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/aeb623949ce742f0efee70104f8bdddeeba61467"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase5_confounders.json",
+      "sha": "5d586c501c057327f7cc51033d548d5a3c5e0e1f",
+      "size": 3623,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5d586c501c057327f7cc51033d548d5a3c5e0e1f"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase5_confounders.py",
+      "sha": "69fbc7b27e7fc988e40842a148e537411c89619e",
+      "size": 7957,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/69fbc7b27e7fc988e40842a148e537411c89619e"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase6_sweep.json",
+      "sha": "260aec8f3d8eac2767612f58331f2402c6fe1bdb",
+      "size": 3458,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/260aec8f3d8eac2767612f58331f2402c6fe1bdb"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase6_sweep.py",
+      "sha": "1d3fcbe79b6a6b6c6daad7948fd563f2da7a30aa",
+      "size": 6767,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1d3fcbe79b6a6b6c6daad7948fd563f2da7a30aa"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase7_robustness.json",
+      "sha": "11434a80934ad4014cbddf5b17998f3a4e3cced6",
+      "size": 2172,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/11434a80934ad4014cbddf5b17998f3a4e3cced6"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase7_robustness.py",
+      "sha": "9cd5e251b9d372a57d92dbe3cf9d783d0d7cbca8",
+      "size": 5624,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9cd5e251b9d372a57d92dbe3cf9d783d0d7cbca8"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase8_figures.py",
+      "sha": "294d2b730d8d8109e7fdcab465e307c9359c594f",
+      "size": 10811,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/294d2b730d8d8109e7fdcab465e307c9359c594f"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/phase9_summary.py",
+      "sha": "a0567c8c0d61825106d23fb22bb45fd7880ff9d7",
+      "size": 3559,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a0567c8c0d61825106d23fb22bb45fd7880ff9d7"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/plm_headroom.json",
+      "sha": "96b92bf1bf84b4fc237edb1e19c9e89a4bf04120",
+      "size": 790,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/96b92bf1bf84b4fc237edb1e19c9e89a4bf04120"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/plm_headroom.py",
+      "sha": "ef6cc384ad3cd905f18a3d8ec950bbc500a75443",
+      "size": 11078,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ef6cc384ad3cd905f18a3d8ec950bbc500a75443"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/plm_headroom_fair.json",
+      "sha": "54bbdc20a3cd0c89f282e7e2bf830f5d4119f7d0",
+      "size": 521,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/54bbdc20a3cd0c89f282e7e2bf830f5d4119f7d0"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/plm_headroom_fair.py",
+      "sha": "22a05be4c94d51fa1ce1f5512074297c52d3406c",
+      "size": 7395,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/22a05be4c94d51fa1ce1f5512074297c52d3406c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/pool_density.py",
+      "sha": "1363552cd2db52426b77ad10e6b925fd7fd0340b",
+      "size": 11420,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1363552cd2db52426b77ad10e6b925fd7fd0340b"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/ranker_headroom.py",
+      "sha": "692e3340aff6370408c2c5dc8d2ec6784fba7ae3",
+      "size": 8040,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/692e3340aff6370408c2c5dc8d2ec6784fba7ae3"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/ranker_next.py",
+      "sha": "1bad8da517437ac0f7b73d32b2b635e4739a2cbf",
+      "size": 11186,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1bad8da517437ac0f7b73d32b2b635e4739a2cbf"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/ranker_next_full.json",
+      "sha": "c65b87c4e203c89098d0f20fb5a76aa77dc49b39",
+      "size": 804,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c65b87c4e203c89098d0f20fb5a76aa77dc49b39"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/refit_fused_ranker.py",
+      "sha": "6ff30d3d5815d2cba629307d8c286cb60fad280a",
+      "size": 10694,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6ff30d3d5815d2cba629307d8c286cb60fad280a"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/residue_head_isolation.json",
+      "sha": "376c11687fddba25b86bf468de2547d9e6fd9f6a",
+      "size": 536,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/376c11687fddba25b86bf468de2547d9e6fd9f6a"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/residue_head_isolation.py",
+      "sha": "333ecbcaed5f56520012ed2242c82dde6d0cc2be",
+      "size": 6697,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/333ecbcaed5f56520012ed2242c82dde6d0cc2be"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/results.csv",
+      "sha": "5776c8516b48a98062ca74a09e0ade07e15df44b",
+      "size": 285366,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5776c8516b48a98062ca74a09e0ade07e15df44b"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/summary.json",
+      "sha": "2f2c385f74139aef5d5418b061120719643512cd",
+      "size": 17432,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2f2c385f74139aef5d5418b061120719643512cd"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/surface_scorer.py",
+      "sha": "a8df10b3e718955434d254b5d68fca441fa612ca",
+      "size": 14560,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a8df10b3e718955434d254b5d68fca441fa612ca"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/surface_scorer_plm.py",
+      "sha": "24d0aa7c9994519eccfb52ceacb8b633b3e58e0c",
+      "size": 12546,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/24d0aa7c9994519eccfb52ceacb8b633b3e58e0c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/test_fold_eval.py",
+      "sha": "82914708d19bc6c3843646b4046bd350e77681a0",
+      "size": 9449,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/82914708d19bc6c3843646b4046bd350e77681a0"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/test_metrics.py",
+      "sha": "9f1b06767020150ab614ff14b19537d56800984c",
+      "size": 3507,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9f1b06767020150ab614ff14b19537d56800984c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/train_surface_detector.py",
+      "sha": "44c2ec0d2f72df23cfa645e3fffd1b1354adf7a9",
+      "size": 9075,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/44c2ec0d2f72df23cfa645e3fffd1b1354adf7a9"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/trivial_baselines.py",
+      "sha": "6f6604731012e86544383e687dc6223ce2a1cc2e",
+      "size": 4268,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6f6604731012e86544383e687dc6223ce2a1cc2e"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/v2_numbers.json",
+      "sha": "98d0d68dc3257840a0ae5cdb7065050beb0b6271",
+      "size": 72626,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/98d0d68dc3257840a0ae5cdb7065050beb0b6271"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/v2_numbers.py",
+      "sha": "a199c6f96af687d3b61745570821041b91757fbe",
+      "size": 5435,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a199c6f96af687d3b61745570821041b91757fbe"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/v3_atoms.json",
+      "sha": "098635e0e9289ceba9f780d855b62b72cd0c763c",
+      "size": 606,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/098635e0e9289ceba9f780d855b62b72cd0c763c"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/v3_atoms.py",
+      "sha": "ba3711be89cd2a795e1f2f82c91cea6fd4e7e625",
+      "size": 7119,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ba3711be89cd2a795e1f2f82c91cea6fd4e7e625"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/v3_sequence_vs_geometry.json",
+      "sha": "1e104258c1e1282662cab05beaeadad7768d0fae",
+      "size": 630,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1e104258c1e1282662cab05beaeadad7768d0fae"
+    },
+    {
+      "mode": "100644",
+      "path": "analysis/moores_pocket_law/v3_sequence_vs_geometry.py",
+      "sha": "96c88a3ca3c4e84bf056980f318856cc74c0b6c4",
+      "size": 9675,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/96c88a3ca3c4e84bf056980f318856cc74c0b6c4"
+    },
+    {
+      "mode": "040000",
+      "path": "benchmarks",
+      "sha": "de3591d2d5c391ba469b504d50667bec6d48952c",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/de3591d2d5c391ba469b504d50667bec6d48952c"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/boltz_nearmiss_results.json",
+      "sha": "74beacdecaed16ab43f65b2fcf4c89f1e1344c9b",
+      "size": 383,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/74beacdecaed16ab43f65b2fcf4c89f1e1344c9b"
+    },
+    {
+      "mode": "040000",
+      "path": "benchmarks/cb_data",
+      "sha": "c52826029a9791dfbe9165360db8ba688169e528",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/c52826029a9791dfbe9165360db8ba688169e528"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/cb_data/folds.json",
+      "sha": "447dbd1804700363d6971aa6e2b85b4ba1efdaed",
+      "size": 17826,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/447dbd1804700363d6971aa6e2b85b4ba1efdaed"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/coach420_benchmark.py",
+      "sha": "3504cade1677d249aff2ac16a984f82ea49fddb6",
+      "size": 9133,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3504cade1677d249aff2ac16a984f82ea49fddb6"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/coach420_druggability.json",
+      "sha": "6e472e981e83f5d960f057ac00f657fee443d037",
+      "size": 24953,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6e472e981e83f5d960f057ac00f657fee443d037"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/coach420_learned.json",
+      "sha": "612b3cb4446c0264fa24360bb4d1a450798c54e1",
+      "size": 24879,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/612b3cb4446c0264fa24360bb4d1a450798c54e1"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/coach420_p2rank.json",
+      "sha": "8c5499a6eb74be0c6e358a627003958454c7b3c6",
+      "size": 19034,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8c5499a6eb74be0c6e358a627003958454c7b3c6"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/collect_candidates.py",
+      "sha": "3ceb3bff1d40711a6e663953e7fad8740dd41307",
+      "size": 15987,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3ceb3bff1d40711a6e663953e7fad8740dd41307"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/collect_external.py",
+      "sha": "33c9f80331f37a79a046005c6e014b84efa38ce4",
+      "size": 8291,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/33c9f80331f37a79a046005c6e014b84efa38ce4"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/compare_detectors_cryptobench.py",
+      "sha": "ce1c3adc8bc598c5b0c11c42c9894d0b23dc36f6",
+      "size": 16097,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ce1c3adc8bc598c5b0c11c42c9894d0b23dc36f6"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/compare_fpocket.py",
+      "sha": "a8be85851fb6af5d9a2ce7dc68851c9da2febd67",
+      "size": 14190,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a8be85851fb6af5d9a2ce7dc68851c9da2febd67"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/compare_fpocket_cryptobench.py",
+      "sha": "5afc8caa371a57d21cd662452355d185e680ec46",
+      "size": 6107,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5afc8caa371a57d21cd662452355d185e680ec46"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/compare_mdpocket.py",
+      "sha": "ef9ae83c4a2c58f9fed7c41d685c68b35496d958",
+      "size": 11740,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ef9ae83c4a2c58f9fed7c41d685c68b35496d958"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/compare_p2rank.py",
+      "sha": "c6210792d0b354ebb1d85eb078bb08a1c8ce1113",
+      "size": 11591,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c6210792d0b354ebb1d85eb078bb08a1c8ce1113"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/compare_p2rank_coach420.py",
+      "sha": "3eebf402b956b105208be76c2f02b51c93990586",
+      "size": 4966,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3eebf402b956b105208be76c2f02b51c93990586"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/cryptic_benchmark.py",
+      "sha": "55dbe84a476edaba85d80bbf98ce126432bba0db",
+      "size": 51025,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/55dbe84a476edaba85d80bbf98ce126432bba0db"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/cryptic_benchmark_results.json",
+      "sha": "675b6fbcdd74ed4a8d33e47d52110505fe72c5d7",
+      "size": 13666,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/675b6fbcdd74ed4a8d33e47d52110505fe72c5d7"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/cryptobench_benchmark.py",
+      "sha": "c1da245928e02dfc715b0fecf972f2d0a9e29848",
+      "size": 7406,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c1da245928e02dfc715b0fecf972f2d0a9e29848"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/detectors_cb_baselines.jsonl",
+      "sha": "5ed80e39479d8bfc899a74fabf0aba69247897c5",
+      "size": 267780,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5ed80e39479d8bfc899a74fabf0aba69247897c5"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/detectors_cb_current.jsonl",
+      "sha": "72d320e1e12d28c502bfe650cad24af9f3bb166b",
+      "size": 54037,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/72d320e1e12d28c502bfe650cad24af9f3bb166b"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/detectors_cb_lacuna.jsonl",
+      "sha": "ed35f5e66b0f0577bca48efbfb77f37a815b2b51",
+      "size": 275231,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ed35f5e66b0f0577bca48efbfb77f37a815b2b51"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/detectors_cb_paper_baselines.jsonl",
+      "sha": "080de7e5483a30a8a687a9a8d7d99f4c256f43d6",
+      "size": 429956,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/080de7e5483a30a8a687a9a8d7d99f4c256f43d6"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/detectors_cb_paper_fpocket_fixed.jsonl",
+      "sha": "fd0ad27c6811043ddc27c3552038defb15d037e1",
+      "size": 245946,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/fd0ad27c6811043ddc27c3552038defb15d037e1"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/detectors_cb_paper_ifsitepred.jsonl",
+      "sha": "1e16092020cb6ab93561965e545781a7f110044b",
+      "size": 246828,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1e16092020cb6ab93561965e545781a7f110044b"
+    },
+    {
+      "mode": "040000",
+      "path": "benchmarks/experiments",
+      "sha": "392a0383b253b61682376242a1a2fe41cdfd8d3a",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/392a0383b253b61682376242a1a2fe41cdfd8d3a"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/experiments/metadynamics_cv.py",
+      "sha": "16e2cf75f521e82fdb86952cdf4ef4676780ccbf",
+      "size": 8495,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/16e2cf75f521e82fdb86952cdf4ef4676780ccbf"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/experiments/swish_md.py",
+      "sha": "02bf249aa0cd9c0abdd617f6793143ccd12f1912",
+      "size": 9622,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/02bf249aa0cd9c0abdd617f6793143ccd12f1912"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/extract_features.py",
+      "sha": "607e017fda568cf99d4947a13e36ef434cfdf472",
+      "size": 6099,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/607e017fda568cf99d4947a13e36ef434cfdf472"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/fpocket_comparison.json",
+      "sha": "108c8ffe828b61a4dc2242ff3d006a5d327a0a82",
+      "size": 11989,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/108c8ffe828b61a4dc2242ff3d006a5d327a0a82"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/fpocket_cryptobench_comparison.json",
+      "sha": "b3a05c7830259950e10947cfb3ec63123b5971b9",
+      "size": 32646,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b3a05c7830259950e10947cfb3ec63123b5971b9"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/ifsitepred_runner.py",
+      "sha": "4d5e7a29d27e82856ea49b38b4e8ad4d6fca891e",
+      "size": 6327,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4d5e7a29d27e82856ea49b38b4e8ad4d6fca891e"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/mdpocket_comparison.json",
+      "sha": "08560a56c1ac57e67130998e12ce95555ad6f67e",
+      "size": 81046,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/08560a56c1ac57e67130998e12ce95555ad6f67e"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/metrics.py",
+      "sha": "8737d90a0dca613247bb0e5a1ab944d8a60d8aab",
+      "size": 4976,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8737d90a0dca613247bb0e5a1ab944d8a60d8aab"
+    },
+    {
+      "mode": "040000",
+      "path": "benchmarks/pdb_cache",
+      "sha": "c6397158ccbe925edc8055671bda5ebc62ba7349",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/c6397158ccbe925edc8055671bda5ebc62ba7349"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/1G5M.pdb",
+      "sha": "e1cae75a0dfd5c837d093084f428dbaa638b1f8d",
+      "size": 225099,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e1cae75a0dfd5c837d093084f428dbaa638b1f8d"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/1HEL.pdb",
+      "sha": "1a32ebd78796babb7f85ea5b4244607d959ede49",
+      "size": 123849,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1a32ebd78796babb7f85ea5b4244607d959ede49"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/1HPV.pdb",
+      "sha": "7e1bf717220215a0a673871a12a6bd4550bd4563",
+      "size": 163215,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/7e1bf717220215a0a673871a12a6bd4550bd4563"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/1L90.pdb",
+      "sha": "e294672ce943e39c876dd11d1cdd551022b17859",
+      "size": 147987,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e294672ce943e39c876dd11d1cdd551022b17859"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/1ZJH.pdb",
+      "sha": "4dfe57c82049aabcdb9485f82c8bd8520f917b5f",
+      "size": 363609,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4dfe57c82049aabcdb9485f82c8bd8520f917b5f"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/2OZR.pdb",
+      "sha": "2fbb940c5da88d4de8adb95ae87ccacf5dec431d",
+      "size": 1120716,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2fbb940c5da88d4de8adb95ae87ccacf5dec431d"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/2PRG.pdb",
+      "sha": "9819b5c9d7da5420ace9bb35ce7f7660dfcbc067",
+      "size": 457569,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9819b5c9d7da5420ace9bb35ce7f7660dfcbc067"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/3I7G.pdb",
+      "sha": "6281c2dbe97991d0fc9885c87c8dd90dddd4c716",
+      "size": 302454,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6281c2dbe97991d0fc9885c87c8dd90dddd4c716"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/3MAP.pdb",
+      "sha": "0a9e0b873f3f8f1e1501d217c866ae8020b0f385",
+      "size": 1096416,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0a9e0b873f3f8f1e1501d217c866ae8020b0f385"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/4OBE.pdb",
+      "sha": "df5edb0bc4b9a0ac6e3fa0db8994ce23d9425e1f",
+      "size": 750465,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/df5edb0bc4b9a0ac6e3fa0db8994ce23d9425e1f"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/5HT2A_AF.pdb",
+      "sha": "1a886917099dfb19dd3e90c07a7e09a20900c5ed",
+      "size": 305612,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1a886917099dfb19dd3e90c07a7e09a20900c5ed"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/ADRA2A_AF.pdb",
+      "sha": "ee8a25bc928b92d6c6c918155455a2eba1138b51",
+      "size": 296459,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ee8a25bc928b92d6c6c918155455a2eba1138b51"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/CTNNB1.pdb",
+      "sha": "e4f2cfea01e880fc0a687f027da65ec3bdb51d15",
+      "size": 376488,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e4f2cfea01e880fc0a687f027da65ec3bdb51d15"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/EGFR.pdb",
+      "sha": "40c1707345db6009e5c97825639fe96751dea513",
+      "size": 447363,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/40c1707345db6009e5c97825639fe96751dea513"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/KRAS_G12D.pdb",
+      "sha": "d758dc357b85978537e3455d68e9f4062fad5234",
+      "size": 173016,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d758dc357b85978537e3455d68e9f4062fad5234"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pdb_cache/MYC.pdb",
+      "sha": "afd0ef61f185ac156884c851c948acd973726b54",
+      "size": 556956,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/afd0ef61f185ac156884c851c948acd973726b54"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/pocketminer_benchmark.py",
+      "sha": "d918297be6e539bd898006cf8cb37a020b16ce4a",
+      "size": 7556,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d918297be6e539bd898006cf8cb37a020b16ce4a"
+    },
+    {
+      "mode": "040000",
+      "path": "benchmarks/surface_runs",
+      "sha": "c9098abbc439e95c97706962bd9de2c4edaa4404",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/c9098abbc439e95c97706962bd9de2c4edaa4404"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/coach420_alpha.log",
+      "sha": "496004433be73d407a118ba686bd0a347a278fc5",
+      "size": 18568,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/496004433be73d407a118ba686bd0a347a278fc5"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/coach420_learned-fused.json",
+      "sha": "8edabc15cc236dd63f824db8d0fd8e22cb509481",
+      "size": 49323,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8edabc15cc236dd63f824db8d0fd8e22cb509481"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/coach420_learned.json",
+      "sha": "c8986612e3fa296bd94f64ab33f341e0a84b1250",
+      "size": 49173,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c8986612e3fa296bd94f64ab33f341e0a84b1250"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/coach420_surface-fusion.log",
+      "sha": "401304b79316cb18799f78cecf1065a64ecc6216",
+      "size": 19944,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/401304b79316cb18799f78cecf1065a64ecc6216"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/cryptic_alpha.log",
+      "sha": "0033129f37c08898790031470687329ce7324e75",
+      "size": 19553,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0033129f37c08898790031470687329ce7324e75"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/cryptic_alpha_results.json",
+      "sha": "84c2e156ac2a5bf86e67548ebde708e574047b5b",
+      "size": 13667,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/84c2e156ac2a5bf86e67548ebde708e574047b5b"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/cryptic_surface-fusion.log",
+      "sha": "847dd95ce13125875c57c63a1a1ff407e8e4d981",
+      "size": 20792,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/847dd95ce13125875c57c63a1a1ff407e8e4d981"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/cryptic_surface-fusion_results.json",
+      "sha": "c988750f643fea04e41eeadb36825792882a33f0",
+      "size": 13687,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c988750f643fea04e41eeadb36825792882a33f0"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/driver.log",
+      "sha": "0a7fb22590b95a523d2d01c724955bde5abf199b",
+      "size": 209,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0a7fb22590b95a523d2d01c724955bde5abf199b"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/pocketminer_alpha.log",
+      "sha": "fa456c172bbb200d036c9f2f2d8a50df9f922b7f",
+      "size": 4414,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/fa456c172bbb200d036c9f2f2d8a50df9f922b7f"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/surface_runs/pocketminer_surface-fusion.log",
+      "sha": "111b91ec57186aca6001147d8a4a1598d588e6dc",
+      "size": 5506,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/111b91ec57186aca6001147d8a4a1598d588e6dc"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/train_ranker.py",
+      "sha": "73eaab93fcd3f0ec5e7d46c4693657be07978974",
+      "size": 26438,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/73eaab93fcd3f0ec5e7d46c4693657be07978974"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/train_reranker.py",
+      "sha": "c7c1a642354bf1266e227a1e770e81961dc8bab4",
+      "size": 5199,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c7c1a642354bf1266e227a1e770e81961dc8bab4"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/verify_recall_gaming.py",
+      "sha": "7e41ed08c4ba2b6b1f8c97202315ce6787bbbaf0",
+      "size": 4355,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/7e41ed08c4ba2b6b1f8c97202315ce6787bbbaf0"
+    },
+    {
+      "mode": "100644",
+      "path": "benchmarks/weekend_run.py",
+      "sha": "ae580dcd9c823794888f053533af26ddf62fa9d0",
+      "size": 11206,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ae580dcd9c823794888f053533af26ddf62fa9d0"
+    },
+    {
+      "mode": "040000",
+      "path": "docs",
+      "sha": "08bfbfbb289c7fa25750049bce36a54c4d54cf74",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/08bfbfbb289c7fa25750049bce36a54c4d54cf74"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/BENCHMARKS.md",
+      "sha": "dd11da9db6aad9aa8c9256a266589f8b553515d0",
+      "size": 36540,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/dd11da9db6aad9aa8c9256a266589f8b553515d0"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/RANKING.md",
+      "sha": "16bc03f4fa680c6992e77b935e79b0a0d8ba8f7e",
+      "size": 3401,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/16bc03f4fa680c6992e77b935e79b0a0d8ba8f7e"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/USAGE.md",
+      "sha": "f065d45d48b1910af50bfe217c2eb7c5654648cd",
+      "size": 4705,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/f065d45d48b1910af50bfe217c2eb7c5654648cd"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/bclxl_pocket_example.png",
+      "sha": "7595c612375cac5face83b946514448d653fabf8",
+      "size": 261694,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/7595c612375cac5face83b946514448d653fabf8"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/cryptic_pocket_breathing.gif",
+      "sha": "37a556bc221264b34ccbf2c452e36696285b436c",
+      "size": 2373776,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/37a556bc221264b34ccbf2c452e36696285b436c"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/lacuna_banner.png",
+      "sha": "7bfe403695cda4804e6d899560cd5a73d32f262a",
+      "size": 6877383,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/7bfe403695cda4804e6d899560cd5a73d32f262a"
+    },
+    {
+      "mode": "100644",
+      "path": "docs/lacuna_logo.png",
+      "sha": "ff51d2548df9a9e1d9fa8f284f084ee0ff9a8929",
+      "size": 1247329,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ff51d2548df9a9e1d9fa8f284f084ee0ff9a8929"
+    },
+    {
+      "mode": "040000",
+      "path": "examples",
+      "sha": "f6ddcfb9a35a0fa1b85631d055c4d00dde3507da",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/f6ddcfb9a35a0fa1b85631d055c4d00dde3507da"
+    },
+    {
+      "mode": "100644",
+      "path": "examples/kras_cryptic.py",
+      "sha": "978e35a1b6f09570f0cc7ea82332c0a82fd54dcf",
+      "size": 4086,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/978e35a1b6f09570f0cc7ea82332c0a82fd54dcf"
+    },
+    {
+      "mode": "040000",
+      "path": "lacuna",
+      "sha": "21e0f86517559d0ecb20992830aa2cf910494e65",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/21e0f86517559d0ecb20992830aa2cf910494e65"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/__init__.py",
+      "sha": "957c71edb2f2b18802b47c9fe0dcc4afa4f58bf8",
+      "size": 1197,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/957c71edb2f2b18802b47c9fe0dcc4afa4f58bf8"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/cli.py",
+      "sha": "3e23f32407cc7db472390c7c7608c7b3f0dee019",
+      "size": 22229,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3e23f32407cc7db472390c7c7608c7b3f0dee019"
+    },
+    {
+      "mode": "040000",
+      "path": "lacuna/ensemble",
+      "sha": "df40747e16f9368a89dab5a0ac612ebe918818f3",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/df40747e16f9368a89dab5a0ac612ebe918818f3"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/__init__.py",
+      "sha": "a922c8864999294bfb7d45453a6725a904c68a47",
+      "size": 66,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a922c8864999294bfb7d45453a6725a904c68a47"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/base.py",
+      "sha": "d934f2b7ddb50d1c2b061954ff7d2dae6ad00dac",
+      "size": 786,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d934f2b7ddb50d1c2b061954ff7d2dae6ad00dac"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/boltz_backend.py",
+      "sha": "d05257872b6e9f55498daec1497dfb06750560fd",
+      "size": 6519,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d05257872b6e9f55498daec1497dfb06750560fd"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/external_backend.py",
+      "sha": "1dd3fb6ffcbd515958ea19b4d8b60dca5aa88bfa",
+      "size": 6750,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1dd3fb6ffcbd515958ea19b4d8b60dca5aa88bfa"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/nma_backend.py",
+      "sha": "df336dd4cf4027a1a9fbdb00a5ebb794a0824725",
+      "size": 7797,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/df336dd4cf4027a1a9fbdb00a5ebb794a0824725"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/openmm_backend.py",
+      "sha": "f81c9c8971048da6e943e80411724f1e9c0fe1cc",
+      "size": 9181,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/f81c9c8971048da6e943e80411724f1e9c0fe1cc"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/ensemble/random_backend.py",
+      "sha": "865b3228c27860769426e536e27d062460a6ae3e",
+      "size": 3586,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/865b3228c27860769426e536e27d062460a6ae3e"
+    },
+    {
+      "mode": "040000",
+      "path": "lacuna/io",
+      "sha": "c8b8a54218a344f871b5236db9485ca60f620144",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/c8b8a54218a344f871b5236db9485ca60f620144"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/io/__init__.py",
+      "sha": "a922c8864999294bfb7d45453a6725a904c68a47",
+      "size": 66,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a922c8864999294bfb7d45453a6725a904c68a47"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/io/structure.py",
+      "sha": "af0cd9c0ae6446366633a838bdfa7546192fb366",
+      "size": 14217,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/af0cd9c0ae6446366633a838bdfa7546192fb366"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/io/writers.py",
+      "sha": "2f54ca5aa2679e1808704b99119d6812cdcccfed",
+      "size": 8373,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2f54ca5aa2679e1808704b99119d6812cdcccfed"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/models.py",
+      "sha": "1a58a077dff695219fdd4707adb67413a3c23c0f",
+      "size": 4715,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/1a58a077dff695219fdd4707adb67413a3c23c0f"
+    },
+    {
+      "mode": "040000",
+      "path": "lacuna/pockets",
+      "sha": "9e4a67d9c90985ec6ee1643299de9573ee3315d0",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/9e4a67d9c90985ec6ee1643299de9573ee3315d0"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/__init__.py",
+      "sha": "a922c8864999294bfb7d45453a6725a904c68a47",
+      "size": 66,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a922c8864999294bfb7d45453a6725a904c68a47"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/clusterer.py",
+      "sha": "999cfa404a0b2c4b946d12e94d5cee43f4248885",
+      "size": 26484,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/999cfa404a0b2c4b946d12e94d5cee43f4248885"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/detector.py",
+      "sha": "366aa2c2f099b4dff858ab08adff68736005fe3d",
+      "size": 19672,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/366aa2c2f099b4dff858ab08adff68736005fe3d"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/fused_ranker.npz",
+      "sha": "9ddf3047cffaa787d4e443403f7f820fc5b7b77e",
+      "size": 2906,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/9ddf3047cffaa787d4e443403f7f820fc5b7b77e"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/p2rank_detector.py",
+      "sha": "b16d9fef12bf314caeb85ca8665da8d7f2e3dbd9",
+      "size": 9591,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b16d9fef12bf314caeb85ca8665da8d7f2e3dbd9"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/plm.py",
+      "sha": "4e254d90ad3fca12c86ab1879cb372d795f86c2d",
+      "size": 6368,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4e254d90ad3fca12c86ab1879cb372d795f86c2d"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/plm_head.npz",
+      "sha": "81594168abb64e5698b3cb7c905c3ba0db45808d",
+      "size": 5968,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/81594168abb64e5698b3cb7c905c3ba0db45808d"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/scorer.py",
+      "sha": "22af0a37be758728fab8c6caabecc4139ef5e81b",
+      "size": 2016,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/22af0a37be758728fab8c6caabecc4139ef5e81b"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/seeding.py",
+      "sha": "65dfd57359bce706e093e11d8ab18c1f0d305503",
+      "size": 6826,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/65dfd57359bce706e093e11d8ab18c1f0d305503"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/surface_detector.py",
+      "sha": "4b93f440848c69a2552749500e53ed243f0e651e",
+      "size": 12219,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4b93f440848c69a2552749500e53ed243f0e651e"
+    },
+    {
+      "mode": "100644",
+      "path": "lacuna/pockets/surface_head.npz",
+      "sha": "5ba0a532898692b46949704a8c77de50c4331ed8",
+      "size": 920994,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5ba0a532898692b46949704a8c77de50c4331ed8"
+    },
+    {
+      "mode": "040000",
+      "path": "mcp_server",
+      "sha": "1d7b4d8d68fdad954d361c253cd69e7c72fab6b2",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/1d7b4d8d68fdad954d361c253cd69e7c72fab6b2"
+    },
+    {
+      "mode": "100644",
+      "path": "mcp_server/README.md",
+      "sha": "923681103dc6fee20452ac69ca835e52f418b01e",
+      "size": 3341,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/923681103dc6fee20452ac69ca835e52f418b01e"
+    },
+    {
+      "mode": "100644",
+      "path": "mcp_server/lacuna_mcp.py",
+      "sha": "76ee20578752ee8e917764f23e0a83e5a5df58c7",
+      "size": 10465,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/76ee20578752ee8e917764f23e0a83e5a5df58c7"
+    },
+    {
+      "mode": "040000",
+      "path": "paper",
+      "sha": "e7dae657bb48b73b11cdf200c5f607317f7c5980",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/e7dae657bb48b73b11cdf200c5f607317f7c5980"
+    },
+    {
+      "mode": "040000",
+      "path": "paper/data",
+      "sha": "3ada5bbf6d451f623e963513b26fdfc972ef2116",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/3ada5bbf6d451f623e963513b26fdfc972ef2116"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/data/analysis.json",
+      "sha": "10d246785511315e29c14fd70deb983031874f5d",
+      "size": 21770,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/10d246785511315e29c14fd70deb983031874f5d"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/data/lacuna_candidates_test.jsonl",
+      "sha": "ecc831bf2ac2cbdf7285d8c2caba58c80390d670",
+      "size": 2725646,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ecc831bf2ac2cbdf7285d8c2caba58c80390d670"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/data/lacuna_candidates_train.jsonl",
+      "sha": "c99a0a8bc8b0332a7160ed548a2bf2414a889c72",
+      "size": 11732596,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c99a0a8bc8b0332a7160ed548a2bf2414a889c72"
+    },
+    {
+      "mode": "040000",
+      "path": "paper/figures",
+      "sha": "5682d9ae895de5297338106ee2c4ed7dea251df1",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/5682d9ae895de5297338106ee2c4ed7dea251df1"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/compose_fig1.py",
+      "sha": "265efe31aa1f821fb68b494538ca5859077eb2ca",
+      "size": 3292,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/265efe31aa1f821fb68b494538ca5859077eb2ca"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig1_adenosine_kinase.cxc",
+      "sha": "2b0f5e2fe58340d61f0e257aba8591f601d70bd2",
+      "size": 3040,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2b0f5e2fe58340d61f0e257aba8591f601d70bd2"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig1_adenosine_kinase.png",
+      "sha": "419112aa4cc1710fa9b6d05775efa90749f50196",
+      "size": 869408,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/419112aa4cc1710fa9b6d05775efa90749f50196"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig1_hexokinase.cxc",
+      "sha": "840ad090989dcbad8079a66bb88ce840b527e2be",
+      "size": 3166,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/840ad090989dcbad8079a66bb88ce840b527e2be"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig2_composition.pdf",
+      "sha": "2ffe04693dc6fa1ffba274b633fd88d649fe1de2",
+      "size": 41616,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2ffe04693dc6fa1ffba274b633fd88d649fe1de2"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig2_composition.png",
+      "sha": "c3d3be47b4f1ab94ca3c489cb2225d6d047be792",
+      "size": 192156,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c3d3be47b4f1ab94ca3c489cb2225d6d047be792"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig3_union.pdf",
+      "sha": "96b705dc25a1d25136e368dcced15dd51febb624",
+      "size": 31280,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/96b705dc25a1d25136e368dcced15dd51febb624"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig3_union.png",
+      "sha": "ee087abfcc833b367361a91dd6ab985aef338d22",
+      "size": 215351,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ee087abfcc833b367361a91dd6ab985aef338d22"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig4_budget.pdf",
+      "sha": "143cc3bae7c15065bf899cd9590b8945ccd63c05",
+      "size": 36630,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/143cc3bae7c15065bf899cd9590b8945ccd63c05"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig4_budget.png",
+      "sha": "97dbc57ee17a96a9e3aeadd374ddc811985e078d",
+      "size": 366663,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/97dbc57ee17a96a9e3aeadd374ddc811985e078d"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig5_headroom.pdf",
+      "sha": "ecf43524c54a8236fcf4e6737483fc27bc1aef07",
+      "size": 28961,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ecf43524c54a8236fcf4e6737483fc27bc1aef07"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/fig5_headroom.png",
+      "sha": "784199aa464fa6a74c03ac87f921d6a3ca769a58",
+      "size": 150157,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/784199aa464fa6a74c03ac87f921d6a3ca769a58"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/make_figures.py",
+      "sha": "06ea95335cd7619d4d19ebd9ecc15f59fef14f70",
+      "size": 8858,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/06ea95335cd7619d4d19ebd9ecc15f59fef14f70"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/panel_a.png",
+      "sha": "8e57da3d76e625dd7c174e2f94ec5f6dba014ada",
+      "size": 540258,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8e57da3d76e625dd7c174e2f94ec5f6dba014ada"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/panel_b.png",
+      "sha": "211ec995a35eec2f50b4c9697f576eb2a7fef10a",
+      "size": 739340,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/211ec995a35eec2f50b4c9697f576eb2a7fef10a"
+    },
+    {
+      "mode": "040000",
+      "path": "paper/figures/software",
+      "sha": "45b9bf3b4b22b14660ecdccd647d045dc4eec231",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/45b9bf3b4b22b14660ecdccd647d045dc4eec231"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig1_kras.pdf",
+      "sha": "18b6af2c4d5e642ef1a62c348ea1de0b60cd4fa1",
+      "size": 36785,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/18b6af2c4d5e642ef1a62c348ea1de0b60cd4fa1"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig1_kras.png",
+      "sha": "b94d3e10c2843697efb793ca8ad9c0bc225d70f5",
+      "size": 278193,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b94d3e10c2843697efb793ca8ad9c0bc225d70f5"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig2_pipeline.pdf",
+      "sha": "27bcb08f78739dbb935d313fb633f46196c6242a",
+      "size": 39519,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/27bcb08f78739dbb935d313fb633f46196c6242a"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig2_pipeline.png",
+      "sha": "a124b62d11b5a3075a9111061350a1f05a8231f0",
+      "size": 229036,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a124b62d11b5a3075a9111061350a1f05a8231f0"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig3_benchmarks.pdf",
+      "sha": "b15af40eceb8e8eaf491e99f923470298771a5ad",
+      "size": 41554,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/b15af40eceb8e8eaf491e99f923470298771a5ad"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig3_benchmarks.png",
+      "sha": "02e60be7188ab92b0a01ac56c90fbdcebe68ee6c",
+      "size": 321888,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/02e60be7188ab92b0a01ac56c90fbdcebe68ee6c"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig4_runtime.pdf",
+      "sha": "72fb66bc719a348f2999684139d875c83ed536f8",
+      "size": 31092,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/72fb66bc719a348f2999684139d875c83ed536f8"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/fig4_runtime.png",
+      "sha": "df5ba76337a19ac9e66849842cbf2f6e0f990a7f",
+      "size": 186678,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/df5ba76337a19ac9e66849842cbf2f6e0f990a7f"
+    },
+    {
+      "mode": "040000",
+      "path": "paper/figures/software/kras_A",
+      "sha": "aa9258c9b6c55aa9805ea184ae5413695017ac8d",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/aa9258c9b6c55aa9805ea184ae5413695017ac8d"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/kras_A/pocket_report.json",
+      "sha": "8f92b0bce67209d554589e810b5c9893dde646b9",
+      "size": 5740,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8f92b0bce67209d554589e810b5c9893dde646b9"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/make_software_figures.py",
+      "sha": "bc1db80e4a15c9f92d9c7090273865885f17d308",
+      "size": 11314,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/bc1db80e4a15c9f92d9c7090273865885f17d308"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/runtime.json",
+      "sha": "382ece5d496f1a91fe05765b3acab2cf0445a301",
+      "size": 3139,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/382ece5d496f1a91fe05765b3acab2cf0445a301"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/software/runtime_sweep.py",
+      "sha": "681a0f57499efb7a9d5fc24b315d8cd1b474a946",
+      "size": 3811,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/681a0f57499efb7a9d5fc24b315d8cd1b474a946"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/figures/style.py",
+      "sha": "2ddc8d6eb21625757499487b997a86e131ccaac0",
+      "size": 3493,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2ddc8d6eb21625757499487b997a86e131ccaac0"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/make_data.py",
+      "sha": "a8ffe57822f5a7ff6f7e8bb8233c705b1dfcbbc7",
+      "size": 9927,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/a8ffe57822f5a7ff6f7e8bb8233c705b1dfcbbc7"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/make_docx.py",
+      "sha": "0c98db125b0be373602e6f32a8e832fe9cd98107",
+      "size": 15450,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0c98db125b0be373602e6f32a8e832fe9cd98107"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/make_software_docx.py",
+      "sha": "d77b4cb66fabf337c948efc81e865cf8a382dfa4",
+      "size": 1658,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/d77b4cb66fabf337c948efc81e865cf8a382dfa4"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/manuscript.docx",
+      "sha": "5214252df4d2aa2b0e9ed241141a3ecc1f2fe65a",
+      "size": 1839006,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/5214252df4d2aa2b0e9ed241141a3ecc1f2fe65a"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/manuscript.md",
+      "sha": "8925cf60d1c33a48a90bb028c1cbe803a70cd1c1",
+      "size": 28857,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/8925cf60d1c33a48a90bb028c1cbe803a70cd1c1"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/manuscript_twocolumn.docx",
+      "sha": "3210623b4470df4432cd8f735706d9acb71a0d6d",
+      "size": 1723348,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/3210623b4470df4432cd8f735706d9acb71a0d6d"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/software_note.bib",
+      "sha": "774bbb505376787e2339d48c231a821b3fb3536b",
+      "size": 5712,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/774bbb505376787e2339d48c231a821b3fb3536b"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/software_note.md",
+      "sha": "bdbea958240366fd3d875ffa457ad0b80a7c03a6",
+      "size": 11108,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/bdbea958240366fd3d875ffa457ad0b80a7c03a6"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/software_paper.docx",
+      "sha": "2a757bc38ffa0e5e0b24e99bc9388736823881a5",
+      "size": 937188,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2a757bc38ffa0e5e0b24e99bc9388736823881a5"
+    },
+    {
+      "mode": "100644",
+      "path": "paper/software_paper.md",
+      "sha": "125b55fcb21fbd6cd76f0e1b2ee1b24cddd6a454",
+      "size": 28668,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/125b55fcb21fbd6cd76f0e1b2ee1b24cddd6a454"
+    },
+    {
+      "mode": "100644",
+      "path": "pyproject.toml",
+      "sha": "95d0d3c9cf34ab68b8cb900434e958cf5a2e8d87",
+      "size": 2086,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/95d0d3c9cf34ab68b8cb900434e958cf5a2e8d87"
+    },
+    {
+      "mode": "040000",
+      "path": "skills",
+      "sha": "0da3fafbb645d06cd6745b1e29ebaafcb5271361",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/0da3fafbb645d06cd6745b1e29ebaafcb5271361"
+    },
+    {
+      "mode": "040000",
+      "path": "skills/lacuna",
+      "sha": "ccb11bda8b7eb84867c847c2b4ba50dd4655e1ef",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/ccb11bda8b7eb84867c847c2b4ba50dd4655e1ef"
+    },
+    {
+      "mode": "100644",
+      "path": "skills/lacuna/SKILL.md",
+      "sha": "26ddc0d4093bf529436928954d0783a12d995070",
+      "size": 7426,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/26ddc0d4093bf529436928954d0783a12d995070"
+    },
+    {
+      "mode": "040000",
+      "path": "tests",
+      "sha": "cd9517cd15171fe7762e59cd795c923f4313ccea",
+      "type": "tree",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/cd9517cd15171fe7762e59cd795c923f4313ccea"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/__init__.py",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_auto_backend.py",
+      "sha": "7d33c29f32cdb8e390be956ac40467ccf6e96af0",
+      "size": 1452,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/7d33c29f32cdb8e390be956ac40467ccf6e96af0"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_chain_selector.py",
+      "sha": "01ed6989ed65bb9872d3e16ef158652bf4c99c08",
+      "size": 2276,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/01ed6989ed65bb9872d3e16ef158652bf4c99c08"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_cli.py",
+      "sha": "f92fdff82e369a85bc5696bd17ac49563327a772",
+      "size": 12853,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/f92fdff82e369a85bc5696bd17ac49563327a772"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_clusterer.py",
+      "sha": "915c95f47ca11554252604d6c53beacb04d1207b",
+      "size": 13070,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/915c95f47ca11554252604d6c53beacb04d1207b"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_detector.py",
+      "sha": "4726484272ceb8a7b04dc84f189c5f2765f073cd",
+      "size": 8139,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/4726484272ceb8a7b04dc84f189c5f2765f073cd"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_ensemble.py",
+      "sha": "21a0ebc8095a33319998f6e90eae1cc718a85df7",
+      "size": 11140,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/21a0ebc8095a33319998f6e90eae1cc718a85df7"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_external_ensemble.py",
+      "sha": "43855e822f2148c13c04d3d65f71e0e85db1618e",
+      "size": 9301,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/43855e822f2148c13c04d3d65f71e0e85db1618e"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_fold_ids.py",
+      "sha": "e241701513e411d9096b3bb79d7fc7d04789fb1a",
+      "size": 1305,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/e241701513e411d9096b3bb79d7fc7d04789fb1a"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_fused_ranker.py",
+      "sha": "fb7e7ca50d794b9eab2f2db6e15a72b1b7e29207",
+      "size": 1975,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/fb7e7ca50d794b9eab2f2db6e15a72b1b7e29207"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_geometry_guard.py",
+      "sha": "f455fe07ba28d8f7377f2e57f39bad2bf6b3531c",
+      "size": 2429,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/f455fe07ba28d8f7377f2e57f39bad2bf6b3531c"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_homodimer.py",
+      "sha": "ae95d0145044cb741a7e733f3bcf9d961ec407d0",
+      "size": 5613,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/ae95d0145044cb741a7e733f3bcf9d961ec407d0"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_metrics.py",
+      "sha": "c5cbb0c62d7f281d8d6d95f009b6cddbf59b4f3b",
+      "size": 2822,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c5cbb0c62d7f281d8d6d95f009b6cddbf59b4f3b"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_p2rank_detector.py",
+      "sha": "6d2b1b6c3c1db02b08fb95ed263d56a5e65944aa",
+      "size": 6803,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6d2b1b6c3c1db02b08fb95ed263d56a5e65944aa"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_plm.py",
+      "sha": "2f659656424d5ce3ddf95d39f91f17a298645a47",
+      "size": 4522,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/2f659656424d5ce3ddf95d39f91f17a298645a47"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_ranker_integrity.py",
+      "sha": "6586bcf643261d11d0cdfc1d2bfeb5d88817bfe7",
+      "size": 5177,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/6586bcf643261d11d0cdfc1d2bfeb5d88817bfe7"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_scorer.py",
+      "sha": "895a4c77d09e8c0c2d5d4a368caf73f303528463",
+      "size": 2725,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/895a4c77d09e8c0c2d5d4a368caf73f303528463"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_seeding.py",
+      "sha": "018e79b9e7080dee2c780f61634c86fc10c2c3f5",
+      "size": 4112,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/018e79b9e7080dee2c780f61634c86fc10c2c3f5"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_surface_detector.py",
+      "sha": "c115b5ed4cb54fe81c3fad50f3a7ef6626e296ed",
+      "size": 5092,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/c115b5ed4cb54fe81c3fad50f3a7ef6626e296ed"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_version_consistency.py",
+      "sha": "0690344ecca8c93a4609895210875d052e3eefe3",
+      "size": 1175,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/0690344ecca8c93a4609895210875d052e3eefe3"
+    },
+    {
+      "mode": "100644",
+      "path": "tests/test_writers.py",
+      "sha": "cb4c5487eef842a886a02f3490a6215e799d5636",
+      "size": 5264,
+      "type": "blob",
+      "url": "https://api.github.com/repos/mooreneural/lacuna/git/blobs/cb4c5487eef842a886a02f3490a6215e799d5636"
+    }
+  ],
+  "truncated": false,
+  "url": "https://api.github.com/repos/mooreneural/lacuna/git/trees/960523caa75c86f04111970da47c3c06ceeda8b4"
+}

@@ -1,0 +1,1220 @@
+{
+  "action": "preflight",
+  "code_version_note": "Working source identified by individual SHA-256 hashes in inputs.",
+  "command": "\"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe\" -B \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py\" preflight",
+  "command_argv": [
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py",
+    "preflight"
+  ],
+  "cwd": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1",
+  "finished_at": "2026-09-16T11:20:53.010182+00:00",
+  "inputs": [
+    {
+      "byte_size": 3925,
+      "filename": "AMENDMENTS.md",
+      "sha256": "ea0f539977b223e4eda94c323b10d3f68ef5cbb682e400ee033aec5ecca00c71"
+    },
+    {
+      "byte_size": 3119,
+      "filename": "configs/methods.json",
+      "sha256": "e1d40ceaca86da68cc13454fbceb712843f7a3419ceaf720fae2e56aacbc1807"
+    },
+    {
+      "byte_size": 707,
+      "filename": "configs/reference_site.json",
+      "sha256": "ea62949351e051caf3683cff5cba8a2f69f50af5b3cba3525c4a92459aaf5a84"
+    },
+    {
+      "byte_size": 29,
+      "filename": "configs/requirements-reference.txt",
+      "sha256": "ecc38b5a8227bf3683c33655a12e6b4cd4342b86748e3ddce8e518578e01ed1c"
+    },
+    {
+      "byte_size": 90309,
+      "filename": "data/processed/apo_matched_core.pdb",
+      "sha256": "b0d20bfd4907b92929161c78790051471de261a917371b40da3aa418a3d64693"
+    },
+    {
+      "byte_size": 22827,
+      "filename": "data/processed/comparison_reference.json",
+      "sha256": "9eb5472a071d1765048eca179c63e2e88c80ab391ac2e57787aca76143fb962c"
+    },
+    {
+      "byte_size": 90309,
+      "filename": "data/processed/holo_matched_core_no_ligand.pdb",
+      "sha256": "8162ea71785ea6e6ecc75d3be07bca42852cd9eacbcbe75f4039f7423a255ea4"
+    },
+    {
+      "byte_size": 102520,
+      "filename": "data/processed/matched_core_manifest.json",
+      "sha256": "ba86c2eab62f288748a65f56c1339f35fc956f3271b12eb62eefafdf9b9cd5d3"
+    },
+    {
+      "byte_size": 76918,
+      "filename": "data/processed/reference_site.json",
+      "sha256": "ee9dfa117fdf84f3d36fd07b6e838e9f52f18c8f219df1e2d2d2eed26f389da4"
+    },
+    {
+      "byte_size": 76918,
+      "filename": "data/processed/reference_site_v2.json",
+      "sha256": "5ec840bcfe31e06ea224aca225c68a04367dc348f67eee0f56999266dfc8b755"
+    },
+    {
+      "byte_size": 113899,
+      "filename": "data/processed/structure_inspection.json",
+      "sha256": "5a170688ccb42cb193cbf4c11aed9f09dd8faf7ee3275f51761cff02f9eb1a66"
+    },
+    {
+      "byte_size": 349903,
+      "filename": "data/raw/1LXL.cif",
+      "sha256": "03a4e441063e7f832999f9a2cfdd376bc5366a543afae202c7f0608955dcb96c"
+    },
+    {
+      "byte_size": 324444,
+      "filename": "data/raw/2YXJ.cif",
+      "sha256": "5300ddf32f42624dd5da03cf1b2beee63d224542ad46bb6bdf055f28bfa969a4"
+    },
+    {
+      "byte_size": 382,
+      "filename": "manifests/acquisition_1LXL.json",
+      "sha256": "efb556395bf92ec717924ef2315e40aea35a71d15fc7877811051915b5381a0b"
+    },
+    {
+      "byte_size": 382,
+      "filename": "manifests/acquisition_2YXJ.json",
+      "sha256": "0640da42277b2a2a26bee94543063a53f09c6a8310df5ef942e843ddba292ad8"
+    },
+    {
+      "byte_size": 47599,
+      "filename": "manifests/benchmark_overlap_audit.json",
+      "sha256": "3b7a8ca7d303b905eefe6b462791e3c41d6d01cabd9fffb724e4e894a6cb92a5"
+    },
+    {
+      "byte_size": 2918,
+      "filename": "manifests/environment_plan.json",
+      "sha256": "9b097493fa72b05d2fc4e4556f0e91b4a6c1c5e444c0568dfcce762e3429e6e6"
+    },
+    {
+      "byte_size": 6505,
+      "filename": "manifests/input_manifest.json",
+      "sha256": "a475c822c0748a7aea74c7d70d5756328251fdc08de9d8cce1aff953cb05419b"
+    },
+    {
+      "byte_size": 2479,
+      "filename": "manifests/setup_notes.json",
+      "sha256": "bdd8d5740540797c698cdc325888f67e4a0c65c345708d6b0878856b8b6c1167"
+    },
+    {
+      "byte_size": 17826,
+      "filename": "manifests/source_review/cryptobench/folds.json",
+      "sha256": "ced97a50b55504007216165167a1b3995312434ee50f7f93f8728fca3c6ac67d"
+    },
+    {
+      "byte_size": 3399,
+      "filename": "manifests/source_review/lacuna/.github/CODE_OF_CONDUCT.md",
+      "sha256": "db40549058fd87961d0aef40dc54b6df47a87239ab138dcf1a46a6f5282ebb34"
+    },
+    {
+      "byte_size": 2949,
+      "filename": "manifests/source_review/lacuna/.github/CONTRIBUTING.md",
+      "sha256": "22ba0f0ef0db8293cf4129675d322b657c4ddf8a742e03702fac3a132703e404"
+    },
+    {
+      "byte_size": 812,
+      "filename": "manifests/source_review/lacuna/.github/ISSUE_TEMPLATE/bug_report.md",
+      "sha256": "b24fdcf3c877cc2bd1d502dd2f067c1f79cd4ff7defc81473136f6d930a71157"
+    },
+    {
+      "byte_size": 555,
+      "filename": "manifests/source_review/lacuna/.github/ISSUE_TEMPLATE/feature_request.md",
+      "sha256": "c4c9ed0365e66be46e09d402d26d25802442ed553aa1b68679c7dbf1e40092ce"
+    },
+    {
+      "byte_size": 744,
+      "filename": "manifests/source_review/lacuna/.github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "909984e300ef1902e7dada641e7be06068a864b7035644898638176a2b0ce32d"
+    },
+    {
+      "byte_size": 1342,
+      "filename": "manifests/source_review/lacuna/.github/SECURITY.md",
+      "sha256": "48296a2ecc847842dc82b43d119f68ff8d3d1458ee64950f0d014d1c5d365297"
+    },
+    {
+      "byte_size": 11558,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/atomistic.py",
+      "sha256": "f341cd2c2cee76496aac9ffe7d0f8c8e44d45989bf26e4527a57d3314dcb4446"
+    },
+    {
+      "byte_size": 10384,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/calibration.py",
+      "sha256": "617e194dc31323ebbd5745bd5e26f4374aeb10d40b31b246d7a97838b8272ce0"
+    },
+    {
+      "byte_size": 4414,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/conformer_confirmation.py",
+      "sha256": "d2a5bdaef8cdcfee141b754e55947a3f149d5a00921256a301fc18a5322eb71e"
+    },
+    {
+      "byte_size": 8247,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/criterion_analysis.py",
+      "sha256": "1a89cc7fff8fc6208ef49284defa749b2cdb47e06a1093bfe2c3f6e9059da16e"
+    },
+    {
+      "byte_size": 10116,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/dataio.py",
+      "sha256": "cf33082e4df9c3694f02b927c76a1488516d420e1abfef3c5298f3083d1a96e2"
+    },
+    {
+      "byte_size": 4561,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/dataio_v2.py",
+      "sha256": "c2aa3c9d3d4f7f44b948301bbeecd6781e7f56ece03089b3dd42a61e30fd3f21"
+    },
+    {
+      "byte_size": 6743,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/detection_gap.py",
+      "sha256": "182ebecb3b5945f86317ece6b08c6781f7e4ae8390af56be16568f909b48aa72"
+    },
+    {
+      "byte_size": 13168,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/detector_ablation.py",
+      "sha256": "0171b0b7c86bb476643c5477590b69ced3f0dab6092aff23ffe2cfec520bf4d8"
+    },
+    {
+      "byte_size": 16813,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/end_to_end_fusion.py",
+      "sha256": "7ddea81403f96d2d35a5c38c2aa3b926871a4b14e632b7cbf27841a3ff4f6a05"
+    },
+    {
+      "byte_size": 5456,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/ensemble_features.py",
+      "sha256": "1a713f3b640bf31bce98f6c94886581e56b168988ca02c4072ad18c608358c83"
+    },
+    {
+      "byte_size": 10911,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/esmif_route2.py",
+      "sha256": "a57a9985b7eb87d3d70a272ef08e77ca9fba7d6e391953591c0a12e7b1583ce7"
+    },
+    {
+      "byte_size": 3237,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/fit_fused_ranker.py",
+      "sha256": "16f5c1032f855c83f13d334f0ac9075bb9b7ed1d636a4e63ea218e90cda5e52f"
+    },
+    {
+      "byte_size": 11895,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/holo_geometry.py",
+      "sha256": "ab1cc03cfe134cc69b264a99e62722ff5a0bbf178cb5e407bf00e18e1a7db5a1"
+    },
+    {
+      "byte_size": 7340,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/lining_trim.py",
+      "sha256": "b4e3212a252c0418f68432ba34ffb59ddc8eca59f487d012725e958f4fba50b2"
+    },
+    {
+      "byte_size": 7696,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase10_decoy_injection.py",
+      "sha256": "e3197b6ae1b0201e656498a35daf8e382d43e9cd355928f0e5b85a8eb5d5b53f"
+    },
+    {
+      "byte_size": 2565,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase10b_within_target_decoy.json",
+      "sha256": "a6c1e453659fe069808294272b5df088613c81a195a59e4c4c6bb7d93f188a5d"
+    },
+    {
+      "byte_size": 6298,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase10b_within_target_decoys.py",
+      "sha256": "17af924b94f3bafe9af6a99970ae263edf91385a9da3b4e7e387782b365ccc78"
+    },
+    {
+      "byte_size": 5988,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase11_budget_allocation.py",
+      "sha256": "1b3d64bd79d6e43bd9cd4d73b65486c27c86266ca13778178311b59c60a850cc"
+    },
+    {
+      "byte_size": 4906,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase12_platform_effect.py",
+      "sha256": "b0c3b17a77df9c2a07e074fbf7ae091e60fd9f3f67854534c7e34dc89271ab2f"
+    },
+    {
+      "byte_size": 4525,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase13_v2_table.py",
+      "sha256": "192fcaf9646e7fd35b4037461da7a2aea98494125c55a8b3f2812a83599a375d"
+    },
+    {
+      "byte_size": 6731,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase14_small_sites.py",
+      "sha256": "aff886bbd0fbe6e5ada11bf7e3ae33316a6f416876eb68c2c1b3be69bd474d2a"
+    },
+    {
+      "byte_size": 6728,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase15_heldout_injection.py",
+      "sha256": "7540064a0ae4a959d8829821766363aa3518f64551a6544184cd2e8f2ea9f836"
+    },
+    {
+      "byte_size": 4039,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase2_reproduce.py",
+      "sha256": "16d3a1fecb227e02b9379886673f2be6c425efddb3275af735d685b885893502"
+    },
+    {
+      "byte_size": 1986,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase3_table.py",
+      "sha256": "706f2d9e33947dcde6100051a602df1d3daa94c519482f080be4309ee6892186"
+    },
+    {
+      "byte_size": 11833,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase4_hypotheses.py",
+      "sha256": "59e61cff1c3f3732276fe97edcf138219b65e53b3bdcda25d144df998fe398db"
+    },
+    {
+      "byte_size": 7957,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase5_confounders.py",
+      "sha256": "ac4584430a5dc847d837c883552fa0ed30e49e86f47259b738a04f092a927f3c"
+    },
+    {
+      "byte_size": 6767,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase6_sweep.py",
+      "sha256": "cfd2f95bf249f3cd9ae8aa9edc8dcbf7aaf3e5a5f42d15d8b12e35b9bf3f00a5"
+    },
+    {
+      "byte_size": 5624,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase7_robustness.py",
+      "sha256": "44795074c87c87b7681c23e127eab40d444212da4402422a2407242f14df00ee"
+    },
+    {
+      "byte_size": 10811,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase8_figures.py",
+      "sha256": "78543fe9da1a0b60767632f84443f1a2ebe250190a309a28a9317821a08a07ca"
+    },
+    {
+      "byte_size": 3559,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/phase9_summary.py",
+      "sha256": "3ec9a78c051fa75d20c459448f54cb6cc3342d10d05afb1e4357ac221015b232"
+    },
+    {
+      "byte_size": 11078,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/plm_headroom.py",
+      "sha256": "ffc8b6c6d9ea3d83bdc0b0156c84183c84186969877ebad7b2ba9ef1f4cb706f"
+    },
+    {
+      "byte_size": 7395,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/plm_headroom_fair.py",
+      "sha256": "c2a60a778b72e8a283bd5d8af126a2f8a47e879b56fe5cca09c7a8b30b0c6422"
+    },
+    {
+      "byte_size": 11420,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/pool_density.py",
+      "sha256": "bbfdab37d86c3e691818e37a20183ba619b201c7966f4f750b68b991e241610e"
+    },
+    {
+      "byte_size": 8040,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/ranker_headroom.py",
+      "sha256": "e6cca40e95f7cc7685f5977587b9e8f4c2b37979f8d140f68e89a4325fd45f68"
+    },
+    {
+      "byte_size": 11186,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/ranker_next.py",
+      "sha256": "884369d7383d0a40f4ac2615988b25d01894c79a060eb70dfbed4fc3221bbad3"
+    },
+    {
+      "byte_size": 10694,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/refit_fused_ranker.py",
+      "sha256": "a0b5d8c8c71581e76f3d666c3f8b11a747dbe5e5a3e899dd902347cccb8adb20"
+    },
+    {
+      "byte_size": 13742,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/REPORT.md",
+      "sha256": "71a34994dfa73804fc82c740b40e76a27f725e09a6823b64df6432bd0c5159d9"
+    },
+    {
+      "byte_size": 6697,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/residue_head_isolation.py",
+      "sha256": "41c5001c81bbf8446c0ebb2f3a10ba946d26d7412c72157b27bdf7cdb83ce113"
+    },
+    {
+      "byte_size": 14560,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/surface_scorer.py",
+      "sha256": "b8baa4909d91b1a6fac52c817affb6abd2090409c0fcf09588986b61bb762630"
+    },
+    {
+      "byte_size": 12546,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/surface_scorer_plm.py",
+      "sha256": "d88f4009daecdcc0282c06531d6e13c26ff8c197e105a1973e750c9a3eb79a8e"
+    },
+    {
+      "byte_size": 9449,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/test_fold_eval.py",
+      "sha256": "1f646e8cd5d805d50547ae8e7ae0024022cd21550f0cbe2904bde6c3533dbed7"
+    },
+    {
+      "byte_size": 3507,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/test_metrics.py",
+      "sha256": "fc022803ee6aed02dfcd22b8d038122b450f56ec818983162c9afac3d23ed7b2"
+    },
+    {
+      "byte_size": 9075,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/train_surface_detector.py",
+      "sha256": "d789b4ac317f2c59a1d4bbdfbd666830ad0b353b486738b2dbb416b6b17d2341"
+    },
+    {
+      "byte_size": 4268,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/trivial_baselines.py",
+      "sha256": "6cf7f6608859caabb68ae518fceb905e71cdb6a15677075b1ec739c9eeb71eb7"
+    },
+    {
+      "byte_size": 5435,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/v2_numbers.py",
+      "sha256": "ec46f3e0bf40d0f65e47e5e1d37f924825fc082550e464f9e7c474f3f6a68a8e"
+    },
+    {
+      "byte_size": 7119,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/v3_atoms.py",
+      "sha256": "29a575947c867a85e934cb91355355ec7187e020d79c4294d8959b8dd48abaa5"
+    },
+    {
+      "byte_size": 9675,
+      "filename": "manifests/source_review/lacuna/analysis/moores_pocket_law/v3_sequence_vs_geometry.py",
+      "sha256": "8189a867136c77bfa908a06ab0d37519e9485146c82cf497dec792e580d219dd"
+    },
+    {
+      "byte_size": 9133,
+      "filename": "manifests/source_review/lacuna/benchmarks/coach420_benchmark.py",
+      "sha256": "d8edd0d8c1abb260bdfbb4a5acdee85316e68c0cdb44f81f2a57aa0db8b5d585"
+    },
+    {
+      "byte_size": 15987,
+      "filename": "manifests/source_review/lacuna/benchmarks/collect_candidates.py",
+      "sha256": "3ef7ceb8057be000ddb2aec9b2404c704fe9966b1407490667410415277cb1df"
+    },
+    {
+      "byte_size": 8291,
+      "filename": "manifests/source_review/lacuna/benchmarks/collect_external.py",
+      "sha256": "57432cd04c4901c0f6e06f1b9bac09d3c57e5e85b554f47faf55803541302fa8"
+    },
+    {
+      "byte_size": 16097,
+      "filename": "manifests/source_review/lacuna/benchmarks/compare_detectors_cryptobench.py",
+      "sha256": "ba0a18b769b8186b7d836f8de414a1f36b7225fd16c257bbdc211f71b4d7824e"
+    },
+    {
+      "byte_size": 14190,
+      "filename": "manifests/source_review/lacuna/benchmarks/compare_fpocket.py",
+      "sha256": "997bcf4070db6b257d3b515905a048cf2bbf9a32cc0245a8f6e085966e18a09b"
+    },
+    {
+      "byte_size": 6107,
+      "filename": "manifests/source_review/lacuna/benchmarks/compare_fpocket_cryptobench.py",
+      "sha256": "519db0194e03f3bfcba5700b316b29b6077c7cd1e0ee57125b1680339f6002ce"
+    },
+    {
+      "byte_size": 11740,
+      "filename": "manifests/source_review/lacuna/benchmarks/compare_mdpocket.py",
+      "sha256": "085cd0e255ea8938fed6d9aedece0618fb8812fd505e3c8564dd73f27082bf6e"
+    },
+    {
+      "byte_size": 11591,
+      "filename": "manifests/source_review/lacuna/benchmarks/compare_p2rank.py",
+      "sha256": "2dfb4f092c5f25e6ed424c4e6d469e5ba979e07faf8b4b51fbe6c2ee0475daed"
+    },
+    {
+      "byte_size": 4966,
+      "filename": "manifests/source_review/lacuna/benchmarks/compare_p2rank_coach420.py",
+      "sha256": "517dfa94031b51f8dbe35adfcacf8b85a4eb56b85244cbdce09485c2580b2346"
+    },
+    {
+      "byte_size": 51025,
+      "filename": "manifests/source_review/lacuna/benchmarks/cryptic_benchmark.py",
+      "sha256": "4b263d9d6a6c8e4d1f68ecf8be2d993af867cf843a185279958c5baa4fbfcca4"
+    },
+    {
+      "byte_size": 7406,
+      "filename": "manifests/source_review/lacuna/benchmarks/cryptobench_benchmark.py",
+      "sha256": "31c82c86cb69fb9bfebf1db352b5321034d93e6698184825bbae6bc5b5aaa998"
+    },
+    {
+      "byte_size": 8495,
+      "filename": "manifests/source_review/lacuna/benchmarks/experiments/metadynamics_cv.py",
+      "sha256": "3e57d07491ae8f7ed1e06a90f1a06ead7de829f85684fa61248d47f16fab061d"
+    },
+    {
+      "byte_size": 9622,
+      "filename": "manifests/source_review/lacuna/benchmarks/experiments/swish_md.py",
+      "sha256": "65f6655a895080e69eb7d9766447c307b5831f8526023d8d6b6dacedb79644fb"
+    },
+    {
+      "byte_size": 6099,
+      "filename": "manifests/source_review/lacuna/benchmarks/extract_features.py",
+      "sha256": "48a1757006b83aa8db982e62884ff4073912bc92a05c70cc6d634c717d6f36ad"
+    },
+    {
+      "byte_size": 6327,
+      "filename": "manifests/source_review/lacuna/benchmarks/ifsitepred_runner.py",
+      "sha256": "b92fbdd8f4472bdd5b6be0028fc48b324ff43af7b3ce2f21cc89eff0901ff7cb"
+    },
+    {
+      "byte_size": 4976,
+      "filename": "manifests/source_review/lacuna/benchmarks/metrics.py",
+      "sha256": "f2d3b08af1693ca238544a22c4bd614ebb8cc54fba857a5775d982e14437c782"
+    },
+    {
+      "byte_size": 7556,
+      "filename": "manifests/source_review/lacuna/benchmarks/pocketminer_benchmark.py",
+      "sha256": "de342b85f0c15779381aa9ea9617983e52f2842635d3764453076658ced43ec9"
+    },
+    {
+      "byte_size": 26438,
+      "filename": "manifests/source_review/lacuna/benchmarks/train_ranker.py",
+      "sha256": "99285148448268ecb67256a2bbbdfab821536cdda5a5f582c12ad0f7d89a34f9"
+    },
+    {
+      "byte_size": 5199,
+      "filename": "manifests/source_review/lacuna/benchmarks/train_reranker.py",
+      "sha256": "3d7dd613c0875a7c7cd0617c32c1214c7d77d6d6eb31acfe111a3e522de7dae8"
+    },
+    {
+      "byte_size": 4355,
+      "filename": "manifests/source_review/lacuna/benchmarks/verify_recall_gaming.py",
+      "sha256": "c141591cd5f2acddaa7f10c8d27391b1cfcef5bca408a0fe772be636328bd354"
+    },
+    {
+      "byte_size": 11206,
+      "filename": "manifests/source_review/lacuna/benchmarks/weekend_run.py",
+      "sha256": "3892424aee0304180c90a534d2950e74d97856e5886d8e8d89c48c15856e3d43"
+    },
+    {
+      "byte_size": 22852,
+      "filename": "manifests/source_review/lacuna/CHANGELOG.md",
+      "sha256": "07fede33f6c0c2404a9c16a2dacc65d49ed25ac1032622733db40dd795b1c158"
+    },
+    {
+      "byte_size": 36540,
+      "filename": "manifests/source_review/lacuna/docs/BENCHMARKS.md",
+      "sha256": "e0d5c89c728944770bef16cd44a1778ca9dd42dc56b3656232c5979617ae1375"
+    },
+    {
+      "byte_size": 3401,
+      "filename": "manifests/source_review/lacuna/docs/RANKING.md",
+      "sha256": "5cc5b3e0dc589b5aaae98ccbbbf07abd3169ee6235f72cd6996010db83dff1ce"
+    },
+    {
+      "byte_size": 4705,
+      "filename": "manifests/source_review/lacuna/docs/USAGE.md",
+      "sha256": "f094f9ad341b884600dabe2ad690795bc787c4d919abc38f95c9714f2a9de92b"
+    },
+    {
+      "byte_size": 4086,
+      "filename": "manifests/source_review/lacuna/examples/kras_cryptic.py",
+      "sha256": "6a9dcb5585bd2ac738644ab915c0d67df4c345e50d0a5e0c9f4d15da58c069ae"
+    },
+    {
+      "byte_size": 1197,
+      "filename": "manifests/source_review/lacuna/lacuna/__init__.py",
+      "sha256": "d5128553a4ad6681f8deef6058131c47f6bb45f7ad753b348ca409e923440d48"
+    },
+    {
+      "byte_size": 22229,
+      "filename": "manifests/source_review/lacuna/lacuna/cli.py",
+      "sha256": "dd6c67e323f3be08d8ec51617dc9ae2d45bdbc3f654daaea402ac292d6cad910"
+    },
+    {
+      "byte_size": 66,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/__init__.py",
+      "sha256": "1974bd7344bac82565fecb4ac54f89deaac080326e92d44d97caa5fe789bbfcc"
+    },
+    {
+      "byte_size": 786,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/base.py",
+      "sha256": "db64b982e7cd859f2b6f4116639cb6743e4887449a60d8915ef9349bcb83f147"
+    },
+    {
+      "byte_size": 6519,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/boltz_backend.py",
+      "sha256": "c1bb380f5d9cff914d86b2c8cdbac2ebd37de7aa9437d3a8dc5d74ee570096ec"
+    },
+    {
+      "byte_size": 6750,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/external_backend.py",
+      "sha256": "25e52bba796abb146399f51f4c244df90105c1134151eb248206e6535f939f8f"
+    },
+    {
+      "byte_size": 7797,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/nma_backend.py",
+      "sha256": "ed51c013be831e513021092d3a97659d281c9615e96d6abaf0bf2f7b331e8d5b"
+    },
+    {
+      "byte_size": 9181,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/openmm_backend.py",
+      "sha256": "4bd471a20f012e76c524eeb2443e30f29545a2dae0365723fc0b7de0daecbdbb"
+    },
+    {
+      "byte_size": 3586,
+      "filename": "manifests/source_review/lacuna/lacuna/ensemble/random_backend.py",
+      "sha256": "21a9da8f42521fa4c0ad76b4cb014f4847cb78f47f0c6e6a43a1359bc5ba51bc"
+    },
+    {
+      "byte_size": 66,
+      "filename": "manifests/source_review/lacuna/lacuna/io/__init__.py",
+      "sha256": "1974bd7344bac82565fecb4ac54f89deaac080326e92d44d97caa5fe789bbfcc"
+    },
+    {
+      "byte_size": 14217,
+      "filename": "manifests/source_review/lacuna/lacuna/io/structure.py",
+      "sha256": "c5ea1d47f156f91fb6425224a84d251d1bcee6aa2a4c73d4d2f31ad3aeaf2baa"
+    },
+    {
+      "byte_size": 8373,
+      "filename": "manifests/source_review/lacuna/lacuna/io/writers.py",
+      "sha256": "20a515d702bab518eafc37745d320590caafd693a172a9e24ed3f5a22211a639"
+    },
+    {
+      "byte_size": 4715,
+      "filename": "manifests/source_review/lacuna/lacuna/models.py",
+      "sha256": "ce7139a09cdcc312a64b5644fe4c002998865e7c15b2c4d4b9ef7d6534c6754d"
+    },
+    {
+      "byte_size": 66,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/__init__.py",
+      "sha256": "1974bd7344bac82565fecb4ac54f89deaac080326e92d44d97caa5fe789bbfcc"
+    },
+    {
+      "byte_size": 26484,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/clusterer.py",
+      "sha256": "169571230ffcbedd2df5190b1290927611b16b652e071609a54b6bf269504a9d"
+    },
+    {
+      "byte_size": 19672,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/detector.py",
+      "sha256": "527038524cc9cec3d79d827e7215ee20fb5db7e8a94f25cd8de62f2188b3b145"
+    },
+    {
+      "byte_size": 9591,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/p2rank_detector.py",
+      "sha256": "fa5f4565617989d57874e3db63eea20e5bfcc5954c4ef608febf45bb1b495ecf"
+    },
+    {
+      "byte_size": 6368,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/plm.py",
+      "sha256": "6aa345de282a54cf6bcaeb8e33fa674615f03c44ed6fac3cac71439f35c47598"
+    },
+    {
+      "byte_size": 2016,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/scorer.py",
+      "sha256": "784fe6652e447f4c481cc374b5a48e2c08c62e1a3f07abb7f990bd83ea860ed6"
+    },
+    {
+      "byte_size": 6826,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/seeding.py",
+      "sha256": "3dd31167eb45cb36a720a31bd39edfe078aadd71f9ef2c2643ca5ee78ab5b271"
+    },
+    {
+      "byte_size": 12219,
+      "filename": "manifests/source_review/lacuna/lacuna/pockets/surface_detector.py",
+      "sha256": "950e1b57786a4fbd2eacb3f49412a950aff7664f6e7c94b3fc552a8b12d97e56"
+    },
+    {
+      "byte_size": 10465,
+      "filename": "manifests/source_review/lacuna/mcp_server/lacuna_mcp.py",
+      "sha256": "e27482b5591d8f1b29d3b1196a939721b62a1918e3f2796e849fb63267acdd86"
+    },
+    {
+      "byte_size": 3341,
+      "filename": "manifests/source_review/lacuna/mcp_server/README.md",
+      "sha256": "4940532496202b8223d52db3cbd786ac9a993f2c948842463b5d89297f91574d"
+    },
+    {
+      "byte_size": 2086,
+      "filename": "manifests/source_review/lacuna/pyproject.toml",
+      "sha256": "4562703fefa493e692363f840f40918da99f0dfa4ae3c59e7a161e54b1fc0f5d"
+    },
+    {
+      "byte_size": 9593,
+      "filename": "manifests/source_review/lacuna/README.md",
+      "sha256": "76fdf052f7160bf29a6a9b2bd22918613c66d4e4bcfa8c3265c361b50a45215e"
+    },
+    {
+      "byte_size": 7426,
+      "filename": "manifests/source_review/lacuna/skills/lacuna/SKILL.md",
+      "sha256": "1cd8db3dee8c474466271cad5e7b6399208ce62510269059a28f06f03490f225"
+    },
+    {
+      "byte_size": 92611,
+      "filename": "manifests/source_review/lacuna/tree.json",
+      "sha256": "a9c0246ea88cdcd1726f78bdc8779aa927c58eef62bda71545bff17d854c30ab"
+    },
+    {
+      "byte_size": 2588,
+      "filename": "manifests/source_review/p2rank/breaking-changes.md",
+      "sha256": "39d606fc2646584a310e272a44c9dbefc5fd08d2e9026e86dcbee101b6efac7f"
+    },
+    {
+      "byte_size": 4905,
+      "filename": "manifests/source_review/p2rank/config/dev-rescore.groovy",
+      "sha256": "68aff2b92baa794b410c2763c8e9000b7ccfca2c7c828b7394f232ab06ea62c9"
+    },
+    {
+      "byte_size": 1696,
+      "filename": "manifests/source_review/p2rank/config/dna/petra.groovy",
+      "sha256": "5f74174600bb53074263f794d1992853e7f6b331e26e06559e5bffa87b469c4a"
+    },
+    {
+      "byte_size": 2894,
+      "filename": "manifests/source_review/p2rank/config/dna/prank-default-model.groovy",
+      "sha256": "b9d75127c71909fd4a3840814061050a395f53e494cfaba1f7d30feccd5e8b25"
+    },
+    {
+      "byte_size": 2597,
+      "filename": "manifests/source_review/p2rank/config/dna/rdk-baseline.groovy",
+      "sha256": "8aa258bafe79f917d6938b5a2f1ea2139a9e0b44e1c78bf485432dcf2342910b"
+    },
+    {
+      "byte_size": 2805,
+      "filename": "manifests/source_review/p2rank/config/dna/rdk-conservation.groovy",
+      "sha256": "7289a3756de67b72c8639f1f47d208ed26e4e99ad6e3780a6e0e90a27c886018"
+    },
+    {
+      "byte_size": 2724,
+      "filename": "manifests/source_review/p2rank/config/dna/rdk-dev.groovy",
+      "sha256": "0ddcf2cca30f66aba90c962a57849e9690597915283e9af172630902bd364203"
+    },
+    {
+      "byte_size": 2434,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c1.groovy",
+      "sha256": "6381955886a3efec17ba522440a99ecbbce6c12d71661299cb467bfa0db897fd"
+    },
+    {
+      "byte_size": 3222,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c2-mg.groovy",
+      "sha256": "19a46779dc15acf47ff77b74ec93ae4eda022480bab8ee48c937e2a972c577c9"
+    },
+    {
+      "byte_size": 3221,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c2-zn.groovy",
+      "sha256": "44e7c05aa0877bd44f09fcbe8c6bea7b5a7388d38ffcedf63e54d0615ee052fa"
+    },
+    {
+      "byte_size": 3222,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c2.groovy",
+      "sha256": "02e7a0148f561572329723ea01c56357f4f7e8961094a1e29cfb8ddcdbe1d244"
+    },
+    {
+      "byte_size": 3305,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c3-mg.groovy",
+      "sha256": "9cbdfad13d74e3e3c2e78df32cdb5804803c4915a2c9132eb75fca622300b2c6"
+    },
+    {
+      "byte_size": 3305,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c3-zn.groovy",
+      "sha256": "7b3e529f5a8021110086ef373638f3f13f078face9666e893c0989f0716bd66a"
+    },
+    {
+      "byte_size": 3310,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c4-grid-mg.groovy",
+      "sha256": "46696b35379997fb3020f5b3a212d5907e79bc47873b6e048a6b4ea238dd006d"
+    },
+    {
+      "byte_size": 3310,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c4-grid-zn.groovy",
+      "sha256": "015460c3dd5d91ca2db6a63da2c35c39e002ac08c3642483e620f264498825ca"
+    },
+    {
+      "byte_size": 3651,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c5-grid-mg.groovy",
+      "sha256": "4949e44185b53c3630687358e4d292d3b322cb5a4d66a70ccd0c698480da571c"
+    },
+    {
+      "byte_size": 3610,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c5-grid-zn.groovy",
+      "sha256": "e743943d6c36a564f7cabc8f713426600851bb3671c1e29a66588abc22ee3bbc"
+    },
+    {
+      "byte_size": 3671,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c6-grid-mg.groovy",
+      "sha256": "eeb6ffad8d60e57f013e6a493e0f418876bc011896f91da7d347f187232c62d3"
+    },
+    {
+      "byte_size": 3629,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk-c6-grid-zn.groovy",
+      "sha256": "83394f1ff3a03753ed4a6d95289d56f77a8c668e734f70b2319bec17782a88c5"
+    },
+    {
+      "byte_size": 2516,
+      "filename": "manifests/source_review/p2rank/config/ions/ions-rdk.groovy",
+      "sha256": "23a501ccd34e2332b72f257bbbcffb661257510ac9303c71456b8e76cebb3d72"
+    },
+    {
+      "byte_size": 3102,
+      "filename": "manifests/source_review/p2rank/config/lig/aa.groovy",
+      "sha256": "2135c45be6ebd6151ed61e6de2f3c32defc27849db1a20fe1b0b6b0e90b9b084"
+    },
+    {
+      "byte_size": 2251,
+      "filename": "manifests/source_review/p2rank/config/lig/aa20.groovy",
+      "sha256": "0773baa53fa71049605022420877c9e0fbd322ae7383aa2b89e36573f22fb1d7"
+    },
+    {
+      "byte_size": 2899,
+      "filename": "manifests/source_review/p2rank/config/lig/aa_new.groovy",
+      "sha256": "a2e344cd2a8c1f887f89be97906a1d9920c7c244afaac0f6e5cbd07464f4e6fd"
+    },
+    {
+      "byte_size": 3590,
+      "filename": "manifests/source_review/p2rank/config/lig/aug1.groovy",
+      "sha256": "9e89439705b36530b83e7c02e15e5aea913a21f27e3143a9b241f028025a114a"
+    },
+    {
+      "byte_size": 2743,
+      "filename": "manifests/source_review/p2rank/config/lig/aug2.groovy",
+      "sha256": "d80e235fd6deffb79f8eb595191cd32d3f62eb6fa03c540b006221336b8b40d4"
+    },
+    {
+      "byte_size": 1975,
+      "filename": "manifests/source_review/p2rank/config/lig/new.groovy",
+      "sha256": "70bf5771ee5df15a923bbb06083d871587f8d4a3f8998fc1ca46fc0ea363b0cd"
+    },
+    {
+      "byte_size": 2816,
+      "filename": "manifests/source_review/p2rank/config/lig/oct1.groovy",
+      "sha256": "1042de7a12120c49eccb2f6e7281a9ad5fd26600a41fb335b119d6a2a496adcc"
+    },
+    {
+      "byte_size": 1994,
+      "filename": "manifests/source_review/p2rank/config/pept/pept.groovy",
+      "sha256": "7b33c270ef13bbc8246a2b47a9aeed6ec3bf747b0cf4f021d9db14c1e6f5ec87"
+    },
+    {
+      "byte_size": 2554,
+      "filename": "manifests/source_review/p2rank/config/pept/pept1.groovy",
+      "sha256": "ff926e60aa40cd691352813d7cb55f8380fa88687e4e7d1944d75e37de8744cb"
+    },
+    {
+      "byte_size": 56,
+      "filename": "manifests/source_review/p2rank/config/readme.md",
+      "sha256": "473769263bf1cebd92e34325a264fc67e7ed2e5f2e2139ca2c1f509d3d0260a2"
+    },
+    {
+      "byte_size": 1137,
+      "filename": "manifests/source_review/p2rank/config/test-alphafold.groovy",
+      "sha256": "3944626fbef0ae8ab056a81cb1226496c4561d722ccfd5a6cf71aab962293af4"
+    },
+    {
+      "byte_size": 1591,
+      "filename": "manifests/source_review/p2rank/config/test-conservation.groovy",
+      "sha256": "d164b456ee8f4fd38fda4c696c4a749c9fb01593e737a63503a795cafd7bb2fb"
+    },
+    {
+      "byte_size": 560,
+      "filename": "manifests/source_review/p2rank/config/test-default.groovy",
+      "sha256": "4803c841a99917f7ef68a8ebc09eb680f5924a9d5786a1d8e6df4c612bf63bc6"
+    },
+    {
+      "byte_size": 1934,
+      "filename": "manifests/source_review/p2rank/config/train-conservation.groovy",
+      "sha256": "44ea3e251bab4a68928814e20dd629bdb00a95c0f1483f8a00352eda38e4b304"
+    },
+    {
+      "byte_size": 2140,
+      "filename": "manifests/source_review/p2rank/config/train-default.groovy",
+      "sha256": "0f8b8abcffd3d26d5ab48606b83bc480f4c48d2cd9c58509f09ce5e96518da51"
+    },
+    {
+      "byte_size": 709,
+      "filename": "manifests/source_review/p2rank/distro/config/alphafold.groovy",
+      "sha256": "bc3be625000100ccf3d57907b67c726159c797b9bb421d07fc4a7b6fca0aaa9f"
+    },
+    {
+      "byte_size": 848,
+      "filename": "manifests/source_review/p2rank/distro/config/alphafold_conservation_hmm.groovy",
+      "sha256": "bc82050b9dac1c4e50684ceab5b11a4965a7bfa6c1c91a1be2a61bdc8ff38bde"
+    },
+    {
+      "byte_size": 741,
+      "filename": "manifests/source_review/p2rank/distro/config/conservation_hmm.groovy",
+      "sha256": "634ac350ddc3cf49e363a652b9976e92fec7f931618b892697835480582c08c9"
+    },
+    {
+      "byte_size": 10644,
+      "filename": "manifests/source_review/p2rank/distro/config/default.groovy",
+      "sha256": "85e4ac493d61cf51f253f9188191295fa4fcb4c89727690012400d089e2fd9f0"
+    },
+    {
+      "byte_size": 8723,
+      "filename": "manifests/source_review/p2rank/distro/config/default_rescore.groovy",
+      "sha256": "9c27c47d91a80fe2987b2aa8e2af427e8a5b2dcdeb1361cfdca9fb5e46251bbf"
+    },
+    {
+      "byte_size": 1067,
+      "filename": "manifests/source_review/p2rank/distro/config/dev.groovy",
+      "sha256": "105d679137782f8751d441953069294f95a69c45faf35b07e27ee444a0d4205f"
+    },
+    {
+      "byte_size": 461,
+      "filename": "manifests/source_review/p2rank/distro/config/example.groovy",
+      "sha256": "4f13345d326ac8a9280eb27407936a942911a2d6e83666155a90e8a666193e7b"
+    },
+    {
+      "byte_size": 1142,
+      "filename": "manifests/source_review/p2rank/distro/config/readme.md",
+      "sha256": "9d595c56cb954ad007b03b962a59eaf93ef69f2d25f2578fbf353e6bee9174ae"
+    },
+    {
+      "byte_size": 6374,
+      "filename": "manifests/source_review/p2rank/distro/config/rescore_2024.groovy",
+      "sha256": "1caf70c486707be82e3d19fc3bb3fea5a3538c05098ecc6957c6af46f5fb535f"
+    },
+    {
+      "byte_size": 6398,
+      "filename": "manifests/source_review/p2rank/distro/config/rescore_conservation.groovy",
+      "sha256": "60f87685b0844e18acdef07811efb25f34cb4d737938b65a8e5c42cfe8e68502"
+    },
+    {
+      "byte_size": 7538,
+      "filename": "manifests/source_review/p2rank/misc/citations.md",
+      "sha256": "da1f8840c7142cbc545f661bab0ccbad6fe9d7be09015ea0dd972b9c10bb2572"
+    },
+    {
+      "byte_size": 14544,
+      "filename": "manifests/source_review/p2rank/README.md",
+      "sha256": "e3ce2d87b141f5489e07afe4d0c2123056b27057fd26209da5602e355afca11e"
+    },
+    {
+      "byte_size": 13293,
+      "filename": "manifests/source_review/p2rank/training-tutorial.md",
+      "sha256": "0fc4484cd463c7535f27f2deb99b33faaaa34480777dc154858a2ffd812a9503"
+    },
+    {
+      "byte_size": 505162,
+      "filename": "manifests/source_review/p2rank/tree.json",
+      "sha256": "c3247fcdbcd58376cb09180edf9bd3f06249f15683dcc2a86531c65da5619c60"
+    },
+    {
+      "byte_size": 7752,
+      "filename": "manifests/source_review/p2rank-datasets/ah4h.holoraw(mlig).ds",
+      "sha256": "ad43f6b44fe7b00794aa4428da81c5f53c501462b1d4ced9dca04b1f23ac0d40"
+    },
+    {
+      "byte_size": 9880,
+      "filename": "manifests/source_review/p2rank-datasets/ah4h.holoraw.ds",
+      "sha256": "75fdf538f225bfd3f4a9dd5186f9a989d1ad13836b4900e8244e714c8e084b35"
+    },
+    {
+      "byte_size": 25224,
+      "filename": "manifests/source_review/p2rank-datasets/chen11-fpocket.ds",
+      "sha256": "57344f47460fe786a62f16eec1168018b5d277008ced13dde206ecf4b2fd8419"
+    },
+    {
+      "byte_size": 8117,
+      "filename": "manifests/source_review/p2rank-datasets/chen11.ds",
+      "sha256": "91caf227eb213f5a5f2c9ce081730bdf6a81c40e03582969bfcb036c9fbec9de"
+    },
+    {
+      "byte_size": 19650,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-deepsite.ds",
+      "sha256": "c8f1920bc3a29560d548be94b8a8decadd911aa8c515486a2969276df94ac495"
+    },
+    {
+      "byte_size": 19950,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-fpocket.ds",
+      "sha256": "72b0aad7458267c2e9296044ed8b7981d76e5fbb78e039ffbd9cc8801b9b6518"
+    },
+    {
+      "byte_size": 19352,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-mpk2.ds",
+      "sha256": "834c1926e2702b459f526780a2e8f1dcdfdbf9b5547079cdc348786b05299200"
+    },
+    {
+      "byte_size": 13945,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-shsubset-sitehound.ds",
+      "sha256": "fa7c26d2aea6393db8592b58668e519420d7c07fc3f0091dd301211aa9d75c7c"
+    },
+    {
+      "byte_size": 5170,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig)-shsubset.ds",
+      "sha256": "d699cf7f4928cb653f0c0a88bb2ca15ab5a2fee3284368b83302581bcdaad82f"
+    },
+    {
+      "byte_size": 7744,
+      "filename": "manifests/source_review/p2rank-datasets/coach420(mlig).ds",
+      "sha256": "87d6e1724637adfa3dd84c891e80c36f0501c4c2dc7f11b62ec4c585c4f3c417"
+    },
+    {
+      "byte_size": 24842,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-deepsite.ds",
+      "sha256": "9776abd017265d88b850ad7553b908103d8da8a193e8ee4bb4458486af568988"
+    },
+    {
+      "byte_size": 25261,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-fpocket.ds",
+      "sha256": "200ac183bc7dba9f6212459794ebe9a5c6821a66350668e238ecce184226e4e1"
+    },
+    {
+      "byte_size": 22360,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-lssubset-lise.ds",
+      "sha256": "b70e8cbf235f1afc045d1b39f95202ebe43940653261e7c0341cbf8012db6013"
+    },
+    {
+      "byte_size": 7847,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-lssubset.ds",
+      "sha256": "f3fba1618d27d0f1e7fd9f87c85a92aa518be774c8d09a68bbee3154b92edcf3"
+    },
+    {
+      "byte_size": 24668,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-mpsubset-mpk2.ds",
+      "sha256": "c353aaba2ce60e9462b65f2071fdf0421d184a140db38a413e4eabe04fd9adc2"
+    },
+    {
+      "byte_size": 8757,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-mpsubset.ds",
+      "sha256": "d0b11ae97a85acabf345e6ab2944b12db0afc8031f1d2a9c8b38f3b5b3668490"
+    },
+    {
+      "byte_size": 26100,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-p2rank.ds",
+      "sha256": "3d361313a942398c163eb7213586f263a7c803ee45278c18aa197efb2e616e95"
+    },
+    {
+      "byte_size": 17387,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-shsubset-sitehound.ds",
+      "sha256": "427404102c7798332e7df9b9e39b879db10708f32a621d4ea1ad1ba0c8c7439a"
+    },
+    {
+      "byte_size": 5396,
+      "filename": "manifests/source_review/p2rank-datasets/coach420-shsubset.ds",
+      "sha256": "610bebb514fceee2757e00a171bd98fd44adc055ae07f265d6ec50da0fc9bc0a"
+    },
+    {
+      "byte_size": 7980,
+      "filename": "manifests/source_review/p2rank-datasets/coach420.ds",
+      "sha256": "4c33519448ae2df7107cf780cb0d8b38d02f3697173e0071c3751b3411c02bdd"
+    },
+    {
+      "byte_size": 3774,
+      "filename": "manifests/source_review/p2rank-datasets/fptrain.ds",
+      "sha256": "af16cd4819b5947c36ef606942a0e7ff6cc4b19167cb37262129669dcff33715"
+    },
+    {
+      "byte_size": 206991,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-dssubset-deepsite.ds",
+      "sha256": "09356093caa43d90ff28435b52d72ba43337be8f202425717d324469270d2b53"
+    },
+    {
+      "byte_size": 76606,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-dssubset.ds",
+      "sha256": "3989b75c001155ca81242e9cf84b5544f586da6f2a42465eac07c68471dab79b"
+    },
+    {
+      "byte_size": 214960,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-fpocket.ds",
+      "sha256": "b55dd5001948b8720b7afafecd0c8d8f2136bcef2f82c2e4a553b8cab6ed9404"
+    },
+    {
+      "byte_size": 130573,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-mpsubset-mpk2.ds",
+      "sha256": "e92b3701082e9537f3e2211f011b579772a91184348b158eae7b8316146a93fb"
+    },
+    {
+      "byte_size": 49051,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-mpsubset.ds",
+      "sha256": "369ef68f33ce003cd9aa1ebce1f77fe8c2ee2acb1c0212232855a4d3c933e888"
+    },
+    {
+      "byte_size": 153892,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-shsubset-sitehound.ds",
+      "sha256": "ca667c21499d5b3e5aad542b04c673754146758eee7aec8988a7d58d824fefa3"
+    },
+    {
+      "byte_size": 55046,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig)-shsubset.ds",
+      "sha256": "0ade337ee50f2943b7453e949a4c8306340446e707684925bd237a269e395f1b"
+    },
+    {
+      "byte_size": 76996,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k(mlig).ds",
+      "sha256": "28730da34f04848b41d39544bd68fd9310f9ab7201e53aea5c7bf0c3c6d866e1"
+    },
+    {
+      "byte_size": 215578,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-dssubset-deepsite.ds",
+      "sha256": "0e3fe85d4645a3dd1e89875fbf6430ad3489c9c3f60505d874cab2756d87a4db"
+    },
+    {
+      "byte_size": 215574,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-dssubset.ds",
+      "sha256": "1a3e652f52ead8aee482fab5d66d9783d9c891eeb6f053a43d5a70bf1289383d"
+    },
+    {
+      "byte_size": 216549,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-fpocket.ds",
+      "sha256": "126278e48a6af5c8a431bd1c671d2c94105ef84b8440b23eb4858bda82803c8a"
+    },
+    {
+      "byte_size": 136541,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-mpsubset-mpk2.ds",
+      "sha256": "89f8ea453efd302a69ed1bfd350de0dc3e6c425942ff3523b744177ce8392196"
+    },
+    {
+      "byte_size": 41200,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-mpsubset.ds",
+      "sha256": "3ae7cf210043ccd347afeb6274b204db14828159465587deedc36b658eb0f578"
+    },
+    {
+      "byte_size": 161233,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-shsubset-sitehound.ds",
+      "sha256": "9897d2cf9b5f8a7336ac571507179e37052d1df0318ce734366a16e6b55f3db2"
+    },
+    {
+      "byte_size": 46048,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k-shsubset.ds",
+      "sha256": "9e9412171501c45994b9d5705b5fc560238d88b12209706dbc851247e20b8777"
+    },
+    {
+      "byte_size": 64144,
+      "filename": "manifests/source_review/p2rank-datasets/holo4k.ds",
+      "sha256": "442a1abb07ee5ff93721262ba270600d1acdf7a75b50eb4c1eb773bd32c9dda0"
+    },
+    {
+      "byte_size": 27480,
+      "filename": "manifests/source_review/p2rank-datasets/joined(mlig)-fpocket.ds",
+      "sha256": "fb7305d61830286c7d08af84918c3b49b46d630666b475b17f4f7d627fcbfa71"
+    },
+    {
+      "byte_size": 10821,
+      "filename": "manifests/source_review/p2rank-datasets/joined(mlig).ds",
+      "sha256": "237286874af9dcff14be5ef397868ca778446cdec0174207b16b897f1f10e15c"
+    },
+    {
+      "byte_size": 36473,
+      "filename": "manifests/source_review/p2rank-datasets/joined-fpocket.ds",
+      "sha256": "7340db5a1aa078313ee8ac432fd651d399ba9f6d3fc3c61e926f04650298a05d"
+    },
+    {
+      "byte_size": 12291,
+      "filename": "manifests/source_review/p2rank-datasets/joined.ds",
+      "sha256": "749f23f5da3bac827f8904c34610467b1b5c1597a9f3fcfbee6e966b11e4da6b"
+    },
+    {
+      "byte_size": 2674,
+      "filename": "manifests/source_review/p2rank-datasets/README.md",
+      "sha256": "42a356ce15ff4d0edfaf817c63107dac5ed7c9b348241b91b0a2edc256b62519"
+    },
+    {
+      "byte_size": 14734,
+      "filename": "manifests/source_review/p2rank-datasets/root_tree.json",
+      "sha256": "ed785263ab46ff3d0e4f1f15e5937d1e46d5144d5fa04a1a6ff2bde6f76786f3"
+    },
+    {
+      "byte_size": 1799,
+      "filename": "manifests/source_review/p2rank-datasets/speed5.ds",
+      "sha256": "ded39bc67e5519b206634af4ba4c9b7e30870219f345d20a66eec5b16f8cca3f"
+    },
+    {
+      "byte_size": 19375,
+      "filename": "manifests/source_review/supplementary_manifest.json",
+      "sha256": "34e3123951f01b30a62af2cab11bca7f5775468d5acf252c767337ed5154094e"
+    },
+    {
+      "byte_size": 35036,
+      "filename": "PRE_EXECUTION_REVIEW.md",
+      "sha256": "1d847d40aa2573f824d4f40c94492d6cf7dc37e9939e244298747b7ffc939b80"
+    },
+    {
+      "byte_size": 3459,
+      "filename": "PREREGISTRATION.md",
+      "sha256": "140aa1a3cf4f6f7f6b74aa17d21a7e045e3772328febda7ca945d5b164e63e7b"
+    },
+    {
+      "byte_size": 15700,
+      "filename": "PROTOCOL.md",
+      "sha256": "0d37c7751f0ae03257e493b53e81ed934f689bff141bd3988eae2b36920096b7"
+    },
+    {
+      "byte_size": 6126,
+      "filename": "README.md",
+      "sha256": "866654ed126309d9b00ccbc5a33c37dbee829ab569798b9c0a073634caf486cc"
+    },
+    {
+      "byte_size": 27482,
+      "filename": "src/amendment.py",
+      "sha256": "e282e2e38857aca3b1b13644fd62f4a94f5cbbad75f850a2843e4a116f048bce"
+    },
+    {
+      "byte_size": 2326,
+      "filename": "src/bootstrap.ps1",
+      "sha256": "1c24f5760f914b960a70a8259510d5d56a409bc11b5c237a614abaccd452c2c8"
+    },
+    {
+      "byte_size": 977,
+      "filename": "src/comparison_metrics.py",
+      "sha256": "492ea0a69d02cfcdcd053c2bd8e5c8b37aaf3d2e32d8801486c92c483e2128ac"
+    },
+    {
+      "byte_size": 9299,
+      "filename": "src/matched_core.py",
+      "sha256": "6dc791ac094109ee62e0e942b0a7e075498dbc5d144d9633bc071051767d94db"
+    },
+    {
+      "byte_size": 5501,
+      "filename": "src/overlap_audit.py",
+      "sha256": "508d361ec1f1a384c621a0da2f08db21da3c4180c7c651647a442c22623aafb3"
+    },
+    {
+      "byte_size": 3662,
+      "filename": "src/preflight.py",
+      "sha256": "444282687d78f713aa0306cd14123ba483f6a4beb79a0f5fd37c185181dd2126"
+    },
+    {
+      "byte_size": 1704,
+      "filename": "src/provenance.py",
+      "sha256": "56a5c7b04dc7d26f594e23ff940f1efc822d5fb42b156c491a4ee4bb827c0d96"
+    },
+    {
+      "byte_size": 13868,
+      "filename": "src/reference_site.py",
+      "sha256": "2c07594e1fa5832e2aa02e99e7a2ba57c4870569bd9e1ab87775ec7039379460"
+    },
+    {
+      "byte_size": 18394,
+      "filename": "src/run.py",
+      "sha256": "aa99f48d3765bef9750ea5171accb598e9b1df0f583e3bc1e0bd27f11ebccbc9"
+    },
+    {
+      "byte_size": 4743,
+      "filename": "src/source_review.py",
+      "sha256": "8bff46e55727c6399636a5a40173b410b8df2f37c62c9d6dbe0cc0b133ffd397"
+    },
+    {
+      "byte_size": 7103,
+      "filename": "tests/test_matched_core.py",
+      "sha256": "90e6f7fe118ab7a6344477aac5c6ef59c1a2144c36631e8d75e725a1d5fa5b8b"
+    },
+    {
+      "byte_size": 11946,
+      "filename": "tests/test_reference_site.py",
+      "sha256": "cf1e1a545067ce0784d844780c081a36e2b96078afb5b080f80580da6511c570"
+    }
+  ],
+  "outputs": [
+    {
+      "byte_size": 4277,
+      "filename": "manifests/preflight-2026-09-16T112053008183_0000.json",
+      "sha256": "7cd821557c914cdbd619f5545eaa06ee449096756d613679173818861502d736"
+    },
+    {
+      "byte_size": 85,
+      "filename": "results/preflight-2026-09-16T112052477064_0000-5be3c1e6.log",
+      "sha256": "92a3675cb10a985c194199cdfadc413993b7824c2bc67ccd65f60a15cccbe666"
+    }
+  ],
+  "repository_base_commit": "fbe8d7fe7a239bd10712cc09c70f7466c0a4f95e",
+  "run_id": "2026-09-16T112052477064_0000-5be3c1e6",
+  "schema_version": 1,
+  "started_at": "2026-09-16T11:20:52.477064+00:00",
+  "status": "SUCCESS",
+  "versions": {
+    "packages": {
+      "biopython": "1.85",
+      "numpy": "2.2.6"
+    },
+    "python": "3.11.16"
+  },
+  "wall_seconds": 0.2945144999976037
+}

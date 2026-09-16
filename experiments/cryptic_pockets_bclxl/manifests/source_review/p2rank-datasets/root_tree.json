@@ -1,0 +1,407 @@
+{
+  "sha": "0236ecb38cbb60b89849a1ea36fbd9ee93f3e906",
+  "tree": [
+    {
+      "mode": "100644",
+      "path": "README.md",
+      "sha": "348569dd273a08fae07dc2c539ec4339e96b97a8",
+      "size": 2674,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/348569dd273a08fae07dc2c539ec4339e96b97a8"
+    },
+    {
+      "mode": "040000",
+      "path": "_lists",
+      "sha": "20744eb7c7579a5b57f69ed6df72e2fc4de3b179",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/20744eb7c7579a5b57f69ed6df72e2fc4de3b179"
+    },
+    {
+      "mode": "100644",
+      "path": "ah4h.holoraw(mlig).ds",
+      "sha": "d666cc357baa741936abadfd4bdbc813e067ad44",
+      "size": 7752,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/d666cc357baa741936abadfd4bdbc813e067ad44"
+    },
+    {
+      "mode": "100644",
+      "path": "ah4h.holoraw.ds",
+      "sha": "7739b6c21cd9f9d56b58d3f573bd212439ac5bbf",
+      "size": 9880,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/7739b6c21cd9f9d56b58d3f573bd212439ac5bbf"
+    },
+    {
+      "mode": "040000",
+      "path": "ah4h",
+      "sha": "613f606d3568dce13805f700c73e8859009b23cd",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/613f606d3568dce13805f700c73e8859009b23cd"
+    },
+    {
+      "mode": "100644",
+      "path": "chen11-fpocket.ds",
+      "sha": "781eafe5d057edb082f9d135e5fa550ad0ea74ea",
+      "size": 25224,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/781eafe5d057edb082f9d135e5fa550ad0ea74ea"
+    },
+    {
+      "mode": "100644",
+      "path": "chen11.ds",
+      "sha": "0f77b8747187827e539abe0661c32a70697f363e",
+      "size": 8117,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/0f77b8747187827e539abe0661c32a70697f363e"
+    },
+    {
+      "mode": "040000",
+      "path": "chen11",
+      "sha": "bbfb8ca643ec4a89328188f1d4e71af3a64fd583",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/bbfb8ca643ec4a89328188f1d4e71af3a64fd583"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420(mlig)-deepsite.ds",
+      "sha": "be69bec8aa7d490040f88d2b849a6210f53a7ef9",
+      "size": 19650,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/be69bec8aa7d490040f88d2b849a6210f53a7ef9"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420(mlig)-fpocket.ds",
+      "sha": "2e9cb36b5b7bda25c74edede944568690d407283",
+      "size": 19950,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/2e9cb36b5b7bda25c74edede944568690d407283"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420(mlig)-mpk2.ds",
+      "sha": "1f5629f6f07c84f65dd17d52c6c3b3bf7cbcbe76",
+      "size": 19352,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/1f5629f6f07c84f65dd17d52c6c3b3bf7cbcbe76"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420(mlig)-shsubset-sitehound.ds",
+      "sha": "b8dc7443ea34b8a23f9beeacd1f4e83dc22a73dd",
+      "size": 13945,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/b8dc7443ea34b8a23f9beeacd1f4e83dc22a73dd"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420(mlig)-shsubset.ds",
+      "sha": "9cfa66be9df17169c2b5fd775fc3d5622f80ea31",
+      "size": 5170,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/9cfa66be9df17169c2b5fd775fc3d5622f80ea31"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420(mlig).ds",
+      "sha": "a1049b4fb35a1d655f6aa6f7d52930f09551f589",
+      "size": 7744,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/a1049b4fb35a1d655f6aa6f7d52930f09551f589"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-deepsite.ds",
+      "sha": "c4248a8df0b9edeaaf82738cba748c5899952569",
+      "size": 24842,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/c4248a8df0b9edeaaf82738cba748c5899952569"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-fpocket.ds",
+      "sha": "60f74ea3491a804fc167945ebe1b64a4fab23db1",
+      "size": 25261,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/60f74ea3491a804fc167945ebe1b64a4fab23db1"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-lssubset-lise.ds",
+      "sha": "d5146ac44d436bacdad6732c07022dbf04d1b948",
+      "size": 22360,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/d5146ac44d436bacdad6732c07022dbf04d1b948"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-lssubset.ds",
+      "sha": "be0e3849da449cb7c64cdc87354e729da6c55cf6",
+      "size": 7847,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/be0e3849da449cb7c64cdc87354e729da6c55cf6"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-mpsubset-mpk2.ds",
+      "sha": "838af22cc055a3434ce3281156d4cfe8cc2f1793",
+      "size": 24668,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/838af22cc055a3434ce3281156d4cfe8cc2f1793"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-mpsubset.ds",
+      "sha": "b15eda01fde40d0f39bbab262e657e78af0f76ca",
+      "size": 8757,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/b15eda01fde40d0f39bbab262e657e78af0f76ca"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-p2rank.ds",
+      "sha": "c7f3293ee3975a01788c022f2e6afed3b975b4a9",
+      "size": 26100,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/c7f3293ee3975a01788c022f2e6afed3b975b4a9"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-shsubset-sitehound.ds",
+      "sha": "c0fa42cf55c0d20a789de425035bac7dd54b4379",
+      "size": 17387,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/c0fa42cf55c0d20a789de425035bac7dd54b4379"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420-shsubset.ds",
+      "sha": "0db6dc5bda77a1796934d361c5f982d81526a756",
+      "size": 5396,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/0db6dc5bda77a1796934d361c5f982d81526a756"
+    },
+    {
+      "mode": "100644",
+      "path": "coach420.ds",
+      "sha": "3935c2b3ae7c590778267d3739e52525fb53d72c",
+      "size": 7980,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/3935c2b3ae7c590778267d3739e52525fb53d72c"
+    },
+    {
+      "mode": "040000",
+      "path": "coach420",
+      "sha": "f892e646ba5ac04c049acb31153d8078a5ef8642",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/f892e646ba5ac04c049acb31153d8078a5ef8642"
+    },
+    {
+      "mode": "100644",
+      "path": "fptrain.ds",
+      "sha": "b57fba38d6f1bdcc2120679fdf0cb1905cbdab20",
+      "size": 3774,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/b57fba38d6f1bdcc2120679fdf0cb1905cbdab20"
+    },
+    {
+      "mode": "040000",
+      "path": "fptrain",
+      "sha": "107bc7171a778b3f97f1ef556da6d1b0d1189918",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/107bc7171a778b3f97f1ef556da6d1b0d1189918"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-dssubset-deepsite.ds",
+      "sha": "2811c6d038f3b416382e88caa7ea513b77a5dadc",
+      "size": 206991,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/2811c6d038f3b416382e88caa7ea513b77a5dadc"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-dssubset.ds",
+      "sha": "e146774ec33b2b3699479e15c8316467246be7cb",
+      "size": 76606,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/e146774ec33b2b3699479e15c8316467246be7cb"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-fpocket.ds",
+      "sha": "94a413fbb7b13b43a411b9904fc8b0f15688a04f",
+      "size": 214960,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/94a413fbb7b13b43a411b9904fc8b0f15688a04f"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-mpsubset-mpk2.ds",
+      "sha": "5dd404548fd8b2bd4fbab36da58d8d9ca044451b",
+      "size": 130573,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/5dd404548fd8b2bd4fbab36da58d8d9ca044451b"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-mpsubset.ds",
+      "sha": "30f76f73deafe4642dc14d679a343c013d69cba8",
+      "size": 49051,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/30f76f73deafe4642dc14d679a343c013d69cba8"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-shsubset-sitehound.ds",
+      "sha": "4001886f890c09630313a814fe95e71435b35ecb",
+      "size": 153892,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/4001886f890c09630313a814fe95e71435b35ecb"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig)-shsubset.ds",
+      "sha": "bfcc6f5d0428c16b46843c0e6b252e4f7f14d466",
+      "size": 55046,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/bfcc6f5d0428c16b46843c0e6b252e4f7f14d466"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k(mlig).ds",
+      "sha": "26e5bc4dc392205c610db0fc83dae2f5d25921ea",
+      "size": 76996,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/26e5bc4dc392205c610db0fc83dae2f5d25921ea"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-dssubset-deepsite.ds",
+      "sha": "059d4f3a3956728d81c899829db2e07e098dde85",
+      "size": 215578,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/059d4f3a3956728d81c899829db2e07e098dde85"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-dssubset.ds",
+      "sha": "52698b457ab93414eb2d4a8ac27e7601b92db20d",
+      "size": 215574,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/52698b457ab93414eb2d4a8ac27e7601b92db20d"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-fpocket.ds",
+      "sha": "a6d69ec2a5d454d1d35aa379b27d41b4b4e72e67",
+      "size": 216549,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/a6d69ec2a5d454d1d35aa379b27d41b4b4e72e67"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-mpsubset-mpk2.ds",
+      "sha": "8299c40311a3c75d30225dc6761fa14ffa605369",
+      "size": 136541,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/8299c40311a3c75d30225dc6761fa14ffa605369"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-mpsubset.ds",
+      "sha": "ec04b5065a97d0b6c38be70b68b161812f5f971a",
+      "size": 41200,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/ec04b5065a97d0b6c38be70b68b161812f5f971a"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-shsubset-sitehound.ds",
+      "sha": "3cf0c368eed74ee0f553f54afded6e1f462de357",
+      "size": 161233,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/3cf0c368eed74ee0f553f54afded6e1f462de357"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k-shsubset.ds",
+      "sha": "935bc9ab5a05fcd0187abd0c4cab960a65c70515",
+      "size": 46048,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/935bc9ab5a05fcd0187abd0c4cab960a65c70515"
+    },
+    {
+      "mode": "100644",
+      "path": "holo4k.ds",
+      "sha": "51fd43615cc83a11048a71e6ec69973ce35b4eca",
+      "size": 64144,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/51fd43615cc83a11048a71e6ec69973ce35b4eca"
+    },
+    {
+      "mode": "040000",
+      "path": "holo4k",
+      "sha": "1f2146c9189784e4ee20a877754809011af27a2b",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/1f2146c9189784e4ee20a877754809011af27a2b"
+    },
+    {
+      "mode": "100644",
+      "path": "joined(mlig)-fpocket.ds",
+      "sha": "5f2248a31de3793de4f8be590e82496ea1ded152",
+      "size": 27480,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/5f2248a31de3793de4f8be590e82496ea1ded152"
+    },
+    {
+      "mode": "100644",
+      "path": "joined(mlig).ds",
+      "sha": "bf31ad969749e6d7f385dc92173bd56a3de78520",
+      "size": 10821,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/bf31ad969749e6d7f385dc92173bd56a3de78520"
+    },
+    {
+      "mode": "100644",
+      "path": "joined-fpocket.ds",
+      "sha": "5e6f92b187ac5e7d3cf6eb0d54131a02c0be1028",
+      "size": 36473,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/5e6f92b187ac5e7d3cf6eb0d54131a02c0be1028"
+    },
+    {
+      "mode": "100644",
+      "path": "joined.ds",
+      "sha": "fb3a17a813bea49a127d0e642b8e6ab416bfc733",
+      "size": 12291,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/fb3a17a813bea49a127d0e642b8e6ab416bfc733"
+    },
+    {
+      "mode": "040000",
+      "path": "joined",
+      "sha": "64c47d584520a229ca6d08747105cc9d88d10012",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/64c47d584520a229ca6d08747105cc9d88d10012"
+    },
+    {
+      "mode": "100644",
+      "path": "speed5.ds",
+      "sha": "350e73dbe7ebd5b254e7392ad4e376e2f6d3ac7d",
+      "size": 1799,
+      "type": "blob",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/blobs/350e73dbe7ebd5b254e7392ad4e376e2f6d3ac7d"
+    },
+    {
+      "mode": "040000",
+      "path": "speed5ds",
+      "sha": "fbb4d3484ee5abd2c11bc68e8bb477d76bb41b6c",
+      "type": "tree",
+      "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/fbb4d3484ee5abd2c11bc68e8bb477d76bb41b6c"
+    }
+  ],
+  "truncated": false,
+  "url": "https://api.github.com/repos/rdk/p2rank-datasets/git/trees/0236ecb38cbb60b89849a1ea36fbd9ee93f3e906"
+}

@@ -1,0 +1,70 @@
+{
+  "action": "acquire",
+  "code_version_note": "Working source identified by individual SHA-256 hashes in inputs.",
+  "command": "\"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe\" -B \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py\" acquire",
+  "command_argv": [
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py",
+    "acquire"
+  ],
+  "cwd": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1",
+  "error": {
+    "message": "<urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 1348, in do_open\n    h.request(req.get_method(), req.selector, req.data, headers,\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1351, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1397, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1346, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1106, in _send_output\n    self.send(msg)\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1044, in send\n    self.connect()\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1516, in connect\n    super().connect()\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\http\\client.py\", line 1010, in connect\n    self.sock = self._create_connection(\n                ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\socket.py\", line 863, in create_connection\n    raise exceptions[0]\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\socket.py\", line 848, in create_connection\n    sock.connect(sa)\nPermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py\", line 249, in main\n    outputs = acquisition()\n              ^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\cryptic_pockets_bclxl\\src\\run.py\", line 63, in acquisition\n    with urllib.request.urlopen(request, timeout=60) as response:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 216, in urlopen\n    return opener.open(url, data, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 519, in open\n    response = self._open(req, data)\n               ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 536, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 496, in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 1391, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\Lib\\urllib\\request.py\", line 1351, in do_open\n    raise URLError(err)\nurllib.error.URLError: <urlopen error [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions>\n",
+    "type": "URLError"
+  },
+  "finished_at": "2026-09-16T10:32:10.434114+00:00",
+  "inputs": [
+    {
+      "byte_size": 493,
+      "filename": "configs/reference_site.json",
+      "sha256": "06de856ee845df75fc8c4ae67490681f0c8cad31c0c9104c3ca137b1131d437f"
+    },
+    {
+      "byte_size": 29,
+      "filename": "configs/requirements-reference.txt",
+      "sha256": "ecc38b5a8227bf3683c33655a12e6b4cd4342b86748e3ddce8e518578e01ed1c"
+    },
+    {
+      "byte_size": 10559,
+      "filename": "PROTOCOL.md",
+      "sha256": "f7013d951b54f10cf85525ca8597a7b7b46feaf860e51f9e5cf9630226425177"
+    },
+    {
+      "byte_size": 1704,
+      "filename": "src/provenance.py",
+      "sha256": "56a5c7b04dc7d26f594e23ff940f1efc822d5fb42b156c491a4ee4bb827c0d96"
+    },
+    {
+      "byte_size": 13868,
+      "filename": "src/reference_site.py",
+      "sha256": "2c07594e1fa5832e2aa02e99e7a2ba57c4870569bd9e1ab87775ec7039379460"
+    },
+    {
+      "byte_size": 15960,
+      "filename": "src/run.py",
+      "sha256": "0789ff6877119ffb1f8ddabef2b42892670bb0df262b20fc70104b1aad535615"
+    }
+  ],
+  "outputs": [
+    {
+      "byte_size": 3820,
+      "filename": "results/acquire-2026-09-16T103208691435_0000-0c7b389a.log",
+      "sha256": "39c7928c007dc8d857249eed467cc60c042073b925bccc9bc96f0f0990a54226"
+    }
+  ],
+  "repository_base_commit": "fbe8d7fe7a239bd10712cc09c70f7466c0a4f95e",
+  "run_id": "2026-09-16T103208691435_0000-0c7b389a",
+  "schema_version": 1,
+  "started_at": "2026-09-16T10:32:08.691435+00:00",
+  "status": "FAILED",
+  "versions": {
+    "packages": {
+      "biopython": "1.85",
+      "numpy": "2.2.6"
+    },
+    "python": "3.11.16"
+  },
+  "wall_seconds": 1.7335296000019298
+}

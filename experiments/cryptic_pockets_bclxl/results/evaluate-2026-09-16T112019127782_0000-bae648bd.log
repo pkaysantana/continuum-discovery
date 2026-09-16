@@ -1,0 +1,14 @@
+{
+  "holo_reference_residues": 24,
+  "mapped_to_apo": 24,
+  "unmapped": 0,
+  "missing_coordinates": {
+    "holo": 44,
+    "apo": 0
+  },
+  "reference_centroid": [
+    -8.68,
+    -16.172529126213593,
+    8.146349514563106
+  ]
+}

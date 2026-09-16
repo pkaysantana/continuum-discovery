@@ -1,0 +1,3187 @@
+{
+  "alignment": {
+    "apo_sequence": "MSMAMSQSNRELVVDFLSYKLSQKGYSWSQFSDVEENRTEAPEGTESEMETPSAINGNPSWHLADSPAVNGATGHSSSLDAREVIPMAAVKQALREAGDEFELRYRRAFSDLTSQLHITPGTAYQSFEQVVNELFRDGVNWGRIVAFFSFGGALCVESVDKEMQVLVSRIAAWMATYLNDHLEPWIQENGGWDTFVELYGNNAAAESRKGQERLEHHHHHH",
+    "holo_sequence": "MSMAMSQSNRELVVDFLSYKLSQKGYSWSQFSDVEENRTEAPEGTESEAVKQALREAGDEFELRYRRAFSDLTSQLHITPGTAYQSFEQVVNELFRDGVNWGRIVAFFSFGGALCVESVDKEMQVLVSRIAAWMATYLNDHLEPWIQENGGWDTFVELYGNNAAAESRKGQERLEHHHHHH",
+    "method": "unique global affine-gap alignment of full deposited polymer sequences",
+    "optimal_alignment_count": 1,
+    "positions": [
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 1,
+        "holo_aa": "M",
+        "holo_label_seq_id": 1,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 2,
+        "holo_aa": "S",
+        "holo_label_seq_id": 2,
+        "identical": true
+      },
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 3,
+        "holo_aa": "M",
+        "holo_label_seq_id": 3,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 4,
+        "holo_aa": "A",
+        "holo_label_seq_id": 4,
+        "identical": true
+      },
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 5,
+        "holo_aa": "M",
+        "holo_label_seq_id": 5,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 6,
+        "holo_aa": "S",
+        "holo_label_seq_id": 6,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 7,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 7,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 8,
+        "holo_aa": "S",
+        "holo_label_seq_id": 8,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 9,
+        "holo_aa": "N",
+        "holo_label_seq_id": 9,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 10,
+        "holo_aa": "R",
+        "holo_label_seq_id": 10,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 11,
+        "holo_aa": "E",
+        "holo_label_seq_id": 11,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 12,
+        "holo_aa": "L",
+        "holo_label_seq_id": 12,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 13,
+        "holo_aa": "V",
+        "holo_label_seq_id": 13,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 14,
+        "holo_aa": "V",
+        "holo_label_seq_id": 14,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 15,
+        "holo_aa": "D",
+        "holo_label_seq_id": 15,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 16,
+        "holo_aa": "F",
+        "holo_label_seq_id": 16,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 17,
+        "holo_aa": "L",
+        "holo_label_seq_id": 17,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 18,
+        "holo_aa": "S",
+        "holo_label_seq_id": 18,
+        "identical": true
+      },
+      {
+        "apo_aa": "Y",
+        "apo_label_seq_id": 19,
+        "holo_aa": "Y",
+        "holo_label_seq_id": 19,
+        "identical": true
+      },
+      {
+        "apo_aa": "K",
+        "apo_label_seq_id": 20,
+        "holo_aa": "K",
+        "holo_label_seq_id": 20,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 21,
+        "holo_aa": "L",
+        "holo_label_seq_id": 21,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 22,
+        "holo_aa": "S",
+        "holo_label_seq_id": 22,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 23,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 23,
+        "identical": true
+      },
+      {
+        "apo_aa": "K",
+        "apo_label_seq_id": 24,
+        "holo_aa": "K",
+        "holo_label_seq_id": 24,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 25,
+        "holo_aa": "G",
+        "holo_label_seq_id": 25,
+        "identical": true
+      },
+      {
+        "apo_aa": "Y",
+        "apo_label_seq_id": 26,
+        "holo_aa": "Y",
+        "holo_label_seq_id": 26,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 27,
+        "holo_aa": "S",
+        "holo_label_seq_id": 27,
+        "identical": true
+      },
+      {
+        "apo_aa": "W",
+        "apo_label_seq_id": 28,
+        "holo_aa": "W",
+        "holo_label_seq_id": 28,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 29,
+        "holo_aa": "S",
+        "holo_label_seq_id": 29,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 30,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 30,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 31,
+        "holo_aa": "F",
+        "holo_label_seq_id": 31,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 32,
+        "holo_aa": "S",
+        "holo_label_seq_id": 32,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 33,
+        "holo_aa": "D",
+        "holo_label_seq_id": 33,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 34,
+        "holo_aa": "V",
+        "holo_label_seq_id": 34,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 35,
+        "holo_aa": "E",
+        "holo_label_seq_id": 35,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 36,
+        "holo_aa": "E",
+        "holo_label_seq_id": 36,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 37,
+        "holo_aa": "N",
+        "holo_label_seq_id": 37,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 38,
+        "holo_aa": "R",
+        "holo_label_seq_id": 38,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 39,
+        "holo_aa": "T",
+        "holo_label_seq_id": 39,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 40,
+        "holo_aa": "E",
+        "holo_label_seq_id": 40,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 41,
+        "holo_aa": "A",
+        "holo_label_seq_id": 41,
+        "identical": true
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 42,
+        "holo_aa": "P",
+        "holo_label_seq_id": 42,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 43,
+        "holo_aa": "E",
+        "holo_label_seq_id": 43,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 44,
+        "holo_aa": "G",
+        "holo_label_seq_id": 44,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 45,
+        "holo_aa": "T",
+        "holo_label_seq_id": 45,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 46,
+        "holo_aa": "E",
+        "holo_label_seq_id": 46,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 47,
+        "holo_aa": "S",
+        "holo_label_seq_id": 47,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 48,
+        "holo_aa": "E",
+        "holo_label_seq_id": 48,
+        "identical": true
+      },
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 49,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 50,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 51,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 52,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 53,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 54,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "I",
+        "apo_label_seq_id": 55,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 56,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 57,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 58,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 59,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 60,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "W",
+        "apo_label_seq_id": 61,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 62,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 63,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 64,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 65,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 66,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 67,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 68,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 69,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 70,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 71,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 72,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 73,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 74,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 75,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 76,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 77,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 78,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 79,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 80,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 81,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 82,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 83,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 84,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "I",
+        "apo_label_seq_id": 85,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 86,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 87,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 88,
+        "holo_aa": null,
+        "holo_label_seq_id": null,
+        "identical": false
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 89,
+        "holo_aa": "A",
+        "holo_label_seq_id": 49,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 90,
+        "holo_aa": "V",
+        "holo_label_seq_id": 50,
+        "identical": true
+      },
+      {
+        "apo_aa": "K",
+        "apo_label_seq_id": 91,
+        "holo_aa": "K",
+        "holo_label_seq_id": 51,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 92,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 52,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 93,
+        "holo_aa": "A",
+        "holo_label_seq_id": 53,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 94,
+        "holo_aa": "L",
+        "holo_label_seq_id": 54,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 95,
+        "holo_aa": "R",
+        "holo_label_seq_id": 55,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 96,
+        "holo_aa": "E",
+        "holo_label_seq_id": 56,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 97,
+        "holo_aa": "A",
+        "holo_label_seq_id": 57,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 98,
+        "holo_aa": "G",
+        "holo_label_seq_id": 58,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 99,
+        "holo_aa": "D",
+        "holo_label_seq_id": 59,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 100,
+        "holo_aa": "E",
+        "holo_label_seq_id": 60,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 101,
+        "holo_aa": "F",
+        "holo_label_seq_id": 61,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 102,
+        "holo_aa": "E",
+        "holo_label_seq_id": 62,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 103,
+        "holo_aa": "L",
+        "holo_label_seq_id": 63,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 104,
+        "holo_aa": "R",
+        "holo_label_seq_id": 64,
+        "identical": true
+      },
+      {
+        "apo_aa": "Y",
+        "apo_label_seq_id": 105,
+        "holo_aa": "Y",
+        "holo_label_seq_id": 65,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 106,
+        "holo_aa": "R",
+        "holo_label_seq_id": 66,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 107,
+        "holo_aa": "R",
+        "holo_label_seq_id": 67,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 108,
+        "holo_aa": "A",
+        "holo_label_seq_id": 68,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 109,
+        "holo_aa": "F",
+        "holo_label_seq_id": 69,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 110,
+        "holo_aa": "S",
+        "holo_label_seq_id": 70,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 111,
+        "holo_aa": "D",
+        "holo_label_seq_id": 71,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 112,
+        "holo_aa": "L",
+        "holo_label_seq_id": 72,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 113,
+        "holo_aa": "T",
+        "holo_label_seq_id": 73,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 114,
+        "holo_aa": "S",
+        "holo_label_seq_id": 74,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 115,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 75,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 116,
+        "holo_aa": "L",
+        "holo_label_seq_id": 76,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 117,
+        "holo_aa": "H",
+        "holo_label_seq_id": 77,
+        "identical": true
+      },
+      {
+        "apo_aa": "I",
+        "apo_label_seq_id": 118,
+        "holo_aa": "I",
+        "holo_label_seq_id": 78,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 119,
+        "holo_aa": "T",
+        "holo_label_seq_id": 79,
+        "identical": true
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 120,
+        "holo_aa": "P",
+        "holo_label_seq_id": 80,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 121,
+        "holo_aa": "G",
+        "holo_label_seq_id": 81,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 122,
+        "holo_aa": "T",
+        "holo_label_seq_id": 82,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 123,
+        "holo_aa": "A",
+        "holo_label_seq_id": 83,
+        "identical": true
+      },
+      {
+        "apo_aa": "Y",
+        "apo_label_seq_id": 124,
+        "holo_aa": "Y",
+        "holo_label_seq_id": 84,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 125,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 85,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 126,
+        "holo_aa": "S",
+        "holo_label_seq_id": 86,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 127,
+        "holo_aa": "F",
+        "holo_label_seq_id": 87,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 128,
+        "holo_aa": "E",
+        "holo_label_seq_id": 88,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 129,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 89,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 130,
+        "holo_aa": "V",
+        "holo_label_seq_id": 90,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 131,
+        "holo_aa": "V",
+        "holo_label_seq_id": 91,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 132,
+        "holo_aa": "N",
+        "holo_label_seq_id": 92,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 133,
+        "holo_aa": "E",
+        "holo_label_seq_id": 93,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 134,
+        "holo_aa": "L",
+        "holo_label_seq_id": 94,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 135,
+        "holo_aa": "F",
+        "holo_label_seq_id": 95,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 136,
+        "holo_aa": "R",
+        "holo_label_seq_id": 96,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 137,
+        "holo_aa": "D",
+        "holo_label_seq_id": 97,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 138,
+        "holo_aa": "G",
+        "holo_label_seq_id": 98,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 139,
+        "holo_aa": "V",
+        "holo_label_seq_id": 99,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 140,
+        "holo_aa": "N",
+        "holo_label_seq_id": 100,
+        "identical": true
+      },
+      {
+        "apo_aa": "W",
+        "apo_label_seq_id": 141,
+        "holo_aa": "W",
+        "holo_label_seq_id": 101,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 142,
+        "holo_aa": "G",
+        "holo_label_seq_id": 102,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 143,
+        "holo_aa": "R",
+        "holo_label_seq_id": 103,
+        "identical": true
+      },
+      {
+        "apo_aa": "I",
+        "apo_label_seq_id": 144,
+        "holo_aa": "I",
+        "holo_label_seq_id": 104,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 145,
+        "holo_aa": "V",
+        "holo_label_seq_id": 105,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 146,
+        "holo_aa": "A",
+        "holo_label_seq_id": 106,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 147,
+        "holo_aa": "F",
+        "holo_label_seq_id": 107,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 148,
+        "holo_aa": "F",
+        "holo_label_seq_id": 108,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 149,
+        "holo_aa": "S",
+        "holo_label_seq_id": 109,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 150,
+        "holo_aa": "F",
+        "holo_label_seq_id": 110,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 151,
+        "holo_aa": "G",
+        "holo_label_seq_id": 111,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 152,
+        "holo_aa": "G",
+        "holo_label_seq_id": 112,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 153,
+        "holo_aa": "A",
+        "holo_label_seq_id": 113,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 154,
+        "holo_aa": "L",
+        "holo_label_seq_id": 114,
+        "identical": true
+      },
+      {
+        "apo_aa": "C",
+        "apo_label_seq_id": 155,
+        "holo_aa": "C",
+        "holo_label_seq_id": 115,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 156,
+        "holo_aa": "V",
+        "holo_label_seq_id": 116,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 157,
+        "holo_aa": "E",
+        "holo_label_seq_id": 117,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 158,
+        "holo_aa": "S",
+        "holo_label_seq_id": 118,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 159,
+        "holo_aa": "V",
+        "holo_label_seq_id": 119,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 160,
+        "holo_aa": "D",
+        "holo_label_seq_id": 120,
+        "identical": true
+      },
+      {
+        "apo_aa": "K",
+        "apo_label_seq_id": 161,
+        "holo_aa": "K",
+        "holo_label_seq_id": 121,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 162,
+        "holo_aa": "E",
+        "holo_label_seq_id": 122,
+        "identical": true
+      },
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 163,
+        "holo_aa": "M",
+        "holo_label_seq_id": 123,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 164,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 124,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 165,
+        "holo_aa": "V",
+        "holo_label_seq_id": 125,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 166,
+        "holo_aa": "L",
+        "holo_label_seq_id": 126,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 167,
+        "holo_aa": "V",
+        "holo_label_seq_id": 127,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 168,
+        "holo_aa": "S",
+        "holo_label_seq_id": 128,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 169,
+        "holo_aa": "R",
+        "holo_label_seq_id": 129,
+        "identical": true
+      },
+      {
+        "apo_aa": "I",
+        "apo_label_seq_id": 170,
+        "holo_aa": "I",
+        "holo_label_seq_id": 130,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 171,
+        "holo_aa": "A",
+        "holo_label_seq_id": 131,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 172,
+        "holo_aa": "A",
+        "holo_label_seq_id": 132,
+        "identical": true
+      },
+      {
+        "apo_aa": "W",
+        "apo_label_seq_id": 173,
+        "holo_aa": "W",
+        "holo_label_seq_id": 133,
+        "identical": true
+      },
+      {
+        "apo_aa": "M",
+        "apo_label_seq_id": 174,
+        "holo_aa": "M",
+        "holo_label_seq_id": 134,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 175,
+        "holo_aa": "A",
+        "holo_label_seq_id": 135,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 176,
+        "holo_aa": "T",
+        "holo_label_seq_id": 136,
+        "identical": true
+      },
+      {
+        "apo_aa": "Y",
+        "apo_label_seq_id": 177,
+        "holo_aa": "Y",
+        "holo_label_seq_id": 137,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 178,
+        "holo_aa": "L",
+        "holo_label_seq_id": 138,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 179,
+        "holo_aa": "N",
+        "holo_label_seq_id": 139,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 180,
+        "holo_aa": "D",
+        "holo_label_seq_id": 140,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 181,
+        "holo_aa": "H",
+        "holo_label_seq_id": 141,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 182,
+        "holo_aa": "L",
+        "holo_label_seq_id": 142,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 183,
+        "holo_aa": "E",
+        "holo_label_seq_id": 143,
+        "identical": true
+      },
+      {
+        "apo_aa": "P",
+        "apo_label_seq_id": 184,
+        "holo_aa": "P",
+        "holo_label_seq_id": 144,
+        "identical": true
+      },
+      {
+        "apo_aa": "W",
+        "apo_label_seq_id": 185,
+        "holo_aa": "W",
+        "holo_label_seq_id": 145,
+        "identical": true
+      },
+      {
+        "apo_aa": "I",
+        "apo_label_seq_id": 186,
+        "holo_aa": "I",
+        "holo_label_seq_id": 146,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 187,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 147,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 188,
+        "holo_aa": "E",
+        "holo_label_seq_id": 148,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 189,
+        "holo_aa": "N",
+        "holo_label_seq_id": 149,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 190,
+        "holo_aa": "G",
+        "holo_label_seq_id": 150,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 191,
+        "holo_aa": "G",
+        "holo_label_seq_id": 151,
+        "identical": true
+      },
+      {
+        "apo_aa": "W",
+        "apo_label_seq_id": 192,
+        "holo_aa": "W",
+        "holo_label_seq_id": 152,
+        "identical": true
+      },
+      {
+        "apo_aa": "D",
+        "apo_label_seq_id": 193,
+        "holo_aa": "D",
+        "holo_label_seq_id": 153,
+        "identical": true
+      },
+      {
+        "apo_aa": "T",
+        "apo_label_seq_id": 194,
+        "holo_aa": "T",
+        "holo_label_seq_id": 154,
+        "identical": true
+      },
+      {
+        "apo_aa": "F",
+        "apo_label_seq_id": 195,
+        "holo_aa": "F",
+        "holo_label_seq_id": 155,
+        "identical": true
+      },
+      {
+        "apo_aa": "V",
+        "apo_label_seq_id": 196,
+        "holo_aa": "V",
+        "holo_label_seq_id": 156,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 197,
+        "holo_aa": "E",
+        "holo_label_seq_id": 157,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 198,
+        "holo_aa": "L",
+        "holo_label_seq_id": 158,
+        "identical": true
+      },
+      {
+        "apo_aa": "Y",
+        "apo_label_seq_id": 199,
+        "holo_aa": "Y",
+        "holo_label_seq_id": 159,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 200,
+        "holo_aa": "G",
+        "holo_label_seq_id": 160,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 201,
+        "holo_aa": "N",
+        "holo_label_seq_id": 161,
+        "identical": true
+      },
+      {
+        "apo_aa": "N",
+        "apo_label_seq_id": 202,
+        "holo_aa": "N",
+        "holo_label_seq_id": 162,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 203,
+        "holo_aa": "A",
+        "holo_label_seq_id": 163,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 204,
+        "holo_aa": "A",
+        "holo_label_seq_id": 164,
+        "identical": true
+      },
+      {
+        "apo_aa": "A",
+        "apo_label_seq_id": 205,
+        "holo_aa": "A",
+        "holo_label_seq_id": 165,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 206,
+        "holo_aa": "E",
+        "holo_label_seq_id": 166,
+        "identical": true
+      },
+      {
+        "apo_aa": "S",
+        "apo_label_seq_id": 207,
+        "holo_aa": "S",
+        "holo_label_seq_id": 167,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 208,
+        "holo_aa": "R",
+        "holo_label_seq_id": 168,
+        "identical": true
+      },
+      {
+        "apo_aa": "K",
+        "apo_label_seq_id": 209,
+        "holo_aa": "K",
+        "holo_label_seq_id": 169,
+        "identical": true
+      },
+      {
+        "apo_aa": "G",
+        "apo_label_seq_id": 210,
+        "holo_aa": "G",
+        "holo_label_seq_id": 170,
+        "identical": true
+      },
+      {
+        "apo_aa": "Q",
+        "apo_label_seq_id": 211,
+        "holo_aa": "Q",
+        "holo_label_seq_id": 171,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 212,
+        "holo_aa": "E",
+        "holo_label_seq_id": 172,
+        "identical": true
+      },
+      {
+        "apo_aa": "R",
+        "apo_label_seq_id": 213,
+        "holo_aa": "R",
+        "holo_label_seq_id": 173,
+        "identical": true
+      },
+      {
+        "apo_aa": "L",
+        "apo_label_seq_id": 214,
+        "holo_aa": "L",
+        "holo_label_seq_id": 174,
+        "identical": true
+      },
+      {
+        "apo_aa": "E",
+        "apo_label_seq_id": 215,
+        "holo_aa": "E",
+        "holo_label_seq_id": 175,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 216,
+        "holo_aa": "H",
+        "holo_label_seq_id": 176,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 217,
+        "holo_aa": "H",
+        "holo_label_seq_id": 177,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 218,
+        "holo_aa": "H",
+        "holo_label_seq_id": 178,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 219,
+        "holo_aa": "H",
+        "holo_label_seq_id": 179,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 220,
+        "holo_aa": "H",
+        "holo_label_seq_id": 180,
+        "identical": true
+      },
+      {
+        "apo_aa": "H",
+        "apo_label_seq_id": 221,
+        "holo_aa": "H",
+        "holo_label_seq_id": 181,
+        "identical": true
+      }
+    ],
+    "score": 332.5,
+    "scores": {
+      "extend_gap": -0.5,
+      "match": 2.0,
+      "mismatch": -1.0,
+      "open_gap": -10.0
+    }
+  },
+  "alternate_locations": {
+    "apo_protein": [],
+    "holo_protein": [
+      {
+        "available_alt_ids": [
+          "A",
+          "B"
+        ],
+        "residue": {
+          "auth_chain": "A",
+          "auth_seq_id": "23",
+          "insertion_code": "",
+          "label_chain": "A",
+          "label_seq_id": 27,
+          "resname": "SER"
+        },
+        "selected_alt_id": "A"
+      }
+    ],
+    "ligand": {
+      "available_alt_ids": [],
+      "selected_alt_id": ""
+    }
+  },
+  "apo_mapped_residues": [
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "93",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 97,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "93",
+        "heavy_atom_count": 5,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 57,
+        "minimum_ligand_distance_angstrom": 3.882750185113639,
+        "resname": "ALA"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "96",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 100,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "96",
+        "heavy_atom_count": 9,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 60,
+        "minimum_ligand_distance_angstrom": 3.5132597398996843,
+        "resname": "GLU"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "97",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 101,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "97",
+        "heavy_atom_count": 11,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 61,
+        "minimum_ligand_distance_angstrom": 3.697837881789844,
+        "resname": "PHE"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "100",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 104,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "100",
+        "heavy_atom_count": 11,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 64,
+        "minimum_ligand_distance_angstrom": 3.843257602607454,
+        "resname": "ARG"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "101",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 105,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "101",
+        "heavy_atom_count": 12,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 65,
+        "minimum_ligand_distance_angstrom": 3.4924908017058534,
+        "resname": "TYR"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "104",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 108,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "104",
+        "heavy_atom_count": 5,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 68,
+        "minimum_ligand_distance_angstrom": 3.8190202932165747,
+        "resname": "ALA"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "105",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 109,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "105",
+        "heavy_atom_count": 11,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 69,
+        "minimum_ligand_distance_angstrom": 3.3634400544680445,
+        "resname": "PHE"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "108",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 112,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "108",
+        "heavy_atom_count": 8,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 72,
+        "minimum_ligand_distance_angstrom": 4.1405301592912,
+        "resname": "LEU"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "126",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 130,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "126",
+        "heavy_atom_count": 7,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 90,
+        "minimum_ligand_distance_angstrom": 3.6983136697689662,
+        "resname": "VAL"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "129",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 133,
+        "resname": "GLU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "129",
+        "heavy_atom_count": 9,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 93,
+        "minimum_ligand_distance_angstrom": 3.5358922494895118,
+        "resname": "GLU"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "130",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 134,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "130",
+        "heavy_atom_count": 8,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 94,
+        "minimum_ligand_distance_angstrom": 3.505898173079189,
+        "resname": "LEU"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "136",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 140,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "136",
+        "heavy_atom_count": 8,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 100,
+        "minimum_ligand_distance_angstrom": 3.72720672890571,
+        "resname": "ASN"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "137",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 141,
+        "resname": "TRP"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "137",
+        "heavy_atom_count": 14,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 101,
+        "minimum_ligand_distance_angstrom": 3.7779906034822264,
+        "resname": "TRP"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "138",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 142,
+        "resname": "GLY"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "138",
+        "heavy_atom_count": 4,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 102,
+        "minimum_ligand_distance_angstrom": 3.0737307949786365,
+        "resname": "GLY"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "139",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 143,
+        "resname": "ARG"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "139",
+        "heavy_atom_count": 11,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 103,
+        "minimum_ligand_distance_angstrom": 3.5715755626893846,
+        "resname": "ARG"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "141",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 145,
+        "resname": "VAL"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "141",
+        "heavy_atom_count": 7,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 105,
+        "minimum_ligand_distance_angstrom": 3.437133398633226,
+        "resname": "VAL"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "142",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 146,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "142",
+        "heavy_atom_count": 5,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 106,
+        "minimum_ligand_distance_angstrom": 3.363877524524341,
+        "resname": "ALA"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "145",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 149,
+        "resname": "SER"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "145",
+        "heavy_atom_count": 6,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 109,
+        "minimum_ligand_distance_angstrom": 4.006999001746818,
+        "resname": "SER"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "146",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 150,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "146",
+        "heavy_atom_count": 11,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 110,
+        "minimum_ligand_distance_angstrom": 3.8355496346677618,
+        "resname": "PHE"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "149",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 153,
+        "resname": "ALA"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "149",
+        "heavy_atom_count": 5,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 113,
+        "minimum_ligand_distance_angstrom": 4.613919158372848,
+        "resname": "ALA"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "191",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 195,
+        "resname": "PHE"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "191",
+        "heavy_atom_count": 11,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 155,
+        "minimum_ligand_distance_angstrom": 3.727957886028221,
+        "resname": "PHE"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "194",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 198,
+        "resname": "LEU"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "194",
+        "heavy_atom_count": 8,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 158,
+        "minimum_ligand_distance_angstrom": 4.697521261261092,
+        "resname": "LEU"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "195",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 199,
+        "resname": "TYR"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "195",
+        "heavy_atom_count": 12,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 159,
+        "minimum_ligand_distance_angstrom": 3.3161821421628814,
+        "resname": "TYR"
+      }
+    },
+    {
+      "apo": {
+        "auth_chain": "A",
+        "auth_seq_id": "197",
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 201,
+        "resname": "ASN"
+      },
+      "holo": {
+        "auth_chain": "A",
+        "auth_seq_id": "197",
+        "heavy_atom_count": 8,
+        "insertion_code": "",
+        "label_chain": "A",
+        "label_seq_id": 161,
+        "minimum_ligand_distance_angstrom": 4.180166743085735,
+        "resname": "ASN"
+      }
+    }
+  ],
+  "apo_pdb_id": "1LXL",
+  "apo_reference_centroid": [
+    14.867936893203884,
+    -2.199995145631068,
+    1.0734757281553398
+  ],
+  "apo_reference_centroid_atom_count": 206,
+  "apo_reference_centroid_frame": "1LXL original model 1",
+  "contact_cutoff_angstrom": 5.0,
+  "holo_ligand_centroid": [
+    -9.873732142857142,
+    -14.522357142857143,
+    10.799446428571429
+  ],
+  "holo_pdb_id": "2YXJ",
+  "holo_reference_residues": [
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "93",
+      "heavy_atom_count": 5,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 57,
+      "minimum_ligand_distance_angstrom": 3.882750185113639,
+      "resname": "ALA"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "96",
+      "heavy_atom_count": 9,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 60,
+      "minimum_ligand_distance_angstrom": 3.5132597398996843,
+      "resname": "GLU"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "97",
+      "heavy_atom_count": 11,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 61,
+      "minimum_ligand_distance_angstrom": 3.697837881789844,
+      "resname": "PHE"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "100",
+      "heavy_atom_count": 11,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 64,
+      "minimum_ligand_distance_angstrom": 3.843257602607454,
+      "resname": "ARG"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "101",
+      "heavy_atom_count": 12,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 65,
+      "minimum_ligand_distance_angstrom": 3.4924908017058534,
+      "resname": "TYR"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "104",
+      "heavy_atom_count": 5,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 68,
+      "minimum_ligand_distance_angstrom": 3.8190202932165747,
+      "resname": "ALA"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "105",
+      "heavy_atom_count": 11,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 69,
+      "minimum_ligand_distance_angstrom": 3.3634400544680445,
+      "resname": "PHE"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "108",
+      "heavy_atom_count": 8,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 72,
+      "minimum_ligand_distance_angstrom": 4.1405301592912,
+      "resname": "LEU"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "126",
+      "heavy_atom_count": 7,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 90,
+      "minimum_ligand_distance_angstrom": 3.6983136697689662,
+      "resname": "VAL"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "129",
+      "heavy_atom_count": 9,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 93,
+      "minimum_ligand_distance_angstrom": 3.5358922494895118,
+      "resname": "GLU"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "130",
+      "heavy_atom_count": 8,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 94,
+      "minimum_ligand_distance_angstrom": 3.505898173079189,
+      "resname": "LEU"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "136",
+      "heavy_atom_count": 8,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 100,
+      "minimum_ligand_distance_angstrom": 3.72720672890571,
+      "resname": "ASN"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "137",
+      "heavy_atom_count": 14,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 101,
+      "minimum_ligand_distance_angstrom": 3.7779906034822264,
+      "resname": "TRP"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "138",
+      "heavy_atom_count": 4,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 102,
+      "minimum_ligand_distance_angstrom": 3.0737307949786365,
+      "resname": "GLY"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "139",
+      "heavy_atom_count": 11,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 103,
+      "minimum_ligand_distance_angstrom": 3.5715755626893846,
+      "resname": "ARG"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "141",
+      "heavy_atom_count": 7,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 105,
+      "minimum_ligand_distance_angstrom": 3.437133398633226,
+      "resname": "VAL"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "142",
+      "heavy_atom_count": 5,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 106,
+      "minimum_ligand_distance_angstrom": 3.363877524524341,
+      "resname": "ALA"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "145",
+      "heavy_atom_count": 6,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 109,
+      "minimum_ligand_distance_angstrom": 4.006999001746818,
+      "resname": "SER"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "146",
+      "heavy_atom_count": 11,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 110,
+      "minimum_ligand_distance_angstrom": 3.8355496346677618,
+      "resname": "PHE"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "149",
+      "heavy_atom_count": 5,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 113,
+      "minimum_ligand_distance_angstrom": 4.613919158372848,
+      "resname": "ALA"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "191",
+      "heavy_atom_count": 11,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 155,
+      "minimum_ligand_distance_angstrom": 3.727957886028221,
+      "resname": "PHE"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "194",
+      "heavy_atom_count": 8,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 158,
+      "minimum_ligand_distance_angstrom": 4.697521261261092,
+      "resname": "LEU"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "195",
+      "heavy_atom_count": 12,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 159,
+      "minimum_ligand_distance_angstrom": 3.3161821421628814,
+      "resname": "TYR"
+    },
+    {
+      "auth_chain": "A",
+      "auth_seq_id": "197",
+      "heavy_atom_count": 8,
+      "insertion_code": "",
+      "label_chain": "A",
+      "label_seq_id": 161,
+      "minimum_ligand_distance_angstrom": 4.180166743085735,
+      "resname": "ASN"
+    }
+  ],
+  "ligand_heavy_atom_count": 56,
+  "ligand_id": "N3C",
+  "ligand_selection": {
+    "auth_chain": "A",
+    "auth_seq_id": "1001",
+    "insertion_code": "",
+    "label_chain": "D",
+    "label_seq_id": null,
+    "resname": "N3C"
+  },
+  "mapping_coverage": 1.0,
+  "mapping_method": "unique global affine-gap alignment of full deposited polymer sequences",
+  "missing_coordinate_residues": {
+    "apo": [],
+    "holo": [
+      {
+        "amino_acid": "M",
+        "label_seq_id": 1,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "MET",
+          "ndb_seq_num": "1",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "-3",
+          "pdb_strand_id": "A",
+          "seq_id": "1"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 2,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "SER",
+          "ndb_seq_num": "2",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "-2",
+          "pdb_strand_id": "A",
+          "seq_id": "2"
+        }
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 3,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "MET",
+          "ndb_seq_num": "3",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "-1",
+          "pdb_strand_id": "A",
+          "seq_id": "3"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 4,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ALA",
+          "ndb_seq_num": "4",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "0",
+          "pdb_strand_id": "A",
+          "seq_id": "4"
+        }
+      },
+      {
+        "amino_acid": "M",
+        "label_seq_id": 5,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "MET",
+          "ndb_seq_num": "5",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "1",
+          "pdb_strand_id": "A",
+          "seq_id": "5"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 6,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "SER",
+          "ndb_seq_num": "6",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "2",
+          "pdb_strand_id": "A",
+          "seq_id": "6"
+        }
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 7,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLN",
+          "ndb_seq_num": "7",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "3",
+          "pdb_strand_id": "A",
+          "seq_id": "7"
+        }
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 30,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLN",
+          "ndb_seq_num": "30",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "26",
+          "pdb_strand_id": "A",
+          "seq_id": "30"
+        }
+      },
+      {
+        "amino_acid": "F",
+        "label_seq_id": 31,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "PHE",
+          "ndb_seq_num": "31",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "27",
+          "pdb_strand_id": "A",
+          "seq_id": "31"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 32,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "SER",
+          "ndb_seq_num": "32",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "28",
+          "pdb_strand_id": "A",
+          "seq_id": "32"
+        }
+      },
+      {
+        "amino_acid": "D",
+        "label_seq_id": 33,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ASP",
+          "ndb_seq_num": "33",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "29",
+          "pdb_strand_id": "A",
+          "seq_id": "33"
+        }
+      },
+      {
+        "amino_acid": "V",
+        "label_seq_id": 34,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "VAL",
+          "ndb_seq_num": "34",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "30",
+          "pdb_strand_id": "A",
+          "seq_id": "34"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 35,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "35",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "31",
+          "pdb_strand_id": "A",
+          "seq_id": "35"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 36,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "36",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "32",
+          "pdb_strand_id": "A",
+          "seq_id": "36"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 37,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ASN",
+          "ndb_seq_num": "37",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "33",
+          "pdb_strand_id": "A",
+          "seq_id": "37"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 38,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ARG",
+          "ndb_seq_num": "38",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "34",
+          "pdb_strand_id": "A",
+          "seq_id": "38"
+        }
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 39,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "THR",
+          "ndb_seq_num": "39",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "35",
+          "pdb_strand_id": "A",
+          "seq_id": "39"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 40,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "40",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "36",
+          "pdb_strand_id": "A",
+          "seq_id": "40"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 41,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ALA",
+          "ndb_seq_num": "41",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "37",
+          "pdb_strand_id": "A",
+          "seq_id": "41"
+        }
+      },
+      {
+        "amino_acid": "P",
+        "label_seq_id": 42,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "PRO",
+          "ndb_seq_num": "42",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "38",
+          "pdb_strand_id": "A",
+          "seq_id": "42"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 43,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "43",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "39",
+          "pdb_strand_id": "A",
+          "seq_id": "43"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 44,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLY",
+          "ndb_seq_num": "44",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "40",
+          "pdb_strand_id": "A",
+          "seq_id": "44"
+        }
+      },
+      {
+        "amino_acid": "T",
+        "label_seq_id": 45,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "THR",
+          "ndb_seq_num": "45",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "41",
+          "pdb_strand_id": "A",
+          "seq_id": "45"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 46,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "46",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "42",
+          "pdb_strand_id": "A",
+          "seq_id": "46"
+        }
+      },
+      {
+        "amino_acid": "N",
+        "label_seq_id": 162,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ASN",
+          "ndb_seq_num": "162",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "198",
+          "pdb_strand_id": "A",
+          "seq_id": "162"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 163,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ALA",
+          "ndb_seq_num": "163",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "199",
+          "pdb_strand_id": "A",
+          "seq_id": "163"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 164,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ALA",
+          "ndb_seq_num": "164",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "200",
+          "pdb_strand_id": "A",
+          "seq_id": "164"
+        }
+      },
+      {
+        "amino_acid": "A",
+        "label_seq_id": 165,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ALA",
+          "ndb_seq_num": "165",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "201",
+          "pdb_strand_id": "A",
+          "seq_id": "165"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 166,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "166",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "202",
+          "pdb_strand_id": "A",
+          "seq_id": "166"
+        }
+      },
+      {
+        "amino_acid": "S",
+        "label_seq_id": 167,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "SER",
+          "ndb_seq_num": "167",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "203",
+          "pdb_strand_id": "A",
+          "seq_id": "167"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 168,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ARG",
+          "ndb_seq_num": "168",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "204",
+          "pdb_strand_id": "A",
+          "seq_id": "168"
+        }
+      },
+      {
+        "amino_acid": "K",
+        "label_seq_id": 169,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "LYS",
+          "ndb_seq_num": "169",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "205",
+          "pdb_strand_id": "A",
+          "seq_id": "169"
+        }
+      },
+      {
+        "amino_acid": "G",
+        "label_seq_id": 170,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLY",
+          "ndb_seq_num": "170",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "206",
+          "pdb_strand_id": "A",
+          "seq_id": "170"
+        }
+      },
+      {
+        "amino_acid": "Q",
+        "label_seq_id": 171,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLN",
+          "ndb_seq_num": "171",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "207",
+          "pdb_strand_id": "A",
+          "seq_id": "171"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 172,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "172",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "208",
+          "pdb_strand_id": "A",
+          "seq_id": "172"
+        }
+      },
+      {
+        "amino_acid": "R",
+        "label_seq_id": 173,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "ARG",
+          "ndb_seq_num": "173",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "209",
+          "pdb_strand_id": "A",
+          "seq_id": "173"
+        }
+      },
+      {
+        "amino_acid": "L",
+        "label_seq_id": 174,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "LEU",
+          "ndb_seq_num": "174",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "210",
+          "pdb_strand_id": "A",
+          "seq_id": "174"
+        }
+      },
+      {
+        "amino_acid": "E",
+        "label_seq_id": 175,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "GLU",
+          "ndb_seq_num": "175",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "211",
+          "pdb_strand_id": "A",
+          "seq_id": "175"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 176,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "HIS",
+          "ndb_seq_num": "176",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "212",
+          "pdb_strand_id": "A",
+          "seq_id": "176"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 177,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "HIS",
+          "ndb_seq_num": "177",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "213",
+          "pdb_strand_id": "A",
+          "seq_id": "177"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 178,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "HIS",
+          "ndb_seq_num": "178",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "214",
+          "pdb_strand_id": "A",
+          "seq_id": "178"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 179,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "HIS",
+          "ndb_seq_num": "179",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "215",
+          "pdb_strand_id": "A",
+          "seq_id": "179"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 180,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "HIS",
+          "ndb_seq_num": "180",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "216",
+          "pdb_strand_id": "A",
+          "seq_id": "180"
+        }
+      },
+      {
+        "amino_acid": "H",
+        "label_seq_id": 181,
+        "sequence_scheme": {
+          "asym_id": "A",
+          "auth_mon_id": "?",
+          "auth_seq_num": "?",
+          "entity_id": "1",
+          "hetero": "n",
+          "mon_id": "HIS",
+          "ndb_seq_num": "181",
+          "pdb_ins_code": ".",
+          "pdb_mon_id": "?",
+          "pdb_seq_num": "217",
+          "pdb_strand_id": "A",
+          "seq_id": "181"
+        }
+      }
+    ]
+  },
+  "observed_residue_counts": {
+    "apo": 221,
+    "holo": 137
+  },
+  "polymer_lengths": {
+    "apo": 221,
+    "holo": 181
+  },
+  "provenance": {
+    "config_sha256": "ea62949351e051caf3683cff5cba8a2f69f50af5b3cba3525c4a92459aaf5a84",
+    "evaluator_sha256": "2c07594e1fa5832e2aa02e99e7a2ba57c4870569bd9e1ab87775ec7039379460",
+    "inputs": [
+      {
+        "byte_size": 349903,
+        "filename": "data/raw/1LXL.cif",
+        "sha256": "03a4e441063e7f832999f9a2cfdd376bc5366a543afae202c7f0608955dcb96c"
+      },
+      {
+        "byte_size": 324444,
+        "filename": "data/raw/2YXJ.cif",
+        "sha256": "5300ddf32f42624dd5da03cf1b2beee63d224542ad46bb6bdf055f28bfa969a4"
+      }
+    ],
+    "protocol_sha256": "0d37c7751f0ae03257e493b53e81ed934f689bff141bd3988eae2b36920096b7",
+    "versions": {
+      "packages": {
+        "biopython": "1.85",
+        "numpy": "2.2.6"
+      },
+      "python": "3.11.16"
+    }
+  },
+  "reference_centroid": [
+    -8.68,
+    -16.172529126213593,
+    8.146349514563106
+  ],
+  "reference_centroid_atom_count": 206,
+  "reference_centroid_definition": "unweighted mean of all selected heavy atoms of reference protein residues",
+  "reference_centroid_frame": "2YXJ original model 1",
+  "schema_version": 1,
+  "unmapped_residues": [],
+  "warnings": [
+    "1LXL is one minimized-average NMR model, not an experimental ensemble.",
+    "2YXJ is a 2.20 A crystal structure; NMR/crystal and construct differences confound comparison.",
+    "Primary reference uses chain A and N3C label chain D; chain B and symmetry contacts excluded.",
+    "Ligand absence does not establish crypticity; no pocket detection or method performance computed.",
+    "Coordinate-based reference omits unobserved atoms and residues; none rebuilt.",
+    "Centroids are in different original coordinate frames and cannot be directly subtracted.",
+    "44 deposited holo chain A residues have no selected heavy-atom coordinates."
+  ]
+}
