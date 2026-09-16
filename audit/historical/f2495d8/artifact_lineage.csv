@@ -1,0 +1,16 @@
+input_file,tool,output_file,commit_sha
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_0_seq_1.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_0_seq_2.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_1_seq_1.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_1_seq_2.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_2_seq_1.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_2_seq_2.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_3_seq_1.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_3_seq_2.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_4_seq_1.pdb,feat:
+ProteinMPNN sequence (inferred),ESMFold,amina_results/bipd_folded_binders/folded_design_4_seq_2.pdb,feat:
+RFdiffusion backbone (inferred),ProteinMPNN,amina_results/bipd_sequences/rfdiffusion_bipd_test_hotspots_design_0.fa,feat:
+RFdiffusion backbone (inferred),ProteinMPNN,amina_results/bipd_sequences/rfdiffusion_bipd_test_hotspots_design_1.fa,feat:
+RFdiffusion backbone (inferred),ProteinMPNN,amina_results/bipd_sequences/rfdiffusion_bipd_test_hotspots_design_2.fa,feat:
+RFdiffusion backbone (inferred),ProteinMPNN,amina_results/bipd_sequences/rfdiffusion_bipd_test_hotspots_design_3.fa,feat:
+RFdiffusion backbone (inferred),ProteinMPNN,amina_results/bipd_sequences/rfdiffusion_bipd_test_hotspots_design_4.fa,feat:
