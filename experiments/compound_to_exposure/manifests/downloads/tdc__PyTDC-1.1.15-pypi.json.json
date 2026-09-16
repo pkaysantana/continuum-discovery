@@ -1,0 +1,16 @@
+{
+  "byte_size": 23967,
+  "filename": "data/raw/tdc/PyTDC-1.1.15-pypi.json",
+  "final_url": "https://pypi.org/pypi/PyTDC/1.1.15/json",
+  "http_headers": {
+    "Content-Type": "application/json",
+    "ETag": "\"W91EIKPYZkt780WqnDuA3A\"",
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:24.717025+00:00",
+  "sha256": "7ac902ba3b4e22423b070057c72b85958c2053e79f4ef56f661119916985860a",
+  "source": "PyTDC",
+  "source_url": "https://pypi.org/pypi/PyTDC/1.1.15/json",
+  "version": "1.1.15"
+}

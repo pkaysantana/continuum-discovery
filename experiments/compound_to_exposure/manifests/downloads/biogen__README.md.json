@@ -1,0 +1,19 @@
+{
+  "byte_size": 4409,
+  "filename": "data/raw/biogen/README.md",
+  "final_url": "https://raw.githubusercontent.com/molecularinformatics/Computational-ADME/b00df003de117ce9e5b381afd886095c5f2af2d5/README.md",
+  "http_headers": {
+    "Content-Type": "text/plain; charset=utf-8",
+    "ETag": "\"3ca8c903b86d88493acbd628a13a0375f55c57a467357eafb5bbb588ce6a46d1\"",
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:31.888617+00:00",
+  "sha256": "056e4811aa4c0e6ca096b8d1ae5d33a5d91f3ba02d1aad1ebce0d779c67be425",
+  "source": "Biogen",
+  "source_url": "https://raw.githubusercontent.com/molecularinformatics/Computational-ADME/b00df003de117ce9e5b381afd886095c5f2af2d5/README.md",
+  "version": {
+    "commit": "b00df003de117ce9e5b381afd886095c5f2af2d5",
+    "repository": "molecularinformatics/Computational-ADME"
+  }
+}

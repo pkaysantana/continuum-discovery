@@ -1,0 +1,16 @@
+{
+  "byte_size": 212,
+  "filename": "data/raw/chembl/status.json",
+  "final_url": "https://www.ebi.ac.uk/chembl/api/data/status.json",
+  "http_headers": {
+    "Content-Type": "application/json",
+    "ETag": null,
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:06.968554+00:00",
+  "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740",
+  "source": "ChEMBL",
+  "source_url": "https://www.ebi.ac.uk/chembl/api/data/status.json",
+  "version": null
+}

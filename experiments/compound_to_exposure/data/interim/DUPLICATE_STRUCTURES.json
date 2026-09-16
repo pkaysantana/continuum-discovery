@@ -1,0 +1,5022 @@
+{
+  "OBSERVED": [
+    {
+      "canonical_smiles_rdkit": "C#CC[C@@H](C(=O)N[C@H](/C=C/C(=O)OCC)C[C@@H]1CCNC1=O)n1cccc(NC(=O)c2cc(C)on2)c1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL141157",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 302,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "38.02"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL141157",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 939,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C#Cc1cccc(Nc2ncnc3cc(OCCOC)c(OCCOC)cc23)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL553",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 151,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.77"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL553",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 929,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.41"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C#Cc1cccc(Nc2ncnc3cc4c(cc23)OCCOCCOCCO4)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2087361",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 123,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.55"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2087361",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 763,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "21.88"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CC(=O)Nc1ccc(C)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2086478",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 282,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "87.1"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2086478",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 859,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "21.38"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CC(=O)Nc1ccc(F)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2086472",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 262,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2086472",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1049,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "38.02"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CC(=O)Nc1ccc(OC)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2089383",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 221,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.66"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2089383",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 394,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.72"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CC(=O)Nc1ccc2ncnc(Nc3cccc(C)c3)c2c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL31815",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 366,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL31815",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1178,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "15.49"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CC(=O)Nc1cccc(Oc2nc(Nc3ccc(N4CCN(C)CC4)cc3OC)ncc2Cl)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1229592",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 40,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.31"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1229592",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 300,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "79.43"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CC(=O)Nc1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2086477",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 283,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "32.36"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2086477",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1102,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "30.9"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=CCc1ccccc1OCC(O)CNC(C)C",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL266195",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 321,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL266195",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 866,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.18"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C=C[C@H]1CN2CC[C@H]1C[C@@H]2[C@@H](O)c1ccnc2ccc(OC)cc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1294",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 462,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "72.44"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1294",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 821,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.17"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(=O)Nc1ccc(O)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL112",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 880,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.8"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL112",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 916,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.31"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C(=O)O)c1ccc(C(=O)c2cccs2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL956",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 557,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.77"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL956",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 637,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "16.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C(=O)O)c1cccc(C(=O)c2ccccc2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL571",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 227,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "53.7"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL571",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 829,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)NC(=O)[C@@H]1CN(Cc2cccnc2)CCN1C[C@@H](O)C[C@@H](Cc1ccccc1)C(=O)N[C@H]1c2ccccc2C[C@H]1O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL115",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 242,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.23"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL115",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 406,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "53.7"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)NC(=O)[C@@H]1C[C@@H]2CCCC[C@@H]2CN1C[C@@H](O)[C@H](Cc1ccccc1)NC(=O)[C@H](CC(N)=O)NC(=O)c1ccc2ccccc2n1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL114",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 786,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL114",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 793,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "25.7"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)NCC(O)COc1nsnc1N1CCOCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL173706",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 597,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL173706",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1111,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.57"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)NS(=O)(=O)c1cncc(-c2ccc3nc(NC(=O)NCC(=O)N4CCCC4)nn3c2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2057371",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 180,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2057371",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1150,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.79"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)NS(=O)(=O)c1cncc(-c2ccc3nc(NC(=O)NCC(=O)N4CCOCC4)nn3c2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2057372",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 702,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.39"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2057372",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1169,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)c1cc(NC(=O)NCc2ccccc2Sc2ccc3nnc(-c4ccccc4SCCO)n3c2)n(-c2ccc(O)c(Cl)c2)n1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1938400",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 539,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "70.79"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1938400",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1133,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "25.12"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(C)c1ccc(C(O)CCCN2CCC(C(O)(c3ccccc3)c3ccccc3)CC2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL17157",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 713,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "87.1"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL17157",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 908,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "34.67"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)(O)c1ccccc1CC[C@@H](SCC1(CC(=O)O)CC1)c1cccc(/C=C/c2ccc3ccc(Cl)cc3n2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL787",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 95,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "43.65"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL787",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 166,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)N1CCN(Cc2cnc(-c3cc(-c4cccc5[nH]ccc45)cc4[nH]ncc34)o2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2216859",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 316,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2216859",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 383,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "15.14"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)NCC(O)COc1ccc(CCOCC2CC2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL423",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1099,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL423",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1157,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(C)NCC(O)COc1cccc2[nH]ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL500",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 292,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL500",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 930,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.59"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(CO)(CO)Nc1nc(SCc2cccc(F)c2F)nc2nc(N)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL389792",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 12,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL389792",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 744,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.92"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC(NC(C)(C)C)C(=O)c1cccc(Cl)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL894",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 185,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "16.98"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL894",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 463,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "72.44"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC/C(=C(/c1ccc(O)cc1)c1ccc(/C=C/C(=O)O)cc1)c1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1091137",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 154,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "69.18"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1091137",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 818,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "54.95"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC1(C)[C@H](NC(=O)/C(=N\\OCc2cc(=O)c(O)cn2O)c2csc(N)n2)C(=O)N1OS(=O)(=O)O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1256967",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 315,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1256967",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 433,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "11.48"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC1(CCCc2cc(=O)oc3[nH]c(=O)[nH]c(=O)c23)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2036958",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 764,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2036958",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 791,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.66"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC1Cc2ccccc2N1NC(=O)c1ccc(Cl)c(S(N)(=O)=O)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL406",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 89,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.18"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL406",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 189,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.9"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCC(=O)N[C@H]1CC[C@@H](C(=O)N(C)c2ccc(-c3nc4ccccc4o3)cc2)C1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1834184",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 110,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.57"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1834184",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 606,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.59"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCC(=O)O[C@]1(C(=O)SCF)[C@H](C)C[C@H]2[C@@H]3C[C@H](F)C4=CC(=O)C=C[C@]4(C)[C@@]3(F)[C@@H](O)C[C@@]21C",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1473",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 697,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "107.15"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1473",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 965,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCC(CC)NC(=O)c1c(C)nn(-c2ccccc2)c1NS(=O)(=O)c1ccc(C)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916272",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 441,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.49"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916272",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 828,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCCCC1=NC2(CCCC2)C(=O)N1Cc1ccc(-c2ccccc2-c2nn[nH]n2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1513",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1029,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.01"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1513",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1045,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.47"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCCCN(CCNCCc1ccc(O)c2[nH]c(=O)sc12)C(=O)CCOCCc1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1800659",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 126,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "25.92"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1800659",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 285,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCCCNC(=O)NS(=O)(=O)c1ccc(C)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL782",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 116,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.31"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL782",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 665,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.61"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCCNC(=O)CSc1ccc(S(=O)(=O)N2CCCC2)cn1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2141746",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 809,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "54.95"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2141746",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 830,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCCSc1ccc2nc(NC(=O)OC)[nH]c2c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1483",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 129,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "83.18"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1483",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 512,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.59"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCCc1nn(C)c2c(=O)[nH]c(-c3cc(S(=O)(=O)N4CCN(C)CC4)ccc3OCC)nc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL192",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1031,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "16.6"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL192",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1197,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCN(C(=O)c1cnn(-c2ccccc2)c1NS(=O)(=O)c1ccc(-c2cnco2)cc1)C1CCCCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916271",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 18,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "35.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916271",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 875,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.5"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCN(CC)CCN1C(=O)[C@@](O)(c2ccccc2Cl)c2c1cc(C(N)=O)cc2C(F)(F)F",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL360227",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 214,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "11.48"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL360227",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 621,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "56.23"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCN(Cc1cc(C(F)(F)F)ccc1-c1cc(CC(=O)O)ccc1OC)C(=O)NCc1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2181753",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 234,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "25.12"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2181753",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 949,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "18.2"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCN1CCN(c2ccc(Nc3cc(N(C)C(=O)Nc4c(Cl)c(OC)cc(OC)c4Cl)ncn3)cc2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1852688",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 27,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "87.1"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1852688",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 358,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "28.84"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCNC(=O)C[C@@H]1N=C(c2ccc(Cl)cc2)c2cc(OC)ccc2-n2c(C)nnc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1232461",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 590,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1232461",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 743,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.23"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCNC(=O)OC1CCN(c2nncc3cc(OC)c(OC)cc23)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL77131",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 48,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "33.88"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL77131",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 231,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "64.57"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCOC(=O)/C=C/[C@H](C[C@@H]1CCNC1=O)NC(=O)[C@@H](CC(=O)[C@@H](NC(=O)c1cc(C)on1)C(C)C)Cc1ccc(F)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL20210",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1023,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "40.74"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL20210",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1062,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCOC(=O)C1=C(C)NC(C)=C(C(C)=O)[C@H]1c1cccc2c(=O)cc(C)oc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2181926",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 403,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "104.71"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2181926",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 628,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "45.71"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCOc1ccc2ccc(=O)oc2c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL191528",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 43,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "35.48"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL191528",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 524,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "64.57"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCOc1ccc2nc(N)sc2c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL565755",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 86,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.02"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL565755",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 342,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "74.13"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCOc1ncc(C)c2c1[C@H](c1ccc(C#N)cc1OC)C(C(N)=O)=C(C)N2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2181927",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 248,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.68"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2181927",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 737,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "26.92"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCOc1noc2cc(OCCC3CCN(c4ccc(C)nn4)CC3)ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2062774",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 711,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.13"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2062774",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1163,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "29.51"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCS(=O)(=O)c1ccc(-c2cc(C(F)(F)F)ccc2OCC(=O)O)c(C)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1778639",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 260,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1778639",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 617,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCS(=O)(=O)c1ccc(-c2cc(Cl)ccc2OCC(=O)O)c(F)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1778644",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 16,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.24"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1778644",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 588,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC[C@H](C)C(=O)O[C@H]1C[C@H](O)C=C2C=C[C@H](C)[C@H](CC[C@@H](O)C[C@@H](O)CC(=O)O)[C@H]21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1144",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 87,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1144",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 760,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "26.98"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CC[C@H](Nc1ncnc2[nH]cnc12)c1nc2cccc(F)c2c(=O)n1-c1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2216870",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 213,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.25"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2216870",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1043,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "19.5"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCc1cccc2cc(C(O)CNC(C)(C)C)oc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL296035",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 602,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL296035",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 846,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.71"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCc1nc2cc(O)ccc2c(Oc2ccc(/C=C/C(=O)O)cc2)c1-c1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL370492",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 30,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "102.33"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL370492",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 582,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "38.9"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CCc1nn(C2CCCC2)c2c1CCn1c(-c3cccs3)nnc1-2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL217899",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 464,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "73.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL217899",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1124,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(C)C(=O)C(CCN1CCC(O)(c2ccc(Cl)cc2)CC1)(c1ccccc1)c1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL841",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 957,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "91.2"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL841",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1195,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.8"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(C)CCCN1c2ccccc2CCc2ccccc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL11",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 938,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.62"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL11",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1078,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(C)CCCN1c2ccccc2Sc2ccc(Cl)cc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL71",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 50,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.45"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL71",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 140,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(C)CCCOc1nn(Cc2ccccc2)c2ccccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL12610",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 982,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL12610",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1028,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.76"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(C)S(=O)(=O)NC(=O)CCCc1c(-c2ccc(F)cc2)[nH]c2ccc(C#N)cc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL403313",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 499,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "44.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL403313",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 596,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(C)c1nc(Cc2ccc(NC(=O)c3ccc(C(F)(F)F)cc3)cc2)nc(N(C)C)c1CC(=O)O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL551813",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 235,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.47"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL551813",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 858,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "18.62"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN(CCOc1ccc(NS(C)(=O)=O)cc1)CCc1ccc(NS(C)(=O)=O)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL473",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 236,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.68"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL473",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 513,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.18"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN1CCN(C2=Nc3cc(Cl)ccc3Nc3ccccc32)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL42",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 66,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL42",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 653,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.76"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CN1CCN(c2nc3ccccc3cc2Cn2nc(-c3ccc4nc(N)sc4c3)c3c(N)ncnc32)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1213118",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 569,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "81.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1213118",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 757,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.59"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CNCCCN1c2ccccc2CCc2ccccc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL72",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 661,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.92"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL72",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 988,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COC(=O)C1=C(C)NC(C)=C(C(=O)OC(C)C)[C@@H]1c1cccc2nonc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL399539",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 473,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "125.89"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL399539",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 937,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COC(=O)C1=C(C)NC(C)=C(C(=O)OC)C1c1ccccc1[N+](=O)[O-]",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL193",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1077,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL193",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1158,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "22.39"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COC[C@@H](O)Cn1c(=O)cnn(-c2ccc(Cl)c(C(=O)NCC3(O)CCCCCC3)c2)c1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1779512",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 497,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1779512",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 589,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COC[C@H](O)Cn1c(=O)cnn(-c2ccc(Cl)c(C(=O)NCC3(O)CCCCCC3)c2)c1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1823817",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 555,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1823817",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 877,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COCc1c(C(C)C)nc(C(C)C)c(/C=C/[C@@H](O)C[C@@H](O)CC(=O)O)c1-c1ccc(F)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1477",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 64,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1477",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 879,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.72"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CO[C@H]1C[C@@H]2CC[C@@H](C)[C@@](O)(O2)C(=O)C(=O)N2CCCC[C@H]2C(=O)O[C@H]([C@H](C)C[C@@H]2CC[C@@H](O)[C@H](OC)C2)CC(=O)[C@H](C)/C=C(\\C)[C@@H](O)[C@@H](OC)C(=O)[C@H](C)C[C@H](C)/C=C/C=C/C=C/1C",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL413",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 500,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "50.12"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL413",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 669,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cc(-n2cnc3cc(-c4ccc(Cl)cc4)sc3c2=O)ccc1OC[C@H](O)C1CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2147474",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 52,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "22.91"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2147474",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 876,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.77"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cc2c(cc1-c1c(C)noc1C)ncc1[nH]c(=O)n([C@H](C)c3ccccn3)c12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2017291",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 286,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.24"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2017291",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 706,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.39"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cc2nc(N3CCN(C(=O)c4ccco4)CC3)nc(N)c2cc1OC",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 239,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.37"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 852,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.02"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cc2nccc(Oc3ccc(NC(=O)C4(C(=O)Nc5ccc(F)cc5)CC4)cc3)c2cc1OC",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2105717",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 119,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.16"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2105717",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 816,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.76"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1NC(=O)/C=C/CN1CCCCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2110732",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 160,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2110732",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 913,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.77"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1ccc(-c2cc3c(C)nc(N)nc3n([C@H]3CC[C@H](OCCO)CC3)c2=O)cn1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1234354",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 99,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.72"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1234354",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 172,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1ccc(C)c(Nc2ncc3ccn(-c4ccccn4)c3n2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL377957",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 343,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "83.18"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL377957",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 768,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "102.33"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1ccc(CCN(C)CCCC(C#N)(c2ccc(OC)c(OC)c2)C(C)C)cc1OC",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL6966",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 736,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "26.3"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL6966",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1187,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "104.71"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1ccc(CNC(=O)CSc2nc3cccnc3s2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1575409",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 629,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "60.26"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1575409",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 671,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1ccc([C@@H]2Sc3ccccc3N(CCN(C)C)C(=O)[C@@H]2OC(C)=O)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL23",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 150,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.33"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL23",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1159,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cccc(Nc2c(C(N)=O)cnc3c(C)cc(S(=O)(=O)c4cccc(C(=O)N(C)C)c4)cc23)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL570015",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 350,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "20.05"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL570015",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 721,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "130.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cccc2c1c(NS(=O)(=O)c1ccc(Cl)s1)nn2Cc1cccc(CNC(=O)C(C)(C)O)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2018969",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 326,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "40.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2018969",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 687,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "25.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cccc2c1c(NS(=O)(=O)c1ccc(Cl)s1)nn2Cc1cccc(CNC(=O)[C@@H]2COCCN2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2326624",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 479,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "26.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2326624",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1210,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "20.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cccc2c1c(NS(=O)(=O)c1ccc(Cl)s1)nn2Cc1cccc(CNC(=O)[C@H]2COCCN2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2326623",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 506,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "16.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2326623",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 862,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "28.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1cccc2c1c(NS(=O)(=O)c1ccc(Cl)s1)nn2Cc1cccc(CNC(C)=O)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2018964",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 271,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2018964",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 405,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "COc1ccnc(CCc2nc3cc(Br)cnc3[nH]2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1800526",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 120,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.2"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1800526",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 794,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "29.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "CS(=O)(=O)N1CCc2c(-c3cnc(N)nc3)nc(N3CCOCC3)nc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1684984",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 431,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.37"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1684984",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 826,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@@H](O)[C@H](NC(=O)c1ccc(C#Cc2ccc(CN3CCOCC3)cc2)cc1)C(=O)NO",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL260091",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1109,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "38.9"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL260091",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1119,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "15.14"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@@H](c1ccc(-c2ccc(F)cc2F)cc1)N1CC[C@](CCO)(c2ccc(F)cc2)OC1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1829763",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 201,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1829763",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 704,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.72"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2cccc(Cl)c2F)nc2[nH]c(=O)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL403225",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1041,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "17.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL403225",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1213,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "19.91"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2cccc(F)c2F)nc2[nH]c(=O)cnc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL256668",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 753,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "23.22"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL256668",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 907,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2cccc(F)c2F)nc2nc(N)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL397237",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 894,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "17.16"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL397237",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 972,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.59"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2ccccc2)nc2[nH]c(=O)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL402986",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 143,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL402986",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 872,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "19.45"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2ccccc2F)nc2[nH]c(=O)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL271012",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 47,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "30.12"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL271012",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1161,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "28.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2ccccc2F)nc2nc(N)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL232846",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 291,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.75"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL232846",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 959,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "19.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](CO)Nc1nc(SCc2ccco2)nc2[nH]c(=O)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL272705",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 278,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "61.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL272705",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 838,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "27.3"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](Cc1cccc(CC(=O)NC23CC4CC(CC(C4)C2)C3)c1)NC[C@H](O)c1ccc(O)c(CO)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL402501",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 422,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "43.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL402501",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 801,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "21.9"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](Nc1nc(Nc2cc(C3CC3)[nH]n2)cnc1C#N)c1ccc(F)cn1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL578194",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 553,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL578194",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1125,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.94"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](Oc1ccc(Cl)cc1CN1CCN(C(=O)Cc2ccc(Cl)cc2)[C@@H](C)C1)C(=O)O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689133",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 188,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.7"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689133",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 585,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H](c1nc2ncccc2c(=O)n1-c1ccc(Cl)cc1)N(CC1CCS(=O)(=O)CC1)C(=O)Cc1ccc(C(F)(F)F)c(F)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1939560",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 238,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.13"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1939560",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 662,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.08"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H]1CN(Cc2cc(Cl)ccc2CC(=O)O)CCN1C(=O)Cc1ccc(Cl)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689135",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 205,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689135",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 715,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.5"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H]1CN(Cc2cc(Cl)ccc2CC(=O)O)CCN1S(=O)(=O)Cc1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689137",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 280,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689137",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1005,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.7"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H]1CN(Cc2cc(Cl)ccc2OCC(=O)O)CCN1C(=O)Cc1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689126",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 209,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689126",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 246,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@H]1C[C@@H]2[C@H]([C@@H](O)C[C@@]3(C)[C@H]2CC[C@]3(O)C(=O)CO)[C@@]2(C)C=CC(=O)C=C12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL650",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 679,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.12"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL650",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 941,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[C@]12CCC(=O)C=C1C=C[C@@H]1[C@@H]2CC[C@@]2(C)[C@H]1CC[C@@]21CCC(=O)O1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1463345",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 117,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.61"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1463345",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 423,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "45.71"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "C[N+]1(C)[C@@H]2C[C@@H](OC(=O)C(O)(c3cccs3)c3cccs3)C[C@H]1[C@@H]1O[C@@H]12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1900528",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 173,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1900528",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1054,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "135.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1c(-c2ccc(O)cc2)n(Cc2ccc(OCCN3CCCCCC3)cc2)c2ccc(O)cc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL46740",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 992,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "35.48"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL46740",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1039,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "17.78"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1c(C)c2c(c(C)c1O)CCC(C)(COc1ccc(CC3SC(=O)NC3=O)cc1)O2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL408",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 58,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL408",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 445,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "28.18"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1c(CC(=O)O)c2cc(F)ccc2n1S(=O)(=O)c1ccc(S(C)(=O)=O)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL196707",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 608,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.9"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL196707",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 767,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1c(Cc2ccc3ccccc3n2)c2cc(F)ccc2n1CC(=O)O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL560993",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 773,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.04"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL560993",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 987,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1c(F)cc(C(=O)NC2CC2)cc1-c1ccc(C(=O)NCC(C)(C)C)cn1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1088752",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 240,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.31"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1088752",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 998,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.8"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1c(Sc2ccc(Cl)cc2)c2c(NS(C)(=O)=O)cccc2n1CC(=O)O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1917433",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 429,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.76"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1917433",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 787,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1cc(=O)n(-c2ccccc2)n1C",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL277474",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 639,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL277474",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 973,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.47"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1cc(F)ccc1-n1nc(C(F)(F)F)cc1-c1ccc2c(c1)NC(=O)CO2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1929039",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1123,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.72"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1929039",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1162,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "28.18"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1cc(F)ccc1OC1CCN(CC2CCN([C@@](C)(Cc3ccc(F)cc3)C(=O)O)CC2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2158793",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 355,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.63"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2158793",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 994,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1cc(OCCCS(C)(=O)=O)cc(C)c1-c1cccc(COc2ccc3c(c2)OC[C@H]3CC(=O)O)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1829174",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 430,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.25"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1829174",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 436,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(-n2nc(C(C)(C)C)cc2NC(=O)Nc2ccc(OCCN3CCOCC3)c3ccccc23)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL103667",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 153,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "69.18"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL103667",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 376,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.66"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(C(=O)Nc2ccc(CN3CCN(C)CC3)c(C(F)(F)F)c2)cc1C#Cc1cnc2cccnn12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1171837",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 545,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1171837",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1130,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.68"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(C(=O)c2ccc(CC(=O)O)n2C)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1020",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 24,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.12"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1020",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 756,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.33"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(C)c(OCCCC(C)(C)C(=O)O)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL457",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 80,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "66.07"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL457",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 940,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(CCNC(=O)c2ccc3sc(CO)nc3c2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2088413",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 54,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2088413",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 498,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.66"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(N2CC(COc3ccc(-c4noc(C)n4)cc3)C2)nn1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1835918",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 837,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "26.41"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1835918",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1116,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(NC(=O)c2cccc(N(C)S(C)(=O)=O)c2)cc1NC(=O)c1ccc2ncccc2c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL454616",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 191,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "72.44"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL454616",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 814,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(S(=O)(=O)Nc2c(C(=O)N[C@@H](C)C(C)(C)C)c(C)nn2-c2ccccc2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916282",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1113,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.99"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916282",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1142,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.15"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccc(S(=O)(=O)Nc2c(C(=O)N[C@@H](C)C(C)(C)C)c(C)nn2C(C)C)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1934267",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 63,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1934267",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 84,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccccc1-n1c(Cn2cnc3c(N)ncnc32)nc2cccc(C)c2c1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1213082",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 797,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.96"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1213082",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1033,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "23.99"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ccccc1-n1c(Cn2nc(-c3ccc(O)c(F)c3)c3c(N)ncnc32)nc2cccc(C)c2c1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1213085",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 273,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "39.81"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1213085",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 649,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "44.67"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1cnc(Nc2ccc(F)cc2Cl)nc1-c1c[nH]c(C(=O)N[C@H](CO)c2cccc(Cl)c2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL583042",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 21,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.51"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL583042",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 434,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.88"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nc(-c2ccc(OCC(C)C)c(C#N)c2)sc1C(=O)O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1164729",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 517,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.73"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1164729",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 667,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1ncc2n1-c1ccc(Cl)cc1C(c1ccccc1F)=NC2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL655",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 448,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "32.36"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL655",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 471,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "121.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nn(-c2ccc(F)cc2)c(NS(=O)(=O)c2ccc(C#N)cc2)c1C(=O)N[C@@H](C)C(C)(C)C",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916288",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 210,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916288",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 646,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nn(-c2ccc(F)cc2)c(NS(=O)(=O)c2ccc(C(F)(F)F)cc2)c1C(=O)N[C@@H](C)C(C)(C)C",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916289",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 288,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.01"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1916289",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 718,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nn(-c2ccccc2)c(NC(=O)NS(=O)(=O)c2ccc(Cl)cc2)c1C#N",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1204759",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 351,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1204759",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 884,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "21.47"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nn(C)c2cc(N3CCN(C(=O)[C@@H]4CCCC[C@H]4C(=O)NC4(C#N)CC4)[C@H](C)C3)ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2172000",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 712,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.13"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2172000",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 789,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.41"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nnc(C)c2cc(N3CCN(C(=O)[C@@H]4CCCC[C@H]4C(=O)NC4(C#N)CC4)[C@H](C)C3)ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2172001",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 778,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2172001",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1156,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "11.48"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1nnc2n1-c1ccc(Cl)cc1C(c1ccccc1)=NC2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL661",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 726,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.66"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL661",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1004,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.98"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1noc2cc(N3CCN(C(=O)[C@@H]4CCCC[C@H]4C(=O)NC4(C#N)CC4)[C@H](C)C3)ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2169908",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 413,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "30.2"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2169908",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 848,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.33"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cc1oncc1C(=O)Nc1ccc(C(F)(F)F)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL960",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 101,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL960",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 125,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "23.99"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Clc1ccccc1CN1CCc2sccc2C1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL833",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 503,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "56.23"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL833",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 975,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cn1c(=O)c2nc[nH]c2n(C)c1=O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL190",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 578,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.75"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL190",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1026,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Cn1sc(=O)c2cc(S(N)(=O)=O)ccc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL334167",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 186,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "17.38"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL334167",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1008,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "27.54"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "N#CC1(NC(=O)[C@@H]2CCCC[C@H]2C(=O)N2CCN(c3nc4ccncc4s3)CC2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2070950",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 410,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.61"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2070950",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1168,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.9"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "N#Cc1ccc(OC2CCN(C[C@H](O)CNC(=O)c3c[nH]c(=O)c4ccccc34)CC2)cc1Cl",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2207669",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 813,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2207669",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1209,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "15.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC(=O)C(c1ccccc1)(c1ccccc1)[C@@H]1CCN(CCc2ccc3c(c2)CCO3)C1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1346",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 573,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "50.96"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1346",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1115,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.05"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC(=O)N1c2ccccc2C=Cc2ccccc21",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL108",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 491,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "19.95"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL108",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1170,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.25"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC(=O)NC(=O)C(Nc1ccc2c(c1)CCC2)c1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1734492",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 228,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "54.95"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1734492",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 722,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.8"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC(=O)c1cnc(-c2ccc(C3(N)CCC3)cc2)c(-c2ccccc2)c1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035040",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 745,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.13"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035040",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 825,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC1(c2ccc(-c3c(-c4ccccc4)ccn4ccnc34)cc2)CCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035033",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 294,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035033",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 563,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.12"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC1(c2ccc(-c3nc4ccccc4cc3-c3ccccc3)cc2)CCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035017",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 542,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "147.91"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035017",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 899,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.49"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC1(c2ccc(-c3nc4ccccn4c3-c3ccccc3)cc2)CCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035021",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 323,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035021",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1155,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "18.2"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC1(c2ccc(-c3ncc4nccn4c3-c3ccccc3)cc2)CCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035025",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 317,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035025",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 955,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "16.22"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "NC1(c2ccc(-c3nn4ccnc4cc3-c3ccccc3)cc2)CCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035019",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 600,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2035019",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 607,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.76"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Nc1cc(C(F)(F)F)c(-c2cc(N3CCOCC3)nc(N3CCOCC3)n2)cn1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2017974",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 892,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "15.85"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2017974",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 995,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(CC1CCCCCC1)Nc1cccc2c(=O)n([C@H]3CCNC3)ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL552512",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 548,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL552512",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 997,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.4"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(Cc1ccc(Cl)c(C(F)(F)F)c1)Nc1cccc2c(=O)n(CCO)ccc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL560219",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 570,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "11.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL560219",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 796,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "32.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(NCC12CC3CC(CC(C3)C1)C2)c1cc(-n2ncc(=O)[nH]c2=O)ccc1Cl",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL551170",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 330,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "15.3"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL551170",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 331,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "37.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(NCC12CC3CC(CC(C3)C1)C2)c1cc(CN2CCNCC2)ccc1Cl",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL235789",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 11,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.46"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL235789",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 270,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(N[C@H](Cc1ccc(Cl)cc1)C(=O)N1CCC(Cn2cncn2)(C2CCCCC2)CC1)[C@H]1Cc2ccccc2CN1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL339053",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 375,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "40.74"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL339053",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 454,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "27.54"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(Nc1cc(-c2ccnc(Nc3ccc(F)cc3)c2)ccn1)C1CCOCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL205078",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 515,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.79"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL205078",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1086,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(Nc1cc(-c2ccnc(Nc3ccccc3)c2)ccn1)C1CCOCC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL203059",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 680,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL203059",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1154,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "16.22"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(Nc1ccc(Cl)c(S(=O)(=O)N2CCNCC2)c1O)Nc1cccc(F)c1Cl",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2178579",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 263,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2178579",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 811,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "41.35"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(Nc1nc2ccccc2s1)c1ccccc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1427959",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 373,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "77.62"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1427959",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 622,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "64.57"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)CCc1ccc(OCc2cc(Cl)ccc2-c2ccccc2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2058529",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 37,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "13.8"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2058529",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1047,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "21.38"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)CCc1ccc(OCc2cccc(Br)c2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1773254",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 474,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "128.82"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1773254",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 577,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)CCc1ccc(OCc2cccc(Oc3ccccc3)c2)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1688458",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 540,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "97.72"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1688458",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 678,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "150.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)CCn1c2c(c3ccccc31)C[C@H](NS(=O)(=O)c1ccc(F)cc1)CC2",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL361812",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 615,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.81"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL361812",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 788,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)COc1ccc(Cl)cc1CN1CCN(S(=O)(=O)Cc2ccccc2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689111",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 23,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1689111",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 261,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)C[C@H](O)C[C@H](O)/C=C/c1c(C2CC2)nc2ccccc2c1-c1ccc(F)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1201753",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 790,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.11"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1201753",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 867,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.5"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)C[C@H]1CC[C@H](c2ccc(-c3ccc(Nc4ccc(C(F)(F)F)nc4)cn3)cc2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2364624",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 243,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "11.48"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2364624",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 827,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)Cc1ccccc1Nc1c(Cl)cccc1Cl",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL139",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 28,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "87.1"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL139",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 924,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "80.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O)c1cc(-c2ccc(F)cc2F)ccc1O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL898",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 4,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.23"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL898",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 409,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "6.31"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(O[C@H]1C[N+]2(CCCOc3ccccc3)CCC1CC2)C(O)(c1cccs1)c1cccs1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1194325",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 668,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "64.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1194325",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 914,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "79.99"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C(c1ccc(F)cc1)C1CCN(CCn2c(=O)[nH]c3ccccc3c2=O)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL51",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 795,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "30.2"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL51",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1030,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "24.55"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C1COC2(CCN(S(=O)(=O)c3ccc(-c4ccc5cccnc5c4)cc3)CC2)CN1C1CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2147032",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 147,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "89.13"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2147032",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 847,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.12"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=C1Nc2ccc(Cl)cc2C(c2ccccc2Cl)=NC1O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL580",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 247,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "4.57"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL580",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 804,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "17.38"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=S(=O)(CCCOCCc1ccccc1)CCNCCc1ccc(O)c2nc(O)sc12",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL82663",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 535,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "91.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL82663",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 648,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "42.5"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=S(=O)(c1ccccc1)N(CC(F)(F)F)c1ccc(C(O)(C(F)(F)F)C(F)(F)F)cc1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL62136",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 232,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.13"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL62136",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1152,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.37"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCCOCCOCCc3ccccc3)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807821",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 264,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807821",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 652,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "58.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCCSCCOCCc3cccc4ccccc34)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807820",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 130,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "85.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807820",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1034,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.78"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCSCCCNCCc3cccc(Cl)c3)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807827",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 313,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807827",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1106,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "7.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCSCCCNCCc3cccc(Cl)c3Cl)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807829",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 161,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807829",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 435,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "19.44"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCSCCCNCCc3ccccc3)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807823",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 139,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "9.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1807823",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 777,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCc3cccc(CNCCc4c(Cl)cccc4Cl)c3)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1947157",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 182,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "78.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1947157",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1151,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "5.17"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCc3cccc(CNCCc4ccccc4F)c3)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1944691",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 85,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1944691",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 165,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "22.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1[nH]c2c(O)ccc([C@@H](O)CNCCc3cccc(CNCCc4ccccn4)c3)c2s1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1945033",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 314,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL1945033",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1058,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "10.0"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "O=c1c2sccc2n(CC2COc3ccccc3O2)c(=O)n1O",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL361546",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 528,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "14.79"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL361546",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 698,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "134.9"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "OC(c1ccc(-c2ccc(CN3CCN(Cc4ccncc4)CC3)cc2)c(F)c1)(C(F)(F)F)C(F)(F)F",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2137199",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 631,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "12.3"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL2137199",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 1093,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "8.71"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    },
+    {
+      "canonical_smiles_rdkit": "Oc1nc2ccccc2n1C1CCN(Cc2ccc(-c3nc4ccccc4cc3-c3ccccc3)cc2)CC1",
+      "members": [
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL359864",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 318,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "3.0"
+        },
+        {
+          "activity_id": null,
+          "identifier": "CHEMBL359864",
+          "raw_filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+          "source": "Clearance_Hepatocyte_AZ",
+          "source_row_1based": 741,
+          "standard_relation": null,
+          "standard_units": null,
+          "target": "35.48"
+        }
+      ],
+      "source": "Clearance_Hepatocyte_AZ"
+    }
+  ]
+}

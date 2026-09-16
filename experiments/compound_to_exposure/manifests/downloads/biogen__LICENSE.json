@@ -1,0 +1,19 @@
+{
+  "byte_size": 1077,
+  "filename": "data/raw/biogen/LICENSE",
+  "final_url": "https://raw.githubusercontent.com/molecularinformatics/Computational-ADME/b00df003de117ce9e5b381afd886095c5f2af2d5/LICENSE",
+  "http_headers": {
+    "Content-Type": "text/plain; charset=utf-8",
+    "ETag": "\"5d23caf014ff1076f6c393caba9d6ce7aab56163e48bc1db88eaeaab093ff649\"",
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:32.772997+00:00",
+  "sha256": "06557ca6eeee99c162df4e5e819167c6103f35faffb51f7b0a4833905280a740",
+  "source": "Biogen",
+  "source_url": "https://raw.githubusercontent.com/molecularinformatics/Computational-ADME/b00df003de117ce9e5b381afd886095c5f2af2d5/LICENSE",
+  "version": {
+    "commit": "b00df003de117ce9e5b381afd886095c5f2af2d5",
+    "repository": "molecularinformatics/Computational-ADME"
+  }
+}

@@ -1,0 +1,33 @@
+test_canonical_equivalence (test_audit.ChemistryTests.test_canonical_equivalence) ... ok
+test_descriptors_reference (test_audit.ChemistryTests.test_descriptors_reference) ... ok
+test_duplicate_counts (test_audit.ChemistryTests.test_duplicate_counts) ... ok
+test_invalid_does_not_match_invalid (test_audit.ChemistryTests.test_invalid_does_not_match_invalid) ... ok
+test_invalid_parse (test_audit.ChemistryTests.test_invalid_parse) ... ok
+test_invalid_valence (test_audit.ChemistryTests.test_invalid_valence) ... ok
+test_missing_parse (test_audit.ChemistryTests.test_missing_parse) ... ok
+test_preserve_salts_charges_isotopes (test_audit.ChemistryTests.test_preserve_salts_charges_isotopes) ... ok
+test_preserve_stereo (test_audit.ChemistryTests.test_preserve_stereo) ... ok
+test_repeatability (test_audit.ChemistryTests.test_repeatability) ... ok
+test_undefined_stereo (test_audit.ChemistryTests.test_undefined_stereo) ... ok
+test_valid_parse (test_audit.ChemistryTests.test_valid_parse) ... ok
+test_deterministic_serialization (test_audit.HashTests.test_deterministic_serialization) ... ok
+test_immutable_reuse_and_refuse_replacement (test_audit.HashTests.test_immutable_reuse_and_refuse_replacement) ... ok
+test_sha256_known_vector (test_audit.HashTests.test_sha256_known_vector) ... ok
+test_microsome_outer_reconciliation (test_audit.ReconciliationTests.test_microsome_outer_reconciliation) ... ok
+test_paired_two_identity_definitions (test_audit.ReconciliationTests.test_paired_two_identity_definitions) ... ok
+test_species_evidence_and_repeated_labels (test_audit.ReconciliationTests.test_species_evidence_and_repeated_labels) ... ok
+test_species_shared_label_ambiguous (test_audit.ReconciliationTests.test_species_shared_label_ambiguous) ... ok
+test_boundary_summaries (test_audit.ValueTests.test_boundary_summaries) ... ok
+test_conflicting_relation (test_audit.ValueTests.test_conflicting_relation) ... ok
+test_exact_decimal_no_tolerance (test_audit.ValueTests.test_exact_decimal_no_tolerance) ... ok
+test_explicit_relation (test_audit.ValueTests.test_explicit_relation) ... ok
+test_missing_chembl_relation_stays_unknown (test_audit.ValueTests.test_missing_chembl_relation_stays_unknown) ... ok
+test_missing_values_not_zero (test_audit.ValueTests.test_missing_values_not_zero) ... ok
+test_relation_parsing (test_audit.ValueTests.test_relation_parsing) ... ok
+test_unknown_relation (test_audit.ValueTests.test_unknown_relation) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.051s
+
+OK
+

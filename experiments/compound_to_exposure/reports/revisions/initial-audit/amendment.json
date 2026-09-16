@@ -1,0 +1,36 @@
+{
+  "archived_utc": "2026-09-16T17:54:07.564857+00:00",
+  "original_files": [
+    {
+      "byte_size": 263854,
+      "filename": "reports/DATA_AUDIT.json",
+      "sha256": "9f9aef3caabbcc5474f0d0f95de6051f539b051d9c92503328f613e962d58963"
+    },
+    {
+      "byte_size": 48747,
+      "filename": "reports/DATA_AUDIT.md",
+      "sha256": "c65d6749ef9c83de2479a92224043b385eb3f92b6504837128972e1dd9d64954"
+    },
+    {
+      "byte_size": 239587,
+      "filename": "reports/CHEMBL_TDC_MICROSOME_RECONCILIATION.csv",
+      "sha256": "a9eac6d7a3201a9345bf1d2ccfc163c5b7aaee9c76d941ee25399a1db9568901"
+    },
+    {
+      "byte_size": 2002,
+      "filename": "reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md",
+      "sha256": "4caa659cd77b1db48f7d6a44c21e7b22b5d364a1a4db801667aaf507340786e3"
+    },
+    {
+      "byte_size": 1049230,
+      "filename": "data/interim/TDC_HEPATOCYTE_SPECIES_ROWS.csv",
+      "sha256": "71d20faa07887c53d0beab28111be1464243134d68dad2f66ec1769ada7b0956"
+    },
+    {
+      "byte_size": 772373,
+      "filename": "data/interim/TDC_HEPATOCYTE_DUPLICATE_LABELS.json",
+      "sha256": "8fbdf9f1887dbf5c8b7e87a2a71aa1ec748fff5e47631d4b4277a0af57c89de1"
+    }
+  ],
+  "reason": "Forensic follow-up: add explicit molecule-ID and parent-ID evidence for strict structure mismatches; clarify null ChEMBL relations and raw TDC row-count discrepancy. Identity rule, raw data and scientific selection unchanged."
+}

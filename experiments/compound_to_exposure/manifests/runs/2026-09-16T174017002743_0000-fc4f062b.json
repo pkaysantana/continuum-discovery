@@ -1,0 +1,76 @@
+{
+  "action": "bootstrap",
+  "command": [
+    "C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\src\\run.py",
+    "bootstrap"
+  ],
+  "elapsed_seconds": 54.423437899997225,
+  "finished_utc": "2026-09-16T17:41:11.832844+00:00",
+  "inputs": [
+    {
+      "byte_size": 6709,
+      "filename": "src/acquire.py",
+      "sha256": "005a2b4f433bc3b44c990a2fecd114194572a38861312983cfb93babc3efd807"
+    },
+    {
+      "byte_size": 1340,
+      "filename": "src/provenance.py",
+      "sha256": "a94497cfacff62bb424f8dd5c30ff5d26515f87fe9d24e9765edfe3cc192a6ee"
+    },
+    {
+      "byte_size": 4718,
+      "filename": "src/run.py",
+      "sha256": "e5d6cad10e2baea1a1764bfcd2f7e4a461d88ae112a1b849f3f4f60e32fa2ce5"
+    },
+    {
+      "byte_size": 2142,
+      "filename": "docs/DATASET_SELECTION_MEMO.md",
+      "sha256": "6fb903b926ec7a3fc3bf87fc9cbf8e18c90cb36ca940996338bea79a97cfb06b"
+    }
+  ],
+  "outputs": [
+    {
+      "byte_size": 1085,
+      "filename": "data/raw/chembl/CHEMBL3301370_assay.json",
+      "sha256": "b47f19c67e3c144b3b53569f1be1c5478a4c9c84cc2d096f7e165a064206d624"
+    },
+    {
+      "byte_size": 212,
+      "filename": "data/raw/chembl/status.json",
+      "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740"
+    },
+    {
+      "byte_size": 1255,
+      "filename": "reports/bootstrap-2026-09-16T174017002743_0000-fc4f062b.log",
+      "sha256": "05d7a9e49612c27a9c274bda7843ff7dcf2cc650f0bad6f216d73591bcda3984"
+    },
+    {
+      "byte_size": 71147,
+      "filename": "manifests/pip_install_report.json",
+      "sha256": "d6f73eb3289d7f2e61ea9332b579ce2810b86b0a27a017398d417ec1becb563a"
+    },
+    {
+      "byte_size": 802,
+      "filename": "manifests/downloads/chembl__CHEMBL3301370_assay.json.json",
+      "sha256": "dfb7adf0139134cff81fcb05aa3df059e5773a58cd54e8140afed855f30a7dee"
+    },
+    {
+      "byte_size": 511,
+      "filename": "manifests/downloads/chembl__status.json.json",
+      "sha256": "1c012f1c89617397d2d799b256767d35d83de48aa449a230f37130fd00d89aa1"
+    },
+    {
+      "byte_size": 1443,
+      "filename": "manifests/runs/2026-09-16T174104009174_0000-a548ef7d.started.json",
+      "sha256": "211c15cd55d9a88c379e4b6f83943ef4d69714571e12eabfcc207855f96fae97"
+    }
+  ],
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.16 (main, Aug 14 2026, 15:34:35) [MSC v.1944 64 bit (AMD64)]",
+  "repository_commit": "9724c17508367b5d6001a4d24cbd034771eb3352",
+  "run_id": "2026-09-16T174017002743_0000-fc4f062b",
+  "started_utc": "2026-09-16T17:40:17.002743+00:00",
+  "status": "SUCCESS"
+}

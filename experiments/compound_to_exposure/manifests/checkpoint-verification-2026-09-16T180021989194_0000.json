@@ -1,0 +1,67 @@
+{
+  "memo": {
+    "byte_size": 2142,
+    "filename": "docs/DATASET_SELECTION_MEMO.md",
+    "sha256": "6fb903b926ec7a3fc3bf87fc9cbf8e18c90cb36ca940996338bea79a97cfb06b"
+  },
+  "raw_files_verified": 18,
+  "report_generating_audit_run": "2026-09-16T175535809514_0000-450f36a2",
+  "reports": [
+    {
+      "byte_size": 56924,
+      "filename": "reports/DATA_AUDIT.md",
+      "sha256": "f437f985560a8bccf13b9babb661dd7e5fc3684091646783bf343b20191d527c"
+    },
+    {
+      "byte_size": 271611,
+      "filename": "reports/DATA_AUDIT.json",
+      "sha256": "ed500f6986ad00764e6baf83f57b9447982362693be8ae99eca3dd7eba294aa6"
+    },
+    {
+      "byte_size": 18438,
+      "filename": "reports/PROVENANCE_TABLE.csv",
+      "sha256": "6e9168a7edcec2b8266b765d18a6997d42e78c829d342b17913182d2aeea6305"
+    },
+    {
+      "byte_size": 1064165,
+      "filename": "reports/CHEMBL_TDC_MICROSOME_RECONCILIATION.csv",
+      "sha256": "f4009534dc6c642ee580288190d0d4940e6d0d6a2220f7416d6f1ef2920b7c51"
+    },
+    {
+      "byte_size": 4888,
+      "filename": "reports/PAIRED_HUMAN_COHORT_AUDIT.md",
+      "sha256": "488f9bb1dfda32055322a984211fd71648f4e3eec3c1171da2717b12c6307d3e"
+    },
+    {
+      "byte_size": 2414,
+      "filename": "reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md",
+      "sha256": "1689bbd183afa1f4708f258159a2499a4b1e64e9233d09451821138d7024af01"
+    },
+    {
+      "byte_size": 12778,
+      "filename": "reports/BIOGEN_AUDIT.md",
+      "sha256": "92fb5c0a8128f47ae4b91597e047b8a1dcee06d3f7aecc493ee5994a78afb217"
+    }
+  ],
+  "scope": "Integrity checks only; no scientific data transformations.",
+  "status": "SUCCESS",
+  "test_results": [
+    {
+      "errors": 0,
+      "failed": 0,
+      "passed": 27,
+      "run": 27,
+      "skipped": 0,
+      "status": "SUCCESS"
+    },
+    {
+      "errors": 0,
+      "failed": 0,
+      "passed": 30,
+      "run": 30,
+      "skipped": 0,
+      "status": "SUCCESS"
+    }
+  ],
+  "verified_utc": "2026-09-16T18:00:21.989194+00:00"
+}

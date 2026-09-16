@@ -1,0 +1,16 @@
+{
+  "byte_size": 71,
+  "filename": "data/raw/tdc/clearance_microsome_az_metadata.json",
+  "final_url": "https://dataverse.harvard.edu/api/files/4266186/metadata",
+  "http_headers": {
+    "Content-Type": "text/plain;charset=UTF-8",
+    "ETag": null,
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:27.433112+00:00",
+  "sha256": "29ff99f182fc1d47c5a2d9dad6806ef19671d013ab64d4f1157077bbdb5120a5",
+  "source": "clearance_microsome_az",
+  "source_url": "https://dataverse.harvard.edu/api/files/4266186/metadata",
+  "version": "1.1.15"
+}

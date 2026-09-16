@@ -1,0 +1,16 @@
+{
+  "byte_size": 154168,
+  "filename": "data/raw/tdc/pytdc-1.1.15.tar.gz",
+  "final_url": "https://files.pythonhosted.org/packages/db/bf/db7525f0e9c48d340a66ae11ed46bbb1966234660a6882ce47d1e1d52824/pytdc-1.1.15.tar.gz",
+  "http_headers": {
+    "Content-Type": "application/octet-stream",
+    "ETag": "\"17ffbbe906c2f47c91f5300e132a2b0a\"",
+    "Last-Modified": "Mon, 31 Mar 2025 15:20:17 GMT"
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:24.948409+00:00",
+  "sha256": "cd6164859af7b9b6f60e0c6d6e50679eacaffd09cfdea1acfc8bb7360e8e2205",
+  "source": "PyTDC",
+  "source_url": "https://files.pythonhosted.org/packages/db/bf/db7525f0e9c48d340a66ae11ed46bbb1966234660a6882ce47d1e1d52824/pytdc-1.1.15.tar.gz",
+  "version": "1.1.15"
+}

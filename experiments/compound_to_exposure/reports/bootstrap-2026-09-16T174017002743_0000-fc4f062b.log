@@ -1,0 +1,17 @@
+Subcommand: "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Scripts\python.exe" -B -m pip install --disable-pip-version-check --report "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\manifests\pip_install_report.json" rdkit==2025.3.6 numpy==2.2.6
+Collecting rdkit==2025.3.6
+  Downloading rdkit-2025.3.6-cp311-cp311-win_amd64.whl.metadata (4.2 kB)
+Collecting numpy==2.2.6
+  Downloading numpy-2.2.6-cp311-cp311-win_amd64.whl.metadata (60 kB)
+     ---------------------------------------- 60.8/60.8 kB 1.6 MB/s eta 0:00:00
+Collecting Pillow (from rdkit==2025.3.6)
+  Downloading pillow-12.3.0-cp311-cp311-win_amd64.whl.metadata (9.3 kB)
+Downloading rdkit-2025.3.6-cp311-cp311-win_amd64.whl (23.5 MB)
+   ---------------------------------------- 23.5/23.5 MB 8.3 MB/s eta 0:00:00
+Downloading numpy-2.2.6-cp311-cp311-win_amd64.whl (12.9 MB)
+   ---------------------------------------- 12.9/12.9 MB 9.9 MB/s eta 0:00:00
+Downloading pillow-12.3.0-cp311-cp311-win_amd64.whl (7.2 MB)
+   ---------------------------------------- 7.2/7.2 MB 10.5 MB/s eta 0:00:00
+Installing collected packages: Pillow, numpy, rdkit
+Successfully installed Pillow-12.3.0 numpy-2.2.6 rdkit-2025.3.6
+

@@ -1,0 +1,31 @@
+Acquired chembl/status.json 212 bytes
+Acquired chembl/CHEMBL3301370_assay.json 1085 bytes
+Acquired chembl/CHEMBL3301370_activities_00000.json 1474958 bytes
+Acquired chembl/CHEMBL3301370_activities_01000.json 150154 bytes
+CHEMBL3301370 OBSERVED activities: 1102
+Acquired chembl/CHEMBL3301371_assay.json 1133 bytes
+Acquired chembl/CHEMBL3301371_activities_00000.json 1251418 bytes
+CHEMBL3301371 OBSERVED activities: 837
+Acquired chembl/CHEMBL3301372_assay.json 1101 bytes
+Acquired chembl/CHEMBL3301372_activities_00000.json 610243 bytes
+CHEMBL3301372 OBSERVED activities: 408
+Acquired tdc/PyTDC-1.1.15-pypi.json 23967 bytes
+Acquired tdc/pytdc-1.1.15.tar.gz 154168 bytes
+Acquired tdc/clearance_microsome_az.tab 81661 bytes
+Acquired tdc/clearance_microsome_az_metadata.json 71 bytes
+Acquired tdc/clearance_hepatocyte_az.tab 91565 bytes
+Acquired tdc/clearance_hepatocyte_az_metadata.json 72 bytes
+Acquired biogen/source_commit.json 5371 bytes
+Acquired biogen/ADME_public_set_3521.csv 388279 bytes
+Acquired biogen/README.md 4409 bytes
+Acquired biogen/LICENSE 1077 bytes
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 73, in main
+    acquire_all()
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\acquire.py", line 131, in acquire_all
+    chembl(); tdc(); biogen(); manifest()
+                               ^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\acquire.py", line 121, in manifest
+    rec.update(raw_row_count=len(items) if items is not None else 1,
+                             ^^^^^^^^^^
+TypeError: object of type 'int' has no len()

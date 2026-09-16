@@ -1,0 +1,20 @@
+{
+  "byte_size": 91565,
+  "filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+  "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/21LKWG/17677e93bfc-58ea7300f15b?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27clearance_hepatocyte_az.tab&response-content-type=text%2Ftab-separated-values&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260916T174128Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20260916%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=ee88d4ba617e205291183cc7acff1bcaab4ed2e31baa72d629f3d2e9446fb724",
+  "http_headers": {
+    "Content-Type": "text/tab-separated-values",
+    "ETag": "\"7036ab2a23f6db37843d0ecc072bbddc\"",
+    "Last-Modified": "Sun, 15 Feb 2026 20:09:13 GMT"
+  },
+  "kind": "dataset",
+  "retrieved_utc": "2026-09-16T17:41:29.439504+00:00",
+  "sha256": "2c217f46600c22e107b72faa2bfb1d9bf799213aee47b601f6e0d6d73b68f274",
+  "source": "clearance_hepatocyte_az",
+  "source_url": "https://dataverse.harvard.edu/api/access/datafile/4266187",
+  "version": {
+    "PyTDC": "1.1.15",
+    "dataverse_file_id": 4266187,
+    "method": "Direct byte download using exact sdist name2id registry; PyTDC is not installed or invoked."
+  }
+}

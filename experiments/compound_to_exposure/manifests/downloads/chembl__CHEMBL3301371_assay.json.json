@@ -1,0 +1,25 @@
+{
+  "byte_size": 1133,
+  "filename": "data/raw/chembl/CHEMBL3301371_assay.json",
+  "final_url": "https://www.ebi.ac.uk/chembl/api/data/assay/CHEMBL3301371.json",
+  "http_headers": {
+    "Content-Type": "application/json",
+    "ETag": null,
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:13.721451+00:00",
+  "sha256": "43c82c98ae5083645d7a560ab7269b808f4185fe4bd912073ebcf642bfe84cb0",
+  "source": "CHEMBL3301371",
+  "source_url": "https://www.ebi.ac.uk/chembl/api/data/assay/CHEMBL3301371.json",
+  "version": {
+    "activities": 24527044,
+    "chembl_db_version": "ChEMBL_37",
+    "chembl_release_date": "2026-05-01",
+    "compound_records": 3824604,
+    "disinct_compounds": 2921148,
+    "publications": 101100,
+    "status": "UP",
+    "targets": 18552
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "action": "bootstrap",
+  "command": [
+    "C:\\Users\\Don\\AppData\\Roaming\\uv\\python\\cpython-3.11.16-windows-x86_64-none\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\src\\run.py",
+    "bootstrap"
+  ],
+  "inputs": [
+    {
+      "byte_size": 6709,
+      "filename": "src/acquire.py",
+      "sha256": "005a2b4f433bc3b44c990a2fecd114194572a38861312983cfb93babc3efd807"
+    },
+    {
+      "byte_size": 1340,
+      "filename": "src/provenance.py",
+      "sha256": "a94497cfacff62bb424f8dd5c30ff5d26515f87fe9d24e9765edfe3cc192a6ee"
+    },
+    {
+      "byte_size": 4718,
+      "filename": "src/run.py",
+      "sha256": "e5d6cad10e2baea1a1764bfcd2f7e4a461d88ae112a1b849f3f4f60e32fa2ce5"
+    },
+    {
+      "byte_size": 2142,
+      "filename": "docs/DATASET_SELECTION_MEMO.md",
+      "sha256": "6fb903b926ec7a3fc3bf87fc9cbf8e18c90cb36ca940996338bea79a97cfb06b"
+    }
+  ],
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.16 (main, Aug 14 2026, 15:34:35) [MSC v.1944 64 bit (AMD64)]",
+  "repository_commit": "9724c17508367b5d6001a4d24cbd034771eb3352",
+  "run_id": "2026-09-16T174017002743_0000-fc4f062b",
+  "started_utc": "2026-09-16T17:40:17.002743+00:00",
+  "status": "RUNNING"
+}

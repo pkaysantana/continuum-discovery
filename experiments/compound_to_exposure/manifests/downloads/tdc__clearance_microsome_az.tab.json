@@ -1,0 +1,20 @@
+{
+  "byte_size": 81661,
+  "filename": "data/raw/tdc/clearance_microsome_az.tab",
+  "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/21LKWG/17677e93a32-c1a3f89098fb?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27clearance_microsome_az.tab&response-content-type=text%2Ftab-separated-values&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260916T174125Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20260916%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=d9d017dd721ca1a74a1d09279fda91bd9b0e1033be9935deefd0f792c99c075c",
+  "http_headers": {
+    "Content-Type": "text/tab-separated-values",
+    "ETag": "\"dea064639a6b136e6cca73e384867da5\"",
+    "Last-Modified": "Sun, 15 Feb 2026 20:09:09 GMT"
+  },
+  "kind": "dataset",
+  "retrieved_utc": "2026-09-16T17:41:26.513013+00:00",
+  "sha256": "4c9047dc1860cc05d5bdc09aa9cfef86a40740605c2ff06990b1fceb6085db9d",
+  "source": "clearance_microsome_az",
+  "source_url": "https://dataverse.harvard.edu/api/access/datafile/4266186",
+  "version": {
+    "PyTDC": "1.1.15",
+    "dataverse_file_id": 4266186,
+    "method": "Direct byte download using exact sdist name2id registry; PyTDC is not installed or invoked."
+  }
+}

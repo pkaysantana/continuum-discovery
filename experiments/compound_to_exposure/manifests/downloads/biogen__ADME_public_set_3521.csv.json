@@ -1,0 +1,19 @@
+{
+  "byte_size": 388279,
+  "filename": "data/raw/biogen/ADME_public_set_3521.csv",
+  "final_url": "https://raw.githubusercontent.com/molecularinformatics/Computational-ADME/b00df003de117ce9e5b381afd886095c5f2af2d5/ADME_public_set_3521.csv",
+  "http_headers": {
+    "Content-Type": "text/plain; charset=utf-8",
+    "ETag": "\"8033af1bd08a1180c3985a12ff880979d69a4353e1672b87ef6a97c18c1a3515\"",
+    "Last-Modified": null
+  },
+  "kind": "dataset",
+  "retrieved_utc": "2026-09-16T17:41:31.362403+00:00",
+  "sha256": "2cfabc2667740c224487876c33b23124159ef43294e0f9e4d926cb6276c95a3b",
+  "source": "Biogen",
+  "source_url": "https://raw.githubusercontent.com/molecularinformatics/Computational-ADME/b00df003de117ce9e5b381afd886095c5f2af2d5/ADME_public_set_3521.csv",
+  "version": {
+    "commit": "b00df003de117ce9e5b381afd886095c5f2af2d5",
+    "repository": "molecularinformatics/Computational-ADME"
+  }
+}

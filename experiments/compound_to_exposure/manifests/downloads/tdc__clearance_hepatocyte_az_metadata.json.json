@@ -1,0 +1,16 @@
+{
+  "byte_size": 72,
+  "filename": "data/raw/tdc/clearance_hepatocyte_az_metadata.json",
+  "final_url": "https://dataverse.harvard.edu/api/files/4266187/metadata",
+  "http_headers": {
+    "Content-Type": "text/plain;charset=UTF-8",
+    "ETag": null,
+    "Last-Modified": null
+  },
+  "kind": "support",
+  "retrieved_utc": "2026-09-16T17:41:30.002709+00:00",
+  "sha256": "8bce3bbf82dad49b4fbb90f9210723de7fb652816485b3da4473a74b1e480e48",
+  "source": "clearance_hepatocyte_az",
+  "source_url": "https://dataverse.harvard.edu/api/files/4266187/metadata",
+  "version": "1.1.15"
+}
