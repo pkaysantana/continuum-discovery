@@ -1,0 +1,25 @@
+{
+  "analysis_condition": "apo",
+  "method": "lacuna",
+  "input_path": "data/processed/apo_matched_core.pdb",
+  "input_sha256": "b0d20bfd4907b92929161c78790051471de261a917371b40da3aa418a3d64693",
+  "tool_path": "lacuna CLI",
+  "tool_version": "1.2.0",
+  "command_template": "lacuna discover {INPUT} --conformers 20 --detector alpha --rank-by learned --no-sequence -o {OUTPUT}",
+  "parameters": {
+    "backend": "nma",
+    "cutoff": 8.0,
+    "n_modes": 10,
+    "max_rmsd": 2.0,
+    "seed": 42,
+    "conformers": 20,
+    "detector": "alpha",
+    "rank-by": "learned",
+    "no_sequence": true,
+    "seed_from_sequence": false
+  },
+  "ranking_configuration": "learned",
+  "candidate_budget": 10,
+  "environment_identifier": "python-3.11-lacuna",
+  "expected_output_directory": "results/analysis_b/raw/lacuna_apo"
+}

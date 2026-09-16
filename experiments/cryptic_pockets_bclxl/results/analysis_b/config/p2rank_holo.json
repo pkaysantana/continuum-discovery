@@ -1,0 +1,20 @@
+{
+  "analysis_condition": "holo_control",
+  "method": "p2rank",
+  "input_path": "data/processed/holo_matched_core_no_ligand.pdb",
+  "input_sha256": "8162ea71785ea6e6ecc75d3be07bca42852cd9eacbcbe75f4039f7423a255ea4",
+  "tool_path": "p2rank_2.5.1/prank.sh",
+  "tool_version": "2.5.1",
+  "java_version": "21.0.2",
+  "command_template": "prank predict -f {INPUT} -o {OUTPUT} -threads 1 -seed 42 -visualizations 0",
+  "parameters": {
+    "threads": 1,
+    "seed": 42,
+    "visualizations": 0,
+    "model": "default"
+  },
+  "ranking_configuration": "default",
+  "candidate_budget": "all",
+  "environment_identifier": "java-21-pinned",
+  "expected_output_directory": "results/analysis_b/raw/p2rank_holo"
+}
