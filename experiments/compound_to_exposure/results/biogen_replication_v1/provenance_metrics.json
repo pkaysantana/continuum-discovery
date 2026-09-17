@@ -1,0 +1,114 @@
+{
+  "primary_metrics": [
+    {
+      "cell": "mean_baseline",
+      "mae": 0.5367599196080843,
+      "rmse": 0.6240720116795122,
+      "spearman_rho": -0.032022158944788465
+    },
+    {
+      "cell": "median_baseline",
+      "mae": 0.5316231708500162,
+      "rmse": 0.6349254523851514,
+      "spearman_rho": -0.023424365652140334
+    },
+    {
+      "cell": "Ridge_descriptors",
+      "mae": 0.43835428865790127,
+      "rmse": 0.5384700250745459,
+      "spearman_rho": 0.5491918413535828
+    },
+    {
+      "cell": "Ridge_Morgan",
+      "mae": 0.42659708583773076,
+      "rmse": 0.5349862631627716,
+      "spearman_rho": 0.5412647876322099
+    },
+    {
+      "cell": "RandomForestRegressor_descriptors",
+      "mae": 0.41728434917903756,
+      "rmse": 0.5226848108080563,
+      "spearman_rho": 0.5511938891154852
+    },
+    {
+      "cell": "RandomForestRegressor_Morgan",
+      "mae": 0.44971266039625846,
+      "rmse": 0.5464233272571771,
+      "spearman_rho": 0.4852743724004629
+    }
+  ],
+  "sensitivity_metrics": [
+    {
+      "cell": "mean_baseline",
+      "mae": 0.4519085424190417,
+      "rmse": 0.5420525861794818,
+      "spearman_rho": -0.038956976624301774
+    },
+    {
+      "cell": "median_baseline",
+      "mae": 0.4504409551178957,
+      "rmse": 0.5441524410186667,
+      "spearman_rho": -0.03826426713659307
+    },
+    {
+      "cell": "Ridge_descriptors",
+      "mae": 0.41350113539464595,
+      "rmse": 0.5050172719918689,
+      "spearman_rho": 0.3784542399891806
+    },
+    {
+      "cell": "Ridge_Morgan",
+      "mae": 0.41536763578689695,
+      "rmse": 0.5166832961646322,
+      "spearman_rho": 0.3845204921652081
+    },
+    {
+      "cell": "RandomForestRegressor_descriptors",
+      "mae": 0.4011826661124572,
+      "rmse": 0.49220207886189327,
+      "spearman_rho": 0.4001975831205386
+    },
+    {
+      "cell": "RandomForestRegressor_Morgan",
+      "mae": 0.41535825201161575,
+      "rmse": 0.5019078587235096,
+      "spearman_rho": 0.34390457393009627
+    }
+  ],
+  "primary_ad": [
+    {
+      "cell": "Ridge_descriptors",
+      "ad_spearman_rho": -0.0013207924294587033
+    },
+    {
+      "cell": "Ridge_Morgan",
+      "ad_spearman_rho": -0.06314336376372914
+    },
+    {
+      "cell": "RandomForestRegressor_descriptors",
+      "ad_spearman_rho": -0.045604592237365175
+    },
+    {
+      "cell": "RandomForestRegressor_Morgan",
+      "ad_spearman_rho": -0.07190133297828179
+    }
+  ],
+  "sensitivity_ad": [
+    {
+      "cell": "Ridge_descriptors",
+      "ad_spearman_rho": -0.0063121100446644615
+    },
+    {
+      "cell": "Ridge_Morgan",
+      "ad_spearman_rho": -0.0709830512453563
+    },
+    {
+      "cell": "RandomForestRegressor_descriptors",
+      "ad_spearman_rho": -0.025997625442691998
+    },
+    {
+      "cell": "RandomForestRegressor_Morgan",
+      "ad_spearman_rho": -0.06309119697904096
+    }
+  ]
+}

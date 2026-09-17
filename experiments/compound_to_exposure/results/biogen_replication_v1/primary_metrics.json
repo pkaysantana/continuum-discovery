@@ -1,0 +1,38 @@
+[
+  {
+    "cell": "mean_baseline",
+    "mae": 0.5367599196080843,
+    "rmse": 0.6240720116795122,
+    "spearman_rho": -0.032022158944788465
+  },
+  {
+    "cell": "median_baseline",
+    "mae": 0.5316231708500162,
+    "rmse": 0.6349254523851514,
+    "spearman_rho": -0.023424365652140334
+  },
+  {
+    "cell": "Ridge_descriptors",
+    "mae": 0.43835428865790127,
+    "rmse": 0.5384700250745459,
+    "spearman_rho": 0.5491918413535828
+  },
+  {
+    "cell": "Ridge_Morgan",
+    "mae": 0.42659708583773076,
+    "rmse": 0.5349862631627716,
+    "spearman_rho": 0.5412647876322099
+  },
+  {
+    "cell": "RandomForestRegressor_descriptors",
+    "mae": 0.41728434917903756,
+    "rmse": 0.5226848108080563,
+    "spearman_rho": 0.5511938891154852
+  },
+  {
+    "cell": "RandomForestRegressor_Morgan",
+    "mae": 0.44971266039625846,
+    "rmse": 0.5464233272571771,
+    "spearman_rho": 0.4852743724004629
+  }
+]

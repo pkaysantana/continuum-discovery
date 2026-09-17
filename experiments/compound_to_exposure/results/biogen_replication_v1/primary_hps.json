@@ -1,0 +1,70 @@
+{
+  "Ridge_descriptors": {
+    "fold_0": {
+      "alpha": 0.1
+    },
+    "fold_1": {
+      "alpha": 0.1
+    },
+    "fold_2": {
+      "alpha": 0.1
+    },
+    "fold_3": {
+      "alpha": 0.1
+    },
+    "fold_4": {
+      "alpha": 0.1
+    }
+  },
+  "Ridge_Morgan": {
+    "fold_0": {
+      "alpha": 10.0
+    },
+    "fold_1": {
+      "alpha": 10.0
+    },
+    "fold_2": {
+      "alpha": 10.0
+    },
+    "fold_3": {
+      "alpha": 10.0
+    },
+    "fold_4": {
+      "alpha": 10.0
+    }
+  },
+  "RandomForestRegressor_descriptors": {
+    "fold_0": {
+      "max_depth": 10
+    },
+    "fold_1": {
+      "max_depth": 10
+    },
+    "fold_2": {
+      "max_depth": 10
+    },
+    "fold_3": {
+      "max_depth": 10
+    },
+    "fold_4": {
+      "max_depth": 10
+    }
+  },
+  "RandomForestRegressor_Morgan": {
+    "fold_0": {
+      "max_depth": null
+    },
+    "fold_1": {
+      "max_depth": null
+    },
+    "fold_2": {
+      "max_depth": null
+    },
+    "fold_3": {
+      "max_depth": null
+    },
+    "fold_4": {
+      "max_depth": null
+    }
+  }
+}

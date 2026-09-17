@@ -1,0 +1,18 @@
+[
+  {
+    "cell": "Ridge_descriptors",
+    "ad_spearman_rho": -0.0013207924294587033
+  },
+  {
+    "cell": "Ridge_Morgan",
+    "ad_spearman_rho": -0.06314336376372914
+  },
+  {
+    "cell": "RandomForestRegressor_descriptors",
+    "ad_spearman_rho": -0.045604592237365175
+  },
+  {
+    "cell": "RandomForestRegressor_Morgan",
+    "ad_spearman_rho": -0.07190133297828179
+  }
+]
