@@ -1,64 +1,100 @@
-# Compound-to-exposure: frozen-source forensic audit
+# Compound-to-Exposure: In Vitro HLM Clearance Prediction
 
-## Scope and authority
+## Scientific Question
+How well can simple 2D molecular representations predict experimentally reported human liver microsomal intrinsic clearance under chemically held-out validation, and where do those predictions fail?
 
-EXPECTED_FROM_MEMO: [DATASET_SELECTION_MEMO.md](docs/DATASET_SELECTION_MEMO.md), frozen in commit `9724c17`, is the scientific source of truth. Dataset selection is unchanged: direct ChEMBL is primary; TDC is for benchmark reproduction; its hepatocyte dataset is excluded; Biogen is for within-dataset replication. Rat hepatocytes are audit/exclusion evidence only.
+## Why HLM Clearance?
+In the DMPK context, a critical progression is:
+*chemistry → metabolic stability/intrinsic clearance → systemic PK/exposure*
 
-OBSERVED: This checkpoint contains acquisition, identity/censoring/duplicate audits, cohort membership and descriptive chemical properties only. No predictive models, fitting, hyperparameters, target transformations, censor removal, outlier removal, modelling preprocessing or splits were run. No HLM/HH ratio, difference, physiological scaling or correlation was calculated.
+Human Liver Microsomes (HLM) provide a simplified *in vitro* system to assess Phase I metabolic stability (primarily cytochrome P450-mediated metabolism). This project explicitly **stops at the in-vitro HLM level**. It does not attempt to predict *in vivo* clearance or model patient exposure, as those require substantial additional physiological and compartmental inputs.
 
-## Review entry points
+## Data
 
-- [Concise findings and unresolved discrepancies](reports/REVIEW_SUMMARY.md)
-- [Proposed censoring policy for the modelling study](docs/CENSORING_POLICY_MEMO.md) — prospective; written before any model is fitted
-- [Preserved independent review](reports/AUDIT_REVIEW.md) and [correction archive](reports/revisions/independent-review/amendment.json)
-- [Complete audit](reports/DATA_AUDIT.md) and [machine-readable evidence](reports/DATA_AUDIT.json)
-- [Provenance table](reports/PROVENANCE_TABLE.csv) and [raw manifest](manifests/source_manifest.json)
-- [Microsome row reconciliation](reports/CHEMBL_TDC_MICROSOME_RECONCILIATION.csv)
-- [Paired human membership](reports/PAIRED_HUMAN_COHORT_AUDIT.md)
-- [Hepatocyte species audit](reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md)
-- [Biogen audit](reports/BIOGEN_AUDIT.md)
+### Direct AZ/ChEMBL HLM
+The primary dataset is derived from ChEMBL3301370, representing a direct AstraZeneca assay for human liver microsome apparent intrinsic clearance.
+*   **Total Source N:** 1102
+*   **Primary Continuous N:** 744 (IN-RANGE subset)
+*   **Censoring:** 274 BELOW limit, 84 ABOVE limit.
 
-## Acquisition and identity
+### TDC Historical Benchmark
+The historical `Clearance_Microsome_AZ` dataset from PyTDC 1.1.15. This dataset heavily overlaps with the direct AZ source. It is used strictly for historical benchmark comparability and **is NOT an independent external validation**.
+*   **Train:** 771
+*   **Valid:** 110 (Used exclusively for hyperparameter selection)
+*   **Test:** 221 (Used for the single final evaluation)
 
-OBSERVED: ChEMBL 37 API metadata and every paginated activity response are retained verbatim. Biogen is pinned to author repository commit `b00df003de117ce9e5b381afd886095c5f2af2d5`. All URLs, UTC retrieval times, release information, schemas, byte sizes and SHA-256 hashes are recorded per downloaded file. Source assay organism/taxonomy determines species; a null target-organism field is not substituted for assay metadata.
+### Human Hepatocyte Paired Dataset
+A secondary paired dataset matching overlapping compounds in Human Hepatocytes (HH, ChEMBL3301372). Hepatocytes are intact whole cells. 
+*   **Paired N:** 187 exact overlapping structures
+*   **Doubly-in-range continuous N:** 96
 
-OBSERVED: TDC acquisition uses the exact **PyTDC 1.1.15 source distribution**, checked against its PyPI SHA-256. The two Dataverse file IDs come from its `name2id` registry, read as literal source data. The package is **not installed or invoked**; this avoids unrelated modelling dependencies and loader filtering. The preserved source loader accepts raw X/Y/ID and drops missing targets; our raw-table audit retains all rows. PyTDC's raw CSV/tabular artifact is the source being audited, not a claimed PyTDC execution.
+### Independent Biogen HLM Dataset
+An independent historical public HLM dataset used to assess methodology reproducibility.
+*   **Total Source N:** 3521
+*   **Populated N:** 3087
+*   **Missing Target N:** 434
+*   **Caveat:** The Biogen dataset contains an unresolved accumulation of 958 observations at a single minimum value, and the explicit log base convention is undefined. 
 
-INFERRED: Structure identity is equality of RDKit 2025.03.6 sanitized isomeric canonical SMILES. Charge, isotopes, stereochemistry and all disconnected components are retained. No salt removal, parent selection or tautomer normalization occurs. Secondary molecule-ID and ChEMBL-declared parent-ID matches are evidence only and never replace the primary strict structure comparison. Missing/invalid structures never match one another.
+## Censoring and Data-Quality Policy
+*   **<3 and >150 Limits:** Historical values explicitly qualified with inequalities were treated strictly as censored categories (BELOW/ABOVE) rather than invented continuous numerical values.
+*   **Ambiguous Records:** 13 HLM records containing the exact scalar value 3.0 with no relation qualifier were flagged. Sensitivity analyses confirmed the major conclusions were robust to these observations.
+*   **Biogen Minimum Pile-up:** The 958 records piled at 0.675686709 were retained in the primary track because they are not proven to be censored limits. Sensitivity analysis assessed their impact.
 
-INFERRED: Numeric label agreement uses exact Decimal equality, without a tolerance or rounding. Original qualifiers are retained separately, so agreement at a censored boundary is not proof of equal true clearance. Missing ChEMBL relations remain UNKNOWN; no implicit equals is assigned. Bare TDC/Biogen numbers have no encoded inequality, but this does not establish that measurements were uncensored. Missing tokens are None, blank/whitespace, NA, N/A, NaN, null and none, case-insensitively; zero is not missing.
+## Modelling
+*   **Representations:** 7 fundamental RDKit physicochemical descriptors versus high-dimensional Morgan fingerprints.
+*   **Algorithms:** Ridge (regularized linear) and Random Forest (non-linear tree ensemble) for both regression and classification.
+*   **Validation:** 5-fold StratifiedGroupKFold on explicit Bemis-Murcko scaffolds to prevent chemically inflated metrics.
+*   **Baselines:** Trivial mean/median and majority class baselines to explicitly benchmark useful predictive lift.
+*   **Tuning:** Nested inner cross-validation strictly held within the training folds.
 
-INFERRED: Descriptors are only for characterisation: molecular weight, RDKit Crippen cLogP, TPSA, Lipinski HBD/HBA, strict rotatable bonds and fraction Csp3. Statistics are row-weighted (including duplicates), with linear quantiles, IQR and unscaled MAD. Censored numeric values describe supplied boundaries, not latent clearance. Undefined stereo counts use `FindPotentialStereo` elements marked `Unspecified`. All original rows remain in `data/interim/*_rows.csv`; they are evidence tables, not modelling-ready datasets.
+## Results
 
-## Reproduction
+### AZ Primary
+*   **Regression (N=744):** Random Forest with Morgan fingerprints achieved the best absolute error (MAE ≈ 0.326, Spearman $\rho \approx 0.417$). Ridge Morgan achieved MAE ≈ 0.334 and Spearman $\rho \approx 0.391$. Descriptors provided substantially lower rank correlation for Ridge ($\rho \approx 0.120$). All learned cells beat the trivial baseline (MAE ≈ 0.376).
+*   **Classification (N=1102):** RF Morgan achieved the highest Macro-F1 (0.481), heavily outperforming the majority baseline (0.269).
+*   **Tail Ordering:** Models successfully discriminated both lower (stable) and upper (unstable) extremes (Tail scores 0.645–0.716).
+*   **Sensitivity (S1):** Removing the 13 ambiguous null-at-3 observations left metrics virtually unchanged (RF Morgan MAE ≈ 0.322).
 
-OBSERVED: The checkpoint was produced on Windows with CPython 3.11.16, RDKit 2025.03.6 and NumPy 2.2.6. The installed Pillow dependency is 12.3.0. The installation receipt includes exact wheel URLs and hashes. The environment is isolated inside this experiment; no historical environment is changed.
+### TDC Benchmark
+*   **Convention:** Train-only fit (Valid used solely for hyperparameter selection).
+*   **Results (N=221 Test):** Ridge Morgan achieved the best rank-ordering (Spearman $\rho \approx 0.499$), substantially outperforming baseline predictions.
 
-From the repository root, use a Python 3.11.16 interpreter to create the experiment environment **only when `.venv` does not exist**:
+### HLM–HH Paired Analysis
+*   **Category Agreement (N=187):** Majority censoring-category agreement was observed (68.45% exact agreement), with no observed non-adjacent BELOW↔ABOVE disagreements.
+*   **Continuous Agreement (N=96):** Moderate rank correlation was preserved (Spearman $\rho \approx 0.486$).
+*   **Sensitivity (S1):** N=94, Spearman $\rho \approx 0.505$.
 
-```powershell
-python -B experiments/compound_to_exposure/src/run.py bootstrap
-```
+### Biogen Replication
+*   **Primary (N=3087):** RF Descriptors ($\rho \approx 0.551$), Ridge Descriptors ($\rho \approx 0.549$), and Ridge Morgan ($\rho \approx 0.541$) all achieved robust rank-ordering. 
+*   **Sensitivity (N=2129):** After excluding the 958 unresolved minimum-valued records, MAE and RMSE decreased while Spearman rank correlation also decreased. Because the sensitivity cohort differs substantially in target distribution and composition, these changes are not attributed to a single cause.
 
-Then:
+## Cross-Study Findings
+*   Molecular structure contains reproducible information about reported *in-vitro* HLM intrinsic-clearance behaviour beyond trivial baselines.
+*   Representation/model superiority is dataset-dependent: Morgan is particularly useful in AZ/TDC, while seven simple physicochemical descriptors can retain substantial predictive signal, particularly in Biogen, but their usefulness relative to Morgan fingerprints is dataset- and model-dependent.
+*   HLM and intact human hepatocytes preserve moderate relative clearance ranking but are not numerically interchangeable.
+*   Maximum training-set Morgan similarity is at most a weak predictor of model error and does not provide a robust cross-dataset confidence rule.
 
-```powershell
-& experiments/compound_to_exposure/.venv/Scripts/python.exe -B experiments/compound_to_exposure/src/run.py acquire
-& experiments/compound_to_exposure/.venv/Scripts/python.exe -B experiments/compound_to_exposure/src/run.py test
-& experiments/compound_to_exposure/.venv/Scripts/python.exe -B experiments/compound_to_exposure/src/run.py audit
-& experiments/compound_to_exposure/.venv/Scripts/python.exe -B experiments/compound_to_exposure/src/run.py verify
-```
+### Cross-Study Spearman Comparison
 
-OBSERVED: With the committed raw files, acquisition verifies and reuses local bytes without requesting replacement data. A changed URL, missing receipt or mismatched raw hash fails. A fresh acquisition against future live ChEMBL may differ; it is a new acquisition, not a recreation of this snapshot. Use the committed raw inputs for exact reproduction. Reports are also compared byte-for-byte on rerun; environment differences recorded inside reports can cause an explicit mismatch requiring a documented new output location/amendment.
+| Model | AZ primary | TDC test | Biogen primary | Biogen sensitivity |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ridge descriptors** | 0.120 | 0.146 | 0.549 | 0.378 |
+| **Ridge Morgan** | 0.391 | 0.499 | 0.541 | 0.384 |
+| **RF descriptors** | 0.362 | 0.266 | 0.551 | 0.400 |
+| **RF Morgan** | 0.417 | 0.371 | 0.485 | 0.343 |
 
-OBSERVED: `src/run.py` records commands, source/input hashes, timestamps, code commit, outputs/hashes and SUCCESS/FAILED status. Tests include offline synthetic failure fixtures and read-only frozen-data regressions against commit `13715550adad0a628e92da6cf34568000ddbc797`, which must remain available in Git history. They compare the complete original machine-readable report (allowing only the documented classification wording and added rule explanation), unchanged evidence tables, raw hashes and receipts. No test supplies replacement scientific results. An initial manifest type error is retained as FAILED with its traceback. The first successful derived audit was explicitly archived before adding ID/parent-ID forensic follow-up; its report hashes and code snapshot are under `reports/revisions/initial-audit/`. The one-time archive action is historical and should not be rerun.
+*(Note: MAE cannot be compared directly across AZ and Biogen due to the unresolved Biogen log base and native unit scaling differences.)*
 
-OBSERVED: Independent-review hardening adds shared acquisition/audit checks for constant page totals, contiguous offsets, terminal page metadata, requested assay IDs and unique activity IDs. The frozen audit also enforces the expected 1,102 / 837 / 408 counts. Failure tests cover missing/early-ending pages, repeated IDs, hash and size mismatches, missing receipts, changed download URLs and refusal to overwrite non-identical outputs. Strict hepatocyte duplicate pairs require exactly two rows with one unique structure/value-matching source record per species and no opposite-species value match; the frozen result remains 187. The six other groups have no strict structural match to either source assay. Four microsome tautomer spellings and one hydrate representation remain strict mismatches; the strict overlap remains 1,097.
+## Limitations
+1. **Public historical assay data:** These are retrospective agglomerations of legacy assay data spanning many years, carrying unmeasured experimental variance.
+2. **Censoring constraints:** Exact continuous values for historically censored limits are impossible to recover.
+3. **Biogen dataset ambiguity:** The precise mathematical log base and the origin of the 958-value pileup are unresolved.
+4. **No prospective wet-lab validation:** The models have not been used to prospectively synthesize and assay novel compounds.
+5. **No IVIVE / Exposure:** No *in vivo* clearance modeling, IVIVE scaling, or patient exposure prediction was performed.
+6. **Independent replication limitation:** The Biogen track represents within-dataset replication of the methodology; it is NOT an external *AZ→Biogen transfer* validation.
 
-OBSERVED: The four regenerated audit artifacts were explicitly archived with their original hashes under `reports/revisions/independent-review/` before the documentation/classification amendment. `AUDIT_REVIEW.md` is preserved byte-for-byte as the independent review record. Raw inputs, source receipts, scientific numbers, identity and null-relation handling are unchanged.
-
-INFERRED: Raw immutability is enforced by create-only writes and hash verification. `.gitattributes` disables newline conversion for this experiment so Git preserves the acquired bytes. `.venv`, caches, Python bytecode and temporary files are excluded from Git and kept inside the experiment.
-
-## Stop condition
-
-EXPECTED_FROM_MEMO: Independent review precedes preprocessing or modelling. This audit does not redesign the frozen source selection. Censor handling, unresolved representations and source metadata must receive explicit review before any later scientific processing.
+## Reproducibility
+*   **Preregistration:** Analytical constraints, censoring logic, and structural descriptors were prospectively frozen prior to modelling (see `dmpk-modelling-preregistration-v1`).
+*   **Frozen Commits & Tags:** Major milestones are indelibly recorded by Git annotated tags (`dmpk-primary-models-v1`, `dmpk-tdc-benchmark-v1`, `dmpk-hlm-hh-v1`, `dmpk-biogen-replication-v1`).
+*   **Deterministic Folds:** Outer folds were generated and cryptographic hashes committed *before* training.
+*   **Deterministic Reruns:** Execution was subjected to independent deterministic reruns which passed exactly (numerical tolerance < 1e-12).
