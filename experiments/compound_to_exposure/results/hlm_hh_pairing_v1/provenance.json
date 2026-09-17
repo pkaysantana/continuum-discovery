@@ -1,0 +1,22 @@
+{
+  "total_paired_n": 187,
+  "n_ambiguous_hlm_in_paired": 2,
+  "agree_stats": {
+    "exact_count": 128,
+    "exact_prop": 0.6844919786096256,
+    "adjacent_count": 59,
+    "adjacent_prop": 0.3155080213903743,
+    "non_adjacent_count": 0,
+    "non_adjacent_prop": 0.0
+  },
+  "primary_metrics": {
+    "n": 96,
+    "spearman_rho": 0.4864353376748756,
+    "spearman_pvalue": 5.040520925009408e-07
+  },
+  "s1_metrics": {
+    "n": 94,
+    "spearman_rho": 0.504526766825069,
+    "spearman_pvalue": 2.161118678785078e-07
+  }
+}
