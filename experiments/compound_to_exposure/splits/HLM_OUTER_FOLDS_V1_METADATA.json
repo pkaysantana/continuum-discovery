@@ -1,0 +1,60 @@
+{
+  "source_dataset_assay_id": "CHEMBL3301370",
+  "total_N": 1102,
+  "class_totals": {
+    "BELOW": 274,
+    "IN-RANGE": 744,
+    "ABOVE": 84
+  },
+  "rdkit_version": "2025.3.6",
+  "scikit_learn_version": "1.9.1",
+  "split_algorithm": "StratifiedGroupKFold",
+  "n_splits": 5,
+  "ordered_candidate_seed_range": [
+    42,
+    141
+  ],
+  "selected_seed": 42,
+  "deterministic_source_ordering_rule": "activity_id ascending",
+  "scaffold_definition_rule": "MurckoScaffold.GetScaffoldForMol canonical isomeric smiles",
+  "empty_scaffold_rule": "singleton group keyed by provenance canonical SMILES",
+  "fold_sizes": {
+    "2": 221,
+    "1": 221,
+    "3": 220,
+    "0": 220,
+    "4": 220
+  },
+  "class_counts_per_fold": {
+    "0": {
+      "BELOW": 54,
+      "IN-RANGE": 149,
+      "ABOVE": 17
+    },
+    "1": {
+      "BELOW": 55,
+      "IN-RANGE": 149,
+      "ABOVE": 17
+    },
+    "2": {
+      "BELOW": 55,
+      "IN-RANGE": 149,
+      "ABOVE": 17
+    },
+    "3": {
+      "BELOW": 55,
+      "IN-RANGE": 148,
+      "ABOVE": 17
+    },
+    "4": {
+      "BELOW": 55,
+      "IN-RANGE": 149,
+      "ABOVE": 16
+    }
+  },
+  "unique_scaffold_count": 717,
+  "largest_scaffold_group": 32,
+  "governing_preregistration_tag": "dmpk-modelling-preregistration-v1",
+  "governing_preregistration_sha": "fefaf215a1a0361470d039238bdf0178e3789410",
+  "creation_timestamp": "2026-09-17T16:35:21.404574+00:00"
+}
