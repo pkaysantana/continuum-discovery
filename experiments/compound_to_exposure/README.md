@@ -9,6 +9,7 @@ OBSERVED: This checkpoint contains acquisition, identity/censoring/duplicate aud
 ## Review entry points
 
 - [Concise findings and unresolved discrepancies](reports/REVIEW_SUMMARY.md)
+- [Proposed censoring policy for the modelling study](docs/CENSORING_POLICY_MEMO.md) — prospective; written before any model is fitted
 - [Preserved independent review](reports/AUDIT_REVIEW.md) and [correction archive](reports/revisions/independent-review/amendment.json)
 - [Complete audit](reports/DATA_AUDIT.md) and [machine-readable evidence](reports/DATA_AUDIT.json)
 - [Provenance table](reports/PROVENANCE_TABLE.csv) and [raw manifest](manifests/source_manifest.json)
