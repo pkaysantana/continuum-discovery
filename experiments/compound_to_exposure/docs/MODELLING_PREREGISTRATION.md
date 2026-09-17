@@ -11,6 +11,8 @@ The following environment packages are frozen:
 *   **SciPy**: 1.17.1
 *   **statsmodels**: 0.15.0
 
+*(Note: The original modelling environment was frozen before the U6 analysis. `matplotlib` was subsequently added solely as a plotting/reporting dependency before any predictive model was fitted. None of the frozen modelling-core package versions changed).*
+
 ## 1. Primary Validation Design
 *   **Design Choice**: Stratified grouped 5-fold cross-validation generated ONCE on the full N=1,102 classifier cohort and subsequently frozen. The regression N=744 and S1 sub-cohorts inherit these exact fold assignments by subsetting.
 *   **Scaffold Group Definition**: 
