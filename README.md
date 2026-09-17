@@ -1,8 +1,8 @@
 # Continuum Discovery: EP4 Reconstruction & Cryptic Pocket Benchmark
 
-This repository contains the reconstructed "EP4" structural biology pipeline, focusing on a rigorous, preregistered benchmarking of cryptic pocket detection methods (Lacuna vs. P2Rank). 
+This repository contains the reconstructed "EP4" structural biology pipeline, with a rigorous, preregistered benchmark of cryptic pocket detection methods (Lacuna vs. P2Rank). 
 
-The repository has transitioned from its initial hackathon prototype ("Edge-to-Cloud Biodefense Swarm") to a strictly controlled scientific environment emphasizing reproducible structural bioinformatics, forensic auditing, and robust benchmarking.
+The repository has transitioned from its initial hackathon prototype ("Edge-to-Cloud Biodefense Swarm") to a strictly controlled scientific environment emphasising reproducible structural bioinformatics, forensic auditing, and robust benchmarking.
 
 ## Project Status
 See [PROJECT_STATUS.md](PROJECT_STATUS.md) for the latest high-level status.
