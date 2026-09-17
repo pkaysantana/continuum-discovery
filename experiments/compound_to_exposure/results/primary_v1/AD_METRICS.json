@@ -1,0 +1,14 @@
+{
+  "Ridge_descriptors": {
+    "Spearman_rho": -0.06119734949359114
+  },
+  "Ridge_Morgan": {
+    "Spearman_rho": -0.2302301368963575
+  },
+  "RandomForestRegressor_descriptors": {
+    "Spearman_rho": -0.12677735631201567
+  },
+  "RandomForestRegressor_Morgan": {
+    "Spearman_rho": -0.16627948947157206
+  }
+}

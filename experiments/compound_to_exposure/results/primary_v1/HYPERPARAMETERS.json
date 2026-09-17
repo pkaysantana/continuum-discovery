@@ -1,0 +1,242 @@
+[
+  {
+    "model": "Ridge",
+    "representation": "descriptors",
+    "fold": 0,
+    "alpha": 0.1
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "descriptors",
+    "fold": 0,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "Morgan",
+    "fold": 0,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "Morgan",
+    "fold": 0,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "descriptors",
+    "fold": 1,
+    "alpha": 0.1
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "descriptors",
+    "fold": 1,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "Morgan",
+    "fold": 1,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "Morgan",
+    "fold": 1,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "descriptors",
+    "fold": 2,
+    "alpha": 0.1
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "descriptors",
+    "fold": 2,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "Morgan",
+    "fold": 2,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "Morgan",
+    "fold": 2,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "descriptors",
+    "fold": 3,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "descriptors",
+    "fold": 3,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "Morgan",
+    "fold": 3,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "Morgan",
+    "fold": 3,
+    "max_depth": null
+  },
+  {
+    "model": "Ridge",
+    "representation": "descriptors",
+    "fold": 4,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "descriptors",
+    "fold": 4,
+    "max_depth": 10
+  },
+  {
+    "model": "Ridge",
+    "representation": "Morgan",
+    "fold": 4,
+    "alpha": 10.0
+  },
+  {
+    "model": "RandomForestRegressor",
+    "representation": "Morgan",
+    "fold": 4,
+    "max_depth": null
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "descriptors",
+    "fold": 0,
+    "C": 1.0
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "descriptors",
+    "fold": 0,
+    "max_depth": null
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "Morgan",
+    "fold": 0,
+    "C": 0.1
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "Morgan",
+    "fold": 0,
+    "max_depth": 10
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "descriptors",
+    "fold": 1,
+    "C": 1.0
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "descriptors",
+    "fold": 1,
+    "max_depth": 10
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "Morgan",
+    "fold": 1,
+    "C": 1.0
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "Morgan",
+    "fold": 1,
+    "max_depth": null
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "descriptors",
+    "fold": 2,
+    "C": 0.1
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "descriptors",
+    "fold": 2,
+    "max_depth": 10
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "Morgan",
+    "fold": 2,
+    "C": 0.1
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "Morgan",
+    "fold": 2,
+    "max_depth": null
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "descriptors",
+    "fold": 3,
+    "C": 10.0
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "descriptors",
+    "fold": 3,
+    "max_depth": 10
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "Morgan",
+    "fold": 3,
+    "C": 0.1
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "Morgan",
+    "fold": 3,
+    "max_depth": 10
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "descriptors",
+    "fold": 4,
+    "C": 0.1
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "descriptors",
+    "fold": 4,
+    "max_depth": 10
+  },
+  {
+    "model": "LogisticRegression",
+    "representation": "Morgan",
+    "fold": 4,
+    "C": 0.1
+  },
+  {
+    "model": "RandomForestClassifier",
+    "representation": "Morgan",
+    "fold": 4,
+    "max_depth": 10
+  }
+]
