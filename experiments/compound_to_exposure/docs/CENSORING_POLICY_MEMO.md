@@ -9,6 +9,12 @@ of truth for dataset selection. This memo supplies the censor-handling rules tha
 ("Explicit censoring and UNKNOWN handling rules must be applied rigorously across all datasets") and
 that the audit's stop condition defers to review. It does not reopen dataset selection.
 
+Where explanatory narrative and the PROPOSED FROZEN CENSORING POLICY differ, the numbered frozen-policy
+clauses govern. This precedence applies within this memo and does not override the higher-level
+authority of DATASET_SELECTION_MEMO.md. Analysis choices are fixed before predictive modelling; results
+cannot be used to add, omit or substitute a v1 analysis. The U6 completion-or-omission deadline is also
+before the first predictive model is fitted.
+
 Evidence labels follow the audit convention: **OBSERVED** (read from frozen data), **INFERRED**
 (reasoned from observations, stated as reasoning), **UNKNOWN / UNRESOLVED** (not established).
 No inference is promoted to OBSERVED in this memo.
@@ -54,9 +60,11 @@ them as 3 and 150 converts a one-sided bound into a fabricated exact measurement
 **358 of 1,102 HLM records (32.5%)** — concentrated as two spikes at the extremes of the target
 distribution, which is the worst possible place for fabricated precision to sit.
 
-INFERRED: the numbers 3 and 150 function as the lower and upper limits of the assay's quantifiable
-range. This is inferred from the qualifier/value structure above, not from a captured assay-description
-statement of the limits — see UNKNOWN U3.
+INFERRED: the observed assay pattern and assay description are consistent with working lower and upper
+quantifiable-range boundaries of 3 and 150, respectively; their interpretation as formal quantification
+limits remains inferred rather than independently documented. The frozen descriptions state an
+experimental range of `<3` to `>150`, which does not independently establish formal quantification
+limits. UNKNOWN U3 retains that distinction.
 
 ---
 
@@ -109,12 +117,10 @@ proof that every null-relation record is uncensored.
 The check named as U2 in the previous version of this memo has now been carried out against the frozen
 raw bytes (`data/raw/chembl/CHEMBL3301370_activities_*.json`), read-only and with no new acquisition.
 
-*Provenance note:* the field-level tabulation below is the result reported by that audit. It is recorded
-here because this memo is where it bears on policy; it is **not** yet written into
-[REVIEW_SUMMARY.md](../reports/REVIEW_SUMMARY.md) or
-[AUDIT_REVIEW.md](../reports/AUDIT_REVIEW.md), which this amendment does not modify. Landing it in the
-audit record is a separate, tracked task, and until then the numeric counts it depends on (744 null, 13
-at 3, 0 at 150) are the ones those reports already carry.
+*Provenance note:* [CENSORING_METADATA_CHECK.md](../reports/CENSORING_METADATA_CHECK.md) records the
+already-observed field-level results, input filenames and hashes, frozen audit checkpoint, and raw-hash
+verification. It is a new post-audit record; [REVIEW_SUMMARY.md](../reports/REVIEW_SUMMARY.md),
+[AUDIT_REVIEW.md](../reports/AUDIT_REVIEW.md) and the other frozen audit outputs remain unchanged.
 
 OBSERVED, for each of the 13 HLM null-relation records at value 3:
 
@@ -148,7 +154,7 @@ exact measurement free of experimental error.
 boundary-ambiguous records at exactly 3** (OBSERVED; 13 confirmed in
 [REVIEW_SUMMARY.md](../reports/REVIEW_SUMMARY.md) and
 [AUDIT_REVIEW.md](../reports/AUDIT_REVIEW.md) MINOR-4). The 13 are either genuine measurements that
-landed on the lower limit, or censored records whose qualifier was never deposited. They are **not**
+landed on the working lower boundary, or censored records whose qualifier was never deposited. They are **not**
 reclassified on the strength of their numeric value — doing so would commit exactly the error the audit
 warns against ("a numeric boundary alone does not define censor status") — and they are **not** claimed
 to be resolved by their inclusion in the primary cohort. Their inclusion is a **prespecified working
@@ -187,32 +193,17 @@ any model is fitted.
   property of the benchmark as historically shipped and must be preserved for comparability (§6). Its
   use there is a statement about the benchmark, never about experimental measurement.
 
-### C. Censor-aware regression (Tobit / censored-normal, interval-censored likelihood, survival-style)
+### C. Censor-aware likelihood methods — OUT OF SCOPE FOR V1
 
-- **Assumptions.** Tobit assumes a correctly specified latent linear predictor and homoscedastic
-  Gaussian errors on the modelled scale (here log10). Both are strong for fingerprint regression on
-  1,102 compounds; violated heteroscedasticity biases the censored contributions specifically.
-  Interval-censored likelihood is the most honest formulation — (-∞, log10 3] and [log10 150, ∞) are
-  exactly the observations' information content — and needs the same distributional commitment.
-  Survival framing (AFT) fits mechanically but imports a hazard vocabulary that has no DMPK meaning
-  here and would confuse rather than clarify.
-- **Compatibility with molecular descriptors/fingerprints.** Fine for a *linear* predictor: any
-  descriptor or fingerprint matrix can drive a censored-normal likelihood.
-- **Can Random Forest / Ridge incorporate censoring directly? No.** Ridge minimises squared error
-  against point targets and has no censored likelihood; scikit-learn's RandomForestRegressor has no
-  censored-target support. Bounds could only enter through a custom likelihood, a gradient-boosting
-  objective written by hand, or a survival forest — each of which replaces the baseline with a
-  different model, so the "simple baseline" comparison would no longer be measuring representations.
-- **Implementation burden.** Moderate and, crucially, *unshared*: it applies to one model family and
-  leaves the RF/Ridge baselines unable to participate, so the headline comparison would be
-  apples-to-oranges.
-- **Interpretability.** Coefficients are interpretable; the *predictions* are of a latent value that is
-  unobservable for a third of the data, which is harder to communicate honestly, not easier.
-- **Appropriate for a student v1? No, not as the primary analysis.** It is the statistically strongest
-  option and it is the right answer to "how would you do this properly at scale" in an interview — but
-  the v1 question is *how well do simple representations predict measured HLM clearance, and where do
-  they fail*. Censor-aware machinery does not help answer that and costs the comparability of the
-  baselines. It is retained as an **optional** robustness check (S3), which is the correct use of it.
+Censor-aware likelihood methods exist to use a censored record's one-sided information without
+inventing an exact target. For example, a censored-normal likelihood assigns probability to the
+reported interval under assumptions about a latent continuous outcome and its errors. Such methods
+require additional distributional and model-family commitments; they do not reveal the unknown
+clearance of an individual censored compound.
+
+**Censored-normal/Tobit modelling is a plausible future extension but is outside the frozen v1
+analysis. It will not be introduced after primary results are seen.** No censor-aware model replaces it
+in v1. There is no run/omit decision remaining after freeze.
 
 ### D. Two-part / hybrid formulation
 
@@ -233,8 +224,9 @@ or too unstable to measure — and if measurable, what is the value?* **This is 
 
 ### E. Sensitivity-analysis strategy
 
-One primary policy plus a small, prespecified set of sensitivity analyses is preferable to attempting a
-perfect censoring solution in the main model. Censoring here is not a nuisance to be eliminated; it is a
+One primary policy plus the single prespecified censoring-policy sensitivity analysis S1 is preferable
+to attempting a perfect censoring solution in the main model. The stratified tail diagnostic is a
+separate descriptive diagnostic, not another sensitivity analysis. Censoring is a
 property of the measurement that no analysis choice can remove. The scientific requirement is that the
 primary conclusions be shown not to hinge on the arbitrary parts of the choice. Prespecification before
 any model is fitted is what prevents this from becoming a search over analyses — hence §10, fixed now.
@@ -247,21 +239,22 @@ Four distinct quantities, routinely conflated, must be kept apart:
 
 | Quantity | Symbol | Observable? | Which strategy predicts it |
 |---|---|---|---|
-| Latent true intrinsic clearance | CLint | Never directly; only bounded for censored records | Target of C only, and only under its distributional assumptions |
-| Observed assay CLint, conditional on falling in the quantifiable range | log10 CLint \| in-range | Reported for the 744 records of the inferred quantifiable-range cohort (731 interior + 13 boundary-ambiguous) | **Primary regression (A/D)** |
+| Latent true intrinsic clearance | CLint | Never directly; only bounded for censored records | Not estimated in frozen v1; C is out of scope |
+| Reported HLM clearance, conditional on prespecified cohort assignment | log10 CLint_reported \| assigned to the inferred quantifiable-range cohort | Reported values for 744 records (731 interior + 13 boundary-ambiguous); cohort membership is inferred | **Primary regression (A/D)** |
 | Assay-range category | below / in / above | BELOW and ABOVE directly observed from explicit qualifiers; IN-RANGE inferred for 744 null-relation records, including 13 boundary-ambiguous assignments | **Range classifier (D)** |
 | Boundary-substituted benchmark label | TDC `Y` | Yes, but partly fabricated | Benchmark track only (B) |
 
-The primary regression estimates **E[log10 CLint_observed | quantifiable range]**. It does not estimate
-the unconditional latent CLint, and the project will not describe it as doing so. For censored compounds
-the exact value is **unknowable from this data**, and no component of this study will emit a point
-prediction claiming otherwise.
+The primary regression estimates
+**E[log10 CLint_reported | assigned to the inferred quantifiable-range cohort]**. It predicts reported
+HLM clearance conditional on this prespecified cohort assignment. It does **not** estimate latent
+full-range clearance for all 1,102 compounds. For censored compounds the exact clearance is not known
+from these data; the tail ordering scores assess relative prediction order only.
 
 **Deployment semantics — two stages, in this order.** For a new compound: (1) predict the assay-range
-class; (2) predict log10 CLint only if the predicted class is *quantifiable*. If the predicted class is
-below- or above-range, the reported output is the range statement plus the corresponding bound, not a
-number. This is the only formulation in which every number the pipeline emits corresponds to something
-the assay could have measured.
+class; (2) predict log10 reported HLM clearance only if the predicted class is IN-RANGE, under the
+working inference used for that cohort. Otherwise report the predicted BELOW or ABOVE category relative
+to the working boundaries, not a numerical clearance estimate. A predicted category is not proof that
+the compound's unknown true clearance satisfies the corresponding bound.
 
 ---
 
@@ -278,17 +271,17 @@ outcome itself, so the excluded set is chemically structured by construction:
 Excluding both tails therefore removes the two chemically most coherent, and most
 pharmaceutically consequential, regions of the target distribution. Consequences, stated in advance:
 
-1. **Compressed target range.** The retained target spans log10 3 = 0.477 to log10 150 = 2.176, i.e.
+1. **Compressed target range.** The working interval spans log10 3 = 0.477 to log10 150 = 2.176, i.e.
    **1.70 log10 units**. The full distribution is open-ended at both ends. A two-fold error (0.301
-   log10 units) is **~18% of the entire retained span** — so the headline metric is being measured
+   log10 units) is **~18% of this working interval** — so the headline metric is being measured
    against a deliberately narrow target, and this must be stated wherever the metric is.
 2. **Deflated R² and Spearman.** Both depend on target variance, which truncation reduces. Values will
    look worse than a study that kept the substituted boundaries — and will be *more* honest. The
    converse trap matters more: a boundary-substituted study inflates R² by adding variance that is
    partly fabricated. The two numbers are not comparable and will never be compared.
 3. **Unrepairable by reweighting.** Selection is on y, not X.
-4. **Changed meaning.** The model predicts *"CLint within the quantifiable assay range"*, not the
-   chemical-space clearance distribution.
+4. **Changed meaning.** The model predicts reported HLM clearance conditional on assignment to the
+   inferred quantifiable-range cohort, not latent full-range clearance for all 1,102 compounds.
 
 **Is that acceptable for v1? Yes — conditionally, and only because it is paired with the range
 classifier.** Complete-case regression *alone* would be a genuine weakness: it would silently drop a
@@ -342,8 +335,9 @@ HLM assay, and no HH-side analogue of S1 is required or defined.
 
 Two adjustments:
 
-1. **Collapse the range classifier to two classes** — below-range (104) vs quantifiable (289) — or keep
-   the range component descriptive only. 15 above-range records out of 408 (3.7%) cannot support a third
+1. **Collapse the range classifier to two classes** — BELOW (104 explicit `<3` records) vs IN-RANGE
+   (289 null-relation records assigned under the working inference). This two-class classifier is the
+   binding v1 treatment. 15 above-range records out of 408 (3.7%) cannot support a third
    class: at any reasonable split there would be a handful per fold, and any per-class metric on them
    would be noise. The 15 are reported as a count and not modelled as a class.
 2. **Regression on the 289 in-range records is secondary and descriptive.** 289 compounds is a small
@@ -394,8 +388,8 @@ Also required before Biogen carries any weight: whether the authors' source repo
 per-row qualifier or censor column (the downloaded CSV does not — OBSERVED/UNRESOLVED), and the
 derivation of the bodyweight-normalised `mL/min/kg` labels, which is UNRESOLVED from the CSV and README.
 
-**Interim treatment.** Biogen stays a **within-dataset replication set**, per the frozen selection memo
-— never a naive transfer set, and specifically:
+**Interim treatment.** Biogen stays a **within-dataset external replication/robustness set**, per the
+frozen selection memo. It is not direct held-out testing of an AstraZeneca-trained model, and specifically:
 
 - it is **not** used to fit, tune or select the primary HLM model, and not used to choose this policy;
 - any Biogen result is reported **twice**, with and without the 958-record floor stratum, both labelled,
@@ -409,12 +403,14 @@ derivation of the bodyweight-normalised `mL/min/kg` labels, which is UNRESOLVED 
 
 ## 9. Recommended v1 policy
 
-**Two-part formulation (D) with complete-case regression (A) on the in-range stratum, plus prespecified
-sensitivity analyses (E). Boundary substitution (B) confined to the benchmark track. Censor-aware
-regression (C) as an optional robustness check only.**
+**Two-part formulation (D) with complete-case regression (A) on the inferred quantifiable-range
+cohort, the single censoring-policy sensitivity analysis S1, and the prespecified stratified tail
+diagnostic. Boundary substitution (B) is confined to the benchmark track. Censor-aware regression (C)
+is OUT OF SCOPE FOR V1.**
 
 **Component 1 — Primary regression.**
-Target: log10 of HLM CLint. Training and evaluation set: the **inferred quantifiable-range cohort of all
+Target: log10 of reported HLM CLint conditional on the prespecified cohort assignment. Training and
+evaluation set: the **inferred quantifiable-range cohort of all
 744 null-relation records** of CHEMBL3301370. This comprises **731 interior records (3 < value < 150)
 plus 13 ambiguous lower-boundary records (value exactly 3, relation and standard_relation both null)**.
 **N = 744.**
@@ -452,15 +448,38 @@ Every explicitly censored record is a full classifier training example whose BEL
 from its deposited qualifier. IN-RANGE assignments remain inferred, including the flagged 13 in the
 primary analysis. No boundary value is substituted.
 
-**Component 3 — Censored records as one-sided evaluation data, never as primary regression point targets.**
-The in-range regression is applied to the 358 censored compounds and scored on *directional
-correctness*: for a `<3` compound the prediction should be ≤ log10 3; for a `>150` compound, ≥ log10 150.
-Reported as the fraction satisfying the bound, plus the magnitude of violation for those that do not.
-This extracts precisely the information a censored likelihood uses, requires no distributional
-assumption, no custom objective and no change of model family, and works identically for every baseline.
+**Component 3 — Prediction-ordering diagnostic for the censored tails.**
+The 274 explicit `<3` and 84 explicit `>150` compounds retain their one-sided information and are never
+assigned exact continuous targets. For each fitted regressor, compare its held-out tail predictions
+with its held-out predictions for compounds assigned to the inferred quantifiable-range evaluation
+cohort. Predictions are on the model's log10-clearance scale; the diagnostic uses only their ordering.
+
+Let L, U and Q denote the lower-censored, upper-censored and inferred in-range evaluation groups,
+respectively, and let p denote a prediction. The prespecified scores are:
+
+- **Lower-tail ordering score:** P(p_L < p_Q) + 0.5 P(p_L = p_Q).
+- **Upper-tail ordering score:** P(p_U > p_Q) + 0.5 P(p_U = p_Q).
+
+Empirically, average over every eligible tail–Q pair: a correctly ordered pair scores 1, a tie scores
+0.5, and a reversed pair scores 0. The denominator is the number of eligible pairs. Use only pairs
+whose two predictions come from the same fitted model and the same held-out fold or evaluation split;
+neither member may have trained that fitted model. For a prespecified multi-fold evaluation, pool the
+pair scores and pair counts across folds (pair-count weighting); do not compare scores from different
+fitted models as if they were paired predictions. Report the tail and Q sample sizes and pair count.
+A fold without eligible pairs contributes no pairs; if none are eligible overall, report undefined,
+not an imputed score.
+
+**Interpretation, identical for every model family:** 0.5 corresponds to no ordering discrimination;
+values nearer 1 indicate better directional ordering. This assesses ordering only. It does **not**
+estimate latent clearance values for censored compounds and does **not** prove that predictions satisfy
+the unknown true numerical clearance. It requires neither invented exact targets nor extrapolation
+beyond the training-target range, so the same definition applies to bounded and unbounded regressors.
+Range-bounded models such as Random Forests cannot extrapolate beyond their training-target range;
+absolute-bound satisfaction and violation magnitude are therefore excluded from v1 tail metrics and
+from cross-model comparisons. The reporting specification is the stratified tail diagnostic in §10.
 
 **Why this and not the alternatives.** B is rejected for the science track because it fabricates 358
-exact targets at two spikes and makes its own failure undetectable. C is rejected as primary because it
+exact targets at two spikes and makes its own failure undetectable. C is outside frozen v1 because it
 cannot be carried by the Ridge and Random Forest baselines without replacing them, which would break the
 one comparison v1 exists to make, and because its predictions concern a latent quantity that is
 unobservable for a third of the data — sophistication bought at the cost of the project's
@@ -470,29 +489,43 @@ combination keeps the regression target honest, keeps every record in use, keeps
 comparable, and is explainable in two sentences to a DMPK scientist.
 
 **Shared-split constraint.** One prespecified split/fold assignment is used for the regression, the
-classifier and every sensitivity analysis. A compound's fold must be identical across all components, so
+classifier, S1 and the tail diagnostic. A compound's fold must be identical across all components, so
 that Component 3's evaluation set is genuinely held out from Component 1 and the two components can be
 composed into the two-stage pipeline of §4 without leakage.
 
 ---
 
-## 10. Prespecified sensitivity analyses
+## 10. Prespecified sensitivity analysis and stratified tail diagnostic
 
-Fixed now, before any model is fitted. Deliberately three, to keep researcher degrees of freedom
-bounded. All reuse the single prespecified split. Each is reported whatever it shows.
+Fixed now, before any model is fitted. **S1 is the only censoring-policy sensitivity analysis.** The
+stratified tail diagnostic is a descriptive evaluation, not a sensitivity analysis of the censoring
+policy. Both reuse the single prespecified split and are reported whatever they show.
 
-| ID | Analysis | Question it answers |
+| Analysis | Specification | Purpose |
 |---|---|---|
-| **S1** | **Rerun the complete primary modelling workflow with the 13 null-at-3 records excluded (HLM regression N = 731).** The same representations, model families, prespecified fold assignments and evaluation are re-executed end to end. Scope: Component 1 regression and its Component 3 directional evaluation; full refitting of the Component 2 three-class classifier (N = 1,089), with all prespecified classifier metrics and all three classes evaluated wherever the metric permits; and the §7 paired rank correlation. No class is exempted. | Does the ambiguity that is UNRESOLVED AFTER FROZEN-METADATA AUDIT affect any conclusion? |
-| **S2** | Score the lower-censored (274) and upper-censored (84) subsets **separately** under the Component 3 directional check, and report the classifier's per-class performance alongside. | Are the two tails equally predictable? Asymmetry here is a scientific finding about where the representations fail. |
-| **S3** *(optional / stretch; secondary only)* | Censored-normal (Tobit) refit on all 1,102 with interval targets (-∞, log10 3], point, [log10 150, ∞), **linear predictor only**, compared on **model ranking only** — not used to claim absolute performance. | Did complete-case truncation drive the conclusions? The honest answer to the reviewer's obvious objection. Explicitly out of scope if time-constrained; its omission is reported, not hidden. |
+| **S1** | **Rerun the complete primary modelling workflow with the 13 null-at-3 records excluded (HLM regression N = 731).** Fully refit the applicable models using the same representations, model families and prespecified fold assignments; recompute every prespecified applicable metric. Scope: Component 1 regression and its Component 3 lower- and upper-tail ordering scores; full refitting of the Component 2 three-class classifier (N = 1,089), with all prespecified classifier metrics and all three classes evaluated wherever the metric permits; and the §7 paired rank correlation. No class is exempted. | Assess whether unresolved boundary ambiguity affects the conclusions, without selecting the primary cohort by performance. |
+| **Prespecified stratified tail diagnostic** | Report the lower-tail ordering score for the 274 explicit `<3` records and the upper-tail ordering score for the 84 explicit `>150` records separately, using Component 3's definitions. Report those cohort totals, the actual evaluated tail and Q sample sizes, eligible pair counts, BELOW and ABOVE precision and recall, and the BELOW and ABOVE true-class rows of the full confusion matrix (all predicted-class columns). | Describe tail performance separately; differences are descriptive and exploratory within this prespecified diagnostic. |
+
+For S1, the tail cohorts retain their explicit qualifiers, while Q excludes the 13 ambiguous records
+from whichever evaluation folds they occupy; the refitted regression uses the 731-record cohort. The
+same ordering definitions and all reporting requirements apply. Primary regression N = 744 and
+classifier N = 1,102; S1 regression N = 731 and classifier N = 1,089.
+
+**Tail-asymmetry interpretation.** No hypothesis test or significance threshold for tail asymmetry is
+defined. Any lower-versus-upper performance difference is descriptive and exploratory within a
+prespecified diagnostic, not proof of a mechanistic difference. N = 274 and N = 84 have materially
+different precision; report the actual evaluation sample sizes and retain that caveat when discussing
+the scores. Pair counts do not turn dependent pairs into independent compound observations.
+
+Censored-normal/Tobit modelling is outside frozen v1 (§3C); it is not a sensitivity analysis to run or
+omit after freeze and will not be introduced after primary results are seen.
 
 **What S1 compares, fixed in advance.** Three things, and only these: (i) **model ranking** — the order
 of the representation/model combinations; (ii) **the major effect and feature-level conclusions** where
 the model family admits them (e.g. which descriptors or fingerprint regions carry the signal, and the
 direction of the dominant effects) — where a model family admits no such reading, that is stated rather
 than substituted with a proxy; (iii) the **headline evaluation metrics** (MAE on log10 primary, with
-RMSE, Spearman and fraction-within-two-fold alongside), the prespecified directional evaluation, and
+RMSE, Spearman and fraction-within-two-fold alongside), both prespecified tail ordering scores, and
 **all prespecified classifier metrics**: macro-F1, per-class precision and recall for BELOW, IN-RANGE
 and ABOVE, balanced accuracy, MCC, the full confusion matrix, and the adjacent/non-adjacent error split.
 All three classes are evaluated wherever the metric permits; ABOVE is not exempted.
@@ -504,10 +537,10 @@ conclusions depend on 13 records whose status is unresolved; a difference is a *
 the fragility of the conclusions*, never a reason to switch headline analyses.
 
 **Decision rule, fixed in advance.** The primary policy (§9) is reported as the headline regardless of
-what S1–S3 show. Sensitivity analyses are reported alongside it and inform the stated limitations. A
-sensitivity result **never** silently replaces the primary analysis, and never replaces it on
-performance grounds at all; if any of them materially changes the model ranking, that fact is reported as
-the finding.
+what S1 or the stratified tail diagnostic shows. Their results are reported alongside it and inform the
+stated limitations. S1 **never** replaces the primary analysis on performance grounds; if it materially
+changes model ranking, that fact is reported as a finding about robustness. The tail diagnostic remains
+descriptive and exploratory, with no significance-based selection rule.
 
 ---
 
@@ -515,12 +548,14 @@ the finding.
 
 **May claim:**
 
-- Predicts log10 human HLM intrinsic clearance for compounds whose clearance falls within the assay's
-  quantifiable range of 3–150 µL·min⁻¹·mg⁻¹, with the stated error on held-out compounds.
+- Predicts log10 reported human HLM clearance conditional on assignment to the inferred
+  quantifiable-range cohort, with the stated error on held-out cohort members. The working boundaries
+  are 3 and 150 µL·min⁻¹·mg⁻¹; formal quantification-limit status remains inferred.
 - Classifies compounds into BELOW / IN-RANGE / ABOVE, with the stated per-class performance, using all
   1,102 records — stating that BELOW and ABOVE are read from deposited qualifiers, that IN-RANGE rests on
   the dataset-specific working inference, and that 13 IN-RANGE labels are boundary-ambiguous.
-- Predicts, for compounds outside the range, the **direction** of censoring and a consistent bound.
+- Reports how consistently held-out predictions for explicitly censored compounds are ordered below
+  or above predictions for the inferred in-range evaluation cohort, using half-credit for ties.
 - Identifies the chemical characteristics associated with large prediction error — the failure analysis
   that is the study's stated purpose.
 - Reports a benchmark number on TDC `Clearance_Microsome_AZ` as comparability with prior published work
@@ -530,8 +565,12 @@ the finding.
 
 - A point prediction of CLint for any compound whose measurement was censored. That value is not in the
   data.
-- Prediction of latent true CLint across the full chemical-space distribution. The regression is
-  conditional on assay-range membership (§4).
+- Prediction of latent full-range CLint for all 1,102 compounds. The regression is conditional on
+  assignment to the inferred quantifiable-range cohort (§4).
+- That a tail ordering score establishes numerical clearance for a censored compound or proves that
+  its prediction satisfies the unknown true numerical clearance.
+- That a lower-versus-upper tail performance difference proves a mechanistic difference. Such
+  differences are descriptive and exploratory, with materially different precision at N = 274 and 84.
 - That its R² or Spearman is comparable to a study using boundary-substituted targets.
 - That the two-fold band is an **irreducible noise floor**. It is an **experimental repeatability
   reference**: a scale for judging whether an error is large relative to the measurement itself.
@@ -554,12 +593,12 @@ the finding.
 
 | ID | UNKNOWN | Named check | Effect on this policy |
 |---|---|---|---|
-| **U1** | What, if anything, ChEMBL documents about the semantics of a NULL `standard_relation`. | Read the ChEMBL schema documentation and data FAQ for `ACTIVITIES.standard_relation`. Documentary, external to the frozen data — distinct from U2, which was internal and is closed. | None. The policy rests on assay-internal evidence and never asserts documented equality. No outcome of this check would license the general claim that NULL means `=`; at most it would constrain how the field should be read, and the memo would be amended to say exactly what was found. |
-| **U2** — **CLOSED** | Whether other activity fields disambiguate the 744 — `activity_comment`, `data_validity_comment`, `text_value`, `standard_text_value`, `standard_flag`. | **Check performed.** Tabulated from the already-frozen raw bytes. Result: all four text/comment fields null for the 13; `standard_flag = 1` for them **and** for the explicitly censored records, so it does not discriminate; original and standard values both 3.0; original and standard relations both null (§2(d)). | None to the policy. The check did **not** resolve the 13 and does **not** retire S1 — S1 is now load-bearing rather than provisional. No further search through the existing raw metadata is proposed. |
-| **U3** | Whether 3 and 150 are the *documented* assay limits, rather than inferred ones. | Extract the assay description / `assay_parameters` text from the frozen ChEMBL assay metadata. | None. Strengthens §1 from INFERRED to OBSERVED. |
+| **U1** | What, if anything, ChEMBL documents about the semantics of a NULL `standard_relation`. | Read the ChEMBL schema documentation and data FAQ for `ACTIVITIES.standard_relation`. Documentary, external to the frozen data — distinct from U2, which was internal and is closed. | The policy rests on assay-internal evidence and never asserts documented equality. Evidence received before modelling requires a versioned amendment if it changes interpretation; evidence received after results may inform interpretation but cannot retroactively change the frozen analytical policy. |
+| **U2** — **CLOSED** | Whether other activity fields disambiguate the 744 — `activity_comment`, `data_validity_comment`, `text_value`, `standard_text_value`, `standard_flag`. | **Check performed.** Recorded in [CENSORING_METADATA_CHECK.md](../reports/CENSORING_METADATA_CHECK.md), with frozen input and hash provenance. All four text/comment fields are null for the 13; `standard_flag = 1` for them **and** explicitly censored records; original and standard values are both 3.0 and both relations are null (§2(d)). | The check did **not** resolve the 13 and does **not** retire S1. No further search through the existing raw metadata is proposed. |
+| **U3** | Whether the working boundaries of 3 and 150 are formal quantification limits. Their formal interpretation remains inferred. | The frozen assay descriptions state an experimental range of `<3` to `>150`; independent external assay documentation would be needed to establish formal quantification-limit status. | External assay documentation could confirm, refine or contradict the current interpretation. Any such evidence obtained before modelling would require a versioned amendment; evidence obtained after results are available may inform interpretation but cannot retroactively change the frozen analytical policy. |
 | **U4** — **UNRESOLVED AFTER FROZEN-METADATA AUDIT** | Per-record censor status of the 13 HLM null-relation records at exactly 3. | **No further check is proposed against the frozen metadata.** U2 was the named check; it was executed and returned no discriminating field. Resolution would require information the frozen sources do not carry, and none is assumed. | Handled by S1, and by the boundary-ambiguity flag on the IN-RANGE class (§9). The 13 are included in the primary analysis as a prespecified working inference, not as a resolved classification. |
 | **U5** | Biogen: mechanism of the 958-record pile-up; log base; derivation of bodyweight-normalised labels; existence of an upstream qualifier column. | §8 table. | Biogen quarantined from the primary track until resolved. |
-| **U6** | Whether censoring correlates with chemical class in ways that make the in-range stratum unrepresentative in a *specific*, nameable way, beyond the general argument of §5. | Descriptive comparison of frozen descriptor distributions across the three range classes — read-only, no modelling, and legitimately doable before fitting. | Does not change the policy; sharpens the limitation statement. |
+| **U6** | Whether censoring correlates with chemical class in ways that make the inferred in-range stratum unrepresentative in a specific, nameable way. | Any descriptor-distribution comparison for this limitation must be completed and frozen BEFORE the first predictive model is fitted, or omitted from v1 entirely. Completion or omission must be recorded by that deadline. | It may not be added after model results are seen. If it is not completed and frozen before fitting, omission from v1 is binding; the limitation remains unresolved. |
 
 ---
 
@@ -567,9 +606,11 @@ the finding.
 
 *For direct insertion into the preregistration.*
 
-1. **Qualifier semantics.** ChEMBL `standard_relation` is retained per record. `<` and `>` denote
-   one-sided bounds at the assay's quantifiable limits of 3 and 150 µL·min⁻¹·mg⁻¹ — `<` occurring at the
-   lower boundary and `>` at the upper. A null relation denotes *absence of a deposited qualifier*; it is
+1. **Qualifier semantics.** ChEMBL `standard_relation` is retained per record. `<` at 3 and `>` at 150
+   carry one-sided information. The observed assay pattern and assay description are consistent with
+   working lower and upper quantifiable-range boundaries of 3 and 150 µL·min⁻¹·mg⁻¹, respectively;
+   their interpretation as formal quantification limits remains inferred rather than independently
+   documented. A null relation denotes *absence of a deposited qualifier*; it is
    never recoded to `=`, and **no output of this project states or implies that a ChEMBL NULL
    `standard_relation` means `=` in general.** On the assay-internal evidence that qualifiers occur only
    at 3 and 150, that no explicit `=` exists in these assays, that no observed value lies outside
@@ -597,14 +638,25 @@ the finding.
    prespecified classifier metrics and all three classes wherever the metric permits**. The S1
    classifier cohort is N = 1,089. ABOVE is not exempted: refitting can alter predictions for any class.
 
-4. **Censored records in evaluation.** The 358 explicitly censored records are used as one-sided
-   evaluation data for directional correctness (`<3` → prediction ≤ log10 3; `>150` → prediction ≥
-   log10 150), never as point targets for the primary continuous regression. Their explicit qualifiers
-   supply the classifier labels; optional S3 retains their one-sided bounds in its censored likelihood.
+4. **Censored-tail ordering diagnostic.** The 358 explicitly censored records retain their one-sided
+   information and are never continuous point targets. For held-out predictions p_L (explicit `<3`),
+   p_U (explicit `>150`) and p_Q (assigned inferred in-range evaluation cohort), report
+   **lower-tail score = P(p_L < p_Q) + 0.5 P(p_L = p_Q)** and
+   **upper-tail score = P(p_U > p_Q) + 0.5 P(p_U = p_Q)**. Use the same definition for every model
+   family. Each correctly ordered pair scores 1, a tie 0.5, and a reversed pair 0. Pairs must come
+   from the same fitted model and held-out fold/split; pool eligible pair scores and counts across
+   prespecified folds as in §9. A score of 0.5 means no ordering discrimination; values nearer 1 mean
+   better directional ordering. This assesses ordering only, neither estimating latent censored
+   clearance nor proving that predictions satisfy unknown true numerical clearance. It requires no
+   extrapolation beyond the training-target range. Absolute-bound satisfaction and violation magnitude
+   are not v1 tail metrics or cross-model comparisons.
 
-5. **Reported quantity.** The primary regression estimates E[log10 CLint_observed | quantifiable range]. No
-   primary component predicts latent CLint for censored compounds, and no exact value is reported for any
-   censored observation. Deployment is two-stage: range class first, value only if quantifiable.
+5. **Reported quantity.** The primary regression estimates
+   E[log10 CLint_reported | assigned to the inferred quantifiable-range cohort]. It predicts reported
+   HLM clearance conditional on this prespecified cohort assignment, not latent full-range clearance
+   for all 1,102 compounds. Deployment is two-stage: predicted range assignment first, reported-value
+   prediction only for predicted IN-RANGE assignments. Neither a class prediction nor an ordering score
+   establishes an unknown true numerical clearance or a formally documented quantification limit.
 
 6. **Metrics.** Regression: MAE on log10 primary; RMSE, Spearman and fraction within two-fold
    (|Δlog10| ≤ 0.301) secondary; R² reported only with the truncated-variance caveat and against a
@@ -613,8 +665,8 @@ the finding.
    balanced accuracy, MCC, full confusion matrix, and the split between adjacent and non-adjacent
    (below↔above) errors. **Accuracy alone is not reported** — the majority class is 67.5%.
 
-7. **Splits.** A single prespecified split/fold assignment is shared by the regression, the classifier
-   and all sensitivity analyses. A compound's fold is identical across components.
+7. **Splits.** A single prespecified split/fold assignment is shared by the regression, the classifier,
+   S1 and the stratified tail diagnostic. A compound's fold is identical across components.
 
 8. **Benchmark separation.** TDC `Clearance_Microsome_AZ` is used as shipped, with its official split
    and metric, and reported solely as benchmark comparability, **unchanged by this amendment** — it
@@ -635,36 +687,58 @@ the finding.
    boundary ambiguity (one of the 13) is included, the count is reported, and the correlation is
    recomputed without them as the paired limb of S1. No ratios, no physiological scaling.
 
-10. **Biogen.** Within-dataset replication only. Not used to fit, tune or select the primary model. The
+10. **Biogen.** Within-dataset external replication/robustness only, not direct held-out testing of an
+    AstraZeneca-trained model. Not used to fit, tune or select the primary model. The
     958-record pile-up at the minimum is **not** assumed to be censoring; every Biogen result is
     reported with and without that stratum, labelled. No numeric comparison or back-transformation
     against the AstraZeneca labels until the log base and the pile-up mechanism are documented.
 
-11. **Prespecified sensitivity analyses.** **S1 — rerun the complete primary modelling workflow with the
+11. **Sole censoring-policy sensitivity analysis.** **S1 — rerun the complete primary modelling workflow with the
     13 null-at-3 records excluded (S1 HLM regression N = 731)**, comparing model ranking, the major effect and
     feature-level conclusions where the model family admits them, and the headline evaluation metrics,
-    across the regression and its directional evaluation, the fully refitted three-class classifier
+    across the regression and both tail ordering scores, the fully refitted three-class classifier
     and the paired rank correlation. S1 evaluates all prespecified classifier metrics and all three
-    classes wherever the metric permits, with no ABOVE-class exemption. S2 lower- and upper-censored
-    subsets scored separately; S3 *(optional, secondary)* censored-normal/Tobit refit compared on model
-    ranking only — never primary. No further analyses are added after results are seen.
+    classes wherever the metric permits, with no ABOVE-class exemption. Primary regression N = 744 and
+    classifier N = 1,102; S1 regression N = 731 and classifier N = 1,089. Recompute every prespecified
+    applicable metric after refitting, including the stratified tail diagnostic with Q excluding the 13.
+    No additional censoring-policy sensitivity analysis is included in frozen v1.
 
 12. **S1 is not a selection rule.** The 744-record analysis is primary and stays primary. The choice
     between the 744-record and 731-record analyses is **not** made on the basis of which performs better,
     and no S1 outcome promotes the 731-record analysis to headline status. The primary policy remains the
-    headline regardless of what S1–S3 show; a material change in model ranking is reported as a finding
-    about the fragility of the conclusions.
+    headline regardless of what S1 or the stratified tail diagnostic shows; a material change in model
+    ranking under S1 is reported as a finding about the fragility of the conclusions.
 
 13. **Status of the 13 null-at-3 records: UNRESOLVED AFTER FROZEN-METADATA AUDIT.** The frozen metadata
     has been inspected (original and standard values both 3.0; original and standard relations both null;
     `activity_comment`, `data_validity_comment`, `text_value` and `standard_text_value` all null;
     `standard_flag = 1`, which is also 1 for explicitly censored records) and contains no field that
-    distinguishes them as quantified versus censored. **No further searching of the existing raw metadata
+    distinguishes them as quantified versus censored. Provenance and results are recorded in
+    [CENSORING_METADATA_CHECK.md](../reports/CENSORING_METADATA_CHECK.md). **No further searching of the existing raw metadata
     for this answer is proposed.** The records are carried in the primary analysis as a prespecified
     working inference, flagged in the classifier, and excluded in S1.
 
 14. **Open UNKNOWNs at freeze.** U1 ChEMBL documentary semantics of NULL (external, documentary); U2
-    **closed** — the frozen activity fields were examined and do not discriminate; U3 documented assay
+    **closed** — the frozen activity fields were examined and do not discriminate; U3 formal quantification
     limits; U4 per-record status of the 13 null-at-3 records, **unresolved after the frozen-metadata audit
     with no further frozen-data check proposed**; U5 Biogen pile-up mechanism and log base; U6 chemical
-    non-randomness of the censored strata. None blocks v1. None is resolved by assumption.
+    non-randomness of the censored strata. U3 evidence could confirm, refine or contradict the working
+    interpretation: evidence received before modelling requires a versioned amendment; evidence received
+    after results may inform interpretation but cannot retroactively change the frozen analytical
+    policy. U6's descriptor-distribution comparison must be completed and frozen before the first
+    predictive model is fitted or omitted from v1 entirely; it cannot be added after results are seen.
+    None of these unknowns is resolved by assumption.
+
+15. **Prespecified stratified tail diagnostic.** Separately report the lower-tail ordering score for
+    the 274 explicit `<3` records and the upper-tail ordering score for the 84 explicit `>150` records,
+    with cohort totals, actual evaluated tail and Q sample sizes and eligible pair counts. Report BELOW
+    and ABOVE precision and recall and their true-class confusion-matrix rows with all predicted-class
+    columns. This is a descriptive diagnostic, not a censoring-policy sensitivity analysis. There is
+    no hypothesis test or significance threshold for tail asymmetry. Differences are descriptive and
+    exploratory within this prespecified diagnostic; N = 274 and N = 84 have materially different
+    precision. A difference is not proof of a mechanistic difference. The same diagnostic is recomputed
+    under S1 with the refitted models and the reduced Q evaluation cohort.
+
+16. **Excluded future extension.** Censored-normal/Tobit modelling is a plausible future extension
+    but is outside the frozen v1 analysis. It will not be introduced after primary results are seen.
+    No censor-aware model replaces it in v1 and no run/omit decision remains after freeze.
