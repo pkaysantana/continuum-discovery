@@ -63,8 +63,9 @@ def load_sources():
                 for field in ('assay_organism', 'assay_tax_id', 'assay_tissue', 'assay_cell_type', 'assay_subcellular_fraction', 'assay_strain', 'cell_chembl_id', 'tissue_chembl_id'):
                     enriched[field] = meta.get(field)
                 rows.append(enriched)
-        if len(rows) != observed or len({r['activity_id'] for r in rows}) != observed:
-            raise ValueError('ChEMBL page total, observed rows and unique activity IDs differ')
+        stored_total = pages[0][1]['page_meta']['total_count']
+        if not (len(rows) == len({r['activity_id'] for r in rows}) == observed == stored_total):
+            raise ValueError(f'ChEMBL page total, observed rows and unique activity IDs differ: {assay}')
         datasets[assay] = rows
     for source in (TM, TH):
         path = ROOT / f'data/raw/tdc/{source.lower()}.tab'

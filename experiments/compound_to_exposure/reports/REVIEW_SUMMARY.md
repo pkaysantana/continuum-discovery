@@ -13,6 +13,8 @@
 
 EXPECTED_FROM_MEMO: The task supplied ChEMBL expectations of 1,102 / 837 / 408; these match ChEMBL 37 observations. The frozen memo itself contains no numeric expectations.
 
+OBSERVED: ChEMBL completeness is verified against the downloaded **ChEMBL 37 API state**, not a historical release. Stored pagination metadata, acquired row counts and unique activity IDs must agree for each assay. This does not establish completeness against the historical ChEMBL release used to construct TDC.
+
 ## Relations and boundaries
 
 | Assay | OBSERVED `<` | OBSERVED `>` | OBSERVED explicit `=` | OBSERVED null/UNKNOWN |

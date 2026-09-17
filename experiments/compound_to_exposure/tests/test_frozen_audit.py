@@ -42,6 +42,35 @@ class FrozenAuditTests(unittest.TestCase):
             'no_strict_structural_match_to_either_assay': 6})
         self.assertEqual(self.report['tdc_microsome_reconciliation']['OBSERVED']['structure_overlap'], 1097)
 
+    def test_row_and_distinct_structure_species_denominators(self):
+        species = self.report['tdc_hepatocyte_species_audit']['OBSERVED']
+        labels = ('rat_only', 'human_only', 'both', 'neither', 'ambiguous_unparseable')
+        self.assertEqual(species['row_counts'], dict(zip(labels, (609, 183, 405, 16, 0))))
+        self.assertEqual(species['unique_valid_structure_counts'], dict(zip(labels, (609, 183, 218, 10, 0))))
+
+    def test_verified_censor_counts_and_boundaries_preserve_unknown_relations(self):
+        for assay, expected in ((audit.HLM, (274, 84, 744)), (audit.RAT, (115, 127, 595)), (audit.HH, (104, 15, 289))):
+            with self.subTest(assay=assay):
+                observed = self.report['chembl_assay_audits'][assay]['OBSERVED']
+                for field in ('standard_relations', 'original_relations'):
+                    self.assertEqual(observed[field]['all_relation_counts'],
+                                     dict(zip(('<', '>', 'UNKNOWN'), expected)))
+                boundaries = observed['standard_relations']['reported_values_by_relation']
+                for relation, value, count in (('<', '3', expected[0]), ('>', '150', expected[1])):
+                    self.assertEqual(sum(b['count'] for b in boundaries[relation]), count)
+                    self.assertTrue(all(audit.numeric_equal(b['reported_value'], value) for b in boundaries[relation]))
+                self.assertEqual(observed['missing_standard_relation_rows'], expected[2])
+
+    def test_tdc_microsome_preserves_bare_boundary_values_without_qualifiers(self):
+        observed = self.report['tdc_microsome_reconciliation']['OBSERVED']
+        pairs = observed['qualifier_reconciliation_candidate_pairs']
+        for relation, count in (('<', 274), ('>', 84)):
+            self.assertEqual(pairs[relation]['candidate_pairs'], count)
+            self.assertEqual(pairs[relation]['numeric_equal_pairs'], count)
+            self.assertEqual(pairs[relation]['tdc_inequality_present_pairs'], 0)
+        targets = self.report['OBSERVED']['datasets'][audit.TM]['target_distribution']
+        self.assertEqual((targets['exactly_3'], targets['exactly_150'], targets['inequality_strings']), (287, 84, 0))
+
     def test_all_other_derived_outputs_byte_identical(self):
         amended = {'reports/DATA_AUDIT.json', 'reports/DATA_AUDIT.md',
                    'reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md',

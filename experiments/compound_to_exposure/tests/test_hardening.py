@@ -1,5 +1,6 @@
 """Deterministic acquisition, provenance and output failure-path regressions."""
 from copy import deepcopy
+from http.client import IncompleteRead
 import json
 from pathlib import Path
 import tempfile
@@ -44,6 +45,13 @@ class PaginationTests(unittest.TestCase):
     def test_missing_final_page(self):
         with self.assertRaisesRegex(ValueError, 'incomplete'):
             validate_pages(self.pages[:1], audit.HLM)
+
+    def test_interrupted_page_iterator_propagates_failure(self):
+        def interrupted():
+            yield self.pages[0]
+            raise IncompleteRead(b'partial page')
+        with self.assertRaises(IncompleteRead):
+            validate_pages(interrupted(), audit.HLM)
 
     def test_incomplete_total_on_short_final_page(self):
         for p in self.pages:
@@ -127,6 +135,43 @@ class PaginationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Frozen ChEMBL count'):
                 audit.load_sources()
 
+    def test_audit_rejects_changed_totals_empty_and_repeated_stored_rows(self):
+        cases = []
+        changed = deepcopy(self.pages)
+        changed[1]['page_meta']['total_count'] = 4
+        cases.append((changed, 'count changed'))
+        empty = deepcopy(self.pages)
+        empty[1]['activities'] = []
+        cases.append((empty, 'empty'))
+        repeated = deepcopy(self.pages)
+        repeated[1]['activities'][0]['activity_id'] = 2
+        cases.append((repeated, 'Repeated activity ID'))
+        for pages, message in cases:
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as tmp, patch.object(audit, 'ROOT', Path(tmp)):
+                folder = Path(tmp) / 'data/raw/chembl'
+                folder.mkdir(parents=True)
+                (folder / f'{audit.HLM}_assay.json').write_text('{}')
+                for p in pages:
+                    offset = p['page_meta']['offset']
+                    (folder / f'{audit.HLM}_activities_{offset:05d}.json').write_text(json.dumps(p))
+                with self.assertRaisesRegex(ValueError, message):
+                    audit.load_sources()
+
+    def test_audit_rejects_loaded_ids_inconsistent_with_pagination_total(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(audit, 'ROOT', Path(tmp)), patch.dict(audit.EXPECTED, {audit.HLM: 3}):
+            folder = Path(tmp) / 'data/raw/chembl'
+            folder.mkdir(parents=True)
+            (folder / f'{audit.HLM}_assay.json').write_text('{}')
+            for p in deepcopy(self.pages):
+                for row in p['activities']:
+                    row['molecule_chembl_id'] = 'fixture'
+                offset = p['page_meta']['offset']
+                (folder / f'{audit.HLM}_activities_{offset:05d}.json').write_text(json.dumps(p))
+            # Simulate a future loader regression collapsing distinct source IDs.
+            with patch.object(audit, 'enrich', side_effect=lambda *args: {'activity_id': 1}):
+                with self.assertRaisesRegex(ValueError, 'page total, observed rows and unique activity IDs differ'):
+                    audit.load_sources()
+
 
 class ProvenanceFailureTests(unittest.TestCase):
     def setUp(self):
@@ -184,6 +229,17 @@ class ProvenanceFailureTests(unittest.TestCase):
         self.assertEqual(json.loads(self.receipt.read_text()), self.saved)
         self.network.assert_not_called()
 
+    def test_interrupted_download_creates_neither_raw_file_nor_receipt(self):
+        response = self.network.return_value.__enter__.return_value
+        response.read.side_effect = IncompleteRead(b'partial JSON')
+        self.network.side_effect = None
+        with self.assertRaises(IncompleteRead):
+            acquire.download(self.url, 'chembl/interrupted.json', 'fixture')
+        self.assertFalse((self.root / 'data/raw/chembl/interrupted.json').exists())
+        self.assertFalse((self.root / 'manifests/downloads/chembl__interrupted.json.json').exists())
+        self.assertEqual(self.raw.read_bytes(), b'abc')
+        self.assertEqual(json.loads(self.receipt.read_text()), self.saved)
+
 
 class OutputProtectionTests(unittest.TestCase):
     def test_audit_refuses_changed_output_before_any_writes(self):
@@ -217,6 +273,18 @@ class StrictPairTests(unittest.TestCase):
 
     def test_three_rows_are_not_a_strict_pair(self):
         self.assertEqual(self.classify(('7', '9', '7')), 'partial_or_unresolved')
+
+    def test_extra_unmatched_row_is_not_a_strict_pair(self):
+        self.assertEqual(self.classify(('7', '9', '11')), 'partial_or_unresolved')
+
+    def test_missing_or_invalid_label_is_not_a_strict_pair(self):
+        for value in (None, '', 'invalid', 'NaN'):
+            with self.subTest(value=value):
+                self.assertEqual(self.classify(('7', value)), 'partial_or_unresolved')
+
+    def test_identical_labels_matching_both_species_are_ambiguous(self):
+        self.assertEqual(self.classify(('7', '7.0'), human_labels=('7',)),
+                         'all_labels_match_both_species')
 
     def test_multiple_matching_rat_records_are_not_unique(self):
         self.assertEqual(self.classify(rat_labels=('7', '7.0')), 'partial_or_unresolved')
