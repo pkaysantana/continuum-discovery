@@ -1,0 +1,7 @@
+{
+  "split_file": "splits/TDC_OFFICIAL_SPLIT.csv",
+  "split_hash": "b74626353c2b8d41c6d4da0823ace0f5ceee4f2681e5ac7d340b6a06c8945aff",
+  "train_n": 771,
+  "valid_n": 110,
+  "test_n": 221
+}

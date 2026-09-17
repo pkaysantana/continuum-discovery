@@ -1,0 +1,14 @@
+{
+  "Ridge_descriptors": {
+    "alpha": 0.1
+  },
+  "Ridge_Morgan": {
+    "alpha": 10.0
+  },
+  "RandomForestRegressor_descriptors": {
+    "max_depth": 10
+  },
+  "RandomForestRegressor_Morgan": {
+    "max_depth": null
+  }
+}

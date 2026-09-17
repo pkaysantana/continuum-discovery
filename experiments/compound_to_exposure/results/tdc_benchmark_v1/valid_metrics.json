@@ -1,0 +1,52 @@
+[
+  {
+    "cell": "Ridge_descriptors",
+    "params": "{'alpha': 0.1}",
+    "valid_mae": 31.547891196234353
+  },
+  {
+    "cell": "Ridge_descriptors",
+    "params": "{'alpha': 1.0}",
+    "valid_mae": 31.555207462249992
+  },
+  {
+    "cell": "Ridge_descriptors",
+    "params": "{'alpha': 10.0}",
+    "valid_mae": 31.623490737849377
+  },
+  {
+    "cell": "Ridge_Morgan",
+    "params": "{'alpha': 0.1}",
+    "valid_mae": 36.8272183908341
+  },
+  {
+    "cell": "Ridge_Morgan",
+    "params": "{'alpha': 1.0}",
+    "valid_mae": 33.48587179549429
+  },
+  {
+    "cell": "Ridge_Morgan",
+    "params": "{'alpha': 10.0}",
+    "valid_mae": 28.871490837114557
+  },
+  {
+    "cell": "RandomForestRegressor_descriptors",
+    "params": "{'max_depth': 10}",
+    "valid_mae": 31.008256887945418
+  },
+  {
+    "cell": "RandomForestRegressor_descriptors",
+    "params": "{'max_depth': None}",
+    "valid_mae": 31.289232238095238
+  },
+  {
+    "cell": "RandomForestRegressor_Morgan",
+    "params": "{'max_depth': 10}",
+    "valid_mae": 28.347698747880965
+  },
+  {
+    "cell": "RandomForestRegressor_Morgan",
+    "params": "{'max_depth': None}",
+    "valid_mae": 27.22498497835498
+  }
+]
