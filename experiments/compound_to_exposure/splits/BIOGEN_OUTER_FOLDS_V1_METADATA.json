@@ -1,0 +1,26 @@
+{
+  "total_n": 3521,
+  "populated_n": 3087,
+  "missing_n": 434,
+  "pileup_n": 958,
+  "sensitivity_n": 2129,
+  "n_scaffolds": 2659,
+  "largest_scaffold_size": 39,
+  "n_empty_scaffold_singletons": 306,
+  "fold_counts": {
+    "0": 647,
+    "1": 623,
+    "2": 641,
+    "3": 579,
+    "4": 597
+  },
+  "sensitivity_fold_counts": {
+    "0": 436,
+    "1": 434,
+    "2": 437,
+    "3": 410,
+    "4": 412
+  },
+  "csv_sha256": "fc007e5323c2cbf36172f2a80438c271ccb04bcdb08d1187665fe9eab8aa731d",
+  "outer_fold_splitter": "GroupKFold(n_splits=5, shuffle=True, random_state=42)"
+}
