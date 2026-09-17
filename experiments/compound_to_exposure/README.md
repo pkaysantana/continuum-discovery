@@ -9,6 +9,7 @@ OBSERVED: This checkpoint contains acquisition, identity/censoring/duplicate aud
 ## Review entry points
 
 - [Concise findings and unresolved discrepancies](reports/REVIEW_SUMMARY.md)
+- [Preserved independent review](reports/AUDIT_REVIEW.md) and [correction archive](reports/revisions/independent-review/amendment.json)
 - [Complete audit](reports/DATA_AUDIT.md) and [machine-readable evidence](reports/DATA_AUDIT.json)
 - [Provenance table](reports/PROVENANCE_TABLE.csv) and [raw manifest](manifests/source_manifest.json)
 - [Microsome row reconciliation](reports/CHEMBL_TDC_MICROSOME_RECONCILIATION.csv)
@@ -49,7 +50,11 @@ Then:
 
 OBSERVED: With the committed raw files, acquisition verifies and reuses local bytes without requesting replacement data. A changed URL, missing receipt or mismatched raw hash fails. A fresh acquisition against future live ChEMBL may differ; it is a new acquisition, not a recreation of this snapshot. Use the committed raw inputs for exact reproduction. Reports are also compared byte-for-byte on rerun; environment differences recorded inside reports can cause an explicit mismatch requiring a documented new output location/amendment.
 
-OBSERVED: `src/run.py` records commands, source/input hashes, timestamps, code commit, outputs/hashes and SUCCESS/FAILED status. Unit tests are offline synthetic fixtures, never replacement scientific results. An initial manifest type error is retained as FAILED with its traceback. The first successful derived audit was explicitly archived before adding ID/parent-ID forensic follow-up; its report hashes and code snapshot are under `reports/revisions/initial-audit/`. The one-time archive action is historical and should not be rerun.
+OBSERVED: `src/run.py` records commands, source/input hashes, timestamps, code commit, outputs/hashes and SUCCESS/FAILED status. Tests include offline synthetic failure fixtures and read-only frozen-data regressions against commit `13715550adad0a628e92da6cf34568000ddbc797`, which must remain available in Git history. They compare the complete original machine-readable report (allowing only the documented classification wording and added rule explanation), unchanged evidence tables, raw hashes and receipts. No test supplies replacement scientific results. An initial manifest type error is retained as FAILED with its traceback. The first successful derived audit was explicitly archived before adding ID/parent-ID forensic follow-up; its report hashes and code snapshot are under `reports/revisions/initial-audit/`. The one-time archive action is historical and should not be rerun.
+
+OBSERVED: Independent-review hardening adds shared acquisition/audit checks for constant page totals, contiguous offsets, terminal page metadata, requested assay IDs and unique activity IDs. The frozen audit also enforces the expected 1,102 / 837 / 408 counts. Failure tests cover missing/early-ending pages, repeated IDs, hash and size mismatches, missing receipts, changed download URLs and refusal to overwrite non-identical outputs. Strict hepatocyte duplicate pairs require exactly two rows with one unique structure/value-matching source record per species and no opposite-species value match; the frozen result remains 187. The six other groups have no strict structural match to either source assay. Four microsome tautomer spellings and one hydrate representation remain strict mismatches; the strict overlap remains 1,097.
+
+OBSERVED: The four regenerated audit artifacts were explicitly archived with their original hashes under `reports/revisions/independent-review/` before the documentation/classification amendment. `AUDIT_REVIEW.md` is preserved byte-for-byte as the independent review record. Raw inputs, source receipts, scientific numbers, identity and null-relation handling are unchanged.
 
 INFERRED: Raw immutability is enforced by create-only writes and hash verification. `.gitattributes` disables newline conversion for this experiment so Git preserves the acquired bytes. `.venv`, caches, Python bytecode and temporary files are excluded from Git and kept inside the experiment.
 

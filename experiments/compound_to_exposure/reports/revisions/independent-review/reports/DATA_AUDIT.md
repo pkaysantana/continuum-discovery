@@ -29,17 +29,6 @@ OBSERVED: CHEMBL3301371 censored/other reported boundaries: `{"<": [{"count": 11
 
 OBSERVED: CHEMBL3301372 censored/other reported boundaries: `{"<": [{"count": 104, "reported_value": "3.0"}], ">": [{"count": 15, "reported_value": "150.0"}], "UNKNOWN": [{"count": 3, "reported_value": "10.0"}, {"count": 2, "reported_value": "10.23"}, {"count": 2, "reported_value": "10.47"}, {"count": 5, "reported_value": "10.72"}, {"count": 2, "reported_value": "10.96"}, {"count": 1, "reported_value": "102.33"}, {"count": 1, "reported_value": "11.48"}, {"count": 2, "reported_value": "12.02"}, {"count": 2, "reported_value": "12.3"}, {"count": 2, "reported_value": "12.59"}, {"count": 2, "reported_value": "12.88"}, {"count": 1, "reported_value": "123.03"}, {"count": 1, "reported_value": "125.0"}, {"count": 1, "reported_value": "125.89"}, {"count": 1, "reported_value": "128.82"}, {"count": 2, "reported_value": "13.18"}, {"count": 3, "reported_value": "13.49"}, {"count": 1, "reported_value": "13.5"}, {"count": 5, "reported_value": "13.8"}, {"count": 1, "reported_value": "134.9"}, {"count": 1, "reported_value": "14.0"}, {"count": 3, "reported_value": "14.45"}, {"count": 1, "reported_value": "14.5"}, {"count": 1, "reported_value": "14.78"}, {"count": 3, "reported_value": "14.79"}, {"count": 2, "reported_value": "15.14"}, {"count": 6, "reported_value": "15.49"}, {"count": 1, "reported_value": "16.0"}, {"count": 2, "reported_value": "16.22"}, {"count": 2, "reported_value": "16.6"}, {"count": 1, "reported_value": "16.98"}, {"count": 4, "reported_value": "17.38"}, {"count": 3, "reported_value": "17.78"}, {"count": 3, "reported_value": "18.2"}, {"count": 2, "reported_value": "18.62"}, {"count": 3, "reported_value": "19.05"}, {"count": 1, "reported_value": "19.45"}, {"count": 2, "reported_value": "19.5"}, {"count": 1, "reported_value": "19.91"}, {"count": 2, "reported_value": "19.95"}, {"count": 1, "reported_value": "20.0"}, {"count": 1, "reported_value": "20.05"}, {"count": 1, "reported_value": "20.42"}, {"count": 2, "reported_value": "21.38"}, {"count": 1, "reported_value": "21.88"}, {"count": 1, "reported_value": "21.9"}, {"count": 2, "reported_value": "22.39"}, {"count": 1, "reported_value": "22.91"}, {"count": 1, "reported_value": "23.2"}, {"count": 1, "reported_value": "23.22"}, {"count": 1, "reported_value": "23.44"}, {"count": 1, "reported_value": "23.99"}, {"count": 3, "reported_value": "24.55"}, {"count": 3, "reported_value": "25.12"}, {"count": 2, "reported_value": "25.7"}, {"count": 1, "reported_value": "25.92"}, {"count": 2, "reported_value": "26.3"}, {"count": 1, "reported_value": "26.41"}, {"count": 2, "reported_value": "26.92"}, {"count": 1, "reported_value": "27.3"}, {"count": 3, "reported_value": "27.54"}, {"count": 2, "reported_value": "28.18"}, {"count": 1, "reported_value": "28.84"}, {"count": 2, "reported_value": "29.51"}, {"count": 1, "reported_value": "3.2"}, {"count": 1, "reported_value": "3.24"}, {"count": 1, "reported_value": "3.3"}, {"count": 3, "reported_value": "3.31"}, {"count": 1, "reported_value": "3.39"}, {"count": 1, "reported_value": "3.4"}, {"count": 1, "reported_value": "3.46"}, {"count": 2, "reported_value": "3.47"}, {"count": 1, "reported_value": "3.55"}, {"count": 3, "reported_value": "3.72"}, {"count": 1, "reported_value": "3.8"}, {"count": 1, "reported_value": "3.81"}, {"count": 1, "reported_value": "3.89"}, {"count": 1, "reported_value": "3.91"}, {"count": 3, "reported_value": "3.98"}, {"count": 1, "reported_value": "30.12"}, {"count": 2, "reported_value": "30.2"}, {"count": 2, "reported_value": "30.9"}, {"count": 1, "reported_value": "32.0"}, {"count": 3, "reported_value": "32.36"}, {"count": 1, "reported_value": "33.88"}, {"count": 2, "reported_value": "34.67"}, {"count": 2, "reported_value": "35.48"}, {"count": 1, "reported_value": "36.31"}, {"count": 1, "reported_value": "37.0"}, {"count": 3, "reported_value": "38.02"}, {"count": 3, "reported_value": "38.9"}, {"count": 2, "reported_value": "39.81"}, {"count": 1, "reported_value": "4.04"}, {"count": 1, "reported_value": "4.17"}, {"count": 2, "reported_value": "4.27"}, {"count": 1, "reported_value": "4.46"}, {"count": 2, "reported_value": "4.47"}, {"count": 3, "reported_value": "4.57"}, {"count": 2, "reported_value": "4.68"}, {"count": 1, "reported_value": "4.7"}, {"count": 1, "reported_value": "4.76"}, {"count": 3, "reported_value": "4.79"}, {"count": 1, "reported_value": "4.88"}, {"count": 2, "reported_value": "4.9"}, {"count": 1, "reported_value": "4.92"}, {"count": 1, "reported_value": "40.0"}, {"count": 1, "reported_value": "40.74"}, {"count": 1, "reported_value": "41.69"}, {"count": 1, "reported_value": "42.5"}, {"count": 2, "reported_value": "42.66"}, {"count": 1, "reported_value": "43.65"}, {"count": 1, "reported_value": "44.0"}, {"count": 1, "reported_value": "45.71"}, {"count": 1, "reported_value": "46.77"}, {"count": 1, "reported_value": "5.01"}, {"count": 1, "reported_value": "5.05"}, {"count": 1, "reported_value": "5.13"}, {"count": 1, "reported_value": "5.16"}, {"count": 1, "reported_value": "5.17"}, {"count": 3, "reported_value": "5.25"}, {"count": 2, "reported_value": "5.37"}, {"count": 1, "reported_value": "5.5"}, {"count": 2, "reported_value": "5.62"}, {"count": 3, "reported_value": "5.75"}, {"count": 1, "reported_value": "5.88"}, {"count": 2, "reported_value": "50.12"}, {"count": 2, "reported_value": "51.29"}, {"count": 1, "reported_value": "52.48"}, {"count": 4, "reported_value": "54.95"}, {"count": 1, "reported_value": "56.23"}, {"count": 1, "reported_value": "57.11"}, {"count": 3, "reported_value": "6.0"}, {"count": 2, "reported_value": "6.17"}, {"count": 3, "reported_value": "6.31"}, {"count": 2, "reported_value": "6.46"}, {"count": 2, "reported_value": "6.61"}, {"count": 2, "reported_value": "6.76"}, {"count": 2, "reported_value": "6.92"}, {"count": 1, "reported_value": "6.99"}, {"count": 2, "reported_value": "60.26"}, {"count": 1, "reported_value": "61.66"}, {"count": 1, "reported_value": "64.0"}, {"count": 1, "reported_value": "64.57"}, {"count": 1, "reported_value": "66.07"}, {"count": 1, "reported_value": "67.61"}, {"count": 1, "reported_value": "7.0"}, {"count": 2, "reported_value": "7.08"}, {"count": 1, "reported_value": "7.24"}, {"count": 2, "reported_value": "7.41"}, {"count": 3, "reported_value": "7.59"}, {"count": 3, "reported_value": "7.76"}, {"count": 1, "reported_value": "7.9"}, {"count": 2, "reported_value": "7.94"}, {"count": 1, "reported_value": "74.13"}, {"count": 1, "reported_value": "77.62"}, {"count": 1, "reported_value": "8.13"}, {"count": 3, "reported_value": "8.51"}, {"count": 1, "reported_value": "8.7"}, {"count": 2, "reported_value": "8.71"}, {"count": 1, "reported_value": "8.91"}, {"count": 1, "reported_value": "83.18"}, {"count": 2, "reported_value": "87.1"}, {"count": 4, "reported_value": "9.12"}, {"count": 2, "reported_value": "9.33"}, {"count": 1, "reported_value": "9.5"}, {"count": 2, "reported_value": "9.77"}, {"count": 2, "reported_value": "95.5"}]}`.
 
-### Null-relation records at numeric boundaries
-
-| Assay | Null relation at 3 | Null relation at 150 |
-|---|---:|---:|
-| CHEMBL3301370 | 13 | 0 |
-| CHEMBL3301371 | 2 | 0 |
-| CHEMBL3301372 | 0 | 0 |
-
-OBSERVED: Rat-assay null-relation records at 3: activity 14768823, CHEMBL589973, value 3.0; activity 14768825, CHEMBL364714, value 3.0. These remain UNKNOWN; boundary equality does not assign a censor relation.
-
-
 ## TDC target audit
 
 OBSERVED: Raw columns are ID, X, Y; Drug_ID in the requested audit means ID, raw SMILES means X. Both tables were downloaded directly using the verified PyTDC 1.1.15 source registry. PyTDC itself was not installed or invoked.
@@ -188,8 +177,7 @@ OBSERVED:
 {
   "INFERRED": {
     "claim_status": "REPRODUCED",
-    "decision_rule": "REPRODUCED requires both rat-only and human-only structure matches with exactly matching numeric source labels. PARTIALLY_REPRODUCED requires label-specific matches to both species without both exclusive structural witnesses; otherwise NOT_REPRODUCED. Censored matches identify numeric boundaries only.",
-    "strict_duplicate_pair_rule": "Exactly two TDC rows with different numeric labels: one has exactly one strict structure/value-matching rat record and no human value match; the other has exactly one strict structure/value-matching human record and no rat value match. Numeric agreement uses exact Decimal equality."
+    "decision_rule": "REPRODUCED requires both rat-only and human-only structure matches with exactly matching numeric source labels. PARTIALLY_REPRODUCED requires label-specific matches to both species without both exclusive structural witnesses; otherwise NOT_REPRODUCED. Censored matches identify numeric boundaries only."
   },
   "OBSERVED": {
     "duplicate_label_groups": {
@@ -197,7 +185,7 @@ OBSERVED:
     },
     "duplicate_trace_groups": {
       "distinct_labels_match_rat_and_human": 187,
-      "no_strict_structural_match_to_either_assay": 6
+      "partial_or_unresolved": 6
     },
     "numeric_label_match_row_counts": {
       "both": 31,
@@ -233,8 +221,6 @@ OBSERVED:
   "UNRESOLVED": "Historical lineage cannot be proven by equality alone. A shared structure/label can map to both species; retain ambiguity. Species uses ChEMBL assay organism/taxonomy, never target magnitude. Secondary exact molecule-ID plus numeric-value matching is explicitly separate and never upgrades the strict structural matches."
 }
 ```
-
-OBSERVED: The six non-strict hepatocyte duplicate groups have no strict structural match to either source assay under the frozen identity rule; all twelve rows are classified as neither. They are not groups with ambiguous matching species evidence.
 
 # TDC microsome summary
 
@@ -445,18 +431,6 @@ OBSERVED: The six non-strict hepatocyte duplicate groups have no strict structur
   }
 }
 ```
-
-### Five strict microsome structure discrepancies
-
-| TDC molecule ID | ChEMBL molecule ID | Representation discrepancy | Matching numeric value | Standard InChIKeys |
-|---|---|---|---:|---|
-| CHEMBL82663 | CHEMBL82663 | Hydroxythiazole / thiazolone tautomer spellings | 111.0 | Equal |
-| CHEMBL1483 | CHEMBL1483 | Heterocyclic N-H tautomer spellings | 34.67 | Equal |
-| CHEMBL412142 | CHEMBL412142 | Imidazole N-H tautomer spellings | 96.0 | Equal |
-| CHEMBL1513 | CHEMBL1513 | Tetrazole N-H tautomer spellings | 17.78 | Equal |
-| CHEMBL190 | CHEMBL1355736 (declared parent CHEMBL190) | Theophylline / hydrate with a disconnected O component | 4.79 | Different |
-
-OBSERVED: The independent review confirmed matching molecule IDs, values and standard InChIKeys for the four tautomer cases. Standard InChIKey agreement is supporting evidence only; it does not replace the frozen canonical-SMILES identity rule. The hydrate pair has a matching value. All five remain strict mismatches; the strict match count remains 1,097. Full canonical strings and activity references are retained above and in the reconciliation CSV. See AUDIT_REVIEW.md for the preserved independent review.
 
 ## Paired human cohort
 

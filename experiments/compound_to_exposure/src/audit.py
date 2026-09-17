@@ -9,6 +9,7 @@ import numpy as np
 from rdkit import rdBase
 from chemistry import chemical, distribution, duplicate_summary, measurement, missing, number, numeric_equal, PROPERTIES
 from provenance import ROOT, immutable, json_bytes, record, verify
+from chembl_pages import validate_pages
 
 HLM, RAT, HH = 'CHEMBL3301370', 'CHEMBL3301371', 'CHEMBL3301372'
 TM, TH, BIO = 'Clearance_Microsome_AZ', 'Clearance_Hepatocyte_AZ', 'Biogen'
@@ -52,14 +53,18 @@ def load_sources():
         meta = read_json(ROOT / f'data/raw/chembl/{assay}_assay.json')
         assays[assay] = meta
         rows = []
-        for path in sorted((ROOT / 'data/raw/chembl').glob(f'{assay}_activities_*.json')):
-            for i, row in enumerate(read_json(path)['activities'], 1):
+        pages = [(path, read_json(path)) for path in sorted((ROOT / 'data/raw/chembl').glob(f'{assay}_activities_*.json'))]
+        observed = validate_pages((page for _, page in pages), assay)
+        if observed != EXPECTED[assay]:
+            raise ValueError(f'Frozen ChEMBL count differs from expectation: {assay}')
+        for path, page in pages:
+            for i, row in enumerate(page['activities'], 1):
                 enriched = enrich(row, assay, i, path, row.get('canonical_smiles'), row.get('standard_value'), row['molecule_chembl_id'], row.get('standard_relation'))
                 for field in ('assay_organism', 'assay_tax_id', 'assay_tissue', 'assay_cell_type', 'assay_subcellular_fraction', 'assay_strain', 'cell_chembl_id', 'tissue_chembl_id'):
                     enriched[field] = meta.get(field)
                 rows.append(enriched)
-        if len({r['activity_id'] for r in rows}) != len(rows):
-            raise ValueError('Duplicate activity IDs; no silent page repair')
+        if len(rows) != observed or len({r['activity_id'] for r in rows}) != observed:
+            raise ValueError('ChEMBL page total, observed rows and unique activity IDs differ')
         datasets[assay] = rows
     for source in (TM, TH):
         path = ROOT / f'data/raw/tdc/{source.lower()}.tab'
@@ -146,7 +151,14 @@ def species_audit(tdc, rat, human):
         label_state = 'unresolved' if any(n is None for n in numbers) else 'identical' if len(set(numbers)) == 1 else 'different'
         rat_only = [r for r in rows if r['numeric_label_matches_species'] == 'rat_only']
         human_only = [r for r in rows if r['numeric_label_matches_species'] == 'human_only']
-        trace = 'distinct_labels_match_rat_and_human' if label_state == 'different' and rat_only and human_only else 'all_labels_match_both_species' if all(r['numeric_label_matches_species'] == 'both' for r in rows) else 'partial_or_unresolved'
+        strict_pair = (len(rows) == 2 and label_state == 'different'
+                       and len(rat_only) == len(human_only) == 1
+                       and len(rat_only[0]['rat_numeric_matches']) == 1
+                       and len(human_only[0]['human_numeric_matches']) == 1)
+        trace = ('distinct_labels_match_rat_and_human' if strict_pair else
+                 'no_strict_structural_match_to_either_assay' if all(r['structure_species_class'] == 'neither' for r in rows) else
+                 'all_labels_match_both_species' if all(r['numeric_label_matches_species'] == 'both' for r in rows) else
+                 'partial_or_unresolved')
         id_classes = {r['secondary_id_numeric_matches_species'] for r in rows}
         id_trace = 'distinct_labels_match_rat_and_human' if label_state == 'different' and {'rat_only','human_only'} <= id_classes else 'partial_or_unresolved'
         repeated.append({'canonical_smiles_rdkit': key, 'rows': rows, 'label_state': label_state, 'trace_class': trace, 'secondary_id_trace_class': id_trace})
@@ -160,7 +172,8 @@ def species_audit(tdc, rat, human):
                          'duplicate_label_groups': dict(sorted(Counter(r['label_state'] for r in repeated).items())),
                          'duplicate_trace_groups': dict(sorted(Counter(r['trace_class'] for r in repeated).items())),
                          'secondary_id_duplicate_trace_groups': dict(sorted(Counter(r['secondary_id_trace_class'] for r in repeated).items()))},
-            'INFERRED': {'claim_status': status, 'decision_rule': 'REPRODUCED requires both rat-only and human-only structure matches with exactly matching numeric source labels. PARTIALLY_REPRODUCED requires label-specific matches to both species without both exclusive structural witnesses; otherwise NOT_REPRODUCED. Censored matches identify numeric boundaries only.'},
+            'INFERRED': {'claim_status': status, 'decision_rule': 'REPRODUCED requires both rat-only and human-only structure matches with exactly matching numeric source labels. PARTIALLY_REPRODUCED requires label-specific matches to both species without both exclusive structural witnesses; otherwise NOT_REPRODUCED. Censored matches identify numeric boundaries only.',
+                         'strict_duplicate_pair_rule': 'Exactly two TDC rows with different numeric labels: one has exactly one strict structure/value-matching rat record and no human value match; the other has exactly one strict structure/value-matching human record and no rat value match. Numeric agreement uses exact Decimal equality.'},
             'UNRESOLVED': 'Historical lineage cannot be proven by equality alone. A shared structure/label can map to both species; retain ambiguity. Species uses ChEMBL assay organism/taxonomy, never target magnitude. Secondary exact molecule-ID plus numeric-value matching is explicitly separate and never upgrades the strict structural matches.'}, evidence, repeated
 
 
@@ -254,6 +267,16 @@ def markdown_json(title, obj):
     return f'# {title}\n\n```json\n' + json.dumps(obj, indent=2, sort_keys=True) + '\n```\n'
 
 
+def write_outputs(outputs):
+    """Preflight every existing output before creating any audit artifact."""
+    for relative, content in outputs.items():
+        path = ROOT / relative
+        if path.exists() and path.read_bytes() != content:
+            raise ValueError(f'Audit output changed: {relative}; archive/amend explicitly before rerun')
+    for relative, content in outputs.items():
+        immutable(ROOT / relative, content)
+
+
 def audit():
     if rdBase.rdkitVersion != '2025.03.6' or np.__version__ != '2.2.6':
         raise ValueError('Audit identity/statistics dependency version changed; explicit amendment required')
@@ -331,12 +354,33 @@ def audit():
     for name, a in assay_audits.items():
         bounds = {k:v for k,v in a['OBSERVED']['standard_relations']['reported_values_by_relation'].items() if k != '='}
         lines += ['', f'OBSERVED: {name} censored/other reported boundaries: `{json.dumps(bounds, sort_keys=True)}`.']
+    lines += ['', '### Null-relation records at numeric boundaries', '',
+              '| Assay | Null relation at 3 | Null relation at 150 |', '|---|---:|---:|']
+    for name in (HLM, RAT, HH):
+        null_rows = [r for r in datasets[name] if r.get('standard_relation') is None]
+        counts = [sum(numeric_equal(r['raw_target'], value) for r in null_rows) for value in ('3', '150')]
+        lines.append(f'| {name} | {counts[0]} | {counts[1]} |')
+    lines += ['', 'OBSERVED: Rat-assay null-relation records at 3: ' + '; '.join(
+        f"activity {r['activity_id']}, {r['raw_identifier']}, value {r['raw_target']}"
+        for r in datasets[RAT] if r.get('standard_relation') is None and numeric_equal(r['raw_target'], '3')) +
+        '. These remain UNKNOWN; boundary equality does not assign a censor relation.', '']
     lines += ['', '## TDC target audit', '', 'OBSERVED: Raw columns are ID, X, Y; Drug_ID in the requested audit means ID, raw SMILES means X. Both tables were downloaded directly using the verified PyTDC 1.1.15 source registry. PyTDC itself was not installed or invoked.', '']
     lines += ['OBSERVED: The [TDC public documentation](https://tdcommons.ai/single_pred_tasks/adme/#clearance-astrazeneca), accessed 2026-09-16, reports 1,020 hepatocyte drugs. The downloaded table has 1,213 rows and 1,020 unique IDs/structures. These are distinct denominators; no raw deduplication was applied.', '',
               'OBSERVED: The preserved PyTDC 1.1.15 loader source uses raw X/Y/ID and filters null targets. This audit reads the raw table directly, retaining even missing-target rows. Both acquired TDC tables have no missing targets.', '']
     for name in (TM, TH):
         lines += [f'### {name}', '', 'OBSERVED:', '```json', json.dumps(summaries[name]['target_distribution'], indent=2), '```', '']
-    lines += ['## Species and microsome reconciliation', '', markdown_json('TDC hepatocyte summary', species), markdown_json('TDC microsome summary', microsome),
+    lines += ['## Species and microsome reconciliation', '', markdown_json('TDC hepatocyte summary', species),
+              'OBSERVED: The six non-strict hepatocyte duplicate groups have no strict structural match to either source assay under the frozen identity rule; all twelve rows are classified as neither. They are not groups with ambiguous matching species evidence.', '',
+              markdown_json('TDC microsome summary', microsome),
+              '### Five strict microsome structure discrepancies', '',
+              '| TDC molecule ID | ChEMBL molecule ID | Representation discrepancy | Matching numeric value | Standard InChIKeys |',
+              '|---|---|---|---:|---|',
+              '| CHEMBL82663 | CHEMBL82663 | Hydroxythiazole / thiazolone tautomer spellings | 111.0 | Equal |',
+              '| CHEMBL1483 | CHEMBL1483 | Heterocyclic N-H tautomer spellings | 34.67 | Equal |',
+              '| CHEMBL412142 | CHEMBL412142 | Imidazole N-H tautomer spellings | 96.0 | Equal |',
+              '| CHEMBL1513 | CHEMBL1513 | Tetrazole N-H tautomer spellings | 17.78 | Equal |',
+              '| CHEMBL190 | CHEMBL1355736 (declared parent CHEMBL190) | Theophylline / hydrate with a disconnected O component | 4.79 | Different |', '',
+              'OBSERVED: The independent review confirmed matching molecule IDs, values and standard InChIKeys for the four tautomer cases. Standard InChIKey agreement is supporting evidence only; it does not replace the frozen canonical-SMILES identity rule. The hydrate pair has a matching value. All five remain strict mismatches; the strict match count remains 1,097. Full canonical strings and activity references are retained above and in the reconciliation CSV. See AUDIT_REVIEW.md for the preserved independent review.', '',
               '## Paired human cohort', '', markdown_json('Membership summary', paired), '## Biogen', '',
               f"OBSERVED: {b['row_count']} rows; exact non-null HLM N = {biogen['OBSERVED']['non_null_hlm_n']}; column `{HLM_COLUMN}`. See BIOGEN_AUDIT.md for independent descriptive results; no numerical cross-dataset comparison is made.", '',
               '## Chemical-space audit', '', 'INFERRED: ' + IDENTITY, '',
@@ -351,11 +395,5 @@ def audit():
               'INFERRED: Native ChEMBL source numeric boundary distributions are descriptive, not estimates of uncensored clearance. Raw TDC and Biogen numeric labels do not encode absent censor metadata. Missing metadata remains unknown.', '',
               'OBSERVED: Acquisition initially failed only while generating the manifest because the ChEMBL status activities field is an integer. All raw downloads were retained; a list-type check fixed manifest generation and acquisition was rerun using the same bytes. No failed computation was replaced by a mock result.', '']
     put('reports/DATA_AUDIT.md', '\n'.join(lines))
-    # Fail before writing anything if an existing audit differs. Never silently replace results.
-    for relative, content in outputs.items():
-        path = ROOT / relative
-        if path.exists() and path.read_bytes() != content:
-            raise ValueError(f'Audit output changed: {relative}; archive/amend explicitly before rerun')
-    for relative, content in outputs.items():
-        immutable(ROOT / relative, content)
+    write_outputs(outputs)
     print(json.dumps({'OBSERVED': {k: {p: v for p,v in s.items() if p in ('row_count','unique_identifiers','unique_valid_structures','invalid_structure_rows','duplicated_structure_groups','excess_duplicate_rows')} for k,s in summaries.items()}, 'species': species, 'microsome': microsome, 'paired': paired['OBSERVED'], 'biogen_non_null_hlm': biogen['OBSERVED']['non_null_hlm_n']}, indent=2))

@@ -6,6 +6,7 @@ import json
 import tarfile
 import urllib.request
 from provenance import ROOT, immutable, record, save_json, utc, verify
+from chembl_pages import validate_pages
 
 API = 'https://www.ebi.ac.uk/chembl/api/data'
 ASSAYS = ['CHEMBL3301370', 'CHEMBL3301371', 'CHEMBL3301372']
@@ -40,25 +41,17 @@ def chembl():
     release = json.loads(status.read_text())
     for assay in ASSAYS:
         download(f'{API}/assay/{assay}.json', f'chembl/{assay}_assay.json', assay, release)
-        offset, total, ids = 0, None, set()
-        while total is None or offset < total:
-            url = f'{API}/activity.json?assay_chembl_id={assay}&limit=1000&offset={offset}&order_by=activity_id'
-            path = download(url, f'chembl/{assay}_activities_{offset:05d}.json', assay, release, 'dataset')
-            page = json.loads(path.read_text())
-            n = page['page_meta']['total_count']
-            if total is not None and n != total:
-                raise ValueError('ChEMBL activity count changed during pagination')
-            total = n
-            activities = page['activities']
-            if not activities:
-                raise ValueError('Unexpected empty ChEMBL page')
-            for row in activities:
-                if row['assay_chembl_id'] != assay or row['activity_id'] in ids:
-                    raise ValueError('Wrong assay or repeated activity ID during pagination')
-                ids.add(row['activity_id'])
-            offset += len(activities)
-        if len(ids) != total:
-            raise ValueError('ChEMBL pagination incomplete')
+        def pages():
+            offset = 0
+            while True:
+                url = f'{API}/activity.json?assay_chembl_id={assay}&limit=1000&offset={offset}&order_by=activity_id'
+                path = download(url, f'chembl/{assay}_activities_{offset:05d}.json', assay, release, 'dataset')
+                page = json.loads(path.read_text())
+                yield page
+                if page['page_meta']['next'] is None:
+                    return
+                offset += len(page['activities'])
+        total = validate_pages(pages(), assay)
         print(assay, 'OBSERVED activities:', total, flush=True)
 
 

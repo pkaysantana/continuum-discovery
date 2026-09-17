@@ -4,8 +4,7 @@
 {
   "INFERRED": {
     "claim_status": "REPRODUCED",
-    "decision_rule": "REPRODUCED requires both rat-only and human-only structure matches with exactly matching numeric source labels. PARTIALLY_REPRODUCED requires label-specific matches to both species without both exclusive structural witnesses; otherwise NOT_REPRODUCED. Censored matches identify numeric boundaries only.",
-    "strict_duplicate_pair_rule": "Exactly two TDC rows with different numeric labels: one has exactly one strict structure/value-matching rat record and no human value match; the other has exactly one strict structure/value-matching human record and no rat value match. Numeric agreement uses exact Decimal equality."
+    "decision_rule": "REPRODUCED requires both rat-only and human-only structure matches with exactly matching numeric source labels. PARTIALLY_REPRODUCED requires label-specific matches to both species without both exclusive structural witnesses; otherwise NOT_REPRODUCED. Censored matches identify numeric boundaries only."
   },
   "OBSERVED": {
     "duplicate_label_groups": {
@@ -13,7 +12,7 @@
     },
     "duplicate_trace_groups": {
       "distinct_labels_match_rat_and_human": 187,
-      "no_strict_structural_match_to_either_assay": 6
+      "partial_or_unresolved": 6
     },
     "numeric_label_match_row_counts": {
       "both": 31,

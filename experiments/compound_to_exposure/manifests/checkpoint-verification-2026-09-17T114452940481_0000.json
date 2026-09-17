@@ -1,0 +1,75 @@
+{
+  "memo": {
+    "byte_size": 2142,
+    "filename": "docs/DATASET_SELECTION_MEMO.md",
+    "sha256": "6fb903b926ec7a3fc3bf87fc9cbf8e18c90cb36ca940996338bea79a97cfb06b"
+  },
+  "raw_files_verified": 18,
+  "report_generating_audit_run": "2026-09-17T114343219176_0000-ca899590",
+  "reports": [
+    {
+      "byte_size": 59104,
+      "filename": "reports/DATA_AUDIT.md",
+      "sha256": "c09ddb308019034b61d8c1e1ec5ef2a6cb0f77ba59015375616ed24fa29097bd"
+    },
+    {
+      "byte_size": 271954,
+      "filename": "reports/DATA_AUDIT.json",
+      "sha256": "ddc35709934a84eb4cca68bafccfbada0e9eeb8ba70f375deee37a71a7ae32e7"
+    },
+    {
+      "byte_size": 18438,
+      "filename": "reports/PROVENANCE_TABLE.csv",
+      "sha256": "6e9168a7edcec2b8266b765d18a6997d42e78c829d342b17913182d2aeea6305"
+    },
+    {
+      "byte_size": 1064165,
+      "filename": "reports/CHEMBL_TDC_MICROSOME_RECONCILIATION.csv",
+      "sha256": "f4009534dc6c642ee580288190d0d4940e6d0d6a2220f7416d6f1ef2920b7c51"
+    },
+    {
+      "byte_size": 4888,
+      "filename": "reports/PAIRED_HUMAN_COHORT_AUDIT.md",
+      "sha256": "488f9bb1dfda32055322a984211fd71648f4e3eec3c1171da2717b12c6307d3e"
+    },
+    {
+      "byte_size": 2755,
+      "filename": "reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md",
+      "sha256": "7141f6d8dca86a093f34906b4ed016ab0451793eda1e2cf200fb14776e6f21db"
+    },
+    {
+      "byte_size": 12778,
+      "filename": "reports/BIOGEN_AUDIT.md",
+      "sha256": "92fb5c0a8128f47ae4b91597e047b8a1dcee06d3f7aecc493ee5994a78afb217"
+    }
+  ],
+  "scope": "Integrity checks only; no scientific data transformations.",
+  "status": "SUCCESS",
+  "test_results": [
+    {
+      "errors": 0,
+      "failed": 0,
+      "passed": 27,
+      "run": 27,
+      "skipped": 0,
+      "status": "SUCCESS"
+    },
+    {
+      "errors": 0,
+      "failed": 0,
+      "passed": 30,
+      "run": 30,
+      "skipped": 0,
+      "status": "SUCCESS"
+    },
+    {
+      "errors": 0,
+      "failed": 0,
+      "passed": 69,
+      "run": 69,
+      "skipped": 0,
+      "status": "SUCCESS"
+    }
+  ],
+  "verified_utc": "2026-09-17T11:44:52.940481+00:00"
+}
