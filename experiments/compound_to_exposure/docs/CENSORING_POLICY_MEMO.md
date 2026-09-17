@@ -85,8 +85,8 @@ supply a qualifier that ChEMBL's standardisation then dropped. There is no hidde
 
 **(c) Assay-level internal evidence — strong, and the basis of the ruling.**
 
-INFERRED: three OBSERVED facts, taken together, identify the depositor's convention within this assay
-pair:
+INFERRED: three OBSERVED facts, taken together, support a working inference about the depositor's
+convention across these three assays:
 
 1. qualifiers appear at exactly two values, 3 and 150, and nowhere else;
 2. there is no explicit `=` anywhere in 2,347 records across the three assays;
@@ -98,10 +98,10 @@ null-relation records, **731 lie strictly inside the interval (3 < value < 150)*
 the lower boundary at 3**, and **none sits at 150**. The null-relation mass is therefore overwhelmingly
 interior, with a single small boundary-coincident group at one end only.
 
-The only convention consistent with all of this is: *a qualifier was deposited when and only when the
-measurement fell outside the quantifiable window; the field was left blank when a value was quantified
-inside it.* Under that convention a null relation means "reported as a measurement inside 3–150", which
-is operationally an uncensored observation.
+Across these three assays, the observed pattern is consistent with the dataset-specific working
+inference that null-relation records represent reported values within the assay's quantifiable range.
+This is an inference from the deposited data pattern, not a documented general ChEMBL rule and not
+proof that every null-relation record is uncensored.
 
 **(d) Frozen-metadata audit of the remaining activity fields — completed, and it does not resolve the
 13.**
@@ -137,7 +137,7 @@ depositor-side statement of the assay's reporting convention), and none is assum
 nothing in this memo states or implies that a ChEMBL NULL `standard_relation` means `=` in general. For
 modelling purposes the 744 HLM null-relation records are designated the **inferred quantifiable-range
 cohort**. That name is exact and deliberate: membership rests on a *dataset-specific working inference*
-about this depositor's convention in this assay pair — supported by the boundary structure of the
+about this depositor's convention across these three assays — supported by the boundary structure of the
 explicit qualifiers, the complete absence of an explicit `=` in 2,347 records, the absence of any value
 outside [3, 150], the interior concentration of the null-relation values, and the fact that **no
 inspected field contradicts it**. The cohort is *not* described anywhere in this project as a set of
@@ -180,7 +180,9 @@ any model is fitted.
 - Corrupts every error metric in an unfalsifiable direction. A model can appear accurate by learning to
   emit 3 and 150 — 24.9% of the target mass sits on a single value — and no amount of held-out
   evaluation detects this, because the held-out data carry the same fabrication.
-- **Not defensible for the primary scientific analysis.**
+- **Prohibited throughout the direct-ChEMBL science track, including sensitivity analyses.** Censored
+  records retain their one-sided meaning; `<3` is never replaced with exact 3 and `>150` is never
+  replaced with exact 150 for continuous regression.
 - **Legitimate in exactly one place:** the TDC benchmark reproduction, where the substitution is a
   property of the benchmark as historically shipped and must be preserved for comparability (§6). Its
   use there is a statement about the benchmark, never about experimental measurement.
@@ -210,15 +212,18 @@ any model is fitted.
   option and it is the right answer to "how would you do this properly at scale" in an interview — but
   the v1 question is *how well do simple representations predict measured HLM clearance, and where do
   they fail*. Censor-aware machinery does not help answer that and costs the comparability of the
-  baselines. It is retained as an **optional** robustness check (S4), which is the correct use of it.
+  baselines. It is retained as an **optional** robustness check (S3), which is the correct use of it.
 
 ### D. Two-part / hybrid formulation
 
 Separate the two questions the data actually answer:
 
-- **assay-range classification** — below range / quantifiable / above range — observable for **all**
-  1,102 records;
-- **regression within the quantifiable range** — honest point targets, no fabrication.
+- **assay-range classification** — BELOW and ABOVE are directly observed from explicit `<3` and
+  `>150` qualifiers; IN-RANGE is assigned to null-relation records under the dataset-specific working
+  inference. All 1,102 records receive an assignment, but 13 IN-RANGE assignments are specifically
+  boundary-ambiguous; range membership is not completely observable for all records;
+- **regression within the inferred quantifiable-range cohort** — supplied numeric values, with the
+  13 boundary-ambiguous records retained under the working inference and assessed through S1.
 
 This preserves the censored records' information (they are full training examples for the classifier,
 where their label is *exactly* what was observed) while keeping the regression target free of invented
@@ -244,7 +249,7 @@ Four distinct quantities, routinely conflated, must be kept apart:
 |---|---|---|---|
 | Latent true intrinsic clearance | CLint | Never directly; only bounded for censored records | Target of C only, and only under its distributional assumptions |
 | Observed assay CLint, conditional on falling in the quantifiable range | log10 CLint \| in-range | Reported for the 744 records of the inferred quantifiable-range cohort (731 interior + 13 boundary-ambiguous) | **Primary regression (A/D)** |
-| Assay-range category | below / in / above | Yes for all 1,102, with IN-RANGE inferred rather than documented, and 13 of its labels boundary-ambiguous | **Range classifier (D)** |
+| Assay-range category | below / in / above | BELOW and ABOVE directly observed from explicit qualifiers; IN-RANGE inferred for 744 null-relation records, including 13 boundary-ambiguous assignments | **Range classifier (D)** |
 | Boundary-substituted benchmark label | TDC `Y` | Yes, but partly fabricated | Benchmark track only (B) |
 
 The primary regression estimates **E[log10 CLint_observed | quantifiable range]**. It does not estimate
@@ -306,7 +311,10 @@ that is the benchmark's only purpose. Results are reported **solely as benchmark
 never as accuracy on experimental measurements.
 
 **Science track — direct ChEMBL CHEMBL3301370.** Retains qualifier information per record and applies
-the policy in §9.
+the policy in §9. For continuous regression, **never replace `<3` with exact 3 or `>150` with exact
+150**, in either the primary analysis or any sensitivity analysis. Censored records retain their
+one-sided meaning. Boundary substitution is allowed only in the separate TDC benchmark-reproduction
+track, which is reproduced as distributed.
 
 **Why the separation must remain.** The two tracks have different targets (§4): the benchmark label is
 partly fabricated, the science label is not. Reporting them together would let benchmark numbers borrow
@@ -322,7 +330,7 @@ considered. Neither track's numbers may be quoted as the other's.
 
 **Recommendation: the same policy structure, with one deviation and reduced status.**
 
-The same qualifier convention holds (104 `<3`, 15 `>150`, 0 explicit `=`, 289 null, all boundaries at
+The same qualifier pattern is observed (104 `<3`, 15 `>150`, 0 explicit `=`, 289 null, all boundaries at
 3/150), so the §2 ruling and the §9 policy transfer unchanged in *kind*: the 289 null-relation HH records
 are likewise the assay's **inferred quantifiable-range cohort**, on the same dataset-specific working
 inference and with the same refusal to read NULL as documented equality.
@@ -354,10 +362,10 @@ shared unit.
 
 **Handling of boundary ambiguity within the pair.** Because HH contributes no boundary-coincident
 null-relation records, the only ambiguity a pair can inherit is on its HLM side: a paired compound may be
-one of the 13 HLM null-at-3 records. Such pairs are **included** in the primary rank correlation, for
-exactly the reason they are included in the primary regression — excluding them would be a censor-status
-decision taken on numeric value alone, and their status is UNRESOLVED, not censored. How many of the 13
-fall inside the 187-compound paired cohort is **reported explicitly** alongside the correlation, and the
+one of the 13 HLM null-at-3 records. Such pairs are **included** in the primary rank correlation under
+the same working inference as the primary regression. Their status remains UNRESOLVED; exclusion in S1
+does not reclassify them as censored. How many of the 13 fall inside the 187-compound paired cohort is
+**reported explicitly** alongside the correlation, and the
 primary rank correlation is **recomputed with them excluded** as the paired-analysis limb of S1. As in
 the regression, the choice between the two paired estimates is not made on which is the stronger
 correlation: the inclusive estimate is primary and the exclusive one is reported beside it.
@@ -412,10 +420,9 @@ plus 13 ambiguous lower-boundary records (value exactly 3, relation and standard
 **N = 744.**
 
 Inclusion of the 13 is a **prespecified working inference, not a claim that their exact censoring status
-is known** — that status is UNRESOLVED AFTER FROZEN-METADATA AUDIT (§2(d)). They are included rather than
-dropped because excluding them would classify records as censored on the basis of their numeric value
-alone, which the audit establishes is invalid; their influence is measured in **S1** instead of being
-decided silently. The cohort is not described as a set of documented exact measurements.
+is known** — that status is UNRESOLVED AFTER FROZEN-METADATA AUDIT (§2(d)). Their influence is measured
+in **S1** by excluding them without reclassifying them as censored. The cohort is not described as a set
+of documented exact measurements.
 
 **Component 2 — Three-class assay-range classifier.**
 Three classes on **all 1,102 records**:
@@ -433,16 +440,19 @@ labels it as such wherever the classifier is reported.
 **Boundary-ambiguity flag (binding).** **13 of the 744 IN-RANGE labels are boundary-ambiguous** — the
 null-at-3 records, whose true class could be BELOW. This must be stated wherever the class definitions or
 per-class metrics are reported, not relegated to a footnote. The same 13-record exclusion is prespecified
-as a **classifier sensitivity analysis** (S1, classifier limb) wherever it is scientifically appropriate —
-that is, wherever a classifier result could turn on those 13 labels (the IN-RANGE/BELOW boundary:
-macro-F1, IN-RANGE and BELOW precision and recall, and the adjacent-error split). It is not applied to
-quantities on which 13 labels cannot bear (e.g. the ABOVE-class metrics), and the memo says so rather
-than running it for appearance.
+as a **complete classifier sensitivity analysis** (S1, classifier limb): refit each classifier after
+excluding the ambiguous records from training, and evaluate on the remaining held-out records using the
+unchanged prespecified fold assignments. Evaluate **all prespecified classifier metrics and all three
+classes wherever the metric permits**, including ABOVE. Refitting can alter predictions for any class;
+unchanged ABOVE-class membership is not grounds for an exemption. S1 excludes the 13 from whichever
+training or evaluation folds they occupy: its regression cohort has N = 731, while its three-class
+classifier cohort has N = 1,089 (274 BELOW + 731 IN-RANGE + 84 ABOVE).
 
-Beyond the flagged 13, every censored record is a full training example whose label is precisely what was
-observed. Nothing is imputed, and no boundary value is substituted.
+Every explicitly censored record is a full classifier training example whose BELOW or ABOVE label comes
+from its deposited qualifier. IN-RANGE assignments remain inferred, including the flagged 13 in the
+primary analysis. No boundary value is substituted.
 
-**Component 3 — Censored records as one-sided evaluation data, never as training targets.**
+**Component 3 — Censored records as one-sided evaluation data, never as primary regression point targets.**
 The in-range regression is applied to the 358 censored compounds and scored on *directional
 correctness*: for a `<3` compound the prediction should be ≤ log10 3; for a `>150` compound, ≥ log10 150.
 Reported as the fraction satisfying the bound, plus the magnitude of violation for those that do not.
@@ -468,23 +478,24 @@ composed into the two-stage pipeline of §4 without leakage.
 
 ## 10. Prespecified sensitivity analyses
 
-Fixed now, before any model is fitted. Deliberately four, to keep researcher degrees of freedom
+Fixed now, before any model is fitted. Deliberately three, to keep researcher degrees of freedom
 bounded. All reuse the single prespecified split. Each is reported whatever it shows.
 
 | ID | Analysis | Question it answers |
 |---|---|---|
-| **S1** | **Rerun the complete primary modelling workflow with the 13 null-at-3 records excluded (HLM N = 731).** Not a single refit: the same representations, the same model families, the same prespecified split and the same evaluation are re-executed end to end. Scope: Component 1 regression; the Component 2 classifier limbs that the IN-RANGE/BELOW boundary can affect (§9); and the §7 paired rank correlation. | Does the ambiguity that is UNRESOLVED AFTER FROZEN-METADATA AUDIT affect any conclusion? |
-| **S2** | Refit Component 1 on all 1,102 records with boundary substitution (`<3` → 3, `>150` → 150), inside the science track and labelled as a sensitivity analysis. | Quantifies directly what the historical benchmark representation does to metrics and model ranking. Makes the §3B argument empirical rather than rhetorical. |
-| **S3** | Score the lower-censored (274) and upper-censored (84) subsets **separately** under the Component 3 directional check, and report the classifier's per-class performance alongside. | Are the two tails equally predictable? Asymmetry here is a scientific finding about where the representations fail. |
-| **S4** *(optional / stretch)* | Censored-normal (Tobit) refit on all 1,102 with interval targets (-∞, log10 3], point, [log10 150, ∞), **linear predictor only**, compared on **model ranking only** — not used to claim absolute performance. | Did complete-case truncation drive the conclusions? The honest answer to the reviewer's obvious objection. Explicitly out of scope if time-constrained; its omission is reported, not hidden. |
+| **S1** | **Rerun the complete primary modelling workflow with the 13 null-at-3 records excluded (HLM regression N = 731).** The same representations, model families, prespecified fold assignments and evaluation are re-executed end to end. Scope: Component 1 regression and its Component 3 directional evaluation; full refitting of the Component 2 three-class classifier (N = 1,089), with all prespecified classifier metrics and all three classes evaluated wherever the metric permits; and the §7 paired rank correlation. No class is exempted. | Does the ambiguity that is UNRESOLVED AFTER FROZEN-METADATA AUDIT affect any conclusion? |
+| **S2** | Score the lower-censored (274) and upper-censored (84) subsets **separately** under the Component 3 directional check, and report the classifier's per-class performance alongside. | Are the two tails equally predictable? Asymmetry here is a scientific finding about where the representations fail. |
+| **S3** *(optional / stretch; secondary only)* | Censored-normal (Tobit) refit on all 1,102 with interval targets (-∞, log10 3], point, [log10 150, ∞), **linear predictor only**, compared on **model ranking only** — not used to claim absolute performance. | Did complete-case truncation drive the conclusions? The honest answer to the reviewer's obvious objection. Explicitly out of scope if time-constrained; its omission is reported, not hidden. |
 
 **What S1 compares, fixed in advance.** Three things, and only these: (i) **model ranking** — the order
 of the representation/model combinations; (ii) **the major effect and feature-level conclusions** where
 the model family admits them (e.g. which descriptors or fingerprint regions carry the signal, and the
 direction of the dominant effects) — where a model family admits no such reading, that is stated rather
 than substituted with a proxy; (iii) the **headline evaluation metrics** (MAE on log10 primary, with
-RMSE, Spearman and fraction-within-two-fold alongside, and the corresponding classifier metrics for the
-classifier limb).
+RMSE, Spearman and fraction-within-two-fold alongside), the prespecified directional evaluation, and
+**all prespecified classifier metrics**: macro-F1, per-class precision and recall for BELOW, IN-RANGE
+and ABOVE, balanced accuracy, MCC, the full confusion matrix, and the adjacent/non-adjacent error split.
+All three classes are evaluated wherever the metric permits; ABOVE is not exempted.
 
 **S1 is not a selection procedure.** The 744-record analysis is **primary** and remains primary. The
 choice between the 744-record and 731-record analyses is **not** made on the basis of which performs
@@ -493,7 +504,7 @@ conclusions depend on 13 records whose status is unresolved; a difference is a *
 the fragility of the conclusions*, never a reason to switch headline analyses.
 
 **Decision rule, fixed in advance.** The primary policy (§9) is reported as the headline regardless of
-what S1–S4 show. Sensitivity analyses are reported alongside it and inform the stated limitations. A
+what S1–S3 show. Sensitivity analyses are reported alongside it and inform the stated limitations. A
 sensitivity result **never** silently replaces the primary analysis, and never replaces it on
 performance grounds at all; if any of them materially changes the model ranking, that fact is reported as
 the finding.
@@ -530,8 +541,8 @@ the finding.
 - Any transfer claim to the Biogen data, or any numeric comparison with it, while §8 is unresolved.
 - That null-relation ChEMBL records are documented exact or equality measurements (§2). In particular, no
   output of this project may state or imply that a ChEMBL NULL `standard_relation` means `=` in general.
-  The inferred quantifiable-range cohort is named as an inference about this depositor's convention in
-  this assay pair.
+  The inferred quantifiable-range cohort is named as an inference about this depositor's convention
+  across these three assays.
 - That the censoring status of the 13 HLM null-at-3 records is known. It is **UNRESOLVED AFTER
   FROZEN-METADATA AUDIT**, and their inclusion in the primary cohort does not resolve it.
 - That S1 selects between the 744- and 731-record analyses, or that the better-performing of the two is
@@ -565,7 +576,7 @@ the finding.
    [3, 150], that the null-relation values lie overwhelmingly inside the experimental range, and that no
    inspected metadata field contradicts it, the null-relation records are designated the **inferred
    quantifiable-range cohort**. This is a dataset-specific working inference about the depositor's
-   convention in this assay pair — not a documented ChEMBL-wide semantics of NULL, not a claim that the
+   convention across these three assays — not a documented ChEMBL-wide semantics of NULL, not a claim that the
    records are documented exact or equality observations, and not a claim of exactness.
 
 2. **Primary regression.** log10 HLM CLint, fitted and evaluated on the **inferred quantifiable-range
@@ -580,16 +591,19 @@ the finding.
    inference of item 1 (744); **ABOVE** = explicit `>` at 150 (84). BELOW and ABOVE are read from
    deposited qualifiers; IN-RANGE is inferred, and is reported as inferred. **13 of the 744 IN-RANGE
    labels are boundary-ambiguous and this is flagged wherever the classes or their metrics are
-   reported.** No label is imputed and no boundary value is substituted. The 13-record exclusion is
-   prespecified as a classifier sensitivity analysis wherever a classifier result could turn on those
-   labels (the IN-RANGE/BELOW boundary), and is not run where 13 labels cannot bear on the quantity.
+   reported.** Observed qualifiers are retained; IN-RANGE assignment is explicitly inferred. No boundary
+   value is substituted. S1 excludes the 13 ambiguous records from their assigned training and
+   evaluation folds, refits each classifier on the remaining training records, and evaluates **all
+   prespecified classifier metrics and all three classes wherever the metric permits**. The S1
+   classifier cohort is N = 1,089. ABOVE is not exempted: refitting can alter predictions for any class.
 
 4. **Censored records in evaluation.** The 358 explicitly censored records are used as one-sided
    evaluation data for directional correctness (`<3` → prediction ≤ log10 3; `>150` → prediction ≥
-   log10 150), never as training targets.
+   log10 150), never as point targets for the primary continuous regression. Their explicit qualifiers
+   supply the classifier labels; optional S3 retains their one-sided bounds in its censored likelihood.
 
-5. **Reported quantity.** The regression estimates E[log10 CLint_observed | quantifiable range]. No
-   component predicts latent CLint for censored compounds, and no exact value is reported for any
+5. **Reported quantity.** The primary regression estimates E[log10 CLint_observed | quantifiable range]. No
+   primary component predicts latent CLint for censored compounds, and no exact value is reported for any
    censored observation. Deployment is two-stage: range class first, value only if quantifiable.
 
 6. **Metrics.** Regression: MAE on log10 primary; RMSE, Spearman and fraction within two-fold
@@ -605,11 +619,11 @@ the finding.
 8. **Benchmark separation.** TDC `Clearance_Microsome_AZ` is used as shipped, with its official split
    and metric, and reported solely as benchmark comparability, **unchanged by this amendment** — it
    remains the historical benchmark representation. Its boundary substitutions are a property of that
-   historical representation. **Boundary substitution remains prohibited in the science track**: no
-   science-track primary result, and no reported science-track quantity other than the explicitly
-   labelled sensitivity analysis S2 — whose entire purpose is to measure what the substitution does —
-   assigns a point target of 3 or 150 to a censored record. Benchmark and science metrics are never
-   compared to each other.
+   historical representation. **Boundary substitution is prohibited throughout the direct-ChEMBL
+   science track, including every sensitivity analysis**: never replace `<3` with exact 3 or `>150`
+   with exact 150 for continuous regression. Censored records retain their one-sided meaning. Boundary
+   substitution is allowed only in the separate TDC benchmark-reproduction track because that dataset
+   is reproduced as distributed. Benchmark and science metrics are never compared to each other.
 
 9. **Hepatocyte (CHEMBL3301372).** Same policy structure; its 289 null-relation records are that assay's
    inferred quantifiable-range cohort, and OBSERVED it contains **no** null-relation records at 3 or 150,
@@ -627,17 +641,18 @@ the finding.
     against the AstraZeneca labels until the log base and the pile-up mechanism are documented.
 
 11. **Prespecified sensitivity analyses.** **S1 — rerun the complete primary modelling workflow with the
-    13 null-at-3 records excluded (S1 HLM N = 731)**, comparing model ranking, the major effect and
+    13 null-at-3 records excluded (S1 HLM regression N = 731)**, comparing model ranking, the major effect and
     feature-level conclusions where the model family admits them, and the headline evaluation metrics,
-    across the regression, the affected classifier limbs and the paired rank correlation. S2
-    boundary-substituted refit within the science track; S3 lower- and upper-censored subsets scored
-    separately; S4 *(optional, secondary)* censored-normal/Tobit refit compared on model ranking only —
-    never primary. No further analyses are added after results are seen.
+    across the regression and its directional evaluation, the fully refitted three-class classifier
+    and the paired rank correlation. S1 evaluates all prespecified classifier metrics and all three
+    classes wherever the metric permits, with no ABOVE-class exemption. S2 lower- and upper-censored
+    subsets scored separately; S3 *(optional, secondary)* censored-normal/Tobit refit compared on model
+    ranking only — never primary. No further analyses are added after results are seen.
 
 12. **S1 is not a selection rule.** The 744-record analysis is primary and stays primary. The choice
     between the 744-record and 731-record analyses is **not** made on the basis of which performs better,
     and no S1 outcome promotes the 731-record analysis to headline status. The primary policy remains the
-    headline regardless of what S1–S4 show; a material change in model ranking is reported as a finding
+    headline regardless of what S1–S3 show; a material change in model ranking is reported as a finding
     about the fragility of the conclusions.
 
 13. **Status of the 13 null-at-3 records: UNRESOLVED AFTER FROZEN-METADATA AUDIT.** The frozen metadata
