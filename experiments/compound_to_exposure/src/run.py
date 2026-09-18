@@ -34,7 +34,7 @@ def bootstrap():
     executable = venv / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
     env = {**os.environ, 'PIP_CACHE_DIR': str(ROOT / '.cache/pip'), 'TEMP': str(ROOT / 'reports/tmp'), 'TMP': str(ROOT / 'reports/tmp')}
     args = [str(executable), '-B', '-m', 'pip', 'install', '--disable-pip-version-check', '--report', str(ROOT / 'manifests/pip_install_report.json'),
-            'rdkit==2025.3.6', 'numpy==2.2.6', 'Pillow==12.3.0']
+            'rdkit==2025.3.6', 'numpy==2.2.6', 'scikit-learn==1.9.1', 'pandas', 'scipy', 'joblib', 'Pillow==12.3.0']
     completed = subprocess.run(args, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print('Subcommand:', subprocess.list2cmdline(args)); print(completed.stdout)
     completed.check_returncode()
@@ -53,6 +53,10 @@ def tests(run_id):
 
 
 def main():
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    if str(ROOT / 'src') not in sys.path:
+        sys.path.insert(0, str(ROOT / 'src'))
     for folder in ('data/raw', 'data/interim', 'manifests/runs', 'reports/tmp', 'src', 'tests'):
         (ROOT / folder).mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(ROOT / 'reports/tmp')
@@ -103,8 +107,11 @@ def main():
                 immutable(archive / 'src/audit.py.snapshot', (ROOT / 'src/audit.py').read_bytes())
                 save_json(archive / 'amendment.json', {'reason': 'Forensic follow-up: add explicit molecule-ID and parent-ID evidence for strict structure mismatches; clarify null ChEMBL relations and raw TDC row-count discrepancy. Identity rule, raw data and scientific selection unchanged.', 'archived_utc': utc(), 'original_files': receipts})
                 print('Archived initial derived reports with verified hashes; raw files unchanged.')
+            elif action == 'dry_run':
+                import dry_run
+                dry_run.main()
             else:
-                raise ValueError('Allowed actions: bootstrap, acquire, audit, test')
+                raise ValueError('Allowed actions: bootstrap, acquire, audit, test, verify, dry_run')
             rec['status'] = 'SUCCESS'
         except BaseException as e:
             rec['status'] = 'FAILED'; code = 1
