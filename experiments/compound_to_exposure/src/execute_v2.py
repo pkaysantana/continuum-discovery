@@ -9,12 +9,15 @@ import time
 import uuid
 
 from src.dataset import get_cohorts
-from src.representations import get_r1_descriptors, get_r2_morgan
+from src.representations import get_r1_descriptors, get_r1_vector, get_r2_morgan
 from src.pipelines import get_pipeline_grids, tie_break_candidates, get_p0a_baseline, get_p0b_baseline
 from src.metrics import (log10_mae, log10_rmse, spearman_corr, r_squared,
                          two_fold_proportion, paired_scaffold_cluster_bootstrap,
                          tail_concordance, boundary_violation_loss)
 from src.partition import compute_master_partition
+
+CHEMBL_STRUCTURE_COLUMN = "canonical_smiles_rdkit"
+BIOGEN_STRUCTURE_COLUMN = "canonical_smiles_rdkit"
 
 logger = logging.getLogger(__name__)
 
@@ -194,23 +197,34 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
         cross_scaffolds = df_p_part_scaff.groupby('scaffold_key_y')['partition'].nunique()
         assert (cross_scaffolds <= 1).all()
 
-    if preflight:
-        return "V2_REAL_DATA_PREFLIGHT_PASS"
-
     if synthetic_data:
         pass # X_r1 was already assigned
     else:
-        # Note: 'canonical_smiles_rdkit' is the actual column name in cohorts, but we leave the original buggy code for non-preflight execution as requested.
-        X_r1 = np.array([get_r1_descriptors(s) for s in df_p['smiles']])
-        X_r2 = np.array([get_r2_morgan(s) for s in df_p['smiles']])
-        X_r1_ambig = np.array([get_r1_descriptors(s) for s in df_ambig['smiles']])
-        X_r2_ambig = np.array([get_r2_morgan(s) for s in df_ambig['smiles']])
+        assert CHEMBL_STRUCTURE_COLUMN in df_p.columns
+        assert df_p[CHEMBL_STRUCTURE_COLUMN].notna().all()
+        X_r1 = np.array([get_r1_vector(s) for s in df_p[CHEMBL_STRUCTURE_COLUMN]])
+        X_r2 = np.array([get_r2_morgan(s) for s in df_p[CHEMBL_STRUCTURE_COLUMN]])
+        X_r1_ambig = np.array([get_r1_vector(s) for s in df_ambig[CHEMBL_STRUCTURE_COLUMN]])
+        X_r2_ambig = np.array([get_r2_morgan(s) for s in df_ambig[CHEMBL_STRUCTURE_COLUMN]])
+        
+        assert X_r1.shape == (len(df_p), 12)
+        assert X_r2.shape == (len(df_p), 2048)
+        assert X_r1_ambig.shape == (len(df_ambig), 12)
+        assert X_r2_ambig.shape == (len(df_ambig), 2048)
+        
+        if 'all_censored' in cohorts:
+            df_tail = cohorts['all_censored']
+            assert CHEMBL_STRUCTURE_COLUMN in df_tail.columns
+            X_tail_r1 = np.array([get_r1_vector(s) for s in df_tail[CHEMBL_STRUCTURE_COLUMN]])
+            X_tail_r2 = np.array([get_r2_morgan(s) for s in df_tail[CHEMBL_STRUCTURE_COLUMN]])
+            assert X_tail_r1.shape == (len(df_tail), 12)
+            assert X_tail_r2.shape == (len(df_tail), 2048)
 
     manifest['master_partition_hash'] = _sha256(master_partition_path)
     
     df_primary = cohorts['interior_731']
     part_map = partition_df.set_index('chembl_id')
-    df_primary = df_primary.join(part_map, on='chembl_id', how='left')
+    df_primary = df_primary.merge(part_map, on='chembl_id', how='left', suffixes=('', '_part'))
     
     cv_mask = df_primary['partition'] == 'cv'
     holdout_mask = df_primary['partition'] == 'holdout'
@@ -219,6 +233,49 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
     cv_folds = [f for f in df_primary[cv_mask]['cv_fold'].unique() if f != -1]
     
     pipelines = get_pipeline_grids()
+    
+    if preflight:
+        # Preflight pipelines
+        for p_id, (base_pipe, grid) in pipelines.items():
+            pass
+            
+        # HLM-HH Preflight
+        hlm_df_pf = pd.read_csv(EXPERIMENT_ROOT / "data" / "interim" / "CHEMBL3301370_rows.csv", dtype=str)
+        hh_df_pf = pd.read_csv(EXPERIMENT_ROOT / "data" / "interim" / "CHEMBL3301372_rows.csv", dtype=str)
+        paired_df_pf = pd.read_csv(EXPERIMENT_ROOT / "data" / "interim" / "PAIRED_HUMAN_COHORT.csv", dtype=str)
+        assert len(paired_df_pf) == 187
+        
+        # Biogen Preflight
+        bio_df_pf = pd.read_csv(EXPERIMENT_ROOT / "data" / "interim" / "Biogen_rows.csv")
+        assert len(bio_df_pf) == 3521
+        bio_df_pf_valid = bio_df_pf.dropna(subset=['LOG HLM_CLint (mL/min/kg)'])
+        assert len(bio_df_pf_valid) == 3087
+        assert (len(bio_df_pf) - len(bio_df_pf_valid)) == 434
+        
+        floor_val_pf = bio_df_pf_valid['LOG HLM_CLint (mL/min/kg)'].min()
+        floor_obs_pf = bio_df_pf_valid[bio_df_pf_valid['LOG HLM_CLint (mL/min/kg)'] == floor_val_pf]
+        assert len(floor_obs_pf) == 958
+        
+        df_bio2_pf = bio_df_pf_valid[bio_df_pf_valid['LOG HLM_CLint (mL/min/kg)'] > floor_val_pf]
+        assert len(df_bio2_pf) == 2129
+        
+        assert BIOGEN_STRUCTURE_COLUMN in bio_df_pf.columns
+        
+        df_bio1_pf = bio_df_pf_valid.rename(columns={'Internal ID': 'chembl_id'})
+        df_bio1_pf['canonical_smiles'] = df_bio1_pf[BIOGEN_STRUCTURE_COLUMN]
+        df_bio1_pf = compute_master_partition(df_bio1_pf, set(df_bio1_pf['chembl_id']))
+        
+        X_bio1_r1 = np.array([get_r1_vector(s) for s in df_bio1_pf[BIOGEN_STRUCTURE_COLUMN]])
+        X_bio1_r2 = np.array([get_r2_morgan(s) for s in df_bio1_pf[BIOGEN_STRUCTURE_COLUMN]])
+        
+        assert X_bio1_r1.shape == (3087, 12)
+        assert X_bio1_r2.shape == (3087, 2048)
+        
+        df_bio2_pf = df_bio2_pf.rename(columns={'Internal ID': 'chembl_id'}).merge(df_bio1_pf[['chembl_id', 'partition', 'cv_fold']], on='chembl_id', how='left')
+        assert len(df_bio2_pf[df_bio2_pf['partition'].isna()]) == 0
+        
+        return "V2_REAL_DATA_PREFLIGHT_PASS"
+
     candidate_results = []
     fold_models = {fold: {} for fold in cv_folds}
     
@@ -295,7 +352,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
         
         df_tail = cohorts.get('all_censored', pd.DataFrame({'chembl_id': [], 'partition': [], 'cv_fold': []}))
         if 'partition' not in df_tail.columns:
-            df_tail = df_tail.join(part_map, on='chembl_id', how='left')
+            df_tail = df_tail.merge(part_map, on='chembl_id', how='left', suffixes=('', '_part'))
             
         for fold in cv_folds:
             model_key = (best_candidate['pipeline_id'], str({k:v for k,v in best_candidate.items() if k not in ['pipeline_id', 'mean_mae', 'mae', 'n_estimators', 'max_depth', 'random_state']} ))
@@ -309,7 +366,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
                 if synthetic_data and 'representations_tail' in synthetic_data:
                     X_tail_val = synthetic_data['representations_tail'][0 if 'r1' in best_candidate['pipeline_id'] else 1][tail_fold_mask]
                 else:
-                    X_tail_val = np.array([get_r1_descriptors(s) if 'r1' in best_candidate['pipeline_id'] else get_r2_morgan(s) for s in df_tail[tail_fold_mask]['smiles']])
+                    X_tail_val = np.array([get_r1_vector(s) if 'r1' in best_candidate['pipeline_id'] else get_r2_morgan(s) for s in df_tail[tail_fold_mask][CHEMBL_STRUCTURE_COLUMN]])
                 
                 preds_int = model.predict(X_int_val)
                 preds_tail = model.predict(X_tail_val)
@@ -332,7 +389,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             if synthetic_data and 'representations_tail' in synthetic_data:
                 X_tail_h = synthetic_data['representations_tail'][0 if 'r1' in best_candidate['pipeline_id'] else 1][tail_h_mask]
             else:
-                X_tail_h = np.array([get_r1_descriptors(s) if 'r1' in best_candidate['pipeline_id'] else get_r2_morgan(s) for s in df_tail[tail_h_mask]['smiles']])
+                X_tail_h = np.array([get_r1_vector(s) if 'r1' in best_candidate['pipeline_id'] else get_r2_morgan(s) for s in df_tail[tail_h_mask][CHEMBL_STRUCTURE_COLUMN]])
             
             preds_tail_h = final_model.predict(X_tail_h)
             
@@ -356,7 +413,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
     ledger.begin_stage('SENSITIVITY_A', {'run_id': run_id})
     try:
         df_ambig = cohorts['ambiguous_13']
-        df_ambig = df_ambig.join(part_map, on='chembl_id', how='left')
+        df_ambig = df_ambig.merge(part_map, on='chembl_id', how='left', suffixes=('', '_part'))
         
         cv_ambig_mask = df_ambig['partition'] == 'cv'
         h_ambig_mask = df_ambig['partition'] == 'holdout'
@@ -393,7 +450,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
     ledger.begin_stage('SENSITIVITY_B', {'run_id': run_id})
     try:
         df_ambig = cohorts['ambiguous_13']
-        df_ambig = df_ambig.join(part_map, on='chembl_id', how='left')
+        df_ambig = df_ambig.merge(part_map, on='chembl_id', how='left', suffixes=('', '_part'))
         
         # Reuse existing fold models
         preds_ambig = []
@@ -506,14 +563,14 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             bio_df = pd.read_csv(EXPERIMENT_ROOT / "data" / "interim" / "Biogen_rows.csv")
             bio_df = bio_df.dropna(subset=['LOG HLM_CLint (mL/min/kg)'])
             df_bio1 = bio_df.copy()
-            df_bio1 = df_bio1.rename(columns={'Compound ID': 'chembl_id'})
+            df_bio1 = df_bio1.rename(columns={'Internal ID': 'chembl_id'})
             
             floor_val = df_bio1['LOG HLM_CLint (mL/min/kg)'].min()
             df_bio2 = df_bio1[df_bio1['LOG HLM_CLint (mL/min/kg)'] > floor_val].copy()
             
             # structural partition
-            part_b1 = compute_master_partition(df_bio1, n_folds=5)
-            df_bio1 = df_bio1.merge(part_b1, on='chembl_id', how='left')
+            df_bio1['canonical_smiles'] = df_bio1[BIOGEN_STRUCTURE_COLUMN]
+            df_bio1 = compute_master_partition(df_bio1, set(df_bio1['chembl_id']))
 
         # B1 independent partitioning and modelling
         if len(df_bio1) > 0 and not synthetic_data:
@@ -527,7 +584,8 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             b1_cv_folds = [f for f in df_bio1[cv_mask_b1]['cv_fold'].unique() if f != -1]
             
             y_b1 = df_bio1['LOG HLM_CLint (mL/min/kg)'].values
-            X_mock = np.zeros((len(df_bio1), 12))
+            X_b1_r1 = np.array([get_r1_vector(s) for s in df_bio1[BIOGEN_STRUCTURE_COLUMN]])
+            X_b1_r2 = np.array([get_r2_morgan(s) for s in df_bio1[BIOGEN_STRUCTURE_COLUMN]])
             
             b1_candidate_results = []
             
@@ -542,8 +600,10 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
                         train_mask = cv_mask_b1 & (df_bio1['cv_fold'] != fold)
                         val_mask = cv_mask_b1 & (df_bio1['cv_fold'] == fold)
                         
-                        model.fit(X_mock[train_mask], y_b1[train_mask])
-                        preds = model.predict(X_mock[val_mask])
+                        X_tr = X_b1_r1[train_mask] if 'r1' in p_id else X_b1_r2[train_mask]
+                        X_val = X_b1_r1[val_mask] if 'r1' in p_id else X_b1_r2[val_mask]
+                        model.fit(X_tr, y_b1[train_mask])
+                        preds = model.predict(X_val)
                         fold_maes.append(log10_mae(y_b1[val_mask], preds))
                         
                     b1_candidate_results.append(_build_candidate(p_id, params, np.mean(fold_maes)))
@@ -557,7 +617,8 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             cv_mask_b2 = df_bio2['partition'] == 'cv'
             b2_cv_folds = [f for f in df_bio2[cv_mask_b2]['cv_fold'].unique() if f != -1]
             y_b2 = df_bio2['LOG HLM_CLint (mL/min/kg)'].values
-            X_mock_b2 = np.zeros((len(df_bio2), 12))
+            X_b2_r1 = np.array([get_r1_vector(s) for s in df_bio2[BIOGEN_STRUCTURE_COLUMN]])
+            X_b2_r2 = np.array([get_r2_morgan(s) for s in df_bio2[BIOGEN_STRUCTURE_COLUMN]])
             
             p_id = b1_best_candidate['pipeline_id']
             base_pipe = pipelines[p_id][0]
@@ -566,8 +627,10 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
                 model = MockPredictor() if dry_run else base_pipe
                 train_mask = cv_mask_b2 & (df_bio2['cv_fold'] != fold)
                 val_mask = cv_mask_b2 & (df_bio2['cv_fold'] == fold)
-                model.fit(X_mock_b2[train_mask], y_b2[train_mask])
-                preds = model.predict(X_mock_b2[val_mask])
+                X_tr = X_b2_r1[train_mask] if 'r1' in p_id else X_b2_r2[train_mask]
+                X_val = X_b2_r1[val_mask] if 'r1' in p_id else X_b2_r2[val_mask]
+                model.fit(X_tr, y_b2[train_mask])
+                preds = model.predict(X_val)
             
         ledger.complete_stage('BIOGEN')
     except Exception as e:
