@@ -110,8 +110,19 @@ def main():
             elif action == 'dry_run':
                 import dry_run
                 dry_run.main()
+            elif action == 'preflight':
+                from src.execute_v2 import execute_v2
+                master_partition_path = ROOT / 'splits' / 'master_partition.csv'
+                run_dir = ROOT / 'manifests' / 'runs' / run_id
+                res = execute_v2(run_dir, master_partition_path, dry_run=False, preflight=True)
+                print(res)
+            elif action == 'execute':
+                from src.execute_v2 import execute_v2
+                master_partition_path = ROOT / 'splits' / 'master_partition.csv'
+                run_dir = ROOT / 'manifests' / 'runs' / run_id
+                execute_v2(run_dir, master_partition_path, dry_run=False, preflight=False)
             else:
-                raise ValueError('Allowed actions: bootstrap, acquire, audit, test, verify, dry_run')
+                raise ValueError('Allowed actions: bootstrap, acquire, audit, test, verify, dry_run, preflight, execute')
             rec['status'] = 'SUCCESS'
         except BaseException as e:
             rec['status'] = 'FAILED'; code = 1

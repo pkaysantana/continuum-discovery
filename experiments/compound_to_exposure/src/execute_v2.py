@@ -136,24 +136,25 @@ def _build_candidate(p_id, params, mean_mae):
 
 EXPERIMENT_ROOT = Path(__file__).resolve().parent.parent
 
-def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False, synthetic_data = None, state_file = None):
-    run_dir.mkdir(parents=True, exist_ok=True)
+def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False, synthetic_data = None, state_file = None, preflight: bool = False):
+    if not preflight:
+        run_dir.mkdir(parents=True, exist_ok=True)
     
     # Enforce authoritative state path
     authoritative_state = EXPERIMENT_ROOT / "state" / "v2_execution_state.json"
     
-    if state_file is not None and not dry_run:
+    if state_file is not None and not dry_run and not preflight:
         raise ExecutionGuardError("Cannot override authoritative state path in real execution")
         
-    if dry_run:
+    if dry_run or preflight:
         if state_file is None:
             state_file = run_dir / "isolated_dry_run_state.json"
     else:
         state_file = authoritative_state
         
     ledger = ExecutionLedger(state_file)
-    run_id = str(uuid.uuid4())
-    manifest = {"dry_run": dry_run, "run_id": run_id}
+    run_id = str(uuid.uuid4()) if not preflight else "preflight"
+    manifest = {"dry_run": dry_run, "preflight": preflight, "run_id": run_id}
     
     if synthetic_data:
         cohorts = synthetic_data['cohorts']
@@ -163,9 +164,43 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
     else:
         cohorts = get_cohorts()
         partition_df = pd.read_csv(master_partition_path)
-        assert len(partition_df[partition_df['partition']=='holdout']) == 149
+        
+        # Separately validate the full partition only for properties appropriate to all 1,102 records
+        assert len(partition_df) == 1102
+        assert partition_df['chembl_id'].is_unique
+        assert set(partition_df['partition'].dropna().unique()).issubset({'cv', 'holdout'})
+        assert set(partition_df['cv_fold'].dropna().unique()).issubset({0.0, 1.0, 2.0, 3.0, 4.0})
+        
+        expected_hash = "971f78aa2a86b0a45c79d52dcb3fca64895289dd7c72b547797b273b067cb90a"
+        assert _sha256(master_partition_path) == expected_hash
+        
         df_p = cohorts['interior_731']
         df_ambig = cohorts['ambiguous_13']
+        
+        # Derive the frozen primary-interior IDs and assert on primary subset
+        df_p_part = df_p.merge(partition_df, on='chembl_id', how='inner')
+        assert len(df_p_part) == 731
+        assert len(df_p_part[df_p_part['partition'] == 'holdout']) == 149
+        assert len(df_p_part[df_p_part['partition'] == 'cv']) == 582
+        
+        fold_counts = df_p_part[df_p_part['partition'] == 'cv']['cv_fold'].value_counts().sort_index().to_dict()
+        assert fold_counts == {0.0: 115, 1.0: 120, 2.0: 115, 3.0: 117, 4.0: 115}
+        assert df_p_part['chembl_id'].is_unique
+        
+        # Verify no primary scaffold crosses CV/holdout
+        dry_run_assignments = pd.read_csv(EXPERIMENT_ROOT / "reports" / "SCAFFOLD_PREFREEZE_DRY_RUN_ASSIGNMENTS.csv")
+        dry_run_assignments = dry_run_assignments.rename(columns={'molecule_chembl_id': 'chembl_id'})
+        df_p_part_scaff = df_p_part.merge(dry_run_assignments[['chembl_id', 'scaffold_key']], on='chembl_id', how='left')
+        cross_scaffolds = df_p_part_scaff.groupby('scaffold_key_y')['partition'].nunique()
+        assert (cross_scaffolds <= 1).all()
+
+    if preflight:
+        return "V2_REAL_DATA_PREFLIGHT_PASS"
+
+    if synthetic_data:
+        pass # X_r1 was already assigned
+    else:
+        # Note: 'canonical_smiles_rdkit' is the actual column name in cohorts, but we leave the original buggy code for non-preflight execution as requested.
         X_r1 = np.array([get_r1_descriptors(s) for s in df_p['smiles']])
         X_r2 = np.array([get_r2_morgan(s) for s in df_p['smiles']])
         X_r1_ambig = np.array([get_r1_descriptors(s) for s in df_ambig['smiles']])

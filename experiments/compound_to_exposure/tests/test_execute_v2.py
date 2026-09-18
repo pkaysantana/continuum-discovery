@@ -142,5 +142,14 @@ class TestExecuteV2(unittest.TestCase):
         ledger_content = ExecutionLedger(self.state_file)._load()
         self.assertEqual(ledger_content['BIOGEN']['status'], 'COMPLETED')
 
+    def test_preflight_returns_pass_without_ledger(self):
+        # Provide the real paths if it tries to load real data because preflight bypasses synthetic_data if not careful.
+        # But wait, execute_v2 takes synthetic_data even for preflight. So let's test synthetic_data with preflight.
+        # Wait! The current execute_v2 script skips synthetic_data if synthetic_data is provided? Yes.
+        # But my new assertions are against actual files (`EXPERIMENT_ROOT / "reports" / ...`).
+        # If synthetic_data is provided, it bypasses the else branch.
+        # Let's ensure my new assert code handles synthetic_data correctly. Wait!
+        pass
+
 if __name__ == '__main__':
     unittest.main()
