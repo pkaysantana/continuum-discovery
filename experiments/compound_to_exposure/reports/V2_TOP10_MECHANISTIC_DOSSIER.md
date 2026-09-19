@@ -7,159 +7,263 @@ This dossier investigates the ten largest prediction errors from the protected p
 ---
 
 ## 1. CHEMBL1778622
-- **Observed HLM log10 CLint**: 2.127 (134 µL/min/mg)  `[DIRECTLY_OBSERVED]`
+### Observed result
+- **Observed HLM log10 CLint**: 2.127 (134 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.053 (11.3 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Underpredicted by 11.9-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.388 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Carboxylic acid. Likely anionic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: Highly lipophilic (MolLogP 4.95), low polarity (TPSA 46.5). `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 356.4, 6 rotatable bonds, 2 aromatic rings, FractionCSP3 0.24. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: Thioether (S-methyl) group and aromatic rings. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: ECFP4 does not capture non-linearities in non-specific microsomal binding driven by logP and anionic charge. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes, observed is high, prediction is near the global median. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: The model extrapolates into empty chemical space (Tanimoto 0.388) and defaults to the mean, severely underestimating the rapid S-oxidation of the thioether group. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Metabolite ID (to confirm S-oxidation vs. aromatic hydroxylation). `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Contains a carboxylic acid, an S-methyl thioether, two aromatic rings, and a trifluoromethyl group. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 356.4, MolLogP 4.95, TPSA 46.5. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- ECFP4 does not explicitly represent global whole-molecule physicochemical state such as pKa, logD, or fu,mic. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+- The HLM assay measures total clearance but does not identify the specific metabolic pathway. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: The observed high CLint is driven by rapid S-oxidation of the thioether group or oxidation of the aromatic rings, liabilities which the model underpredicted. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **MEDIUM**: High lipophilicity (MolLogP 4.95) increases affinity for CYP enzymes, contributing to high intrinsic clearance despite potential non-specific binding. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Metabolite identification (Met ID) to confirm whether S-oxidation or aromatic hydroxylation is the predominant clearance pathway. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 2. CHEMBL574059
+### Observed result
 - **Observed HLM log10 CLint**: 2.120 (132 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.233 (17.1 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Underpredicted by 7.7-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.378 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Aminopyrimidine/aniline derivative. Likely neutral or very weakly basic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: Highly lipophilic (MolLogP 5.19), TPSA 59.8. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 415.3, 3 rotatable bonds, 4 aromatic rings, highly planar/aromatic (FractionCSP3 0.05). `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: N-methyl group (N-demethylation), exposed aromatic rings. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Extreme planarity and lipophilicity can lead to anomalous solubility or aggregation in vitro, though high clearance suggests it remains bioavailable to enzymes. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: The Random Forest fails to recognize the extreme vulnerability of the N-methyl group on this specific planar scaffold. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Metabolite ID; test matched molecular pair lacking the N-methyl group. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Highly planar, aromatic fused bicyclic system with an N-methyl group on a heterocyclic lactam, plus multiple halogens (Cl, F). `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 415.3, MolLogP 5.19, TPSA 59.8, FractionCSP3 0.05. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- Whether the N-methyl group is a genuine liability; in conjugated heterocyclic electronic environments, the nitrogen lone pair is delocalized, which may deactivate it toward CYP-mediated N-demethylation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **MEDIUM**: Despite potential electronic deactivation, N-demethylation remains the primary route of rapid clearance, which the model underpredicted. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **MEDIUM**: Extreme lipophilicity (MolLogP 5.19) drives high non-specific CYP association, leading to rapid aromatic oxidation at unsubstituted positions. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Met ID to determine if clearance is driven by N-demethylation or aromatic hydroxylation. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 3. CHEMBL267744
+### Observed result
 - **Observed HLM log10 CLint**: 1.914 (82 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.033 (10.8 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Underpredicted by 7.6-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.308 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Carboxylic acid. Anionic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 3.75, TPSA 63.6. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 331.2, 5 rotatable bonds, 2 aromatic rings, FractionCSP3 0.08. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: Thiophene ring, ether linkage. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: 2D fingerprints do not natively capture the specific electronic activation of thiophenes toward epoxidation/S-oxidation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: Thiophene rings are notorious metabolic soft spots. Lacking closely related training examples (Tanimoto 0.308), the model regresses to the mean, underpredicting rapid thiophene oxidation. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Metabolite ID targeting thiophene oxidation products or glutathione adducts. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Carboxylic acid, thiophene ring, ether linkage. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 331.2, MolLogP 3.75, TPSA 63.6. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- 2D fingerprints do not natively capture the specific electronic activation of heterocycles like thiophenes. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: Thiophenes can undergo rapid oxidative metabolism (e.g., epoxidation or S-oxidation) by CYPs; the model underpredicted this specific thiophene's vulnerability. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **LOW**: Rapid clearance is driven primarily by ether O-dealkylation rather than thiophene oxidation. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Met ID targeting thiophene oxidation products vs. O-dealkylation products. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 4. CHEMBL1738761
+### Observed result
 - **Observed HLM log10 CLint**: 0.602 (4.0 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.425 (26.6 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Overpredicted by 6.7-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.211 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Primary aliphatic amine. Cationic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 3.68, TPSA 59.0. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 286.8, 5 rotatable bonds, 2 aromatic rings, FractionCSP3 0.19. Chiral center present. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: Primary amine (MAO/CYP oxidation), O-dealkylation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: ECFP4 (generated with `useChirality=False`) completely ignores 3D stereochemistry, which often dictates enzyme active site fit. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: The extremely low similarity (0.211) forces a median prediction. The specific stereochemistry may sterically hinder CYP/MAO access to the primary amine, leading to unexpectedly low clearance. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Enantiomer clearance testing to check for stereoselective metabolism. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Primary aliphatic amine, chiral center, ether linkage. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 286.8, MolLogP 3.68, TPSA 59.0. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- ECFP4 (generated with `useChirality=False`) completely ignores 3D stereochemistry, which can heavily dictate enzyme active site fit. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+- The relative contributions of MAO vs. CYP to primary amine clearance in this specific HLM assay are unknown without selective inhibitors. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **MEDIUM**: The specific 3D stereochemistry of this enantiomer sterically hinders access to the primary amine or ether, resulting in unexpectedly low clearance that the 2D model cannot anticipate. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **LOW**: The primary amine undergoes significant nonspecific microsomal binding, reducing the unbound fraction and apparent clearance. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Enantiomer clearance testing to evaluate stereoselective metabolism; measurement of fu,mic. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 5. CHEMBL2021706
+### Observed result
 - **Observed HLM log10 CLint**: 1.940 (87 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.127 (13.4 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Underpredicted by 6.5-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.269 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Quaternary ammonium. Permanently cationic. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 2.91, TPSA 116.1. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 450.0, 11 rotatable bonds, highly flexible (FractionCSP3 0.50). `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: O-demethylation (methoxy), aliphatic hydroxylation of long chains. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Permanent cationic charge radically alters partitioning and binding behavior, which bit vectors handle poorly. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: The model underestimates the rapid O-demethylation or aliphatic oxidation of the flexible chains due to the absence of relevant quaternary amine analogs in the training data. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Metabolite ID to confirm primary site of metabolism (methoxy vs. aliphatic chains). `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Quaternary ammonium, methoxy group, flexible aliphatic chains. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 450.0, MolLogP 2.91, highly flexible (11 rotatable bonds). `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- Permanent cationic charge radically alters partitioning and non-specific binding behavior, properties not natively modeled by substructure fragments. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: Rapid clearance is driven by O-demethylation of the exposed methoxy group or extensive aliphatic oxidation of the flexible chains. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **MEDIUM**: The quaternary ammonium reduces microsomal binding relative to a basic amine, increasing the free fraction available for rapid CYP metabolism. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Met ID to identify the primary clearance mechanism (O-demethylation vs aliphatic oxidation); measurement of fu,mic. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 6. CHEMBL2335901
+### Observed result
 - **Observed HLM log10 CLint**: 0.620 (4.2 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.372 (23.6 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Overpredicted by 5.6-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.466 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Piperidine-like basic secondary amine. Cationic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 4.61, TPSA 91.8. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 452.6, 6 rotatable bonds, 4 aromatic rings, FractionCSP3 0.26. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: N-dealkylation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Fraction unbound in microsomes (fu,mic) is highly correlated with lipophilicity and basicity, but not natively modeled by substructure fragments. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: High lipophilicity combined with basicity causes extensive non-specific binding to microsomal lipids (low fu,mic), reducing the available free drug for metabolism and resulting in artificially low observed CLint. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Direct measurement of fu,mic. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Basic secondary amine (piperidine-like), multiple aromatic rings, amide. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 452.6, MolLogP 4.61, TPSA 91.8. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- The actual fraction unbound in microsomes (fu,mic), which limits the concentration of free drug available to enzymes. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: The combination of high lipophilicity (MolLogP 4.61) and a basic amine drives extensive non-specific binding to microsomal lipids (low fu,mic), severely restricting apparent in vitro clearance. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **LOW**: The compound is simply metabolically stable due to steric shielding of its N-dealkylation sites. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Direct measurement of fu,mic to assess if low clearance is due to high non-specific binding or genuine metabolic stability. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 7. CHEMBL100391
+### Observed result
 - **Observed HLM log10 CLint**: 0.699 (5.0 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.439 (27.5 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Overpredicted by 5.5-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.273 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Tertiary and secondary amines. Cationic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 3.92, TPSA 82.5. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 413.9, 9 rotatable bonds, FractionCSP3 0.24. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: N-demethylation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Substrate inhibition or extensive non-specific binding. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: Similar to CHEMBL2335901, the lipophilic, polybasic nature of the compound leads to sequestration in microsomal lipids, drastically lowering apparent intrinsic clearance. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Direct measurement of fu,mic. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Tertiary and secondary aliphatic amines, secondary aniline. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 413.9, MolLogP 3.92, 9 rotatable bonds. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- The extent to which the compound acts as an inhibitor or substrate-inhibitor of its own CYP clearance at the tested assay concentration. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: The lipophilic, polybasic nature of the compound causes high non-specific microsomal binding (low fu,mic), depressing the observed in vitro clearance rate. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **LOW**: The compound exhibits CYP substrate inhibition at the standard HLM assay concentration, reducing apparent clearance. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Measurement of fu,mic; kinetic evaluation at multiple substrate concentrations to detect non-linear (e.g., substrate inhibition) kinetics. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 8. CHEMBL1807823
+### Observed result
 - **Observed HLM log10 CLint**: 0.699 (5.0 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.414 (26.0 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Overpredicted by 5.2-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.815 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Multiple secondary amines (polyamine chain). Polycationic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 2.87, TPSA 97.4. `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 447.6, 13 rotatable bonds, FractionCSP3 0.41. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: Extensive N-dealkylation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Polyamines often exhibit severe anomalous assay behavior, including binding to plastic apparatus, which fingerprints ignore. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes, but uniquely driven by high similarity to a potentially high-clearance training neighbor. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: With an unusually high Tanimoto similarity (0.815), the model confidently predicted based on a training neighbor. Either the fingerprint fails to capture a subtle steric modification that fully protects the polyamine chain, or assay artifacts (plastic binding) artificially lowered the observed CLint. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Assess assay recovery in the absence of cofactors to rule out non-specific binding to the incubation apparatus. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Polyamine chain with multiple secondary amines. `[DIRECTLY_OBSERVED]`
+- **Properties**: MolWt 447.6, MolLogP 2.87, highly flexible (13 rotatable bonds). `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- Polyamines can exhibit complex assay behavior, including binding to plastic incubation apparatus, which can artificially perturb the measurement of parent depletion. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: The observed clearance is genuinely low because the specific arrangement of the polyamine chain sterically or electronically protects against N-dealkylation, a subtlety the highly similar ECFP4 fingerprint failed to distinguish from a less-stable training neighbor. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **MEDIUM**: Extensive assay artifacts (e.g., plastic adsorption or extreme microsomal binding of the polycation) reduced the concentration of available parent compound in the soluble fraction. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Measurement of assay recovery in the absence of cofactors to quantify non-specific loss to the apparatus; Met ID to assess intrinsic metabolic stability. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 9. CHEMBL182682
+### Observed result
 - **Observed HLM log10 CLint**: 2.049 (112 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.362 (23.0 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Underpredicted by 4.9-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.478 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Tertiary amine. Cationic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: High lipophilicity (MolLogP 5.39), low TPSA (42.0). `[DIRECTLY_OBSERVED]`
-- **Structure**: MolWt 486.7, 10 rotatable bonds, FractionCSP3 0.39. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: Two terminal methoxy groups (O-demethylation), N-demethylation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Extreme lipophilicity drastically increases CYP affinity. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: The highly exposed terminal methoxy groups combined with very high lipophilicity drive rapid O-demethylation, a liability the Random Forest model underestimated. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Metabolite ID to confirm O-demethylation is the dominant clearance pathway. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Tertiary amine, two terminal methoxy groups. `[DIRECTLY_OBSERVED]`
+- **Properties**: Highly lipophilic (MolLogP 5.39), MolWt 486.7. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- High lipophilicity can increase both nonspecific microsomal binding (lowering free fraction) and intrinsic enzyme association. The net effect on observed CLint depends on which factor dominates. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: The exposed terminal methoxy groups undergo rapid O-demethylation driven by high CYP affinity (due to high lipophilicity), overriding the dampening effect of any non-specific microsomal binding. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- Met ID to confirm O-demethylation is the dominant clearance pathway; measure fu,mic to contextualize the unbound intrinsic clearance. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+---
 
 ## 10. CHEMBL20210
+### Observed result
 - **Observed HLM log10 CLint**: 2.020 (105 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Predicted HLM log10 CLint**: 1.346 (22.2 µL/min/mg) `[DIRECTLY_OBSERVED]`
 - **Error**: Underpredicted by 4.7-fold `[DIRECTLY_OBSERVED]`
 - **Nearest-primary-CV ECFP4**: 0.538 `[DIRECTLY_OBSERVED]`
-- **Chemistry / Ionisation**: Complex peptidomimetic (3 amides, basic amine). Cationic at pH 7.4. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Lipophilicity / Polarity**: MolLogP 2.82, very high polarity (TPSA 156.7). `[DIRECTLY_OBSERVED]`
-- **Structure**: Large (MolWt 598.7), highly flexible (15 rotatable bonds), FractionCSP3 0.48. `[DIRECTLY_OBSERVED]`
-- **Metabolic liabilities**: Amide hydrolysis, aliphatic oxidation. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Unrepresented factors (ECFP4)**: Peptidomimetics are heavily subject to non-CYP clearance (amidases/proteases) not easily captured by small-molecule CYP-focused datasets. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
-- **Regression to mean**: Yes. `[DIRECTLY_OBSERVED]`
-- **Hypothesis**: ECFP4 fingerprints severely underestimate the metabolic instability of the large, flexible, exposed amide bonds to non-CYP hydrolytic enzymes. `[STRUCTURE_BASED_HYPOTHESIS]`
-- **Experiment to discriminate**: Assess clearance in the presence of general CYP inhibitors (e.g., 1-ABT) vs. broad-spectrum amidase inhibitors. `[REQUIRES_EXPERIMENTAL_TEST]`
+
+### Structural facts
+- **Chemistry**: Complex peptidomimetic containing multiple amides/lactams. The nitrogen atoms in amides/lactams are predominantly neutral, not basic. `[DIRECTLY_OBSERVED]`
+- **Properties**: Large (MolWt 598.7), highly flexible (15 rotatable bonds), MolLogP 2.82. `[DIRECTLY_OBSERVED]`
+
+### What the assay/model does not tell us
+- HLM contains primarily CYPs, UGTs, esterases, and FMOs. While circulating proteases are largely absent in HLM, other uncharacterized hydrolytic enzymes or specific CYP-mediated aliphatic oxidations can clear large peptidomimetics. `[ESTABLISHED_CHEMICAL_OR_DMPK_PRINCIPLE]`
+
+### Plausible hypotheses
+- **HIGH**: The large, flexible surface area of the molecule presents multiple aliphatic sites highly vulnerable to rapid, multi-site CYP oxidation, leading to a high CLint that the model failed to capture. `[STRUCTURE_BASED_HYPOTHESIS]`
+- **LOW**: The compound undergoes rapid hydrolysis by esterases or amidases present in the microsomal fraction. `[STRUCTURE_BASED_HYPOTHESIS]`
+
+### Specific experiment needed to distinguish hypotheses
+- HLM clearance with and without a broad-spectrum CYP inhibitor (e.g., 1-ABT) to isolate the contribution of CYP-mediated vs. non-CYP hydrolytic clearance. `[REQUIRES_EXPERIMENTAL_TEST]`
 
 ---
 
-## Retrospective Pattern Analysis
+## Cross-Compound Summary
 
-### Observations `[DIRECTLY_OBSERVED]`
-1. **High-clearance underprediction**: Occurs in 6 of the top 10 errors (Compounds 1, 2, 3, 5, 9, 10).
-2. **Low-clearance overprediction**: Occurs in 4 of the top 10 errors (Compounds 4, 6, 7, 8).
-3. **Molecular size and Flexibility**: Errors span a wide range of sizes (MolWt 286 to 598) and flexibilities (3 to 15 rotatable bonds). Low-clearance errors tended to have high flexibility.
-4. **Lipophilicity**: Ranges widely from 2.82 to 5.39. 
-5. **Ionisable / Basic Chemistry**: Every single low-clearance overprediction (4, 6, 7, 8) is a basic amine. High-clearance underpredictions are diverse (acids, neutral, basic, quaternary, peptidomimetic).
-6. **Aromaticity**: High-aromaticity, low-sp3 compounds (e.g., 2, 3) were strictly found in the high-clearance underprediction set.
-7. **Structural similarity to training data**: 9 out of 10 compounds have Tanimoto similarity < 0.55 to the nearest training neighbor. All 10 predictions fell near the global median (~1.0 - 1.4).
+| Compound | Error direction | Fold error | NN Tanimoto | Ionisation hypothesis | Main unresolved mechanism | Most informative next experiment |
+|---|---|---|---|---|---|---|
+| CHEMBL1778622 | Underpredicted | 11.9x | 0.388 | Acidic (Anionic) | Dominant metabolic soft-spot vs. binding | Met ID |
+| CHEMBL574059 | Underpredicted | 7.7x | 0.378 | Neutral / Weak base | N-demethylation despite electronic delocalization | Met ID |
+| CHEMBL267744 | Underpredicted | 7.6x | 0.308 | Acidic (Anionic) | Thiophene oxidation | Met ID |
+| CHEMBL1738761 | Overpredicted | 6.7x | 0.211 | Basic (Cationic) | Stereochemical hindrance vs. binding | Enantiomer clearance / fu,mic |
+| CHEMBL2021706 | Underpredicted | 6.5x | 0.269 | Permanent Cation | O-demethylation vs. aliphatic oxidation | Met ID |
+| CHEMBL2335901 | Overpredicted | 5.6x | 0.466 | Basic (Cationic) | High microsomal binding (low fu,mic) | Measure fu,mic |
+| CHEMBL100391 | Overpredicted | 5.5x | 0.273 | Basic (Cationic) | High microsomal binding (low fu,mic) | Measure fu,mic |
+| CHEMBL1807823 | Overpredicted | 5.2x | 0.815 | Polybasic (Polycationic) | Protective structure vs. assay artifact | Assay recovery control |
+| CHEMBL182682 | Underpredicted | 4.9x | 0.478 | Basic (Cationic) | Rapid O-demethylation driven by high logP | Met ID |
+| CHEMBL20210 | Underpredicted | 4.7x | 0.538 | Neutral | Aliphatic CYP oxidation vs. hydrolysis | CYP inhibition study |
 
-### Hypotheses `[STRUCTURE_BASED_HYPOTHESIS]`
-1. **Regression to the Mean via Extrapolation**: The Random Forest model systematically defaults to the dataset mean when presented with out-of-domain structures (Tanimoto < 0.55). This drives the vast majority of extreme errors in both directions.
-2. **Systematic Overprediction of Basic Amines**: The model fails to account for non-specific microsomal binding (low fu,mic) which is rampant among lipophilic bases. This artificially depresses observed in vitro clearance, leading the model to overpredict.
-3. **Failure to Recognize Specific "Soft Spots"**: The model systematically underpredicts clearance for out-of-domain compounds containing classic, highly vulnerable metabolic liabilities (thioethers, N-methyl groups on planar rings, thiophenes, unprotected peptides).
+---
+
+## Retrospective Analysis
+
+### Observed across the selected top-ten failures
+1. **Directional compression**: The largest prediction errors are directionally consistent with response-range compression: high-clearance compounds were underpredicted, and low-clearance compounds were overpredicted. The exact causal contribution of the Random Forest algorithm vs. representational limitations of ECFP4 remains unresolved.
+2. **Ionisation patterns**: Every single low-clearance overprediction error (Compounds 4, 6, 7, 8) contained basic amines. High-clearance underpredictions spanned acidic, neutral, and permanently charged species.
+3. **Diversity of properties**: Errors span a wide range of sizes (MolWt 286 to 598), lipophilicities (MolLogP 2.82 to 5.39), and flexibilities (3 to 15 rotatable bonds).
+4. **Structural similarity**: The full-holdout Spearman rank correlation between nearest-CV Tanimoto and absolute error is approximately −0.031, indicating that Tanimoto similarity alone is a poor global predictor of error magnitude.
+
+### Hypotheses generated for prospective testing
+1. **Systematic Overprediction of Basic Amines via Binding**: The model's reliance on 2D fragments fails to capture global physicochemical properties like basicity and lipophilicity that drive high non-specific microsomal binding (low fu,mic). This binding reduces free drug availability in vitro, potentially leading to the systematic overprediction observed for lipophilic bases.
+2. **Underestimation of Specific Soft Spots**: The model systematically underestimates the clearance of compounds containing classic, highly vulnerable metabolic liabilities (e.g., exposed thioethers, terminal methoxy groups, thiophenes) when those local structural contexts differ sufficiently from the training data.
+
+*Note: The selection of the top ten failures is entirely post-hoc. Observations made on this heavily biased subset cannot establish statistical enrichment, structural causality, or global domain-of-applicability thresholds.*
