@@ -32,6 +32,17 @@ This report documents the post-access artifact recovery for the protected primar
 - **Mean Residual:** 0.04536165635269869
 - **Continuous Spearman (Abs Error vs Nearest Tanimoto):** -0.06340010067837754
 
+**Absolute Error by Frozen Tanimoto Bins:**
+*(Calculated using nearest-training similarity strictly against the 582 primary CV references)*
+```
+Bin          Count    Mean AE    Median AE
+[0,0.2)          1   0.459766     0.459766
+[0.2,0.3)       28   0.331983     0.291737
+[0.3,0.4)       24   0.344038     0.298981
+[0.4,0.6)       37   0.245387     0.220874
+[0.6,1.0]       59   0.287288     0.246550
+```
+
 **Top 10 Absolute Error Compounds:**
 1. CHEMBL1778622: 1.074075
 2. CHEMBL574059: 0.887458
@@ -53,12 +64,12 @@ This report documents the post-access artifact recovery for the protected primar
 **Qualifier Contingency Table:**
 `DETERMINISTICALLY_RECOVERED_FROM_FROZEN_SOURCE_DATA`
 ```
-standard_relation_hh    <    =  >  All
+standard_relation_hh    <    unqualified/NULL  >  All
 standard_relation_hlm                 
-<                      31   20  0   51
-=                      26   96  5  127
->                       0    8  1    9
-All                    57  124  6  187
+<                      31                  20  0   51
+unqualified/NULL       26                  96  5  127
+>                       0                   8  1    9
+All                    57                 124  6  187
 ```
 
 ## 5. Incomplete Stages

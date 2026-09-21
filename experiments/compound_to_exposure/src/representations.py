@@ -21,7 +21,7 @@ def get_r1_descriptors(smiles):
         
     try:
         Chem.SanitizeMol(mol)
-    except:
+    except Exception:
         pass # RDKit might fail on some molecules, let's see if descriptors still work
         
     desc_dict = {}
