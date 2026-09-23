@@ -150,8 +150,14 @@ def construct_preflight_payload(project_root: Path, write_artifacts: bool = Fals
     return payload, cohort, folds, X
 
 
-def verify_persisted_artifacts(project_root: Path, manifest: dict) -> None:
-    """Fail closed if persisted hashes, dimensions, keys, or state drift."""
+def verify_persisted_artifacts(project_root: Path, manifest: dict,
+                               expected_state: str | None = C.STATE_PREEXECUTION) -> None:
+    """Fail closed if persisted hashes, dimensions, keys, or state drift.
+
+    ``expected_state=None`` is reserved for the scientific-execution guard, which
+    validates its required state separately before binding manifest hashes to the
+    canonical files. Preflight validation retains the stricter default.
+    """
     project_root = Path(project_root).resolve()
     required_hashes = {
         "sap_sha256": project_root / SAP_RELATIVE,
@@ -166,8 +172,8 @@ def verify_persisted_artifacts(project_root: Path, manifest: dict) -> None:
         raise RuntimeError("feature_sha256 mismatch")
     if list(X.shape) != [C.COHORT_N, C.MORGAN_SPEC["nBits"]]:
         raise RuntimeError("feature dimensionality mismatch")
-    if manifest.get("execution_state") != C.STATE_PREEXECUTION:
-        raise RuntimeError("pre-execution state mismatch")
+    if expected_state is not None and manifest.get("execution_state") != expected_state:
+        raise RuntimeError(f"execution state mismatch: expected {expected_state}")
     if manifest.get("production_model_fit_to_real_outcomes") is not False:
         raise RuntimeError("production-model status is not fail-closed")
 

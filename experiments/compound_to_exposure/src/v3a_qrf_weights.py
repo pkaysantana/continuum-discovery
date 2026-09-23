@@ -47,6 +47,65 @@ def _bootstrap_multiplicities(tree_estimator, n_train: int,
     return counts
 
 
+def _validate_sklearn_private_helpers(n_train: int) -> None:
+    """Prove the installed sklearn private helper contract used by this module."""
+    try:
+        n_bootstrap = _get_n_samples_bootstrap(n_train, None, None)
+        probe = _generate_sample_indices(0, n_train, n_bootstrap, None)
+    except (TypeError, ValueError, AttributeError) as exc:
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: incompatible scikit-learn forest helpers"
+        ) from exc
+    if n_bootstrap != n_train or np.asarray(probe).shape != (n_train,):
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: incompatible scikit-learn bootstrap semantics"
+        )
+
+
+def _validate_frozen_forest(rf: RandomForestRegressor,
+                            sample_weight_used: bool | None) -> None:
+    """Reject any fitted forest outside the explicitly supported frozen mode."""
+    if not isinstance(rf, RandomForestRegressor) or not hasattr(rf, "estimators_"):
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: fitted RandomForestRegressor required"
+        )
+    if not rf.bootstrap:
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: bootstrap=True is required"
+        )
+    if rf.max_samples is not None:
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: max_samples=None is required"
+        )
+    if sample_weight_used is not False:
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: explicit unweighted-fit attestation required; "
+            "sample_weight fitting is unsupported"
+        )
+
+    expected = dict(C.FROZEN_RF_PARAMS)
+    for parameter, value in expected.items():
+        if getattr(rf, parameter, object()) != value:
+            raise QRFWeightRecoveryError(
+                f"QRF_WEIGHT_RECOVERY_FAILED: non-frozen RF parameter {parameter}"
+            )
+    if len(rf.estimators_) != expected["n_estimators"]:
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: fitted estimator count differs from frozen factory"
+        )
+    if not hasattr(rf, "n_features_in_"):
+        raise QRFWeightRecoveryError(
+            "QRF_WEIGHT_RECOVERY_FAILED: fitted forest metadata missing"
+        )
+    for tree in rf.estimators_:
+        if (getattr(tree, "random_state", None) is None
+                or not hasattr(tree, "tree_")
+                or not hasattr(tree, "n_features_in_")):
+            raise QRFWeightRecoveryError(
+                "QRF_WEIGHT_RECOVERY_FAILED: fitted per-tree metadata missing"
+            )
+
+
 def recover_weights_single_tree(tree, X_train: np.ndarray, x_query: np.ndarray,
                                  n_train: int, bootstrap_counts: np.ndarray) -> np.ndarray:
     """Per-tree weight vector w_t(x) of shape (n_train,).
@@ -70,19 +129,13 @@ def recover_weights_single_tree(tree, X_train: np.ndarray, x_query: np.ndarray,
 
 
 def recover_forest_weights(rf: RandomForestRegressor, X_train: np.ndarray,
-                            x_query: np.ndarray) -> np.ndarray:
+                            x_query: np.ndarray,
+                            *, sample_weight_used: bool | None = None) -> np.ndarray:
     """Ensemble weight vector w(x) of shape (n_train,), averaged across all trees.
 
     Each tree's contribution accounts for bootstrap multiplicity.
     """
-    if not isinstance(rf, RandomForestRegressor) or not hasattr(rf, "estimators_"):
-        raise QRFWeightRecoveryError(
-            "QRF_WEIGHT_RECOVERY_FAILED: fitted RandomForestRegressor required"
-        )
-    if not rf.bootstrap:
-        raise QRFWeightRecoveryError(
-            "QRF_WEIGHT_RECOVERY_FAILED: bootstrap=True is required"
-        )
+    _validate_frozen_forest(rf, sample_weight_used)
     X_train = np.asarray(X_train)
     x_query = np.asarray(x_query)
     if X_train.ndim != 2 or x_query.size != X_train.shape[1]:
@@ -96,6 +149,7 @@ def recover_forest_weights(rf: RandomForestRegressor, X_train: np.ndarray,
         raise QRFWeightRecoveryError(
             "QRF_WEIGHT_RECOVERY_FAILED: empty training set or forest"
         )
+    _validate_sklearn_private_helpers(n_train)
     n_samples_bootstrap = _get_n_samples_bootstrap(n_train, rf.max_samples, None)
     weight_sum = np.zeros(n_train, dtype=np.float64)
 
@@ -119,14 +173,20 @@ def recover_forest_weights(rf: RandomForestRegressor, X_train: np.ndarray,
 
 
 def recover_forest_weights_many(rf: RandomForestRegressor, X_train: np.ndarray,
-                                X_query: np.ndarray) -> np.ndarray:
+                                X_query: np.ndarray,
+                                *, sample_weight_used: bool | None = None) -> np.ndarray:
     """Recover one exact training-observation weight vector per query row."""
     X_query = np.asarray(X_query)
     if X_query.ndim != 2:
         raise QRFWeightRecoveryError(
             "QRF_WEIGHT_RECOVERY_FAILED: X_query must be two-dimensional"
         )
-    return np.vstack([recover_forest_weights(rf, X_train, row) for row in X_query])
+    return np.vstack([
+        recover_forest_weights(
+            rf, X_train, row, sample_weight_used=sample_weight_used
+        )
+        for row in X_query
+    ])
 
 
 # --------------------------------------------------------------------------- Weighted quantiles
@@ -534,6 +594,9 @@ def conformal_proper_train_cal_split(folds_df, outer_fold: int,
 
     Returns (proper_train_ids, calibration_ids) as sets of activity_ids.
     """
+    if not np.isfinite(cal_fraction) or not 0.0 < cal_fraction < 1.0:
+        raise ValueError("cal_fraction must be finite and lie strictly between 0 and 1")
+
     # Outer training = everything NOT in outer_fold
     train_mask = folds_df["outer_fold"] != outer_fold
     train_data = folds_df[train_mask].copy()
@@ -574,12 +637,12 @@ def cqr_nonconformity_scores(y_calibration: np.ndarray, lower_quantiles: np.ndar
 
 
 def conformal_correction(scores: np.ndarray, alpha: float) -> float:
-    """Finite-sample split-conformal correction using the conservative higher quantile."""
+    """Return a finite, nonnegative conservative split-conformal correction."""
     scores = np.asarray(scores, dtype=np.float64).reshape(-1)
     if scores.size == 0 or not np.isfinite(scores).all() or not 0.0 < alpha < 1.0:
         raise ValueError("finite nonempty scores and alpha in (0, 1) are required")
     level = min(1.0, ceil((scores.size + 1) * (1.0 - alpha)) / scores.size)
-    return float(np.quantile(scores, level, method="higher"))
+    return max(0.0, float(np.quantile(scores, level, method="higher")))
 
 
 def apply_conformal_correction(lower_quantiles: np.ndarray, upper_quantiles: np.ndarray,
@@ -589,8 +652,8 @@ def apply_conformal_correction(lower_quantiles: np.ndarray, upper_quantiles: np.
     upper_quantiles = np.asarray(upper_quantiles, dtype=np.float64)
     if lower_quantiles.shape != upper_quantiles.shape or lower_quantiles.ndim != 1:
         raise ValueError("lower and upper quantiles must be aligned one-dimensional arrays")
-    if not np.isfinite(correction):
-        raise ValueError("conformal correction must be finite")
+    if not np.isfinite(correction) or correction < 0.0:
+        raise ValueError("conformal correction must be finite and nonnegative")
     calibrated_lower = lower_quantiles - correction
     calibrated_upper = upper_quantiles + correction
     if (calibrated_lower > calibrated_upper).any():
@@ -618,13 +681,15 @@ class ExecutionGuardError(RuntimeError):
     """Raised when scientific execution is attempted without proper state."""
 
 
-def check_execution_guard(manifest: dict, require_flag: bool = False):
+def check_execution_guard(manifest: dict, require_flag: bool = False,
+                          *, project_root=None):
     """Fail-closed guard: scientific execution requires explicit flag and frozen state.
 
     Parameters
     ----------
     manifest : the pre-execution manifest dict
     require_flag : whether the --execute-scientific-analysis flag was provided
+    project_root : canonical project root containing all frozen artifacts
 
     Raises ExecutionGuardError if any condition is not met.
     """
@@ -660,3 +725,17 @@ def check_execution_guard(manifest: dict, require_flag: bool = False):
 
     if manifest.get("production_model_fit_to_real_outcomes") is not False:
         raise ExecutionGuardError("Execution blocked: invalid pre-fit production-model status")
+
+    if project_root is None:
+        raise ExecutionGuardError(
+            "Execution blocked: canonical project root required for artifact verification"
+        )
+    try:
+        # Local import avoids coupling mechanical preflight generation to the
+        # outcome-accepting execution utility module at import time.
+        from src.v3a_preflight import verify_persisted_artifacts
+        verify_persisted_artifacts(project_root, manifest, expected_state=None)
+    except (FileNotFoundError, OSError, RuntimeError, ValueError) as exc:
+        raise ExecutionGuardError(
+            f"Execution blocked: frozen artifact verification failed: {exc}"
+        ) from exc

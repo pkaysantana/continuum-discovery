@@ -5,6 +5,7 @@ Synthetic model fitting is for mathematical/unit-test validation only.
 """
 import hashlib
 import json
+import shutil
 import sys
 import os
 from math import ceil
@@ -20,7 +21,7 @@ from sklearn.datasets import make_regression
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src import v3a_config as C
 from src.v3a_cohort import (
-    build_cohort, build_folds, write_csv, ecfp4_matrix,
+    assign_scaffold_folds, build_cohort, build_folds, write_csv, ecfp4_matrix,
     verify_feature_matrix, verify_row_alignment, feature_matrix_hash,
     fold_statistics, PreflightGateError, gate
 )
@@ -36,11 +37,30 @@ from src.v3a_qrf_weights import (
     interval_calibration_summary, QRFWeightRecoveryError,
     check_execution_guard, ExecutionGuardError, compute_descriptors,
 )
-from src.v3a_preflight import MANIFEST_RELATIVE, verify_persisted_artifacts
+from src.v3a_preflight import (
+    COHORT_RELATIVE, FEATURE_RELATIVE, MANIFEST_RELATIVE, SAP_RELATIVE,
+    SPLIT_RELATIVE, verify_persisted_artifacts,
+)
 
 DATA_CSV = str(Path(__file__).resolve().parent.parent / "data" / "interim" / "CHEMBL3301370_rows.csv")
 SPLITS_DIR = str(Path(__file__).resolve().parent.parent / "splits")
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+FROZEN_ARTIFACT_RELATIVES = (
+    SAP_RELATIVE, COHORT_RELATIVE, SPLIT_RELATIVE, FEATURE_RELATIVE,
+)
+
+
+def _ready_guard_project(tmp_path):
+    """Copy only frozen mechanical artifacts and make a future-ready test manifest."""
+    root = tmp_path / "guard_project"
+    for relative in FROZEN_ARTIFACT_RELATIVES:
+        destination = root / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(PROJECT_ROOT / relative, destination)
+    manifest = json.loads((PROJECT_ROOT / MANIFEST_RELATIVE).read_text(encoding="utf-8"))
+    manifest["execution_state"] = C.STATE_FROZEN
+    manifest["independent_audit_recorded"] = True
+    return root, manifest
 
 
 @pytest.fixture(scope="session")
@@ -66,13 +86,7 @@ def synthetic_setup():
         X_synthetic, y = make_regression(
             n_samples=80, n_features=10, noise=0.5, random_state=seed
         )
-        rf = RandomForestRegressor(
-            n_estimators=50,
-            min_samples_leaf=2,
-            bootstrap=True,
-            random_state=seed,
-            max_depth=8,
-        )
+        rf = C.make_frozen_rf()
         rf.fit(X_synthetic, y)
         setups.append({"X": X_synthetic, "y": y, "rf": rf, "seed": seed})
     return setups
@@ -148,6 +162,11 @@ class TestCohort:
 
 # =========================================================================== Folds
 class TestFolds:
+    def test_exact_scaffold_hash_known_vector(self):
+        assert C.split_tiebreak_hash("c1ccccc1") == (
+            "b05f7fed3e02b03e5fcf33f4188a47b998d3f89459c609e76f3dc0792a49461e"
+        )
+
     def test_all_744_assigned(self, folds):
         assert len(folds) == 744
 
@@ -178,6 +197,31 @@ class TestFolds:
 
     def test_total_scaffolds(self, folds):
         assert folds["scaffold_key"].nunique() == 540
+
+    def test_shuffled_input_rows_do_not_change_assignment(self, cohort):
+        baseline = build_folds(cohort).set_index("activity_id")["outer_fold"].sort_index()
+        shuffled = cohort.sample(frac=1.0, random_state=17).reset_index(drop=True)
+        observed = build_folds(shuffled).set_index("activity_id")["outer_fold"].sort_index()
+        pd.testing.assert_series_equal(observed, baseline)
+
+    def test_outcome_columns_do_not_change_assignment(self, cohort):
+        baseline = build_folds(cohort).set_index("activity_id")["outer_fold"].sort_index()
+        changed = cohort.copy()
+        changed["CLint"] = np.linspace(-1e9, 1e9, len(changed))
+        changed["log10_CLint"] = np.nan
+        observed = build_folds(changed).set_index("activity_id")["outer_fold"].sort_index()
+        pd.testing.assert_series_equal(observed, baseline)
+
+    def test_adversarial_greedy_scaffold_allocation(self):
+        keys = list("AAAA") + list("BBB") + list("CC") + list("DD") + ["E"]
+        ranks = {key: str(index) for index, key in enumerate("ABCDE")}
+        assignment = assign_scaffold_folds(
+            keys, n_folds=3, tie_hash=lambda key: ranks[key]
+        )
+        # Descending sizes A=4, B=3, C=2, D=2, E=1. The first three
+        # allocations prove lowest-fold resolution of equal empty folds; D and E
+        # prove repeated greedy allocation to the currently smallest fold.
+        assert assignment == {"A": 1, "B": 2, "C": 3, "D": 3, "E": 2}
 
 
 # =========================================================================== Features
@@ -217,14 +261,14 @@ class TestQRFWeights:
             X, y, rf = setup["X"], setup["y"], setup["rf"]
             # Test on training points and held-out points
             for idx in [0, len(X)//2, len(X)-1]:
-                w = recover_forest_weights(rf, X, X[idx])
+                w = recover_forest_weights(rf, X, X[idx], sample_weight_used=False)
                 err = abs(w.sum() - 1.0)
                 max_err = max(max_err, err)
                 assert err < C.WEIGHT_SUM_TOL, f"Weight sum {w.sum()} for seed={setup['seed']}, idx={idx}"
             # Held-out query
             rng = np.random.RandomState(setup["seed"] + 1)
             x_new = rng.randn(X.shape[1])
-            w = recover_forest_weights(rf, X, x_new)
+            w = recover_forest_weights(rf, X, x_new, sample_weight_used=False)
             err = abs(w.sum() - 1.0)
             max_err = max(max_err, err)
             assert err < C.WEIGHT_SUM_TOL
@@ -235,7 +279,7 @@ class TestQRFWeights:
         for setup in synthetic_setup:
             X, y, rf = setup["X"], setup["y"], setup["rf"]
             for idx in [0, 10, len(X)//2, len(X)-1]:
-                w = recover_forest_weights(rf, X, X[idx])
+                w = recover_forest_weights(rf, X, X[idx], sample_weight_used=False)
                 reconstructed = np.dot(w, y)
                 actual = rf.predict(X[idx].reshape(1, -1))[0]
                 err = abs(reconstructed - actual)
@@ -245,7 +289,7 @@ class TestQRFWeights:
             # Held-out
             rng = np.random.RandomState(setup["seed"] + 1)
             x_new = rng.randn(X.shape[1])
-            w = recover_forest_weights(rf, X, x_new)
+            w = recover_forest_weights(rf, X, x_new, sample_weight_used=False)
             reconstructed = np.dot(w, y)
             actual = rf.predict(x_new.reshape(1, -1))[0]
             err = abs(reconstructed - actual)
@@ -256,31 +300,33 @@ class TestQRFWeights:
     def test_non_negative_weights(self, synthetic_setup):
         for setup in synthetic_setup:
             X, y, rf = setup["X"], setup["y"], setup["rf"]
-            w = recover_forest_weights(rf, X, X[0])
+            w = recover_forest_weights(rf, X, X[0], sample_weight_used=False)
             assert (w >= 0).all()
 
     def test_neff_ge_1(self, synthetic_setup):
         for setup in synthetic_setup:
             X, y, rf = setup["X"], setup["y"], setup["rf"]
-            w = recover_forest_weights(rf, X, X[0])
+            w = recover_forest_weights(rf, X, X[0], sample_weight_used=False)
             assert neff(w) >= 1.0
 
     def test_quantile_monotonicity(self, synthetic_setup):
         for setup in synthetic_setup:
             X, y, rf = setup["X"], setup["y"], setup["rf"]
-            w = recover_forest_weights(rf, X, X[0])
+            w = recover_forest_weights(rf, X, X[0], sample_weight_used=False)
             qs = qrf_prediction_quantiles(w, y)
             assert qs["Q10"] <= qs["Q25"] <= qs["Q50"] <= qs["Q75"] <= qs["Q90"]
 
     def test_nonempty_support(self, synthetic_setup):
         for setup in synthetic_setup:
             X, y, rf = setup["X"], setup["y"], setup["rf"]
-            w = recover_forest_weights(rf, X, X[0])
+            w = recover_forest_weights(rf, X, X[0], sample_weight_used=False)
             assert (w > 0).sum() >= 1
 
     def test_batch_recovery(self, synthetic_setup):
         setup = synthetic_setup[0]
-        weights = recover_forest_weights_many(setup["rf"], setup["X"], setup["X"][:3])
+        weights = recover_forest_weights_many(
+            setup["rf"], setup["X"], setup["X"][:3], sample_weight_used=False
+        )
         assert weights.shape == (3, len(setup["X"]))
         assert np.all(np.abs(weights.sum(axis=1) - 1.0) < C.WEIGHT_SUM_TOL)
 
@@ -288,7 +334,43 @@ class TestQRFWeights:
         X, y = make_regression(n_samples=30, n_features=4, random_state=1)
         rf = RandomForestRegressor(n_estimators=5, bootstrap=False, random_state=1).fit(X, y)
         with pytest.raises(QRFWeightRecoveryError, match="QRF_WEIGHT_RECOVERY_FAILED"):
-            recover_forest_weights(rf, X, X[0])
+            recover_forest_weights(rf, X, X[0], sample_weight_used=False)
+
+    def test_rejects_nondefault_max_samples(self):
+        X, y = make_regression(n_samples=30, n_features=4, random_state=2)
+        rf = RandomForestRegressor(
+            n_estimators=5, bootstrap=True, max_samples=0.8, random_state=2
+        ).fit(X, y)
+        with pytest.raises(QRFWeightRecoveryError, match="max_samples=None"):
+            recover_forest_weights(rf, X, X[0], sample_weight_used=False)
+
+    def test_rejects_unfitted_forest(self):
+        rf = C.make_frozen_rf()
+        X = np.zeros((3, 2))
+        with pytest.raises(QRFWeightRecoveryError, match="fitted RandomForestRegressor"):
+            recover_forest_weights(rf, X, X[0], sample_weight_used=False)
+
+    def test_rejects_unattested_or_weighted_fit_mode(self, synthetic_setup):
+        setup = synthetic_setup[0]
+        with pytest.raises(QRFWeightRecoveryError, match="unweighted-fit attestation"):
+            recover_forest_weights(setup["rf"], setup["X"], setup["X"][0])
+        with pytest.raises(QRFWeightRecoveryError, match="sample_weight fitting"):
+            recover_forest_weights(
+                setup["rf"], setup["X"], setup["X"][0], sample_weight_used=True
+            )
+
+    def test_rejects_inconsistent_fitted_estimator_count(self, synthetic_setup):
+        setup = synthetic_setup[0]
+        rf = setup["rf"]
+        complete_estimators = rf.estimators_
+        rf.estimators_ = complete_estimators[:-1]
+        try:
+            with pytest.raises(QRFWeightRecoveryError, match="estimator count"):
+                recover_forest_weights(
+                    rf, setup["X"], setup["X"][0], sample_weight_used=False
+                )
+        finally:
+            rf.estimators_ = complete_estimators
 
 
 # =========================================================================== Weighted quantiles
@@ -313,6 +395,20 @@ class TestWeightedQuantile:
         qs = [weighted_quantile(vals, wts, q) for q in [0.1, 0.25, 0.5, 0.75, 0.9]]
         for i in range(len(qs) - 1):
             assert qs[i] <= qs[i + 1]
+
+    def test_duplicates_and_zero_weight_observations(self):
+        vals = np.array([-100.0, 2.0, 2.0, 5.0, 1e6])
+        wts = np.array([0.0, 0.20, 0.55, 0.25, 0.0])
+        assert weighted_quantile(vals, wts, 0.0) == 2.0
+        assert weighted_quantile(vals, wts, 0.50) == 2.0
+        assert weighted_quantile(vals, wts, 0.90) == 5.0
+        assert weighted_quantile(vals, wts, 1.0) == 5.0
+
+    def test_qrf_width_is_weighted_q90_minus_q10(self):
+        vals = np.array([1.0, 2.0, 4.0, 8.0, 16.0])
+        wts = np.array([0.05, 0.10, 0.20, 0.25, 0.40])
+        expected = weighted_quantile(vals, wts, 0.90) - weighted_quantile(vals, wts, 0.10)
+        assert qrf_width(wts, vals) == expected
 
     def test_invalid_weights_fail_closed(self):
         with pytest.raises(ValueError):
@@ -370,6 +466,14 @@ class TestUncertaintyPrimitives:
 
 # =========================================================================== Retention
 class TestRetention:
+    def test_exact_activity_id_hash_known_vector(self):
+        assert C.retention_tiebreak_hash(14758924) == (
+            "425cfc5f5851d49b457efe091835862c56f8b08acb0071f40df32de2afbc9604"
+        )
+        assert select_retained(
+            [14758924, 14758925, 14758926], np.zeros(3), 1.0 / 3.0
+        ) == {14758925}
+
     def test_deterministic(self):
         ids = list(range(100))
         unc = np.random.RandomState(42).rand(100)
@@ -399,6 +503,25 @@ class TestRetention:
         assert mask[folds == 1].sum() == ceil(0.8 * 10)
         assert mask[folds == 2].sum() == ceil(0.8 * 11)
         assert np.array_equal(mask, within_fold_retention_mask(ids, folds, uncertainty, 0.80))
+
+    @pytest.mark.parametrize("coverage", C.COVERAGE_LEVELS)
+    def test_all_frozen_coverages_are_applied_per_fold(self, coverage):
+        ids = np.arange(17)
+        folds = np.array([1] * 5 + [2] * 12)
+        uncertainty = np.linspace(1.0, 17.0, 17)
+        mask = within_fold_retention_mask(ids, folds, uncertainty, coverage)
+        assert mask[folds == 1].sum() == ceil(coverage * 5)
+        assert mask[folds == 2].sum() == ceil(coverage * 12)
+
+    def test_within_fold_ranking_differs_from_global_pooling(self):
+        ids = np.array([10, 11, 20, 21])
+        folds = np.array([1, 1, 2, 2])
+        uncertainty = np.array([1.0, 2.0, 100.0, 101.0])
+        within = set(ids[within_fold_retention_mask(ids, folds, uncertainty, 0.50)])
+        global_pool = select_retained(ids, uncertainty, 0.50)
+        assert within == {10, 20}
+        assert global_pool == {10, 11}
+        assert within != global_pool
 
 
 # =========================================================================== Metrics
@@ -551,6 +674,25 @@ class TestConformal:
         assert summary["mean_interval_width"] >= 0.0
         assert summary["median_interval_width"] >= 0.0
 
+    def test_negative_correction_cannot_shrink_intervals(self):
+        lower = np.array([1.0, 2.0])
+        upper = np.array([3.0, 4.0])
+        with pytest.raises(ValueError, match="nonnegative"):
+            apply_conformal_correction(lower, upper, -0.01)
+
+    def test_derived_correction_is_never_negative(self):
+        assert conformal_correction(np.array([-1.0, -0.5]), alpha=0.20) == 0.0
+
+    @pytest.mark.parametrize("cal_fraction", [0.0, 1.0, -0.1, 1.1, np.nan])
+    def test_invalid_calibration_fraction_rejected(self, cal_fraction):
+        data = pd.DataFrame({
+            "activity_id": [1, 2],
+            "scaffold_key": ["A", "B"],
+            "outer_fold": [1, 2],
+        })
+        with pytest.raises(ValueError, match="strictly between 0 and 1"):
+            conformal_proper_train_cal_split(data, 1, cal_fraction=cal_fraction)
+
 
 # =========================================================================== Execution guard
 class TestExecutionGuard:
@@ -614,19 +756,49 @@ class TestExecutionGuard:
         with pytest.raises(ExecutionGuardError, match="PREEXECUTION"):
             check_execution_guard(manifest, require_flag=True)
 
-    def test_future_ready_manifest_requires_every_gate(self):
-        manifest = {
-            "execution_state": C.STATE_FROZEN,
-            "sap_sha256": "abc",
-            "cohort_sha256": "def",
-            "split_sha256": "ghi",
-            "feature_sha256": "jkl",
-            "cohort_N": 744,
-            "independent_audit_recorded": True,
-            "representation": C.REPRESENTATION.value,
-            "production_model_fit_to_real_outcomes": False,
-        }
-        check_execution_guard(manifest, require_flag=True)
+    def test_future_ready_manifest_requires_every_gate(self, tmp_path):
+        root, manifest = _ready_guard_project(tmp_path)
+        check_execution_guard(manifest, require_flag=True, project_root=root)
+
+    @pytest.mark.parametrize(
+        "hash_key",
+        ["sap_sha256", "cohort_sha256", "split_sha256", "feature_sha256"],
+    )
+    def test_substituted_manifest_hash_rejected(self, tmp_path, hash_key):
+        root, manifest = _ready_guard_project(tmp_path)
+        manifest[hash_key] = "f" * 64
+        with pytest.raises(ExecutionGuardError, match="artifact verification failed"):
+            check_execution_guard(manifest, require_flag=True, project_root=root)
+
+    @pytest.mark.parametrize(
+        "hash_key",
+        ["sap_sha256", "cohort_sha256", "split_sha256", "feature_sha256"],
+    )
+    def test_empty_manifest_hash_rejected(self, tmp_path, hash_key):
+        root, manifest = _ready_guard_project(tmp_path)
+        manifest[hash_key] = ""
+        with pytest.raises(ExecutionGuardError, match="hash missing"):
+            check_execution_guard(manifest, require_flag=True, project_root=root)
+
+    @pytest.mark.parametrize("relative", FROZEN_ARTIFACT_RELATIVES)
+    def test_missing_frozen_artifact_rejected(self, tmp_path, relative):
+        root, manifest = _ready_guard_project(tmp_path)
+        (root / relative).unlink()
+        with pytest.raises(ExecutionGuardError, match="artifact verification failed"):
+            check_execution_guard(manifest, require_flag=True, project_root=root)
+
+    @pytest.mark.parametrize("relative", FROZEN_ARTIFACT_RELATIVES)
+    def test_tampered_frozen_artifact_rejected(self, tmp_path, relative):
+        root, manifest = _ready_guard_project(tmp_path)
+        artifact = root / relative
+        if relative == FEATURE_RELATIVE:
+            matrix = np.load(artifact, allow_pickle=False)
+            matrix[0, 0] = 1 - matrix[0, 0]
+            np.save(artifact, matrix, allow_pickle=False)
+        else:
+            artifact.write_bytes(artifact.read_bytes() + b"\nTAMPERED\n")
+        with pytest.raises(ExecutionGuardError, match="artifact verification failed"):
+            check_execution_guard(manifest, require_flag=True, project_root=root)
 
 
 class TestFreezeManifest:

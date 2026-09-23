@@ -95,9 +95,9 @@ Before execution, an automated preflight script must run and verify every item b
 - [x] **Deterministic Tie-Breaker**:
   Ties broken by SHA-256 hash of `activity_id + "_V3A_TIE_20260923"`.
 - [x] **Random Baseline Monte Carlo Machinery**:
-  Random baseline runner executes 10,000 within-fold draws with seed `20260923`.
+  Helper defaults specify 10,000 within-fold draws with seed `20260923`; deterministic synthetic behavior is tested.
 - [x] **Bootstrap Resampling Engine Machinery**:
-  10,000 paired scaffold-clustered draws stratified by fold, with seed `20260923`.
+  Helper defaults specify 10,000 paired scaffold-clustered draws stratified by fold, with seed `20260923`; deterministic synthetic behavior is tested.
 
 The two machinery checks above verify implementation defaults and synthetic behavior only. Neither real 10,000-run analysis has been executed.
 
@@ -106,8 +106,8 @@ The two machinery checks above verify implementation defaults and synthetic beha
   SHA-256 of `splits/V3A_OUTER_SCAFFOLD_FOLDS.csv` verified.
 - [x] **Gate 10 — Feature Matrix Hash Invariance**:
   SHA-256 of computed feature array matches manifest.
-- [x] **Gate 11 — Test Outcome Blindness**:
-  Verified that outer test outcomes $y_{\text{test}}$ are never passed to standardizers, leaf weight computers, or quantile functions, and are accessed only during final residual calculation.
+- [ ] **Gate 11 — End-to-End Test Outcome Blindness (PENDING)**:
+  Helper/preflight interfaces have been tested without real outcomes, but end-to-end outcome blindness cannot be signed off until the future scientific execution runner exists and is independently audited. The absence of that runner is expected in this preflight phase and is not a preflight defect.
 
 ---
 
@@ -144,7 +144,11 @@ Prior to execution, the following manifest file must be written to `manifests/V3
 | **Pre-Execution Failure Gates** | **SPECIFIED** | Antigravity AI Assistant | 2026-09-23 |
 | **Split & Feature Generation** | **MECHANICALLY VERIFIED** | Codex implementation preflight | 2026-09-23 |
 | **Cryptographic Manifest** | **GENERATED — PREEXECUTION STATE** | Codex implementation preflight | 2026-09-23 |
-| **Model Fitting & Execution** | **BLOCKED — INDEPENDENT AUDIT REQUIRED** | Execution Runner | — |
+| **Synthetic QRF Mathematical Validation** | **COMPLETE** | Codex focused tests | 2026-09-23 |
+| **PRE-EXECUTION IMPLEMENTATION AUDIT** | **PASS_WITH_MINOR_NOTES** | Independent Auditor | 2026-09-23 |
+| **Real Scientific Model Fitting & Execution** | **NOT PERFORMED** | Execution Runner | — |
+| **FINAL_INDEPENDENT_IMPLEMENTATION_AUDIT** | **OUTSTANDING** | Independent Auditor | — |
+| **FROZEN_READY_FOR_EXECUTION** | **UNSET / FALSE** | Human Lead | — |
 
 ---
 

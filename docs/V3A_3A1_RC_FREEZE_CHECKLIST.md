@@ -52,60 +52,62 @@ The following decisions are permanently locked in `docs/V3A_UNCERTAINTY_ASSAY_TR
 Before execution, an automated preflight script must run and verify every item below:
 
 ### 3.1 Data & Cohort Alignment Gates
-- [ ] **Gate 01 — Cohort Count**:
+- [x] **Gate 01 — Cohort Count**:
   `len(cohort_df) == 744`
-- [ ] **Gate 01a — Full Dataset Conservation**:
+- [x] **Gate 01a — Full Dataset Conservation**:
   $744\text{ exact} + 274\text{ left-censored} + 84\text{ right-censored} == 1102\text{ total rows}$.
-- [ ] **Gate 01b — Exact Boundary Breakdown**:
+- [x] **Gate 01b — Exact Boundary Breakdown**:
   $731\text{ interior} (3 < y < 150) + 13\text{ boundary-low} (y == 3) + 0\text{ boundary-high} (y == 150) == 744$.
-- [ ] **Gate 01c — Raw Field Preservation**:
+- [x] **Gate 01c — Raw Field Preservation**:
   All 744 rows have `standard_relation IS NULL` in raw data.
-- [ ] **Gate 02 — Structure & Key Alignment**:
+- [x] **Gate 02 — Structure & Key Alignment**:
   Row-by-row 1:1 check: `X[i]`, `y[i]`, `activity_id[i]`, `chembl_id[i]`, `scaffold_key[i]`. Zero misalignments.
 
 ### 3.2 Representation & Routing Safeguards
-- [ ] **Gate 03 — Feature Dimensionality**:
+- [x] **Gate 03 — Feature Dimensionality**:
   $X$ is a 2D array of shape $(744, 2048)$ and dtype `uint8` or `float32`.
-- [ ] **Gate 04 — Declared Representation Enum**:
+- [x] **Gate 04 — Declared Representation Enum**:
   Active representation name string strictly matches `"ECFP4_2048_R2_BINARY_NOCHIRAL"`.
-- [ ] **Gate 04a — Substring Routing Ban**:
+- [x] **Gate 04a — Substring Routing Ban**:
   Code contains no substring checks on pipeline identifiers (`"r1" in name`, etc.).
 
 ### 3.3 Outer Scaffold Split Verification
-- [ ] **Gate 05 — Scaffold Leakage Check**:
+- [x] **Gate 05 — Scaffold Leakage Check**:
   For all outer folds $f \in \{1, \dots, 5\}$:
   $$\text{scaffolds}(\mathcal{D}_{\text{train}, f}) \cap \text{scaffolds}(\mathcal{D}_{\text{test}, f}) = \emptyset$$
-- [ ] **Gate 06 — Unique Test Evaluation**:
+- [x] **Gate 06 — Unique Test Evaluation**:
   Every compound $\text{activity\_id}$ appears in exactly one outer test fold. $\sum_{f=1}^5 n_f = 744$.
-- [ ] **Gate 06a — Deterministic Split File**:
+- [x] **Gate 06a — Deterministic Split File**:
   `splits/V3A_OUTER_SCAFFOLD_FOLDS.csv` exists, contains columns `activity_id,chembl_id,scaffold_key,outer_fold`, and matches pre-computed SHA-256 hash.
 
 ### 3.4 QRF Weight Recovery Validity Gate
-- [ ] **Gate 07 — QRF Point Prediction Invariant**:
+- [x] **Gate 07 — QRF Point Prediction Invariant**:
   Across 100% of validation queries (synthetic, training, held-out):
   $$\max_{x} \left| \sum_{i=1}^{N_{\text{train}}} w_i(x) \cdot y_i - \hat{f}_{\text{RF}}(x) \right| < 10^{-6}$$
-- [ ] **Gate 08 — QRF Weight Normalization Invariant**:
+- [x] **Gate 08 — QRF Weight Normalization Invariant**:
   $$\max_{x} \left| \sum_{i=1}^{N_{\text{train}}} w_i(x) - 1.0 \right| < 10^{-12}$$
-- [ ] **Gate 08a — Bootstrap Multiplicity Accounting**:
+- [x] **Gate 08a — Bootstrap Multiplicity Accounting**:
   Confirmed that weight algorithm utilizes `tree.tree_.n_node_samples` or in-bag multiplicity array rather than unweighted leaf indexing.
 
 ### 3.5 Within-Fold Ranking & Metric Implementation
-- [ ] **Within-Fold Ranking Implementation**:
+- [x] **Within-Fold Ranking Implementation**:
   Verified that retention subset selection operates on within-fold slices, with $k_f(\kappa) = \lceil \kappa \cdot n_f \rceil$.
-- [ ] **Deterministic Tie-Breaker**:
+- [x] **Deterministic Tie-Breaker**:
   Ties broken by SHA-256 hash of `activity_id + "_V3A_TIE_20260923"`.
-- [ ] **Random Baseline Monte Carlo**:
-  Random baseline runner executes 10,000 within-fold draws with seed `20260923`.
-- [ ] **Bootstrap Resampling Engine**:
-  10,000 paired scaffold-clustered draws stratified by fold, with seed `20260923`.
+- [x] **Random Baseline Monte Carlo Machinery**:
+  Helper defaults specify 10,000 within-fold draws with seed `20260923`; deterministic synthetic behavior is tested.
+- [x] **Bootstrap Resampling Engine Machinery**:
+  Helper defaults specify 10,000 paired scaffold-clustered draws stratified by fold, with seed `20260923`; deterministic synthetic behavior is tested.
+
+The two machinery checks above verify implementation defaults and synthetic behavior only. Neither real 10,000-run analysis has been executed.
 
 ### 3.6 Data Leakage & Outcome Blindness Gates
-- [ ] **Gate 09 — Split Hash Invariance**:
+- [x] **Gate 09 — Split Hash Invariance**:
   SHA-256 of `splits/V3A_OUTER_SCAFFOLD_FOLDS.csv` verified.
-- [ ] **Gate 10 — Feature Matrix Hash Invariance**:
+- [x] **Gate 10 — Feature Matrix Hash Invariance**:
   SHA-256 of computed feature array matches manifest.
-- [ ] **Gate 11 — Test Outcome Blindness**:
-  Verified that outer test outcomes $y_{\text{test}}$ are never passed to standardizers, leaf weight computers, or quantile functions, and are accessed only during final residual calculation.
+- [ ] **Gate 11 — End-to-End Test Outcome Blindness (PENDING)**:
+  Helper/preflight interfaces have been tested without real outcomes, but end-to-end outcome blindness cannot be signed off until the future scientific execution runner exists and is independently audited. The absence of that runner is expected in this preflight phase and is not a preflight defect.
 
 ---
 
@@ -113,23 +115,23 @@ Before execution, an automated preflight script must run and verify every item b
 
 Prior to execution, the following manifest file must be written to `manifests/V3A_1_RC_FREEZE_MANIFEST.json` and hashed:
 
-- [ ] Cohort metadata ($N=744$, MD5/SHA-256 of input table)
-- [ ] Feature representation name and exact Morgan fingerprint settings
-- [ ] SHA-256 of feature matrix array
-- [ ] SHA-256 of outer scaffold fold assignments
-- [ ] Complete scikit-learn `RandomForestRegressor` parameter dictionary
-- [ ] Random seeds:
+- [x] Cohort metadata ($N=744$, SHA-256 of input table)
+- [x] Feature representation name and exact Morgan fingerprint settings
+- [x] SHA-256 of feature matrix array
+- [x] SHA-256 of outer scaffold fold assignments
+- [x] Complete scikit-learn `RandomForestRegressor` parameter dictionary
+- [x] Random seeds:
   - Model training: `20260923`
   - Split tie-breaking: `V3A_20260923`
   - Retention tie-breaking: `V3A_TIE_20260923`
   - Bootstrap resampling: `20260923`
   - Random deferral baseline: `20260923`
-- [ ] Software environment versions:
+- [x] Software environment versions:
   - Python version
   - RDKit version
   - scikit-learn version
   - numpy / scipy versions
-- [ ] Primary estimand definition and practical criterion (10.0% relative benefit)
+- [x] Primary estimand definition and practical criterion (10.0% relative benefit)
 
 ---
 
@@ -140,12 +142,16 @@ Prior to execution, the following manifest file must be written to `manifests/V3
 | **Scientific Design Decisions** | **FROZEN** | Human Lead / Archival Record | 2026-09-23 |
 | **Statistical Analysis Plan (v3A.1-RC)** | **COMPLETE** | Antigravity AI Assistant | 2026-09-23 |
 | **Pre-Execution Failure Gates** | **SPECIFIED** | Antigravity AI Assistant | 2026-09-23 |
-| **Split & Feature Generation** | *PENDING PREFLIGHT* | Preflight Execution Script | — |
-| **Cryptographic Manifest** | *PENDING PREFLIGHT* | Preflight Execution Script | — |
-| **Model Fitting & Execution** | **BLOCKED UNTIL PREFLIGHT PASS** | Execution Runner | — |
+| **Split & Feature Generation** | **MECHANICALLY VERIFIED** | Codex implementation preflight | 2026-09-23 |
+| **Cryptographic Manifest** | **GENERATED — PREEXECUTION STATE** | Codex implementation preflight | 2026-09-23 |
+| **Synthetic QRF Mathematical Validation** | **COMPLETE** | Codex focused tests | 2026-09-23 |
+| **PRE-EXECUTION IMPLEMENTATION AUDIT** | **PASS_WITH_MINOR_NOTES** | Independent Auditor | 2026-09-23 |
+| **Real Scientific Model Fitting & Execution** | **NOT PERFORMED** | Execution Runner | — |
+| **FINAL_INDEPENDENT_IMPLEMENTATION_AUDIT** | **OUTSTANDING** | Independent Auditor | — |
+| **FROZEN_READY_FOR_EXECUTION** | **UNSET / FALSE** | Human Lead | — |
 
 ---
 
 ```
-V3A_3A1_RC_CHECKLIST_COMPLETE_NO_EXECUTION
+V3A_3A1_RC_PREFLIGHT_IMPLEMENTED_NOT_RUN
 ```
