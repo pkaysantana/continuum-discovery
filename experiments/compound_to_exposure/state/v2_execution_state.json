@@ -1,0 +1,52 @@
+{
+  "PRIMARY_HOLDOUT": {
+    "status": "COMPLETED",
+    "started_at": "2026-09-18T21:56:51.954559+00:00",
+    "run_id": "220bc125-141f-41ca-964c-525d9e3e075e",
+    "manifest_path": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\manifests\\runs\\2026-09-18T215009395468_0000-4c110e67\\selection_manifest.json",
+    "completed_at": "2026-09-18T21:56:52.034785+00:00",
+    "artifacts": {
+      "predictions_path": "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\manifests\\runs\\2026-09-18T215009395468_0000-4c110e67\\primary_holdout_predictions.csv"
+    }
+  },
+  "TAIL_EVALUATION": {
+    "status": "COMPLETED",
+    "started_at": "2026-09-18T21:56:52.049787+00:00",
+    "run_id": "220bc125-141f-41ca-964c-525d9e3e075e",
+    "completed_at": "2026-09-18T21:56:52.064991+00:00",
+    "artifacts": {
+      "eligible_pairs": 0,
+      "score": 0.0
+    }
+  },
+  "SENSITIVITY_A": {
+    "status": "COMPLETED",
+    "started_at": "2026-09-18T21:56:52.078784+00:00",
+    "run_id": "220bc125-141f-41ca-964c-525d9e3e075e",
+    "completed_at": "2026-09-18T22:00:42.464341+00:00"
+  },
+  "SENSITIVITY_B": {
+    "status": "COMPLETED",
+    "started_at": "2026-09-18T22:00:42.481012+00:00",
+    "run_id": "220bc125-141f-41ca-964c-525d9e3e075e",
+    "completed_at": "2026-09-18T22:00:42.648037+00:00"
+  },
+  "HLM_HH": {
+    "status": "COMPLETED",
+    "started_at": "2026-09-18T22:00:42.664557+00:00",
+    "run_id": "220bc125-141f-41ca-964c-525d9e3e075e",
+    "completed_at": "2026-09-18T22:00:42.848215+00:00",
+    "artifacts": {
+      "paired_count": 187,
+      "primary_n": 94,
+      "sens_n": 96,
+      "primary_spearman": 0.504526766825069,
+      "sens_spearman": 0.4864353376748756
+    }
+  },
+  "BIOGEN": {
+    "status": "STARTED",
+    "started_at": "2026-09-18T22:00:42.864935+00:00",
+    "run_id": "220bc125-141f-41ca-964c-525d9e3e075e"
+  }
+}

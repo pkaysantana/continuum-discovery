@@ -1,0 +1,160 @@
+{
+  "branch": "dmpk-compound-to-exposure",
+  "chronology_status": "RESOLVED_SCOPE: user explicitly chose a prospective new-analysis amendment with prior modelling disclosed. Not retroactive preregistration; prior evaluations must be disclosed.",
+  "concurrent_draft_update": "Current working SAP changed during packaging. Latest version is target; pre-update version retained under PRE_HANDOFF_SNAPSHOT for review context. Source files were not edited by packaging.",
+  "frozen_audit_commit": "4640ea721204771979e5637e81217f59c65318e6",
+  "inputs": [
+    {
+      "byte_size": 33206,
+      "path": "inputs/docs/STATISTICAL_ANALYSIS_PREREGISTRATION.md",
+      "sha256": "140b25430c346a484cf09a0f6fb8951bd66b595c1f53553e635d8db864e77940",
+      "source_commit": null,
+      "source_kind": "latest working-tree v2 reanalysis draft snapshot after concurrent edit; uncommitted",
+      "source_path": "experiments/compound_to_exposure/docs/STATISTICAL_ANALYSIS_PREREGISTRATION.md"
+    },
+    {
+      "byte_size": 10459,
+      "path": "inputs/docs/STATISTICAL_ANALYSIS_PREREGISTRATION_PRE_HANDOFF_SNAPSHOT.md",
+      "sha256": "442fe23ee0790fc097684e84d78033f479113c31035788fb180844f0fc3be42a",
+      "source_commit": null,
+      "source_kind": "earlier working-tree snapshot preserved before concurrent v2 draft update; uncommitted",
+      "source_path": "experiments/compound_to_exposure/docs/STATISTICAL_ANALYSIS_PREREGISTRATION.md",
+      "source_snapshot_only": true
+    },
+    {
+      "byte_size": 59852,
+      "path": "inputs/docs/ADVERSARIAL_PREREGISTRATION_REVIEW.md",
+      "sha256": "103719d2ad3d87a12e20fa4e2b8dfe5d873e2c2baf605a406471a2a1536fde4a",
+      "source_commit": "33f7e5aedabfb5ef0aa3d56a930cb5f82a5a4052",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/docs/ADVERSARIAL_PREREGISTRATION_REVIEW.md"
+    },
+    {
+      "byte_size": 2142,
+      "path": "inputs/docs/DATASET_SELECTION_MEMO.md",
+      "sha256": "6fb903b926ec7a3fc3bf87fc9cbf8e18c90cb36ca940996338bea79a97cfb06b",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/docs/DATASET_SELECTION_MEMO.md"
+    },
+    {
+      "byte_size": 57864,
+      "path": "inputs/docs/CENSORING_POLICY_MEMO.md",
+      "sha256": "85184aff6d3976a7950c055bdf75e7723b68e8ed6c88aeb578f21e2a7520973f",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/docs/CENSORING_POLICY_MEMO.md"
+    },
+    {
+      "byte_size": 59104,
+      "path": "inputs/reports/DATA_AUDIT.md",
+      "sha256": "c09ddb308019034b61d8c1e1ec5ef2a6cb0f77ba59015375616ed24fa29097bd",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/DATA_AUDIT.md"
+    },
+    {
+      "byte_size": 271954,
+      "path": "inputs/reports/DATA_AUDIT.json",
+      "sha256": "ddc35709934a84eb4cca68bafccfbada0e9eeb8ba70f375deee37a71a7ae32e7",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/DATA_AUDIT.json"
+    },
+    {
+      "byte_size": 7493,
+      "path": "inputs/reports/REVIEW_SUMMARY.md",
+      "sha256": "b08e8b82f59d53ef09c82c9be80a1e627197d2ae9d8a57f0fe9bc8c61981a3be",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/REVIEW_SUMMARY.md"
+    },
+    {
+      "byte_size": 10461,
+      "path": "inputs/reports/AUDIT_REVIEW.md",
+      "sha256": "e2d7dfff97eb52c8ea1263485bb7f31638d7dda2f0d9b5d71717fa9dcc85fdfe",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/AUDIT_REVIEW.md"
+    },
+    {
+      "byte_size": 12778,
+      "path": "inputs/reports/BIOGEN_AUDIT.md",
+      "sha256": "92fb5c0a8128f47ae4b91597e047b8a1dcee06d3f7aecc493ee5994a78afb217",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/BIOGEN_AUDIT.md"
+    },
+    {
+      "byte_size": 4877,
+      "path": "inputs/reports/CENSORING_METADATA_CHECK.md",
+      "sha256": "dff0913237ea554bf0609bd456ebaed3c907bd96cee7ef2f6401ec1263540370",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/CENSORING_METADATA_CHECK.md"
+    },
+    {
+      "byte_size": 4888,
+      "path": "inputs/reports/PAIRED_HUMAN_COHORT_AUDIT.md",
+      "sha256": "488f9bb1dfda32055322a984211fd71648f4e3eec3c1171da2717b12c6307d3e",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/PAIRED_HUMAN_COHORT_AUDIT.md"
+    },
+    {
+      "byte_size": 2755,
+      "path": "inputs/reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md",
+      "sha256": "7141f6d8dca86a093f34906b4ed016ab0451793eda1e2cf200fb14776e6f21db",
+      "source_commit": "4640ea721204771979e5637e81217f59c65318e6",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/TDC_HEPATOCYTE_SPECIES_AUDIT.md"
+    },
+    {
+      "byte_size": 12800,
+      "path": "inputs/reports/NULL_RELATION_FIELD_AUDIT.md",
+      "sha256": "884d36e6bf4ea070774168229648cf9ec55c642789017d6f877a5b7cf8e187b8",
+      "source_commit": "a5473ad0e9496d951712bbb24d5bfdb663002c5e",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/NULL_RELATION_FIELD_AUDIT.md"
+    },
+    {
+      "byte_size": 3253350,
+      "path": "inputs/reports/NULL_RELATION_FIELD_AUDIT.json",
+      "sha256": "27b7eede020db666917e7ae321e33915344ef547c73c5fcffe265b1a74df68b9",
+      "source_commit": "a5473ad0e9496d951712bbb24d5bfdb663002c5e",
+      "source_kind": "git snapshot",
+      "source_path": "experiments/compound_to_exposure/reports/NULL_RELATION_FIELD_AUDIT.json"
+    },
+    {
+      "byte_size": 4778,
+      "path": "inputs/reports/NULL_RELATION_RANGE_CHECK.md",
+      "sha256": "1857f140a3bed81822e43f034c61a4e83a022723035e344bfb07e7046d3ac4d8",
+      "source_commit": null,
+      "source_kind": "working-tree snapshot; uncommitted",
+      "source_path": "experiments/compound_to_exposure/reports/NULL_RELATION_RANGE_CHECK.md"
+    },
+    {
+      "byte_size": 3688,
+      "path": "inputs/reports/HLM_HH_QUALIFIER_CROSSTAB.md",
+      "sha256": "be877677f147e220e3b8a6cb2785fc32c18c2664ff8dbcd5b6da5ad14b5c89fc",
+      "source_commit": null,
+      "source_kind": "working-tree snapshot; uncommitted",
+      "source_path": "experiments/compound_to_exposure/reports/HLM_HH_QUALIFIER_CROSSTAB.md"
+    },
+    {
+      "byte_size": 219778,
+      "path": "inputs/reports/HLM_HH_QUALIFIER_CROSSTAB.json",
+      "sha256": "d2c3da4651d9b923c36ca7ba5b998fbdc1f829bbd836ea931ebaf5b58be8f060",
+      "source_commit": null,
+      "source_kind": "working-tree snapshot; uncommitted",
+      "source_path": "experiments/compound_to_exposure/reports/HLM_HH_QUALIFIER_CROSSTAB.json"
+    }
+  ],
+  "method": "Exact input copies. No changes to the SAP draft, scientific audit, raw data, splits or model files.",
+  "modelling_executed_for_handoff": false,
+  "performance_outputs_included": false,
+  "prepared_date": "2026-09-18",
+  "review_commit": "33f7e5aedabfb5ef0aa3d56a930cb5f82a5a4052",
+  "user_scope_confirmation": "New analysis amendment with prior modelling disclosed",
+  "working_head": "a5473ad0e9496d951712bbb24d5bfdb663002c5e"
+}

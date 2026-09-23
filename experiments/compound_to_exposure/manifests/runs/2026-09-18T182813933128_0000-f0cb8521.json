@@ -1,0 +1,491 @@
+{
+  "action": "preflight",
+  "command": [
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\src\\run.py",
+    "preflight"
+  ],
+  "elapsed_seconds": 3.8801572999800555,
+  "error": {
+    "message": "columns overlap but no suffix specified: Index(['activity_id', 'canonical_smiles'], dtype='str')",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\src\\run.py\", line 117, in main\n    res = execute_v2(run_dir, master_partition_path, dry_run=False, preflight=True)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\src\\execute_v2.py\", line 227, in execute_v2\n    df_primary = df_primary.join(part_map, on='chembl_id', how='left')\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\.venv\\Lib\\site-packages\\pandas\\core\\frame.py\", line 12818, in join\n    return merge(\n           ^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\.venv\\Lib\\site-packages\\pandas\\core\\reshape\\merge.py\", line 399, in merge\n    return op.get_result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\.venv\\Lib\\site-packages\\pandas\\core\\reshape\\merge.py\", line 1143, in get_result\n    result = self._reindex_and_concat(join_index, left_indexer, right_indexer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\.venv\\Lib\\site-packages\\pandas\\core\\reshape\\merge.py\", line 1094, in _reindex_and_concat\n    llabels, rlabels = _items_overlap_with_suffix(\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Don\\continuum discovery\\continuum-discovery-1\\experiments\\compound_to_exposure\\.venv\\Lib\\site-packages\\pandas\\core\\reshape\\merge.py\", line 3092, in _items_overlap_with_suffix\n    raise ValueError(f\"columns overlap but no suffix specified: {to_rename}\")\nValueError: columns overlap but no suffix specified: Index(['activity_id', 'canonical_smiles'], dtype='str')\n",
+    "type": "ValueError"
+  },
+  "finished_utc": "2026-09-18T18:28:18.926709+00:00",
+  "inputs": [
+    {
+      "byte_size": 6289,
+      "filename": "src/acquire.py",
+      "sha256": "d402f2ffa253744086dcf7393f754f4c502c87d1d5a64d9e437cc00c62c8128d"
+    },
+    {
+      "byte_size": 37265,
+      "filename": "src/audit.py",
+      "sha256": "fa0c6b0e17c02b834cb8dd2dd19301072d15c011a419695884c08584f5e2e8ed"
+    },
+    {
+      "byte_size": 953,
+      "filename": "src/biogen.py",
+      "sha256": "ee550dfae9322ed9e3cd65498259b48801cc3376e713bb7c126e227f58819cca"
+    },
+    {
+      "byte_size": 2227,
+      "filename": "src/chembl_pages.py",
+      "sha256": "4e07ecb4cfec81f523c87ec3ab4012beb8f0814f9de3901467fe21de520de29f"
+    },
+    {
+      "byte_size": 5449,
+      "filename": "src/chemistry.py",
+      "sha256": "61b6646752836bdcbf3fa5fc81e1bb58075e272c8d1545f2688f70427555d7cd"
+    },
+    {
+      "byte_size": 3078,
+      "filename": "src/dataset.py",
+      "sha256": "09b8b1c7fa8a18c4721118323e8ee5acc8517b41d5b0dd6fbafa3dd730708823"
+    },
+    {
+      "byte_size": 2278,
+      "filename": "src/dry_run.py",
+      "sha256": "bde00d3beae40bfe5ba86b59f58fae707c606c16e094a54e3ebe1f4f698a4870"
+    },
+    {
+      "byte_size": 30181,
+      "filename": "src/execute_v2.py",
+      "sha256": "33789a7d748e21a38ff6ee434c7feec645c697765b37677efe203e6063694ff2"
+    },
+    {
+      "byte_size": 1720,
+      "filename": "src/hlm_hh.py",
+      "sha256": "ad2589998d2df231e0d9e330b9721192e68e881f457ef062c9c30e2787a17680"
+    },
+    {
+      "byte_size": 4447,
+      "filename": "src/metrics.py",
+      "sha256": "e0c3042fd9acb0f14583cc2e248437403ecf1e97559a3b7df7d79b040d10d709"
+    },
+    {
+      "byte_size": 23911,
+      "filename": "src/null_relation_fields.py",
+      "sha256": "93eaaf43b2f7d6c3907c132ca2297b0ede9fe26abb98e017545b20348308aaa7"
+    },
+    {
+      "byte_size": 3980,
+      "filename": "src/partition.py",
+      "sha256": "c3b70dfdea111f8deadda9531e05853839fedbc80ee33ac39bc08e10df483ead"
+    },
+    {
+      "byte_size": 3588,
+      "filename": "src/pipelines.py",
+      "sha256": "326bc0a25a704ea4852e60c308317419b2012bbe3eeaeaef086c9bce858d0c13"
+    },
+    {
+      "byte_size": 23042,
+      "filename": "src/prefreeze_evidence.py",
+      "sha256": "23ee8f4b071bc2264bfb218680a7414ad4d3d68766dc3d8b77c31ec28d01eba7"
+    },
+    {
+      "byte_size": 1340,
+      "filename": "src/provenance.py",
+      "sha256": "a94497cfacff62bb424f8dd5c30ff5d26515f87fe9d24e9765edfe3cc192a6ee"
+    },
+    {
+      "byte_size": 2939,
+      "filename": "src/representations.py",
+      "sha256": "7abf6db7792bb9dbeeebe6ee762347fa0522dd15e273bf44d3acee4cc5ddafaa"
+    },
+    {
+      "byte_size": 7830,
+      "filename": "src/run.py",
+      "sha256": "f62dbbb5c58f66b46625d65ab03703798d54900809b4e8870356dad7a621dcbf"
+    },
+    {
+      "byte_size": 1048,
+      "filename": "src/sensitivities.py",
+      "sha256": "3afe6bf3bffca701e833c51376f9ebfd2d6e3e8f63fffe96e515b0cf5ea944d3"
+    },
+    {
+      "byte_size": 18329,
+      "filename": "src/tanimoto_prefreeze.py",
+      "sha256": "a159b2c6ee22e84397b18b57a496c376d1fa32aed0ae564d65bbb8f5138e3fd4"
+    },
+    {
+      "byte_size": 2987,
+      "filename": "src/verify_checkpoint.py",
+      "sha256": "9b0cb625cfac009cbda8a1fd965acf619637c56c1f19293e7f6aa860149cc8e7"
+    },
+    {
+      "byte_size": 9090,
+      "filename": "tests/test_audit.py",
+      "sha256": "4a9355167e59568e6daa3ba88de4543f4e9c85a0452ef0766e05d5102c6f29b4"
+    },
+    {
+      "byte_size": 7340,
+      "filename": "tests/test_execute_v2.py",
+      "sha256": "d5a975ab942661162b0eb615427bb4a9d34c256ce57013932299b330ede4c275"
+    },
+    {
+      "byte_size": 8313,
+      "filename": "tests/test_frozen_audit.py",
+      "sha256": "b73636f55fb698219bee2111ee3f569dccc2f684b2b1e5c72ef1244dbf398da3"
+    },
+    {
+      "byte_size": 15463,
+      "filename": "tests/test_hardening.py",
+      "sha256": "478f5f409c127fae589df7e19e9a204c2a3834f0b7a092b8c06cefa3d134bf06"
+    },
+    {
+      "byte_size": 3209,
+      "filename": "tests/test_leakage_guards.py",
+      "sha256": "5bcf1330a1bf71645b58f40c505d213dde6293fc51d6a8e0a3cc09cbf620a423"
+    },
+    {
+      "byte_size": 7816,
+      "filename": "tests/test_null_relation_fields.py",
+      "sha256": "e330a6e0017a94531ebbd74fa0fa75157a6f860a8d30f70e3e3fc7e81afd74a2"
+    },
+    {
+      "byte_size": 5877,
+      "filename": "tests/test_prefreeze_evidence.py",
+      "sha256": "43f6090357daa8c0090306f659aeffdcd0b9203512619258bebc1ce75af8ce99"
+    },
+    {
+      "byte_size": 3052,
+      "filename": "tests/test_tanimoto_prefreeze.py",
+      "sha256": "6ee484af7721d787e14af7b76b840f62bc1a93449992d43d6b812ece0414b8d8"
+    },
+    {
+      "byte_size": 3504,
+      "filename": "tests/test_v2_implementation.py",
+      "sha256": "217e7e4c7bf86006df3f0de2b27c9ac8f9ff18439f083bedd27833f4041e17cc"
+    },
+    {
+      "byte_size": 6028,
+      "filename": "tests/test_validation_preflight.py",
+      "sha256": "14c535838b87e9f9f0837426f546a81369d916a951e353e1eb5401487828c478"
+    },
+    {
+      "byte_size": 2453,
+      "filename": "docs/BIOGEN_REPLICATION_PROTOCOL_AMENDMENT.md",
+      "sha256": "c59c1f4b8706d0d23984c0fa62cfc2e9b1e3b2f4b0c54b16b3c2220b19c57cb0"
+    },
+    {
+      "byte_size": 57864,
+      "filename": "docs/CENSORING_POLICY_MEMO.md",
+      "sha256": "85184aff6d3976a7950c055bdf75e7723b68e8ed6c88aeb578f21e2a7520973f"
+    },
+    {
+      "byte_size": 2142,
+      "filename": "docs/DATASET_SELECTION_MEMO.md",
+      "sha256": "6fb903b926ec7a3fc3bf87fc9cbf8e18c90cb36ca940996338bea79a97cfb06b"
+    },
+    {
+      "byte_size": 954,
+      "filename": "docs/MODELLING_ENVIRONMENT.txt",
+      "sha256": "4123ef604d8edfef2927e3137afac655f78e0846f4c746d7e9e678ebe22bb72a"
+    },
+    {
+      "byte_size": 16407,
+      "filename": "docs/MODELLING_PREREGISTRATION.md",
+      "sha256": "5c8a816b308b3abf9cfaf1890a0ed7e238ff02d7dd27e93a14a00eba7044459c"
+    },
+    {
+      "byte_size": 42987,
+      "filename": "docs/STATISTICAL_ANALYSIS_PREREGISTRATION.md",
+      "sha256": "cbb86e329fc889dbbf1832d3c83eaa3a909d9846a8b88e85a6ee341d6b572bba"
+    },
+    {
+      "byte_size": 4176,
+      "filename": "docs/TDC_BENCHMARK_PROTOCOL_AMENDMENT.md",
+      "sha256": "b5bad12e73c185b38427241a637219500af0d9bedd82457d67db0fe67152ada3"
+    },
+    {
+      "byte_size": 2496,
+      "filename": "docs/V2_PROTOCOL_AMENDMENT_001_BIOGEN_SELECTION.md",
+      "sha256": "8b0dd8bb9d97409db53a14981777f086ef74a7eabd7d44757b9152f62c5a4df5"
+    },
+    {
+      "byte_size": 388279,
+      "filename": "data/raw/biogen/ADME_public_set_3521.csv",
+      "sha256": "2cfabc2667740c224487876c33b23124159ef43294e0f9e4d926cb6276c95a3b"
+    },
+    {
+      "byte_size": 1077,
+      "filename": "data/raw/biogen/LICENSE",
+      "sha256": "06557ca6eeee99c162df4e5e819167c6103f35faffb51f7b0a4833905280a740"
+    },
+    {
+      "byte_size": 4409,
+      "filename": "data/raw/biogen/README.md",
+      "sha256": "056e4811aa4c0e6ca096b8d1ae5d33a5d91f3ba02d1aad1ebce0d779c67be425"
+    },
+    {
+      "byte_size": 5371,
+      "filename": "data/raw/biogen/source_commit.json",
+      "sha256": "e36ca9572d6c02a0b1cb8e7676d7a8543097b743a83471e5c94723e55993399c"
+    },
+    {
+      "byte_size": 1474958,
+      "filename": "data/raw/chembl/CHEMBL3301370_activities_00000.json",
+      "sha256": "657618e353b9795fd7fabb1a4086d7b936709059bbfdcbe689b0f87309e16d43"
+    },
+    {
+      "byte_size": 150154,
+      "filename": "data/raw/chembl/CHEMBL3301370_activities_01000.json",
+      "sha256": "df8720b582563b8d04c1029aedb5fc5ced7614d3c190e912ac4bab67140ac46e"
+    },
+    {
+      "byte_size": 1085,
+      "filename": "data/raw/chembl/CHEMBL3301370_assay.json",
+      "sha256": "b47f19c67e3c144b3b53569f1be1c5478a4c9c84cc2d096f7e165a064206d624"
+    },
+    {
+      "byte_size": 1251418,
+      "filename": "data/raw/chembl/CHEMBL3301371_activities_00000.json",
+      "sha256": "c6a101aba9d6e9010cbab9dd26daf7523929b6ce3dd19ea2e6625e8bcaf40f24"
+    },
+    {
+      "byte_size": 1133,
+      "filename": "data/raw/chembl/CHEMBL3301371_assay.json",
+      "sha256": "43c82c98ae5083645d7a560ab7269b808f4185fe4bd912073ebcf642bfe84cb0"
+    },
+    {
+      "byte_size": 610243,
+      "filename": "data/raw/chembl/CHEMBL3301372_activities_00000.json",
+      "sha256": "a1d5c17f98a34e3f4c5d1816c67ff97bb37c1722b66cb9a5a0ec348b3877ff90"
+    },
+    {
+      "byte_size": 1101,
+      "filename": "data/raw/chembl/CHEMBL3301372_assay.json",
+      "sha256": "09fc55181a27e69d8619fd3f03b44d816691782ddff471bee0de551bf07ca902"
+    },
+    {
+      "byte_size": 212,
+      "filename": "data/raw/chembl/status.json",
+      "sha256": "29dc1fb09487a8d2962253a4d0d92c4ded0aa0d831effab42445d0c3483d4740"
+    },
+    {
+      "byte_size": 91565,
+      "filename": "data/raw/tdc/clearance_hepatocyte_az.tab",
+      "sha256": "2c217f46600c22e107b72faa2bfb1d9bf799213aee47b601f6e0d6d73b68f274"
+    },
+    {
+      "byte_size": 72,
+      "filename": "data/raw/tdc/clearance_hepatocyte_az_metadata.json",
+      "sha256": "8bce3bbf82dad49b4fbb90f9210723de7fb652816485b3da4473a74b1e480e48"
+    },
+    {
+      "byte_size": 81661,
+      "filename": "data/raw/tdc/clearance_microsome_az.tab",
+      "sha256": "4c9047dc1860cc05d5bdc09aa9cfef86a40740605c2ff06990b1fceb6085db9d"
+    },
+    {
+      "byte_size": 71,
+      "filename": "data/raw/tdc/clearance_microsome_az_metadata.json",
+      "sha256": "29ff99f182fc1d47c5a2d9dad6806ef19671d013ab64d4f1157077bbdb5120a5"
+    },
+    {
+      "byte_size": 23967,
+      "filename": "data/raw/tdc/PyTDC-1.1.15-pypi.json",
+      "sha256": "7ac902ba3b4e22423b070057c72b85958c2053e79f4ef56f661119916985860a"
+    },
+    {
+      "byte_size": 154168,
+      "filename": "data/raw/tdc/pytdc-1.1.15.tar.gz",
+      "sha256": "cd6164859af7b9b6f60e0c6d6e50679eacaffd09cfdea1acfc8bb7360e8e2205"
+    },
+    {
+      "byte_size": 1456483,
+      "filename": "data/interim/Biogen_rows.csv",
+      "sha256": "607cce2cde2d0e28e57688fbfd798b3dfccebbeb10de48f805227194c95965cb"
+    },
+    {
+      "byte_size": 952992,
+      "filename": "data/interim/CHEMBL3301370_rows.csv",
+      "sha256": "fc1ea6fa15736449a75f578b2ff3e97661b8079d087aae000ed3ed508223ab37"
+    },
+    {
+      "byte_size": 790726,
+      "filename": "data/interim/CHEMBL3301371_rows.csv",
+      "sha256": "2c7578045d930d287de37f9da74d38cd978f5f7228b781e4bf2dc4c726bbe924"
+    },
+    {
+      "byte_size": 367691,
+      "filename": "data/interim/CHEMBL3301372_rows.csv",
+      "sha256": "b3164bb3efb7a4c270dcbc2308e54573e728044a516eff1121d0522a3e1066d4"
+    },
+    {
+      "byte_size": 502342,
+      "filename": "data/interim/Clearance_Hepatocyte_AZ_rows.csv",
+      "sha256": "a0fe28d19bc542d82bb2c8e81f9a84f84280efbefc5c89e7a05e0ef7d970bf6a"
+    },
+    {
+      "byte_size": 449514,
+      "filename": "data/interim/Clearance_Microsome_AZ_rows.csv",
+      "sha256": "bb33262ae188ec4780e5f478c7d95ab791d147c3cd54c49551bf605dd94167cf"
+    },
+    {
+      "byte_size": 165280,
+      "filename": "data/interim/DUPLICATE_STRUCTURES.json",
+      "sha256": "f04710cb80eb0a1f519252e0fb32b38235661a8ab80de8394271614394309265"
+    },
+    {
+      "byte_size": 25605,
+      "filename": "data/interim/PAIRED_HUMAN_COHORT.csv",
+      "sha256": "0714b544311f0241c5f45fa3c648821279c22f911ab10a9af8e889bd9e698e9c"
+    },
+    {
+      "byte_size": 21,
+      "filename": "data/interim/STRUCTURE_ANOMALIES.json",
+      "sha256": "e046612e029e84c80294255c708091ce4e155453260e1f6c492da528b55eb6c3"
+    },
+    {
+      "byte_size": 1045446,
+      "filename": "data/interim/TDC_HEPATOCYTE_DUPLICATE_LABELS.json",
+      "sha256": "e83dc804ebd6107963263096a59d6072f8fe750203c5308024c4ac3ead8d9e1a"
+    },
+    {
+      "byte_size": 1541223,
+      "filename": "data/interim/TDC_HEPATOCYTE_SPECIES_ROWS.csv",
+      "sha256": "c2fef592d45a4ac005e83aded2f7a6b1889c60d8c35b2eb50d7e211994349b15"
+    },
+    {
+      "byte_size": 44960,
+      "filename": "data/interim/tdc_source/tdc/metadata.py",
+      "sha256": "f169cd7464eb5e8ba4339015c65aaf614d52356c5ff42872b89821c278cc692c"
+    },
+    {
+      "byte_size": 40480,
+      "filename": "data/interim/tdc_source/tdc/utils/load.py",
+      "sha256": "bc8f7a93165e21135e71d87d6d7f374fc4a2f6f14694047d9e10437ae4f5c278"
+    },
+    {
+      "byte_size": 1963,
+      "filename": "manifests/checkpoint-verification-2026-09-16T180021989194_0000.json",
+      "sha256": "8ba68105cfd99fb78b160504f6f6dc9516ed11bdc00f37394611cc4e1768351b"
+    },
+    {
+      "byte_size": 2097,
+      "filename": "manifests/checkpoint-verification-2026-09-17T114452940481_0000.json",
+      "sha256": "ea72258f90cb00fc4dde3894706ee5229713836894074e13c7aa79c0434639d1"
+    },
+    {
+      "byte_size": 71147,
+      "filename": "manifests/pip_install_report.json",
+      "sha256": "d6f73eb3289d7f2e61ea9332b579ce2810b86b0a27a017398d417ec1becb563a"
+    },
+    {
+      "byte_size": 25690,
+      "filename": "manifests/source_manifest.json",
+      "sha256": "370df65f0a6c18ef936b49429778a96f18efa2360c67356959bfb95c7547610d"
+    },
+    {
+      "byte_size": 988,
+      "filename": "manifests/v2_requirements.txt",
+      "sha256": "3f8e125ea3414e52bebf83fba989e9ddf92218ca151819bae48ec2959b569ebf"
+    },
+    {
+      "byte_size": 901,
+      "filename": "manifests/downloads/biogen__ADME_public_set_3521.csv.json",
+      "sha256": "7889c273d6f1cf496ad675e624c9beaf004bccf6e7d330273d3ae9ebf1037ab0"
+    },
+    {
+      "byte_size": 848,
+      "filename": "manifests/downloads/biogen__LICENSE.json",
+      "sha256": "b2cd33aeb8acf902b8f6e27d6f3581cd731def180aefb26f4d151993def72598"
+    },
+    {
+      "byte_size": 854,
+      "filename": "manifests/downloads/biogen__README.md.json",
+      "sha256": "2008731b4109fba5f58122d41b4dc2b3968967dcd23722a1911a37f4684c2acb"
+    },
+    {
+      "byte_size": 693,
+      "filename": "manifests/downloads/biogen__source_commit.json.json",
+      "sha256": "fd9d997c216e479d283d5a77343d6531baddd310301567428a532a4fddf81161"
+    },
+    {
+      "byte_size": 936,
+      "filename": "manifests/downloads/chembl__CHEMBL3301370_activities_00000.json.json",
+      "sha256": "5075eadb5b5556ce7fdc42fc33fad4b3c21609123eb8a1f4163b3cfa96ad2ae2"
+    },
+    {
+      "byte_size": 941,
+      "filename": "manifests/downloads/chembl__CHEMBL3301370_activities_01000.json.json",
+      "sha256": "4167f5bc06c22770c9992d6db7b5b293b846e69bb545acb416a313ad0ed2a988"
+    },
+    {
+      "byte_size": 802,
+      "filename": "manifests/downloads/chembl__CHEMBL3301370_assay.json.json",
+      "sha256": "dfb7adf0139134cff81fcb05aa3df059e5773a58cd54e8140afed855f30a7dee"
+    },
+    {
+      "byte_size": 936,
+      "filename": "manifests/downloads/chembl__CHEMBL3301371_activities_00000.json.json",
+      "sha256": "bfd77b4e339ec2f37867b6dad262b42fb43e9ff282c729fc4f4e633323dd21c4"
+    },
+    {
+      "byte_size": 802,
+      "filename": "manifests/downloads/chembl__CHEMBL3301371_assay.json.json",
+      "sha256": "8f3f0efd0d5353b3afc9338f0c38f643818896b0a5d7ffe0509be14b97b2b55f"
+    },
+    {
+      "byte_size": 935,
+      "filename": "manifests/downloads/chembl__CHEMBL3301372_activities_00000.json.json",
+      "sha256": "56c90100484fc36e6d5269af26cf36b8b0e128dc1f7e1f3d24a40c9d145f3eff"
+    },
+    {
+      "byte_size": 802,
+      "filename": "manifests/downloads/chembl__CHEMBL3301372_assay.json.json",
+      "sha256": "4e01747e6ba36833cfab5ba7b52717c96ad50e75642273e528c4acd8fdd1c4bf"
+    },
+    {
+      "byte_size": 511,
+      "filename": "manifests/downloads/chembl__status.json.json",
+      "sha256": "1c012f1c89617397d2d799b256767d35d83de48aa449a230f37130fd00d89aa1"
+    },
+    {
+      "byte_size": 1236,
+      "filename": "manifests/downloads/tdc__clearance_hepatocyte_az.tab.json",
+      "sha256": "832354a46194c59753eef5d9d94f2210be5986ea8f1ff0aea7b27d540039000b"
+    },
+    {
+      "byte_size": 576,
+      "filename": "manifests/downloads/tdc__clearance_hepatocyte_az_metadata.json.json",
+      "sha256": "49dfbb8619de18db6e8d4342b0f10b4729312d7e235784f271a829498473dcd0"
+    },
+    {
+      "byte_size": 1233,
+      "filename": "manifests/downloads/tdc__clearance_microsome_az.tab.json",
+      "sha256": "0b4b2f52224507f74e4678d05da6c983a0c6b5a680982136d520afdf0cd90e65"
+    },
+    {
+      "byte_size": 574,
+      "filename": "manifests/downloads/tdc__clearance_microsome_az_metadata.json.json",
+      "sha256": "c6e4569a563a2a1347aa5e3c819961d2d9b012d1bdb4d6b1c1eaaa46b20c4a9c"
+    },
+    {
+      "byte_size": 528,
+      "filename": "manifests/downloads/tdc__PyTDC-1.1.15-pypi.json.json",
+      "sha256": "2711090aadaa96060dbc8b47d484dfd004b8308cf21e29f635144d6a37a1ed67"
+    },
+    {
+      "byte_size": 745,
+      "filename": "manifests/downloads/tdc__pytdc-1.1.15.tar.gz.json",
+      "sha256": "c392c64fa564177bebfa3c6ca4dd0463aab477ec703c1a8c679aa2cd52e2a1bf"
+    }
+  ],
+  "outputs": [
+    {
+      "byte_size": 2035,
+      "filename": "reports/preflight-2026-09-18T182813933128_0000-f0cb8521.log",
+      "sha256": "0dd53354225ec2139b69b8fb5332a31f53fbd937eb3f30652c56f32636763751"
+    }
+  ],
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.16 (main, Aug 14 2026, 15:34:35) [MSC v.1944 64 bit (AMD64)]",
+  "repository_commit": "3fb8894f08d0e1ecfb6c54f7a2ff996988ec3660",
+  "run_id": "2026-09-18T182813933128_0000-f0cb8521",
+  "started_utc": "2026-09-18T18:28:13.935136+00:00",
+  "status": "FAILED"
+}

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 117, in main
+    res = execute_v2(run_dir, master_partition_path, dry_run=False, preflight=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\execute_v2.py", line 194, in execute_v2
+    cross_scaffolds = df_p_part_scaff.groupby('scaffold_key')['partition'].nunique()
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\util\_decorators.py", line 336, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\frame.py", line 10835, in groupby
+    return DataFrameGroupBy(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\groupby\groupby.py", line 1095, in __init__
+    grouper, exclusions, obj = get_grouper(
+                               ^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\groupby\grouper.py", line 901, in get_grouper
+    raise KeyError(gpr)
+KeyError: 'scaffold_key'

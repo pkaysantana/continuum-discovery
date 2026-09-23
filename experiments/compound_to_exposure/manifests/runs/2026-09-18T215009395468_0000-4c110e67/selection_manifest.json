@@ -1,0 +1,51 @@
+{
+  "dry_run": false,
+  "preflight": false,
+  "run_id": "220bc125-141f-41ca-964c-525d9e3e075e",
+  "master_partition_hash": "971f78aa2a86b0a45c79d52dcb3fca64895289dd7c72b547797b273b067cb90a",
+  "selected_pipeline": "P3",
+  "selected_params": {
+    "pipeline_id": "P3",
+    "mean_mae": 0.33228689634915415,
+    "mae": 0.33228689634915415,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "n_estimators": 500,
+    "max_depth": null,
+    "random_state": 0
+  },
+  "candidate_results": [
+    {
+      "pipeline_id": "P1",
+      "mean_mae": 0.4994172451784575,
+      "mae": 0.4994172451784575,
+      "alpha": 1.0
+    },
+    {
+      "pipeline_id": "P2",
+      "mean_mae": 0.3852657661825416,
+      "mae": 0.3852657661825416,
+      "alpha": 1.0
+    },
+    {
+      "pipeline_id": "P3",
+      "mean_mae": 0.33228689634915415,
+      "mae": 0.33228689634915415,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "n_estimators": 500,
+      "max_depth": null,
+      "random_state": 0
+    },
+    {
+      "pipeline_id": "P4",
+      "mean_mae": 0.33228689634915415,
+      "mae": 0.33228689634915415,
+      "max_features": "sqrt",
+      "min_samples_leaf": 1,
+      "n_estimators": 500,
+      "max_depth": null,
+      "random_state": 0
+    }
+  ]
+}

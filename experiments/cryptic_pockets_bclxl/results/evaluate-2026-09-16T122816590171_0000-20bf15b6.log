@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\run.py", line 279, in main
+    outputs = evaluation()
+              ^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\run.py", line 202, in evaluation
+    write_json(path, result)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\provenance.py", line 41, in write_json
+    write_once(path, canonical_bytes(value))
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\provenance.py", line 34, in write_once
+    raise ValueError(f'Refusing to replace existing file: {path}')
+ValueError: Refusing to replace existing file: C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\data\processed\reference_site_v2.json

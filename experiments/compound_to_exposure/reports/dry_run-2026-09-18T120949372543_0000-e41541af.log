@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 107, in main
+    import dry_run
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\dry_run.py", line 3, in <module>
+    from src.dataset import get_cohorts
+ModuleNotFoundError: No module named 'src'

@@ -1,0 +1,175 @@
+test_audit (unittest.loader._FailedTest.test_audit) ... ERROR
+test_execute_v2 (unittest.loader._FailedTest.test_execute_v2) ... ERROR
+test_frozen_audit (unittest.loader._FailedTest.test_frozen_audit) ... ERROR
+test_hardening (unittest.loader._FailedTest.test_hardening) ... ERROR
+test_leakage_guards (unittest.loader._FailedTest.test_leakage_guards) ... ERROR
+test_boundaries_are_exact_and_independent_of_relation (test_null_relation_fields.FieldLogicTests.test_boundaries_are_exact_and_independent_of_relation) ... ok
+test_comments_include_every_distinct_value_and_frequency (test_null_relation_fields.FieldLogicTests.test_comments_include_every_distinct_value_and_frequency) ... ok
+test_crosstab_detects_both_directions_of_qualifier_change (test_null_relation_fields.FieldLogicTests.test_crosstab_detects_both_directions_of_qualifier_change) ... ok
+test_field_analysis_never_mutates_records (test_null_relation_fields.FieldLogicTests.test_field_analysis_never_mutates_records) ... ok
+test_null_missing_and_empty_remain_distinct (test_null_relation_fields.FieldLogicTests.test_null_missing_and_empty_remain_distinct) ... ok
+test_precision_changes_are_not_hidden_by_numeric_equality (test_null_relation_fields.FieldLogicTests.test_precision_changes_are_not_hidden_by_numeric_equality) ... ok
+test_all_relation_classes_and_flags (test_null_relation_fields.FrozenFieldEvidenceTests.test_all_relation_classes_and_flags) ... ok
+test_boundaries_and_individual_null_records (test_null_relation_fields.FrozenFieldEvidenceTests.test_boundaries_and_individual_null_records) ... ok
+test_every_requested_field_and_raw_record_is_preserved (test_null_relation_fields.FrozenFieldEvidenceTests.test_every_requested_field_and_raw_record_is_preserved) ... ok
+test_report_files_reproduce_exactly (test_null_relation_fields.FrozenFieldEvidenceTests.test_report_files_reproduce_exactly) ... ok
+test_values_and_units_match_report_claims (test_null_relation_fields.FrozenFieldEvidenceTests.test_values_and_units_match_report_claims) ... ok
+test_prefreeze_evidence (unittest.loader._FailedTest.test_prefreeze_evidence) ... ERROR
+test_tanimoto_prefreeze (unittest.loader._FailedTest.test_tanimoto_prefreeze) ... ERROR
+test_v2_implementation (unittest.loader._FailedTest.test_v2_implementation) ... ERROR
+test_validation_preflight (unittest.loader._FailedTest.test_validation_preflight) ... ERROR
+
+======================================================================
+ERROR: test_audit (unittest.loader._FailedTest.test_audit)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_audit
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_audit.py", line 6, in <module>
+    from chemistry import chemical, distribution, duplicate_summary, identity_match, measurement, missing, numeric_equal
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\chemistry.py", line 7, in <module>
+    from rdkit import Chem, rdBase
+ModuleNotFoundError: No module named 'rdkit'
+
+
+======================================================================
+ERROR: test_execute_v2 (unittest.loader._FailedTest.test_execute_v2)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_execute_v2
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_execute_v2.py", line 3, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'
+
+
+======================================================================
+ERROR: test_frozen_audit (unittest.loader._FailedTest.test_frozen_audit)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_frozen_audit
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_frozen_audit.py", line 10, in <module>
+    from rdkit import Chem
+ModuleNotFoundError: No module named 'rdkit'
+
+
+======================================================================
+ERROR: test_hardening (unittest.loader._FailedTest.test_hardening)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_hardening
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_hardening.py", line 11, in <module>
+    import audit
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\audit.py", line 9, in <module>
+    from rdkit import rdBase
+ModuleNotFoundError: No module named 'rdkit'
+
+
+======================================================================
+ERROR: test_leakage_guards (unittest.loader._FailedTest.test_leakage_guards)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_leakage_guards
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_leakage_guards.py", line 2, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'
+
+
+======================================================================
+ERROR: test_prefreeze_evidence (unittest.loader._FailedTest.test_prefreeze_evidence)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_prefreeze_evidence
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_prefreeze_evidence.py", line 10, in <module>
+    from prefreeze_evidence import (ROOT, STATUSES, dry_run, hash_order, pair_evidence,
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\prefreeze_evidence.py", line 13, in <module>
+    from rdkit import Chem, rdBase
+ModuleNotFoundError: No module named 'rdkit'
+
+
+======================================================================
+ERROR: test_tanimoto_prefreeze (unittest.loader._FailedTest.test_tanimoto_prefreeze)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_tanimoto_prefreeze
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_tanimoto_prefreeze.py", line 6, in <module>
+    from rdkit import DataStructs
+ModuleNotFoundError: No module named 'rdkit'
+
+
+======================================================================
+ERROR: test_v2_implementation (unittest.loader._FailedTest.test_v2_implementation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_v2_implementation
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_v2_implementation.py", line 3, in <module>
+    from src.metrics import (
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\metrics.py", line 2, in <module>
+    from scipy.stats import spearmanr
+ModuleNotFoundError: No module named 'scipy'
+
+
+======================================================================
+ERROR: test_validation_preflight (unittest.loader._FailedTest.test_validation_preflight)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_validation_preflight
+Traceback (most recent call last):
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\tests\test_validation_preflight.py", line 3, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'
+
+
+----------------------------------------------------------------------
+Ran 20 tests in 8.745s
+
+FAILED (errors=9)
+
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 84, in main
+    tests(run_id)
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 52, in tests
+    raise RuntimeError('Complete audit test suite FAILED')
+RuntimeError: Complete audit test suite FAILED

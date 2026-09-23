@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 117, in main
+    res = execute_v2(run_dir, master_partition_path, dry_run=False, preflight=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\execute_v2.py", line 210, in execute_v2
+    assert X_r1.shape == (len(df_p), 12)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

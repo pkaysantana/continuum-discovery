@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\run.py", line 117, in main
+    res = execute_v2(run_dir, master_partition_path, dry_run=False, preflight=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\src\execute_v2.py", line 227, in execute_v2
+    df_primary = df_primary.join(part_map, on='chembl_id', how='left')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\frame.py", line 12818, in join
+    return merge(
+           ^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\reshape\merge.py", line 399, in merge
+    return op.get_result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\reshape\merge.py", line 1143, in get_result
+    result = self._reindex_and_concat(join_index, left_indexer, right_indexer)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\reshape\merge.py", line 1094, in _reindex_and_concat
+    llabels, rlabels = _items_overlap_with_suffix(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\compound_to_exposure\.venv\Lib\site-packages\pandas\core\reshape\merge.py", line 3092, in _items_overlap_with_suffix
+    raise ValueError(f"columns overlap but no suffix specified: {to_rename}")
+ValueError: columns overlap but no suffix specified: Index(['activity_id', 'canonical_smiles'], dtype='str')

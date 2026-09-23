@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\Don\continuum discovery\continuum-discovery-1\experiments\cryptic_pockets_bclxl\src\run.py", line 322, in main
+    raise ValueError('Allowed actions: acquire, environment, inspect, evaluate, test, verify')
+ValueError: Allowed actions: acquire, environment, inspect, evaluate, test, verify
