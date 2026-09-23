@@ -41,7 +41,7 @@ def _bootstrap_multiplicities(tree_estimator, n_train: int,
     call risks silent drift when ``max_samples`` or sklearn internals change.
     """
     sample_indices = _generate_sample_indices(
-        tree_estimator.random_state, n_train, n_samples_bootstrap
+        tree_estimator.random_state, n_train, n_samples_bootstrap, None
     )
     counts = np.bincount(sample_indices, minlength=n_train)
     return counts
@@ -96,7 +96,7 @@ def recover_forest_weights(rf: RandomForestRegressor, X_train: np.ndarray,
         raise QRFWeightRecoveryError(
             "QRF_WEIGHT_RECOVERY_FAILED: empty training set or forest"
         )
-    n_samples_bootstrap = _get_n_samples_bootstrap(n_train, rf.max_samples)
+    n_samples_bootstrap = _get_n_samples_bootstrap(n_train, rf.max_samples, None)
     weight_sum = np.zeros(n_train, dtype=np.float64)
 
     for tree in rf.estimators_:
@@ -440,6 +440,48 @@ def matched_random_rankings(n_per_fold: dict, n_random: int = C.N_RANDOM_DEFERRA
     return result
 
 
+def matched_random_retention_rmse(activity_ids, outer_folds, y_true, y_pred,
+                                  n_random: int = C.N_RANDOM_DEFERRALS,
+                                  seed: int = C.MASTER_SEED,
+                                  coverage: float = C.PRIMARY_COVERAGE) -> dict:
+    """Compute matched within-fold random-retention RMSE draws and Monte Carlo SE.
+
+    This is an outcome-accepting execution utility. Preflight tests call it only on
+    synthetic arrays; the preflight artifact generator never imports or calls it.
+    """
+    activity_ids = np.asarray(activity_ids)
+    outer_folds = np.asarray(outer_folds)
+    y_true, y_pred = _metric_arrays(y_true, y_pred)
+    if not (activity_ids.ndim == outer_folds.ndim == 1):
+        raise ValueError("activity IDs and folds must be one-dimensional")
+    if not (len(activity_ids) == len(outer_folds) == len(y_true)):
+        raise ValueError("random-retention inputs must align")
+    fold_ids = {
+        fold: activity_ids[outer_folds == fold].tolist()
+        for fold in sorted(np.unique(outer_folds))
+    }
+    samples = matched_random_rankings(
+        fold_ids, n_random=n_random, seed=seed, coverage=coverage
+    )
+    position_by_id = {activity_id: pos for pos, activity_id in enumerate(activity_ids)}
+    if len(position_by_id) != len(activity_ids):
+        raise ValueError("activity IDs must be unique")
+    draws = np.empty(n_random, dtype=np.float64)
+    for draw in range(n_random):
+        positions = [
+            position_by_id[activity_id]
+            for fold in sorted(samples)
+            for activity_id in samples[fold][draw]
+        ]
+        draws[draw] = rmse(y_true[positions], y_pred[positions])
+    mcse = 0.0 if n_random == 1 else float(draws.std(ddof=1) / np.sqrt(n_random))
+    return {
+        "mean_rmse": float(draws.mean()),
+        "monte_carlo_se": mcse,
+        "rmse_draws": draws,
+    }
+
+
 # --------------------------------------------------------------------------- Scaffold bootstrap engine
 def scaffold_bootstrap_indices(folds_df, n_bootstrap: int = C.N_BOOTSTRAP,
                                 seed: int = C.MASTER_SEED) -> list:
@@ -547,9 +589,13 @@ def apply_conformal_correction(lower_quantiles: np.ndarray, upper_quantiles: np.
     upper_quantiles = np.asarray(upper_quantiles, dtype=np.float64)
     if lower_quantiles.shape != upper_quantiles.shape or lower_quantiles.ndim != 1:
         raise ValueError("lower and upper quantiles must be aligned one-dimensional arrays")
-    if not np.isfinite(correction) or correction < 0.0:
-        raise ValueError("conformal correction must be finite and nonnegative")
-    return lower_quantiles - correction, upper_quantiles + correction
+    if not np.isfinite(correction):
+        raise ValueError("conformal correction must be finite")
+    calibrated_lower = lower_quantiles - correction
+    calibrated_upper = upper_quantiles + correction
+    if (calibrated_lower > calibrated_upper).any():
+        raise ValueError("conformal correction produces inverted intervals")
+    return calibrated_lower, calibrated_upper
 
 
 def interval_calibration_summary(y_true: np.ndarray, lower: np.ndarray,

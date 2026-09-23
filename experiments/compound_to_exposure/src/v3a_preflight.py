@@ -41,7 +41,8 @@ RAW_ROWS_RELATIVE = Path("data/interim/CHEMBL3301370_rows.csv")
 
 def _write_json(payload: dict, path: Path) -> str:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    serialized = (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    path.write_bytes(serialized)
     return C.sha256_file(path)
 
 

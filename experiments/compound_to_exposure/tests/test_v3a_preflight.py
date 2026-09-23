@@ -25,16 +25,57 @@ from src.v3a_cohort import (
     fold_statistics, PreflightGateError, gate
 )
 from src.v3a_qrf_weights import (
-    recover_forest_weights, weighted_quantile, qrf_prediction_quantiles,
+    recover_forest_weights, recover_forest_weights_many, weighted_quantile, qrf_prediction_quantiles,
     qrf_width, tanimoto_unfamiliarity, physchem_knn_distance, neff, neff_inverse,
-    local_label_sd, tree_dispersion, select_retained, rmse, mae,
+    fit_physchem_space, local_label_sd, tree_dispersion, select_retained,
+    within_fold_retention_mask, rmse, mae,
     rel_benefit_80, trapezoidal_naurc, matched_random_rankings,
+    matched_random_retention_rmse,
     scaffold_bootstrap_indices, conformal_proper_train_cal_split,
+    cqr_nonconformity_scores, conformal_correction, apply_conformal_correction,
+    interval_calibration_summary, QRFWeightRecoveryError,
     check_execution_guard, ExecutionGuardError, compute_descriptors,
 )
+from src.v3a_preflight import MANIFEST_RELATIVE, verify_persisted_artifacts
 
 DATA_CSV = str(Path(__file__).resolve().parent.parent / "data" / "interim" / "CHEMBL3301370_rows.csv")
 SPLITS_DIR = str(Path(__file__).resolve().parent.parent / "splits")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+
+@pytest.fixture(scope="session")
+def cohort():
+    return build_cohort(DATA_CSV)
+
+
+@pytest.fixture(scope="session")
+def folds(cohort):
+    return build_folds(cohort)
+
+
+@pytest.fixture(scope="session")
+def X(cohort):
+    return ecfp4_matrix(cohort["canonical_smiles_rdkit"].tolist(), C.REPRESENTATION)
+
+
+@pytest.fixture(scope="session")
+def synthetic_setup():
+    """Create several synthetic datasets and fit test-only forests."""
+    setups = []
+    for seed in [42, 123, 7, 999]:
+        X_synthetic, y = make_regression(
+            n_samples=80, n_features=10, noise=0.5, random_state=seed
+        )
+        rf = RandomForestRegressor(
+            n_estimators=50,
+            min_samples_leaf=2,
+            bootstrap=True,
+            random_state=seed,
+            max_depth=8,
+        )
+        rf.fit(X_synthetic, y)
+        setups.append({"X": X_synthetic, "y": y, "rf": rf, "seed": seed})
+    return setups
 
 
 # =========================================================================== Config
@@ -59,6 +100,12 @@ class TestConfig:
     def test_morgan_spec(self):
         assert C.MORGAN_SPEC == {"radius": 2, "nBits": 2048, "binary": True, "useChirality": False}
 
+    def test_frozen_mappings_are_immutable(self):
+        with pytest.raises(TypeError):
+            C.FROZEN_RF_PARAMS["n_estimators"] = 1
+        with pytest.raises(TypeError):
+            C.MORGAN_SPEC["radius"] = 3
+
     def test_cohort_constants(self):
         assert C.COHORT_N == 744
         assert C.N_INTERIOR == 731
@@ -71,10 +118,6 @@ class TestConfig:
 
 # =========================================================================== Cohort
 class TestCohort:
-    @pytest.fixture(scope="class")
-    def cohort(self):
-        return build_cohort(DATA_CSV)
-
     def test_cohort_N(self, cohort):
         assert len(cohort) == 744
 
@@ -105,14 +148,6 @@ class TestCohort:
 
 # =========================================================================== Folds
 class TestFolds:
-    @pytest.fixture(scope="class")
-    def cohort(self):
-        return build_cohort(DATA_CSV)
-
-    @pytest.fixture(scope="class")
-    def folds(self, cohort):
-        return build_folds(cohort)
-
     def test_all_744_assigned(self, folds):
         assert len(folds) == 744
 
@@ -147,14 +182,6 @@ class TestFolds:
 
 # =========================================================================== Features
 class TestFeatures:
-    @pytest.fixture(scope="class")
-    def cohort(self):
-        return build_cohort(DATA_CSV)
-
-    @pytest.fixture(scope="class")
-    def X(self, cohort):
-        return ecfp4_matrix(cohort["canonical_smiles_rdkit"].tolist(), C.REPRESENTATION)
-
     def test_shape(self, X):
         assert X.shape == (744, 2048)
 
@@ -174,23 +201,15 @@ class TestFeatures:
         with pytest.raises(PreflightGateError, match="GATE_04"):
             ecfp4_matrix(cohort["canonical_smiles_rdkit"].tolist()[:2], "ECFP4")
 
+    def test_persisted_matrix_matches_regeneration(self, X):
+        saved = np.load(Path(SPLITS_DIR) / "V3A_ECFP4_MATRIX.npy", allow_pickle=False)
+        assert np.array_equal(saved, X)
+        assert feature_matrix_hash(saved) == "27c158c6b5967f44a0134f530b297794c6477543f61b40615bfc0f35ecba9ecb"
+
 
 # =========================================================================== QRF weights — SYNTHETIC ONLY
 class TestQRFWeights:
     """Fit RF on SYNTHETIC data. Verify weight recovery invariants."""
-
-    @pytest.fixture(scope="class")
-    def synthetic_setup(self):
-        """Create multiple synthetic datasets and fit RFs."""
-        setups = []
-        for seed in [42, 123, 7, 999]:
-            X, y = make_regression(n_samples=80, n_features=10, noise=0.5, random_state=seed)
-            rf = RandomForestRegressor(
-                n_estimators=50, min_samples_leaf=2, bootstrap=True,
-                random_state=seed, max_depth=8)
-            rf.fit(X, y)
-            setups.append({"X": X, "y": y, "rf": rf, "seed": seed})
-        return setups
 
     def test_weight_sum_invariant(self, synthetic_setup):
         max_err = 0.0
@@ -259,6 +278,18 @@ class TestQRFWeights:
             w = recover_forest_weights(rf, X, X[0])
             assert (w > 0).sum() >= 1
 
+    def test_batch_recovery(self, synthetic_setup):
+        setup = synthetic_setup[0]
+        weights = recover_forest_weights_many(setup["rf"], setup["X"], setup["X"][:3])
+        assert weights.shape == (3, len(setup["X"]))
+        assert np.all(np.abs(weights.sum(axis=1) - 1.0) < C.WEIGHT_SUM_TOL)
+
+    def test_rejects_nonbootstrap_forest(self):
+        X, y = make_regression(n_samples=30, n_features=4, random_state=1)
+        rf = RandomForestRegressor(n_estimators=5, bootstrap=False, random_state=1).fit(X, y)
+        with pytest.raises(QRFWeightRecoveryError, match="QRF_WEIGHT_RECOVERY_FAILED"):
+            recover_forest_weights(rf, X, X[0])
+
 
 # =========================================================================== Weighted quantiles
 class TestWeightedQuantile:
@@ -282,6 +313,12 @@ class TestWeightedQuantile:
         qs = [weighted_quantile(vals, wts, q) for q in [0.1, 0.25, 0.5, 0.75, 0.9]]
         for i in range(len(qs) - 1):
             assert qs[i] <= qs[i + 1]
+
+    def test_invalid_weights_fail_closed(self):
+        with pytest.raises(ValueError):
+            weighted_quantile(np.array([1.0, 2.0]), np.array([1.0, -1.0]), 0.5)
+        with pytest.raises(ValueError):
+            weighted_quantile(np.array([1.0]), np.array([1.0]), 1.1)
 
 
 # =========================================================================== Uncertainty primitives
@@ -319,6 +356,17 @@ class TestUncertaintyPrimitives:
         d = compute_descriptors("c1ccccc1")  # benzene
         assert len(d) == 12
 
+    def test_physchem_knn_training_only_scaler(self):
+        train = np.arange(72, dtype=float).reshape(6, 12)
+        scaler, scaled = fit_physchem_space(train)
+        distance = physchem_knn_distance(train[0], scaled, scaler.mean_, scaler.scale_, k=5)
+        assert distance >= 0.0
+
+    def test_tree_dispersion(self):
+        X, y = make_regression(n_samples=30, n_features=4, random_state=4)
+        rf = RandomForestRegressor(n_estimators=10, bootstrap=True, random_state=4).fit(X, y)
+        assert tree_dispersion(rf, X[0]) >= 0.0
+
 
 # =========================================================================== Retention
 class TestRetention:
@@ -342,6 +390,15 @@ class TestRetention:
         unc = np.random.RandomState(42).rand(50)
         retained = select_retained(ids, unc, 0.80)
         assert all(isinstance(x, int) for x in retained)
+
+    def test_independent_within_fold_counts(self):
+        ids = np.arange(21)
+        folds = np.array([1] * 10 + [2] * 11)
+        uncertainty = np.zeros(21)
+        mask = within_fold_retention_mask(ids, folds, uncertainty, 0.80)
+        assert mask[folds == 1].sum() == ceil(0.8 * 10)
+        assert mask[folds == 2].sum() == ceil(0.8 * 11)
+        assert np.array_equal(mask, within_fold_retention_mask(ids, folds, uncertainty, 0.80))
 
 
 # =========================================================================== Metrics
@@ -394,6 +451,18 @@ class TestRandomDeferral:
             for sample in result[f]:
                 assert sample.issubset(set(fold_ids[f]))
 
+    def test_synthetic_rmse_and_mcse(self):
+        ids = np.arange(20)
+        folds = np.array([1] * 10 + [2] * 10)
+        y_true = np.linspace(0.0, 1.0, 20)
+        y_pred = y_true + np.linspace(-0.2, 0.2, 20)
+        result = matched_random_retention_rmse(
+            ids, folds, y_true, y_pred, n_random=100, seed=42, coverage=0.80
+        )
+        assert result["rmse_draws"].shape == (100,)
+        assert result["mean_rmse"] > 0.0
+        assert result["monte_carlo_se"] >= 0.0
+
 
 # =========================================================================== Scaffold bootstrap
 class TestScaffoldBootstrap:
@@ -432,6 +501,16 @@ class TestScaffoldBootstrap:
         for i in range(50):
             assert np.array_equal(r1[i], r2[i])
 
+    def test_returns_positions_for_nondefault_index(self):
+        data = pd.DataFrame({
+            "activity_id": range(8),
+            "scaffold_key": ["A"] * 2 + ["B"] * 2 + ["C"] * 2 + ["D"] * 2,
+            "outer_fold": [1] * 4 + [2] * 4,
+        }, index=np.arange(100, 108))
+        sample = scaffold_bootstrap_indices(data, n_bootstrap=1, seed=7)[0]
+        assert sample.min() >= 0
+        assert sample.max() < len(data)
+
 
 # =========================================================================== Conformal
 class TestConformal:
@@ -459,6 +538,18 @@ class TestConformal:
         rank_qrf = np.argsort(widths_qrf)
         rank_cqr = np.argsort(widths_cqr)
         assert np.array_equal(rank_qrf, rank_cqr)
+
+    def test_conformal_calibration_helpers(self):
+        y = np.array([1.0, 2.0, 3.0, 4.0])
+        lower = np.array([0.8, 1.7, 2.8, 3.6])
+        upper = np.array([1.2, 2.3, 3.2, 4.1])
+        scores = cqr_nonconformity_scores(y, lower, upper)
+        correction = conformal_correction(scores, alpha=0.20)
+        calibrated_lower, calibrated_upper = apply_conformal_correction(lower, upper, correction)
+        summary = interval_calibration_summary(y, calibrated_lower, calibrated_upper)
+        assert summary["empirical_marginal_coverage"] == 1.0
+        assert summary["mean_interval_width"] >= 0.0
+        assert summary["median_interval_width"] >= 0.0
 
 
 # =========================================================================== Execution guard
@@ -514,6 +605,40 @@ class TestExecutionGuard:
         }
         with pytest.raises(ExecutionGuardError, match="audit"):
             check_execution_guard(manifest, require_flag=True)
+
+    def test_current_manifest_fails_closed(self):
+        manifest_path = PROJECT_ROOT / MANIFEST_RELATIVE
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["execution_state"] == C.STATE_PREEXECUTION
+        assert manifest["production_model_fit_to_real_outcomes"] is False
+        with pytest.raises(ExecutionGuardError, match="PREEXECUTION"):
+            check_execution_guard(manifest, require_flag=True)
+
+    def test_future_ready_manifest_requires_every_gate(self):
+        manifest = {
+            "execution_state": C.STATE_FROZEN,
+            "sap_sha256": "abc",
+            "cohort_sha256": "def",
+            "split_sha256": "ghi",
+            "feature_sha256": "jkl",
+            "cohort_N": 744,
+            "independent_audit_recorded": True,
+            "representation": C.REPRESENTATION.value,
+            "production_model_fit_to_real_outcomes": False,
+        }
+        check_execution_guard(manifest, require_flag=True)
+
+
+class TestFreezeManifest:
+    def test_manifest_hashes_and_full_assignment(self):
+        manifest = json.loads((PROJECT_ROOT / MANIFEST_RELATIVE).read_text(encoding="utf-8"))
+        verify_persisted_artifacts(PROJECT_ROOT, manifest)
+        assert manifest["cohort_N"] == 744
+        assert len(manifest["cohort_records"]) == 744
+        assert len({row["activity_id"] for row in manifest["cohort_records"]}) == 744
+        assert {row["outer_fold"] for row in manifest["cohort_records"]} == {1, 2, 3, 4, 5}
+        assert manifest["feature_shape"] == [744, 2048]
+        assert manifest["representation"] == "ECFP4_2048_R2_BINARY_NOCHIRAL"
 
 
 # =========================================================================== Module integrity

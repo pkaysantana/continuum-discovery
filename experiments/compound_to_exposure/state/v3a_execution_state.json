@@ -1,0 +1,9 @@
+{
+  "independent_audit_recorded": false,
+  "production_model_fit_to_real_outcomes": false,
+  "protocol_version": "v3A.1-RC",
+  "required_explicit_flag": "--execute-scientific-analysis",
+  "required_state_for_scientific_execution": "FROZEN_READY_FOR_EXECUTION",
+  "scientific_execution_allowed": false,
+  "state": "PREEXECUTION_IMPLEMENTED_NOT_RUN"
+}

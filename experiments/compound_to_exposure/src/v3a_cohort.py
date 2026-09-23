@@ -7,15 +7,16 @@ import numpy as np
 import pandas as pd
 from rdkit import Chem, rdBase
 from rdkit.Chem import rdFingerprintGenerator
+from rdkit.Chem.Scaffolds import MurckoScaffold
 
 from src import v3a_config as C
-from src.partition import get_scaffold_key
 
 COHORT_COLUMNS = ["activity_id", "chembl_id", "canonical_smiles_rdkit", "scaffold_key",
                   "CLint", "log10_CLint", "semantic_class"]
 FOLD_COLUMNS = ["activity_id", "chembl_id", "scaffold_key", "outer_fold"]
 CLASS_EXACT = "EXACT_QUANTITATIVE"
 CLASS_BOUNDARY_LOW = "EXACT_QUANTITATIVE_BOUNDARY_LOW"
+ACYCLIC_SCAFFOLD_KEY = "__ACYCLIC__"
 
 
 class PreflightGateError(AssertionError):
@@ -25,6 +26,30 @@ class PreflightGateError(AssertionError):
 def gate(condition, name, detail=""):
     if not condition:
         raise PreflightGateError(f"{name} FAILED {detail}".strip())
+
+
+def bemis_murcko_scaffold_key(smiles: str) -> str:
+    """Return the frozen nonchiral Bemis-Murcko key for the largest fragment."""
+    with rdBase.BlockLogs():
+        mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        raise PreflightGateError(
+            f"GATE_02_STRUCTURE_ALIGNMENT unparseable SMILES: {smiles!r}"
+        )
+    fragments = Chem.GetMolFrags(mol, asMols=True)
+    if len(fragments) > 1:
+        ranked = sorted(
+            fragments,
+            key=lambda fragment: (
+                -fragment.GetNumHeavyAtoms(),
+                Chem.MolToSmiles(fragment, canonical=True, isomericSmiles=False),
+            ),
+        )
+        mol = ranked[0]
+    scaffold = MurckoScaffold.MurckoScaffoldSmiles(
+        mol=mol, includeChirality=False
+    )
+    return scaffold or ACYCLIC_SCAFFOLD_KEY
 
 
 # --------------------------------------------------------------------------- cohort
@@ -41,6 +66,10 @@ def build_cohort(rows_csv) -> pd.DataFrame:
     gate(n_null + n_lt + n_gt == len(raw), "GATE_01a_FULL_DATASET_CONSERVATION", "unexpected relation values")
     gate((n_null, n_lt, n_gt) == (C.COHORT_N, C.N_LEFT_CENSORED, C.N_RIGHT_CENSORED),
          "GATE_01a_FULL_DATASET_CONSERVATION", f"null/<//>={n_null}/{n_lt}/{n_gt}")
+    gate(raw.loc[rel == "<", "standard_value"].eq(C.CLINT_LOW).all(),
+         "GATE_01a_LEFT_CENSOR_BOUNDARY")
+    gate(raw.loc[rel == ">", "standard_value"].eq(C.CLINT_HIGH).all(),
+         "GATE_01a_RIGHT_CENSOR_BOUNDARY")
 
     mask = rel.isna() & (raw["standard_value"] >= C.CLINT_LOW) & (raw["standard_value"] < C.CLINT_HIGH)
     cohort = raw.loc[mask].copy()
@@ -66,7 +95,7 @@ def build_cohort(rows_csv) -> pd.DataFrame:
         "canonical_smiles_rdkit": cohort["canonical_smiles_rdkit"].to_numpy(),
         "CLint": clint.to_numpy(),
     })
-    out["scaffold_key"] = [get_scaffold_key(s) for s in out["canonical_smiles_rdkit"]]
+    out["scaffold_key"] = [bemis_murcko_scaffold_key(s) for s in out["canonical_smiles_rdkit"]]
     gate(out["scaffold_key"].notna().all(), "GATE_02_SCAFFOLD_KEY_MISSING")
     out["log10_CLint"] = np.log10(out["CLint"].to_numpy())
     out["semantic_class"] = np.where(out["CLint"] == C.CLINT_LOW, CLASS_BOUNDARY_LOW, CLASS_EXACT)
@@ -144,7 +173,10 @@ def _generator():
     global _MORGAN_GEN
     if _MORGAN_GEN is None:
         _MORGAN_GEN = rdFingerprintGenerator.GetMorganGenerator(
-            radius=C.MORGAN_SPEC["radius"], fpSize=C.MORGAN_SPEC["nBits"])
+            radius=C.MORGAN_SPEC["radius"],
+            fpSize=C.MORGAN_SPEC["nBits"],
+            includeChirality=C.MORGAN_SPEC["useChirality"],
+        )
     return _MORGAN_GEN
 
 
