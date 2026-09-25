@@ -1,19 +1,25 @@
-"""Fail-closed v3A scientific-runner shell.
+"""Fail-closed v3A scientific runner and outcome-blind prediction freeze.
 
-Ticket 1 deliberately stops before model fitting, prediction, uncertainty scoring,
-or outcome evaluation.  It binds execution authorization to the persisted frozen
-inputs and provides only a collision-safe internal run ledger.
+Ticket 1 binds execution authorization to the persisted frozen inputs and provides
+a collision-safe internal run ledger.  Ticket 2 adds only the five-fold model and
+uncertainty orchestration up to an immutable prediction freeze.  This module does
+not expose an outer-test outcome argument and contains no outcome-evaluation code.
 """
 from __future__ import annotations
 
+import hashlib
 import json
+import math
 import os
 import re
 import tempfile
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping, Sequence
+
+import numpy as np
+import pandas as pd
 
 from src import v3a_config as C
 from src.v3a_preflight import (
@@ -24,14 +30,81 @@ from src.v3a_preflight import (
     SPLIT_RELATIVE,
     STATE_RELATIVE,
 )
-from src.v3a_qrf_weights import ExecutionGuardError, check_execution_guard
+from src.v3a_qrf_weights import (
+    ExecutionGuardError,
+    QRFWeightRecoveryError,
+    check_execution_guard,
+    compute_descriptor_matrix,
+    fit_physchem_space,
+    local_label_sd,
+    neff_inverse,
+    physchem_knn_distance,
+    qrf_prediction_quantiles,
+    recover_forest_weights_many,
+    tanimoto_unfamiliarity,
+    tree_dispersion,
+)
 
 
 SCIENTIFIC_RUNS_RELATIVE = Path("scientific_runs/v3a")
 LEDGER_FILENAME = "execution_ledger.json"
 LEDGER_SCHEMA_VERSION = 1
+PREDICTION_FREEZE_SCHEMA_VERSION = 1
 _RUN_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}\Z")
 _SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
+
+_UNCERTAINTY_FIELDS = (
+    "qrf_width",
+    "tanimoto_unfamiliarity",
+    "physchem_knn5_distance",
+    "neff_inverse",
+    "local_label_sd",
+    "tree_sd",
+)
+_BASE_PREDICTION_FIELDS = (
+    "activity_id",
+    "outer_fold",
+    "rf_prediction",
+    "qrf_q10",
+    "qrf_q90",
+    "qrf_width",
+    "tanimoto_unfamiliarity",
+    "physchem_knn5_distance",
+    "neff_inverse",
+    "local_label_sd",
+    "tree_sd",
+)
+_RANKING_FIELDS = (
+    "tie_break_sha256",
+    "within_fold_ranks",
+    "retained_coverages",
+)
+_PREDICTION_RECORD_FIELDS = frozenset(_BASE_PREDICTION_FIELDS + _RANKING_FIELDS)
+_PROVENANCE_FIELDS = frozenset(
+    {
+        "protocol_version",
+        "protocol_path",
+        "manifest_sha256",
+        "sap_sha256",
+        "cohort_sha256",
+        "split_sha256",
+        "feature_sha256",
+        "feature_file_sha256",
+    }
+)
+_HASH_PROVENANCE_FIELDS = _PROVENANCE_FIELDS - {"protocol_version", "protocol_path"}
+_FORBIDDEN_OUTCOME_TOKENS = (
+    "observed",
+    "residual",
+    "absolute_error",
+    "squared_error",
+    "rmse",
+    "mae",
+    "error_class",
+    "error_enrichment",
+    "sensitivity",
+    "y_test",
+)
 
 
 class RunnerError(RuntimeError):
@@ -56,6 +129,18 @@ class ProtectedRunPathError(RunnerError):
 
 class LifecycleTransitionError(RunnerError):
     """An internal ledger transition is not permitted in Ticket 1."""
+
+
+class PredictionOrchestrationError(RunnerError):
+    """The outcome-blind fold orchestration contract was violated."""
+
+
+class PredictionFreezeError(RunnerError):
+    """A complete deterministic prediction freeze could not be built or sealed."""
+
+
+class PredictionFreezeCollisionError(PredictionFreezeError):
+    """A prediction-freeze path already exists and may not be overwritten."""
 
 
 class InternalRunStatus(str, Enum):
@@ -92,6 +177,54 @@ class RunLedger:
 
     def read(self) -> dict[str, Any]:
         return _read_json_object(self.ledger_path, "execution ledger")
+
+
+@dataclass(frozen=True)
+class OutcomeBlindInputs:
+    """Outcome-free rows aligned to the frozen IDs, folds, fingerprints, and descriptors."""
+
+    activity_ids: tuple[Any, ...]
+    outer_folds: tuple[int, ...]
+    scaffold_keys: tuple[str, ...]
+    features: np.ndarray
+    descriptors: np.ndarray
+    provenance: Mapping[str, Any]
+
+
+@dataclass(frozen=True)
+class PredictionFreeze:
+    """Canonical immutable bytes produced only after all five folds complete."""
+
+    canonical_bytes: bytes
+    sha256: str
+    row_count: int
+    fold_counts: tuple[tuple[int, int], ...]
+
+    def read_payload(self) -> dict[str, Any]:
+        """Return a detached mutable view; changing it cannot alter frozen bytes."""
+
+        return json.loads(self.canonical_bytes.decode("utf-8"))
+
+
+@dataclass(frozen=True)
+class SealedPredictionFreeze:
+    """Filesystem seal for a prediction freeze written with exclusive creation."""
+
+    path: Path
+    canonical_bytes: bytes
+    sha256: str
+    row_count: int
+    fold_counts: tuple[tuple[int, int], ...]
+
+    def verify(self) -> bool:
+        try:
+            persisted = self.path.read_bytes()
+        except OSError:
+            return False
+        return (
+            persisted == self.canonical_bytes
+            and hashlib.sha256(persisted).hexdigest() == self.sha256
+        )
 
 
 def _read_json_object(path: Path, label: str) -> dict[str, Any]:
@@ -514,3 +647,662 @@ def abort_run(ledger: RunLedger, reason: str) -> None:
     ).value
     payload["abort_reason"] = reason
     _atomic_write_json(payload, ledger.ledger_path)
+
+
+# --------------------------------------------------------------------------- Ticket 2 inputs
+def _immutable_array(values: np.ndarray) -> np.ndarray:
+    """Return a C-contiguous array backed by immutable bytes."""
+
+    contiguous = np.ascontiguousarray(values)
+    return np.frombuffer(contiguous.tobytes(), dtype=contiguous.dtype).reshape(contiguous.shape)
+
+
+def _prediction_provenance(artifacts: FrozenArtifacts) -> dict[str, str]:
+    manifest = artifacts.manifest
+    provenance = {
+        "protocol_version": manifest.get("protocol_version"),
+        "protocol_path": manifest.get("protocol_path"),
+        "manifest_sha256": artifacts.manifest_sha256,
+        "sap_sha256": manifest.get("sap_sha256"),
+        "cohort_sha256": manifest.get("cohort_sha256"),
+        "split_sha256": manifest.get("split_sha256"),
+        "feature_sha256": manifest.get("feature_sha256"),
+        "feature_file_sha256": manifest.get("feature_file_sha256"),
+    }
+    _validate_prediction_provenance(provenance)
+    return provenance
+
+
+def load_outcome_blind_inputs(artifacts: FrozenArtifacts) -> OutcomeBlindInputs:
+    """Load only the frozen fields permitted upstream of the prediction freeze.
+
+    The cohort parser explicitly selects identifier, structure, and scaffold columns;
+    neither ``CLint`` nor ``log10_CLint`` is loaded.  The caller must have obtained
+    ``artifacts`` through the existing authorization path before production use.
+    """
+
+    manifest = artifacts.manifest
+    exact_hashes = (
+        (artifacts.sap_path, "sap_sha256"),
+        (artifacts.cohort_path, "cohort_sha256"),
+        (artifacts.split_path, "split_sha256"),
+        (artifacts.feature_path, "feature_file_sha256"),
+    )
+    for path, field in exact_hashes:
+        expected = manifest.get(field)
+        if not isinstance(expected, str) or C.sha256_file(path) != expected:
+            raise FrozenArtifactError(f"frozen {field} verification failed")
+
+    try:
+        cohort = pd.read_csv(
+            artifacts.cohort_path,
+            usecols=["activity_id", "canonical_smiles_rdkit", "scaffold_key"],
+        )
+        folds = pd.read_csv(
+            artifacts.split_path,
+            usecols=["activity_id", "scaffold_key", "outer_fold"],
+        )
+        features = np.load(artifacts.feature_path, allow_pickle=False)
+    except (OSError, ValueError, KeyError) as exc:
+        raise FrozenArtifactError("outcome-blind frozen inputs are missing or malformed") from exc
+
+    if not cohort["activity_id"].is_unique or not folds["activity_id"].is_unique:
+        raise FrozenArtifactError("frozen input activity IDs must be unique")
+    if cohort["activity_id"].tolist() != folds["activity_id"].tolist():
+        raise FrozenArtifactError("cohort, split, and feature row order is not aligned")
+    if cohort["scaffold_key"].astype(str).tolist() != folds["scaffold_key"].astype(str).tolist():
+        raise FrozenArtifactError("cohort and split scaffold keys are not aligned")
+    if features.ndim != 2 or features.shape[0] != len(cohort):
+        raise FrozenArtifactError("feature rows are not aligned to frozen cohort IDs")
+    if features.shape != tuple(manifest.get("feature_shape", ())):
+        raise FrozenArtifactError("feature shape differs from frozen manifest")
+    logical_feature_hash = hashlib.sha256(
+        np.ascontiguousarray(features, dtype=np.uint8).tobytes()
+    ).hexdigest()
+    if logical_feature_hash != manifest.get("feature_sha256"):
+        raise FrozenArtifactError("logical feature matrix hash verification failed")
+
+    descriptors = compute_descriptor_matrix(cohort["canonical_smiles_rdkit"].tolist())
+    inputs = OutcomeBlindInputs(
+        activity_ids=tuple(cohort["activity_id"].tolist()),
+        outer_folds=tuple(int(value) for value in folds["outer_fold"]),
+        scaffold_keys=tuple(folds["scaffold_key"].astype(str).tolist()),
+        features=_immutable_array(features),
+        descriptors=_immutable_array(descriptors),
+        provenance=_prediction_provenance(artifacts),
+    )
+    _validate_outcome_blind_inputs(inputs)
+    return inputs
+
+
+def _validate_prediction_provenance(provenance: Mapping[str, Any]) -> None:
+    if not isinstance(provenance, Mapping) or set(provenance) != _PROVENANCE_FIELDS:
+        raise PredictionFreezeError("prediction provenance fields are incomplete or unexpected")
+    if provenance.get("protocol_version") != C.PROTOCOL_VERSION:
+        raise PredictionFreezeError("prediction provenance protocol version mismatch")
+    if provenance.get("protocol_path") != SAP_RELATIVE.as_posix():
+        raise PredictionFreezeError("prediction provenance protocol path mismatch")
+    for field in _HASH_PROVENANCE_FIELDS:
+        value = provenance.get(field)
+        if not isinstance(value, str) or _SHA256_RE.fullmatch(value) is None:
+            raise PredictionFreezeError(f"prediction provenance {field} is not SHA-256")
+
+
+def _validate_outcome_blind_inputs(inputs: OutcomeBlindInputs) -> None:
+    n_rows = len(inputs.activity_ids)
+    if n_rows == 0 or len(set(inputs.activity_ids)) != n_rows:
+        raise PredictionOrchestrationError("activity IDs must be nonempty and unique")
+    if not (
+        len(inputs.outer_folds)
+        == len(inputs.scaffold_keys)
+        == inputs.features.shape[0]
+        == inputs.descriptors.shape[0]
+        == n_rows
+    ):
+        raise PredictionOrchestrationError("outcome-blind input rows are not aligned")
+    if inputs.features.ndim != 2 or inputs.descriptors.ndim != 2:
+        raise PredictionOrchestrationError("feature and descriptor matrices must be two-dimensional")
+    if inputs.features.shape[1] != C.MORGAN_SPEC["nBits"]:
+        raise PredictionOrchestrationError("point-predictor matrix is not frozen ECFP4/2048")
+    if inputs.descriptors.shape[1] != len(C.DESCRIPTOR_PANEL):
+        raise PredictionOrchestrationError("descriptor comparator matrix is not the frozen panel")
+    if not np.isin(inputs.features, (0, 1)).all():
+        raise PredictionOrchestrationError("point-predictor fingerprints must be binary")
+    if not np.isfinite(inputs.descriptors).all():
+        raise PredictionOrchestrationError("descriptor comparator matrix must be finite")
+    if set(inputs.outer_folds) != set(range(1, C.N_FOLDS + 1)):
+        raise PredictionOrchestrationError("exactly the five frozen outer folds are required")
+    scaffold_fold: dict[str, int] = {}
+    for scaffold, fold in zip(inputs.scaffold_keys, inputs.outer_folds):
+        previous = scaffold_fold.setdefault(str(scaffold), int(fold))
+        if previous != int(fold):
+            raise PredictionOrchestrationError("outer train/test scaffold leakage detected")
+    _validate_prediction_provenance(inputs.provenance)
+
+
+def _validate_frozen_rf_configuration(rf: Any) -> None:
+    try:
+        parameters = rf.get_params(deep=False)
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise PredictionOrchestrationError("frozen RF factory returned an invalid estimator") from exc
+    for name, expected in C.FROZEN_RF_PARAMS.items():
+        if parameters.get(name, object()) != expected:
+            raise PredictionOrchestrationError(f"non-frozen RF parameter: {name}")
+
+
+def _fold_training_labels(
+    provider: Callable[[int, tuple[Any, ...]], Sequence[float] | Mapping[Any, float]],
+    outer_fold: int,
+    train_ids: tuple[Any, ...],
+) -> np.ndarray:
+    """Request only this fold's training labels from a fold-aware provider."""
+
+    if not callable(provider):
+        raise PredictionOrchestrationError("a fold-scoped training outcome provider is required")
+    supplied = provider(outer_fold, train_ids)
+    if isinstance(supplied, Mapping):
+        if set(supplied) != set(train_ids):
+            raise PredictionOrchestrationError("training outcome mapping must contain training IDs only")
+        values = [supplied[activity_id] for activity_id in train_ids]
+    else:
+        values = supplied
+    labels = np.asarray(values, dtype=np.float64).reshape(-1)
+    if labels.shape != (len(train_ids),) or not np.isfinite(labels).all():
+        raise PredictionOrchestrationError("training outcomes must be finite and align to training IDs")
+    return labels
+
+
+def _retention_tie_hash(activity_id: Any) -> str:
+    """Ticket-2 frozen tie rule: SHA256('V3A_TIE_20260923' + activity_id)."""
+
+    return hashlib.sha256(f"V3A_TIE_20260923{activity_id}".encode("utf-8")).hexdigest()
+
+
+def _activity_sort_key(activity_id: Any) -> str:
+    try:
+        return json.dumps(activity_id, ensure_ascii=False, allow_nan=False, sort_keys=True)
+    except (TypeError, ValueError) as exc:
+        raise PredictionFreezeError("activity_id must be a canonical JSON scalar") from exc
+
+
+# --------------------------------------------------------------------------- Ticket 2 ranking/orchestration
+def rank_outcome_blind_records(records: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """Attach deterministic per-fold ranks and retention metadata to raw score rows."""
+
+    ranked_records = [dict(record) for record in records]
+    if not ranked_records:
+        raise PredictionFreezeError("prediction records are empty")
+    for record in ranked_records:
+        if set(record) != set(_BASE_PREDICTION_FIELDS):
+            raise PredictionFreezeError("raw prediction record fields are incomplete or unexpected")
+        record["tie_break_sha256"] = _retention_tie_hash(record["activity_id"])
+        record["within_fold_ranks"] = {}
+        record["retained_coverages"] = {}
+
+    folds = sorted({int(record["outer_fold"]) for record in ranked_records})
+    for fold in folds:
+        positions = [
+            position
+            for position, record in enumerate(ranked_records)
+            if int(record["outer_fold"]) == fold
+        ]
+        for method in _UNCERTAINTY_FIELDS:
+            order = sorted(
+                positions,
+                key=lambda position: (
+                    float(ranked_records[position][method]),
+                    ranked_records[position]["tie_break_sha256"],
+                    _activity_sort_key(ranked_records[position]["activity_id"]),
+                ),
+            )
+            for rank, position in enumerate(order, start=1):
+                ranked_records[position]["within_fold_ranks"][method] = rank
+                n_fold = len(positions)
+                ranked_records[position]["retained_coverages"][method] = [
+                    float(coverage)
+                    for coverage in C.COVERAGE_LEVELS
+                    if rank <= math.ceil(float(coverage) * n_fold)
+                ]
+    return ranked_records
+
+
+def orchestrate_outcome_blind_predictions(
+    inputs: OutcomeBlindInputs,
+    training_outcome_provider: Callable[
+        [int, tuple[Any, ...]], Sequence[float] | Mapping[Any, float]
+    ],
+    *,
+    rf_factory: Callable[[], Any] = C.make_frozen_rf,
+    audit_hook: Callable[[str, Mapping[str, Any]], None] | None = None,
+) -> PredictionFreeze:
+    """Fit one frozen RF per fold and freeze all OOF predictions/uncertainties.
+
+    Only fold-scoped outer-training labels can enter this API.  There is no
+    ``y_test`` parameter, and every reference pool is constructed from the fold's
+    training positions before any test row is scored.
+    """
+
+    _validate_outcome_blind_inputs(inputs)
+    ids = np.asarray(inputs.activity_ids, dtype=object)
+    folds = np.asarray(inputs.outer_folds, dtype=np.int64)
+    scaffolds = np.asarray(inputs.scaffold_keys, dtype=object)
+    features = np.asarray(inputs.features)
+    descriptors = np.asarray(inputs.descriptors, dtype=np.float64)
+    raw_records: list[dict[str, Any]] = []
+
+    for fold in range(1, C.N_FOLDS + 1):
+        test_positions = np.flatnonzero(folds == fold)
+        train_positions = np.flatnonzero(folds != fold)
+        train_ids = tuple(ids[train_positions].tolist())
+        test_ids = tuple(ids[test_positions].tolist())
+        if not test_ids or set(train_ids) & set(test_ids):
+            raise PredictionOrchestrationError(f"outer fold {fold} train/test ID overlap")
+        train_scaffolds = set(scaffolds[train_positions].tolist())
+        test_scaffolds = set(scaffolds[test_positions].tolist())
+        if train_scaffolds & test_scaffolds:
+            raise PredictionOrchestrationError(f"outer fold {fold} scaffold leakage")
+
+        X_train = features[train_positions]
+        X_test = features[test_positions]
+        descriptor_train = descriptors[train_positions]
+        descriptor_test = descriptors[test_positions]
+
+        rf = rf_factory()
+        _validate_frozen_rf_configuration(rf)
+        y_train = _fold_training_labels(training_outcome_provider, fold, train_ids)
+        rf.fit(X_train, y_train)
+        predictions = np.asarray(rf.predict(X_test), dtype=np.float64)
+        try:
+            weights = recover_forest_weights_many(
+                rf, X_train, X_test, sample_weight_used=False
+            )
+        except QRFWeightRecoveryError as exc:
+            raise PredictionOrchestrationError(str(exc)) from exc
+        if weights.shape != (len(test_positions), len(train_positions)):
+            raise PredictionOrchestrationError("QRF weights do not index outer-training rows only")
+        weight_sum_error = float(np.max(np.abs(weights.sum(axis=1) - 1.0)))
+        reconstruction_error = float(np.max(np.abs(weights @ y_train - predictions)))
+        if weight_sum_error >= C.WEIGHT_SUM_TOL:
+            raise PredictionOrchestrationError("GATE_08_QRF_WEIGHT_SUM failed")
+        if reconstruction_error >= C.WEIGHT_MEAN_TOL:
+            raise PredictionOrchestrationError("GATE_07_QRF_PREDICTION_INVARIANT failed")
+
+        scaler, descriptor_train_scaled = fit_physchem_space(descriptor_train)
+        for local_index, position in enumerate(test_positions):
+            row_weights = weights[local_index]
+            quantiles = qrf_prediction_quantiles(
+                row_weights,
+                y_train,
+                quantiles=(C.QRF_LOW_Q, C.QRF_HIGH_Q),
+            )
+            q10 = float(quantiles["Q10"])
+            q90 = float(quantiles["Q90"])
+            raw_records.append(
+                {
+                    "activity_id": ids[position].item()
+                    if isinstance(ids[position], np.generic)
+                    else ids[position],
+                    "outer_fold": fold,
+                    "rf_prediction": float(predictions[local_index]),
+                    "qrf_q10": q10,
+                    "qrf_q90": q90,
+                    "qrf_width": q90 - q10,
+                    "tanimoto_unfamiliarity": tanimoto_unfamiliarity(
+                        X_test[local_index], X_train
+                    ),
+                    "physchem_knn5_distance": physchem_knn_distance(
+                        descriptor_test[local_index],
+                        descriptor_train_scaled,
+                        scaler.mean_,
+                        scaler.scale_,
+                    ),
+                    "neff_inverse": neff_inverse(row_weights),
+                    "local_label_sd": local_label_sd(row_weights, y_train),
+                    "tree_sd": tree_dispersion(rf, X_test[local_index]),
+                }
+            )
+
+        if audit_hook is not None:
+            audit_hook(
+                "fold_completed",
+                {
+                    "outer_fold": fold,
+                    "train_ids": train_ids,
+                    "test_ids": test_ids,
+                    "tanimoto_reference_ids": train_ids,
+                    "descriptor_scaler_fit_ids": train_ids,
+                    "descriptor_knn_reference_ids": train_ids,
+                    "qrf_weight_ids": train_ids,
+                    "local_label_ids": train_ids,
+                    "qrf_weight_sum_max_error": weight_sum_error,
+                    "qrf_prediction_max_error": reconstruction_error,
+                },
+            )
+
+    if len(raw_records) != len(inputs.activity_ids):
+        raise PredictionOrchestrationError("OOF prediction output is incomplete")
+    ranked_records = rank_outcome_blind_records(raw_records)
+    return build_prediction_freeze(
+        ranked_records,
+        expected_activity_ids=inputs.activity_ids,
+        expected_outer_folds=inputs.outer_folds,
+        provenance=inputs.provenance,
+    )
+
+
+# --------------------------------------------------------------------------- Ticket 2 immutable freeze
+def _normalise_prediction_record(record: Mapping[str, Any]) -> dict[str, Any]:
+    if not isinstance(record, Mapping) or set(record) != _PREDICTION_RECORD_FIELDS:
+        raise PredictionFreezeError("prediction record fields are incomplete or unexpected")
+    lowered_fields = {str(field).lower() for field in record}
+    if any(token in field for token in _FORBIDDEN_OUTCOME_TOKENS for field in lowered_fields):
+        raise PredictionFreezeError("prediction freeze contains an outcome-derived field")
+
+    activity_id = record["activity_id"]
+    if isinstance(activity_id, bool) or not isinstance(activity_id, (int, str)):
+        raise PredictionFreezeError("activity_id must be an integer or string")
+    fold = record["outer_fold"]
+    if isinstance(fold, bool) or not isinstance(fold, (int, np.integer)):
+        raise PredictionFreezeError("outer_fold must be an integer")
+    fold = int(fold)
+
+    normalised: dict[str, Any] = {"activity_id": activity_id, "outer_fold": fold}
+    for field in _BASE_PREDICTION_FIELDS[2:]:
+        try:
+            value = float(record[field])
+        except (TypeError, ValueError) as exc:
+            raise PredictionFreezeError(f"prediction field {field} must be numeric") from exc
+        if not math.isfinite(value):
+            raise PredictionFreezeError(f"prediction field {field} must be finite")
+        normalised[field] = value
+    if abs(normalised["qrf_width"] - (normalised["qrf_q90"] - normalised["qrf_q10"])) > 1e-12:
+        raise PredictionFreezeError("qrf_width does not equal qrf_q90 - qrf_q10")
+    if normalised["qrf_width"] < 0.0:
+        raise PredictionFreezeError("qrf_width must be nonnegative")
+
+    tie_hash = record["tie_break_sha256"]
+    if tie_hash != _retention_tie_hash(activity_id):
+        raise PredictionFreezeError("prediction record tie hash is not the frozen rule")
+    normalised["tie_break_sha256"] = tie_hash
+
+    ranks = record["within_fold_ranks"]
+    retained = record["retained_coverages"]
+    if not isinstance(ranks, Mapping) or set(ranks) != set(_UNCERTAINTY_FIELDS):
+        raise PredictionFreezeError("within-fold uncertainty ranks are incomplete")
+    if not isinstance(retained, Mapping) or set(retained) != set(_UNCERTAINTY_FIELDS):
+        raise PredictionFreezeError("retention metadata is incomplete")
+    normalised["within_fold_ranks"] = {}
+    normalised["retained_coverages"] = {}
+    for method in _UNCERTAINTY_FIELDS:
+        rank = ranks[method]
+        if isinstance(rank, bool) or not isinstance(rank, (int, np.integer)) or int(rank) < 1:
+            raise PredictionFreezeError("within-fold ranks must be positive integers")
+        normalised["within_fold_ranks"][method] = int(rank)
+        coverage_values = retained[method]
+        if not isinstance(coverage_values, (list, tuple)):
+            raise PredictionFreezeError("retained coverages must be an ordered sequence")
+        coverage_tuple = tuple(float(value) for value in coverage_values)
+        if any(value not in C.COVERAGE_LEVELS for value in coverage_tuple):
+            raise PredictionFreezeError("retention metadata uses a non-frozen coverage")
+        normalised["retained_coverages"][method] = list(coverage_tuple)
+    return normalised
+
+
+def _validate_ranking_metadata(records: Sequence[Mapping[str, Any]]) -> None:
+    for fold in range(1, C.N_FOLDS + 1):
+        fold_records = [record for record in records if record["outer_fold"] == fold]
+        n_fold = len(fold_records)
+        if n_fold == 0:
+            raise PredictionFreezeError("all five outer folds must be represented")
+        for method in _UNCERTAINTY_FIELDS:
+            ranks = sorted(record["within_fold_ranks"][method] for record in fold_records)
+            if ranks != list(range(1, n_fold + 1)):
+                raise PredictionFreezeError("within-fold ranks are not a complete permutation")
+            expected_order = sorted(
+                fold_records,
+                key=lambda record: (
+                    record[method],
+                    record["tie_break_sha256"],
+                    _activity_sort_key(record["activity_id"]),
+                ),
+            )
+            for expected_rank, record in enumerate(expected_order, start=1):
+                if record["within_fold_ranks"][method] != expected_rank:
+                    raise PredictionFreezeError("uncertainty ranking is not independently within fold")
+                expected_coverages = [
+                    float(coverage)
+                    for coverage in C.COVERAGE_LEVELS
+                    if expected_rank <= math.ceil(float(coverage) * n_fold)
+                ]
+                if record["retained_coverages"][method] != expected_coverages:
+                    raise PredictionFreezeError("retention metadata does not match frozen ranks")
+
+
+def build_prediction_freeze(
+    records: Sequence[Mapping[str, Any]],
+    *,
+    expected_activity_ids: Sequence[Any],
+    expected_outer_folds: Sequence[int],
+    provenance: Mapping[str, Any],
+) -> PredictionFreeze:
+    """Validate a complete five-fold OOF table and return canonical immutable bytes."""
+
+    _validate_prediction_provenance(provenance)
+    expected_ids = tuple(expected_activity_ids)
+    if not expected_ids or len(set(expected_ids)) != len(expected_ids):
+        raise PredictionFreezeError("expected primary activity IDs must be unique")
+    expected_folds = tuple(int(fold) for fold in expected_outer_folds)
+    if len(expected_folds) != len(expected_ids):
+        raise PredictionFreezeError("expected fold assignments must align to primary IDs")
+    if set(expected_folds) != set(range(1, C.N_FOLDS + 1)):
+        raise PredictionFreezeError("expected partition must contain all five outer folds")
+    expected_fold_by_id = dict(zip(expected_ids, expected_folds))
+    normalised = [_normalise_prediction_record(record) for record in records]
+    actual_ids = [record["activity_id"] for record in normalised]
+    if len(actual_ids) != len(set(actual_ids)):
+        raise PredictionFreezeError("duplicate activity_id in prediction freeze")
+    if len(actual_ids) != len(expected_ids) or set(actual_ids) != set(expected_ids):
+        raise PredictionFreezeError("prediction freeze has missing or unexpected activity IDs")
+    if any(
+        record["outer_fold"] != expected_fold_by_id[record["activity_id"]]
+        for record in normalised
+    ):
+        raise PredictionFreezeError("prediction record differs from frozen outer-fold assignment")
+    if {record["outer_fold"] for record in normalised} != set(range(1, C.N_FOLDS + 1)):
+        raise PredictionFreezeError("partial prediction freeze: all five folds are required")
+    _validate_ranking_metadata(normalised)
+
+    ordered = sorted(
+        normalised,
+        key=lambda record: (record["outer_fold"], _activity_sort_key(record["activity_id"])),
+    )
+    fold_counts = tuple(
+        (fold, sum(record["outer_fold"] == fold for record in ordered))
+        for fold in range(1, C.N_FOLDS + 1)
+    )
+    payload = {
+        "fold_counts": {str(fold): count for fold, count in fold_counts},
+        "protocol_version": C.PROTOCOL_VERSION,
+        "provenance": dict(provenance),
+        "records": ordered,
+        "row_count": len(ordered),
+        "schema_version": PREDICTION_FREEZE_SCHEMA_VERSION,
+    }
+    canonical_bytes = _canonical_json_bytes(payload)
+    digest = hashlib.sha256(canonical_bytes).hexdigest()
+    return PredictionFreeze(
+        canonical_bytes=canonical_bytes,
+        sha256=digest,
+        row_count=len(ordered),
+        fold_counts=fold_counts,
+    )
+
+
+def _normalise_expected_id_to_fold(
+    expected_id_to_fold: Mapping[Any, int],
+) -> dict[Any, int]:
+    """Validate the authoritative outer-test universe supplied at the seal boundary."""
+
+    if not isinstance(expected_id_to_fold, Mapping) or not expected_id_to_fold:
+        raise PredictionFreezeError("authoritative expected ID-to-fold mapping is required")
+    normalised: dict[Any, int] = {}
+    for activity_id, outer_fold in expected_id_to_fold.items():
+        if isinstance(activity_id, bool) or not isinstance(activity_id, (int, str)):
+            raise PredictionFreezeError("expected activity IDs must be integers or strings")
+        if (
+            isinstance(outer_fold, bool)
+            or not isinstance(outer_fold, (int, np.integer))
+            or int(outer_fold) not in range(1, C.N_FOLDS + 1)
+        ):
+            raise PredictionFreezeError("expected outer folds must be integers 1 through 5")
+        normalised[activity_id] = int(outer_fold)
+    if set(normalised.values()) != set(range(1, C.N_FOLDS + 1)):
+        raise PredictionFreezeError("expected universe must represent exactly five outer folds")
+    return normalised
+
+
+def _write_prediction_freeze_temp(descriptor: int, canonical_bytes: bytes) -> None:
+    """Write, flush, and fsync a uniquely claimed temporary file descriptor."""
+
+    with os.fdopen(descriptor, "wb", closefd=False) as handle:
+        handle.write(canonical_bytes)
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def _finalize_prediction_freeze_no_clobber(temporary_path: Path, destination: Path) -> None:
+    """Atomically expose a complete same-filesystem file without replacing a peer.
+
+    ``os.link`` is the commit point: creation of the destination directory entry is
+    atomic and fails when that entry already exists on both Windows and POSIX.
+    The caller removes the temporary link only after this operation succeeds.
+    """
+
+    os.link(temporary_path, destination)
+
+
+def seal_prediction_freeze(
+    freeze: PredictionFreeze,
+    path: Path,
+    *,
+    expected_id_to_fold: Mapping[Any, int],
+) -> SealedPredictionFreeze:
+    """Validate the expected universe and atomically persist canonical bytes once."""
+
+    if not isinstance(freeze, PredictionFreeze):
+        raise PredictionFreezeError("a validated PredictionFreeze is required")
+    if hashlib.sha256(freeze.canonical_bytes).hexdigest() != freeze.sha256:
+        raise PredictionFreezeError("prediction freeze bytes no longer match their SHA-256")
+    try:
+        payload = freeze.read_payload()
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise PredictionFreezeError("prediction freeze bytes are not canonical JSON") from exc
+    required_payload_fields = {
+        "fold_counts",
+        "protocol_version",
+        "provenance",
+        "records",
+        "row_count",
+        "schema_version",
+    }
+    if not isinstance(payload, dict) or set(payload) != required_payload_fields:
+        raise PredictionFreezeError("prediction freeze payload fields are invalid")
+    if (
+        payload.get("schema_version") != PREDICTION_FREEZE_SCHEMA_VERSION
+        or payload.get("protocol_version") != C.PROTOCOL_VERSION
+        or not isinstance(payload.get("records"), list)
+    ):
+        raise PredictionFreezeError("prediction freeze schema or protocol is invalid")
+    expected_universe = _normalise_expected_id_to_fold(expected_id_to_fold)
+    records = payload["records"]
+    record_ids = [record.get("activity_id") for record in records]
+    record_folds = [record.get("outer_fold") for record in records]
+    if len(record_ids) != len(set(record_ids)):
+        raise PredictionFreezeError("duplicate activity_id at prediction seal boundary")
+    if len(record_ids) != len(expected_universe):
+        raise PredictionFreezeError("prediction seal row count differs from expected universe")
+    if set(record_ids) != set(expected_universe):
+        raise PredictionFreezeError("prediction seal activity-ID set differs from expected universe")
+    if any(
+        not isinstance(outer_fold, int)
+        or expected_universe[activity_id] != outer_fold
+        for activity_id, outer_fold in zip(record_ids, record_folds)
+    ):
+        raise PredictionFreezeError("prediction seal ID-to-fold mapping differs from expected universe")
+    expected_fold_counts = {
+        fold: sum(expected_fold == fold for expected_fold in expected_universe.values())
+        for fold in range(1, C.N_FOLDS + 1)
+    }
+    actual_fold_counts = {
+        fold: sum(actual_fold == fold for actual_fold in record_folds)
+        for fold in range(1, C.N_FOLDS + 1)
+    }
+    if actual_fold_counts != expected_fold_counts:
+        raise PredictionFreezeError("prediction seal fold counts differ from expected universe")
+    rebuilt = build_prediction_freeze(
+        records,
+        expected_activity_ids=tuple(expected_universe),
+        expected_outer_folds=tuple(expected_universe.values()),
+        provenance=payload.get("provenance"),
+    )
+    if (
+        rebuilt.canonical_bytes != freeze.canonical_bytes
+        or rebuilt.sha256 != freeze.sha256
+        or rebuilt.row_count != freeze.row_count
+        or rebuilt.fold_counts != freeze.fold_counts
+    ):
+        raise PredictionFreezeError("prediction freeze object is inconsistent with validated bytes")
+    destination = Path(path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if os.path.lexists(destination):
+        raise PredictionFreezeCollisionError(
+            f"prediction freeze already exists: {destination}"
+        )
+
+    descriptor: int | None = None
+    temporary_path: Path | None = None
+    temporary_cleanup_error: OSError | None = None
+    try:
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=f".{destination.name}.",
+            suffix=".tmp",
+            dir=destination.parent,
+        )
+        temporary_path = Path(temporary_name)
+        _write_prediction_freeze_temp(descriptor, freeze.canonical_bytes)
+        os.close(descriptor)
+        descriptor = None
+        _finalize_prediction_freeze_no_clobber(temporary_path, destination)
+    except FileExistsError as exc:
+        raise PredictionFreezeCollisionError(
+            f"prediction freeze already exists: {destination}"
+        ) from exc
+    except OSError as exc:
+        raise PredictionFreezeError(f"prediction freeze could not be sealed: {destination}") from exc
+    finally:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+        if temporary_path is not None:
+            try:
+                temporary_path.unlink()
+            except FileNotFoundError:
+                pass
+            except OSError as exc:
+                temporary_cleanup_error = exc
+    if temporary_cleanup_error is not None:
+        raise PredictionFreezeError(
+            f"prediction freeze temporary artifact could not be removed: {temporary_path}"
+        ) from temporary_cleanup_error
+    sealed = SealedPredictionFreeze(
+        path=destination,
+        canonical_bytes=freeze.canonical_bytes,
+        sha256=freeze.sha256,
+        row_count=freeze.row_count,
+        fold_counts=freeze.fold_counts,
+    )
+    if not sealed.verify():
+        raise PredictionFreezeError("persisted prediction freeze verification failed")
+    return sealed
