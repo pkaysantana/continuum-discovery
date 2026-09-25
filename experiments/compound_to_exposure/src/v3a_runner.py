@@ -1,9 +1,10 @@
-"""Fail-closed v3A scientific runner and outcome-blind prediction freeze.
+"""Fail-closed v3A scientific runner and post-freeze point evaluation.
 
 Ticket 1 binds execution authorization to the persisted frozen inputs and provides
-a collision-safe internal run ledger.  Ticket 2 adds only the five-fold model and
-uncertainty orchestration up to an immutable prediction freeze.  This module does
-not expose an outer-test outcome argument and contains no outcome-evaluation code.
+a collision-safe internal run ledger.  Ticket 2 adds the five-fold model and
+uncertainty orchestration up to an immutable prediction freeze.  Ticket 3 starts
+strictly after that seal: retention and matched-random IDs are planned without
+outcomes, then outcomes are aligned by activity ID for point evaluation only.
 """
 from __future__ import annotations
 
@@ -37,11 +38,16 @@ from src.v3a_qrf_weights import (
     compute_descriptor_matrix,
     fit_physchem_space,
     local_label_sd,
+    mae,
+    matched_random_rankings,
     neff_inverse,
     physchem_knn_distance,
     qrf_prediction_quantiles,
     recover_forest_weights_many,
+    rel_benefit_80,
+    rmse,
     tanimoto_unfamiliarity,
+    trapezoidal_naurc,
     tree_dispersion,
 )
 
@@ -143,6 +149,10 @@ class PredictionFreezeCollisionError(PredictionFreezeError):
     """A prediction-freeze path already exists and may not be overwritten."""
 
 
+class OutcomeEvaluationError(RunnerError):
+    """Post-freeze outcome access or evaluation violated the Ticket 3 contract."""
+
+
 class InternalRunStatus(str, Enum):
     """Internal-only lifecycle vocabulary; never written to frozen state."""
 
@@ -225,6 +235,96 @@ class SealedPredictionFreeze:
             persisted == self.canonical_bytes
             and hashlib.sha256(persisted).hexdigest() == self.sha256
         )
+
+
+@dataclass(frozen=True)
+class RetentionSet:
+    """One outcome-blind retained-ID set from frozen within-fold ranks."""
+
+    method: str
+    coverage: float
+    retained_ids: tuple[Any, ...]
+    retained_counts_by_fold: tuple[tuple[int, int], ...]
+
+
+@dataclass(frozen=True)
+class PostFreezePlan:
+    """Outcome-blind Ticket 3 plan derived from a verified prediction seal."""
+
+    sealed_freeze: SealedPredictionFreeze
+    freeze_sha256: str
+    expected_id_to_fold: tuple[tuple[Any, int], ...]
+    retention_sets: tuple[RetentionSet, ...]
+    random_retained_ids_by_draw: tuple[tuple[Any, ...], ...]
+    random_retained_counts_by_fold: tuple[tuple[int, int], ...]
+    random_draw_count: int
+    random_seed: int
+
+    def retention(self, method: str, coverage: float) -> RetentionSet:
+        for retention_set in self.retention_sets:
+            if retention_set.method == method and retention_set.coverage == float(coverage):
+                return retention_set
+        raise KeyError((method, coverage))
+
+
+@dataclass(frozen=True)
+class CoveragePointResult:
+    """Pooled retained-set metrics at one frozen coverage."""
+
+    coverage: float
+    retained_n: int
+    deferred_n: int
+    pooled_rmse: float
+    pooled_mae: float
+    retained_ids: tuple[Any, ...]
+    retained_counts_by_fold: tuple[tuple[int, int], ...]
+
+
+@dataclass(frozen=True)
+class CoverageCurveResult:
+    """Complete six-point risk-coverage curve for one uncertainty method."""
+
+    method: str
+    role: str
+    points: tuple[CoveragePointResult, ...]
+    naurc: float
+
+    def at(self, coverage: float) -> CoveragePointResult:
+        for point in self.points:
+            if point.coverage == float(coverage):
+                return point
+        raise KeyError(coverage)
+
+
+@dataclass(frozen=True)
+class MatchedRandomResult:
+    """Outcome-derived pooled RMSE distribution for the frozen random ID plan."""
+
+    draw_count: int
+    seed: int
+    retained_counts_by_fold: tuple[tuple[int, int], ...]
+    mean_rmse: float
+    monte_carlo_se: float
+    rmse_draws: np.ndarray
+
+
+@dataclass(frozen=True)
+class Ticket3EvaluationResult:
+    """In-memory Ticket 3 point results; this is not a sealed scientific result."""
+
+    freeze_sha256: str
+    primary_method: str
+    primary_coverage: float
+    coverage_curves: tuple[CoverageCurveResult, ...]
+    qrf80: CoveragePointResult
+    matched_random80: MatchedRandomResult
+    rel_benefit_80: float
+
+    def curve(self, method: str) -> CoverageCurveResult:
+        for curve in self.coverage_curves:
+            if curve.method == method:
+                return curve
+        raise KeyError(method)
 
 
 def _read_json_object(path: Path, label: str) -> dict[str, Any]:
@@ -812,12 +912,6 @@ def _fold_training_labels(
     return labels
 
 
-def _retention_tie_hash(activity_id: Any) -> str:
-    """Ticket-2 frozen tie rule: SHA256('V3A_TIE_20260923' + activity_id)."""
-
-    return hashlib.sha256(f"V3A_TIE_20260923{activity_id}".encode("utf-8")).hexdigest()
-
-
 def _activity_sort_key(activity_id: Any) -> str:
     try:
         return json.dumps(activity_id, ensure_ascii=False, allow_nan=False, sort_keys=True)
@@ -835,7 +929,7 @@ def rank_outcome_blind_records(records: Sequence[Mapping[str, Any]]) -> list[dic
     for record in ranked_records:
         if set(record) != set(_BASE_PREDICTION_FIELDS):
             raise PredictionFreezeError("raw prediction record fields are incomplete or unexpected")
-        record["tie_break_sha256"] = _retention_tie_hash(record["activity_id"])
+        record["tie_break_sha256"] = C.retention_tiebreak_hash(record["activity_id"])
         record["within_fold_ranks"] = {}
         record["retained_coverages"] = {}
 
@@ -1021,7 +1115,7 @@ def _normalise_prediction_record(record: Mapping[str, Any]) -> dict[str, Any]:
         raise PredictionFreezeError("qrf_width must be nonnegative")
 
     tie_hash = record["tie_break_sha256"]
-    if tie_hash != _retention_tie_hash(activity_id):
+    if tie_hash != C.retention_tiebreak_hash(activity_id):
         raise PredictionFreezeError("prediction record tie hash is not the frozen rule")
     normalised["tie_break_sha256"] = tie_hash
 
@@ -1306,3 +1400,363 @@ def seal_prediction_freeze(
     if not sealed.verify():
         raise PredictionFreezeError("persisted prediction freeze verification failed")
     return sealed
+
+
+# --------------------------------------------------------------------------- Ticket 3 post-freeze planning
+def _validated_sealed_payload(
+    sealed_freeze: SealedPredictionFreeze,
+    expected_id_to_fold: Mapping[Any, int],
+) -> tuple[dict[str, Any], dict[Any, int]]:
+    """Verify the persisted seal and authoritative universe without reading outcomes."""
+
+    if not isinstance(sealed_freeze, SealedPredictionFreeze):
+        raise OutcomeEvaluationError("outcome evaluation requires a sealed prediction freeze")
+    if not sealed_freeze.verify():
+        raise OutcomeEvaluationError("prediction freeze seal or hash verification failed")
+    if hashlib.sha256(sealed_freeze.canonical_bytes).hexdigest() != sealed_freeze.sha256:
+        raise OutcomeEvaluationError("prediction freeze bytes no longer match their SHA-256")
+    try:
+        expected = _normalise_expected_id_to_fold(expected_id_to_fold)
+        payload = json.loads(sealed_freeze.canonical_bytes.decode("utf-8"))
+    except (PredictionFreezeError, UnicodeError, json.JSONDecodeError) as exc:
+        raise OutcomeEvaluationError("sealed prediction freeze is invalid") from exc
+
+    required_fields = {
+        "fold_counts",
+        "protocol_version",
+        "provenance",
+        "records",
+        "row_count",
+        "schema_version",
+    }
+    if not isinstance(payload, dict) or set(payload) != required_fields:
+        raise OutcomeEvaluationError("sealed prediction freeze payload fields are invalid")
+    records = payload.get("records")
+    if not isinstance(records, list):
+        raise OutcomeEvaluationError("sealed prediction freeze records are invalid")
+    try:
+        rebuilt = build_prediction_freeze(
+            records,
+            expected_activity_ids=tuple(expected),
+            expected_outer_folds=tuple(expected.values()),
+            provenance=payload.get("provenance"),
+        )
+    except PredictionFreezeError as exc:
+        raise OutcomeEvaluationError("sealed prediction freeze failed downstream validation") from exc
+    if (
+        rebuilt.canonical_bytes != sealed_freeze.canonical_bytes
+        or rebuilt.sha256 != sealed_freeze.sha256
+        or rebuilt.row_count != sealed_freeze.row_count
+        or rebuilt.fold_counts != sealed_freeze.fold_counts
+    ):
+        raise OutcomeEvaluationError("sealed prediction freeze metadata is inconsistent")
+    if rebuilt.row_count != len(expected):
+        raise OutcomeEvaluationError("sealed prediction freeze universe is incomplete")
+    return payload, expected
+
+
+def _retention_sets_from_records(records: Sequence[Mapping[str, Any]]) -> tuple[RetentionSet, ...]:
+    retention_sets: list[RetentionSet] = []
+    for method in _UNCERTAINTY_FIELDS:
+        for coverage in C.COVERAGE_LEVELS:
+            retained_ids = tuple(
+                record["activity_id"]
+                for record in records
+                if float(coverage) in record["retained_coverages"][method]
+            )
+            counts = tuple(
+                (
+                    fold,
+                    sum(
+                        record["outer_fold"] == fold
+                        and float(coverage) in record["retained_coverages"][method]
+                        for record in records
+                    ),
+                )
+                for fold in range(1, C.N_FOLDS + 1)
+            )
+            expected_counts = tuple(
+                (
+                    fold,
+                    math.ceil(
+                        float(coverage)
+                        * sum(record["outer_fold"] == fold for record in records)
+                    ),
+                )
+                for fold in range(1, C.N_FOLDS + 1)
+            )
+            if counts != expected_counts or len(retained_ids) != sum(count for _, count in counts):
+                raise OutcomeEvaluationError("frozen retention metadata violates the ceil rule")
+            retention_sets.append(
+                RetentionSet(
+                    method=method,
+                    coverage=float(coverage),
+                    retained_ids=retained_ids,
+                    retained_counts_by_fold=counts,
+                )
+            )
+    return tuple(retention_sets)
+
+
+def _plan_random_retention(
+    records: Sequence[Mapping[str, Any]],
+    qrf80: RetentionSet,
+) -> tuple[tuple[Any, ...], ...]:
+    """Use the hardened random-ranking primitive on ID-independent integer tokens."""
+
+    if C.N_RANDOM_DEFERRALS != 10_000 or C.MASTER_SEED != 20260923:
+        raise OutcomeEvaluationError("matched-random draw count or seed differs from the SAP")
+    fold_tokens: dict[int, list[int]] = {}
+    id_by_token: dict[int, Any] = {}
+    for token, record in enumerate(records):
+        fold = int(record["outer_fold"])
+        fold_tokens.setdefault(fold, []).append(token)
+        id_by_token[token] = record["activity_id"]
+    samples = matched_random_rankings(
+        fold_tokens,
+        n_random=10_000,
+        seed=20260923,
+        coverage=C.PRIMARY_COVERAGE,
+    )
+    expected_counts = dict(qrf80.retained_counts_by_fold)
+    draws: list[tuple[Any, ...]] = []
+    for draw_index in range(10_000):
+        pooled: list[Any] = []
+        for fold in range(1, C.N_FOLDS + 1):
+            selected_tokens = sorted(int(token) for token in samples[fold][draw_index])
+            if len(selected_tokens) != expected_counts[fold]:
+                raise OutcomeEvaluationError("matched-random fold count differs from QRF80")
+            pooled.extend(id_by_token[token] for token in selected_tokens)
+        draws.append(tuple(pooled))
+    return tuple(draws)
+
+
+def prepare_postfreeze_plan(
+    sealed_freeze: SealedPredictionFreeze,
+    *,
+    expected_id_to_fold: Mapping[Any, int],
+) -> PostFreezePlan:
+    """Freeze deterministic and matched-random retention IDs before outcome access."""
+
+    payload, expected = _validated_sealed_payload(sealed_freeze, expected_id_to_fold)
+    records = payload["records"]
+    retention_sets = _retention_sets_from_records(records)
+    qrf80 = next(
+        item
+        for item in retention_sets
+        if item.method == "qrf_width" and item.coverage == C.PRIMARY_COVERAGE
+    )
+    random_draws = _plan_random_retention(records, qrf80)
+    return PostFreezePlan(
+        sealed_freeze=sealed_freeze,
+        freeze_sha256=sealed_freeze.sha256,
+        expected_id_to_fold=tuple(expected.items()),
+        retention_sets=retention_sets,
+        random_retained_ids_by_draw=random_draws,
+        random_retained_counts_by_fold=qrf80.retained_counts_by_fold,
+        random_draw_count=10_000,
+        random_seed=20260923,
+    )
+
+
+def _validate_postfreeze_plan(plan: PostFreezePlan) -> tuple[dict[str, Any], dict[Any, int]]:
+    if not isinstance(plan, PostFreezePlan):
+        raise OutcomeEvaluationError("outcome evaluation requires an outcome-blind post-freeze plan")
+    payload, expected = _validated_sealed_payload(
+        plan.sealed_freeze, dict(plan.expected_id_to_fold)
+    )
+    if plan.freeze_sha256 != plan.sealed_freeze.sha256:
+        raise OutcomeEvaluationError("post-freeze plan does not match the verified freeze hash")
+    expected_retention = _retention_sets_from_records(payload["records"])
+    if plan.retention_sets != expected_retention:
+        raise OutcomeEvaluationError("post-freeze retention IDs differ from frozen metadata")
+    if (
+        plan.random_draw_count != 10_000
+        or plan.random_seed != 20260923
+        or len(plan.random_retained_ids_by_draw) != 10_000
+    ):
+        raise OutcomeEvaluationError("post-freeze random plan differs from the SAP")
+    expected_qrf80 = next(
+        item
+        for item in expected_retention
+        if item.method == "qrf_width" and item.coverage == C.PRIMARY_COVERAGE
+    )
+    expected_counts = dict(expected_qrf80.retained_counts_by_fold)
+    if dict(plan.random_retained_counts_by_fold) != expected_counts:
+        raise OutcomeEvaluationError("random plan counts do not match QRF80")
+    expected_random_draws = _plan_random_retention(payload["records"], expected_qrf80)
+    if plan.random_retained_ids_by_draw != expected_random_draws:
+        raise OutcomeEvaluationError(
+            "post-freeze random plan does not match the canonical seeded draw stream"
+        )
+    return payload, expected
+
+
+# --------------------------------------------------------------------------- Ticket 3 outcome attachment/evaluation
+def _outcome_rows(outcomes: Any) -> list[Mapping[str, Any]]:
+    if isinstance(outcomes, pd.DataFrame):
+        return outcomes.to_dict(orient="records")
+    if isinstance(outcomes, Mapping):
+        if "activity_id" in outcomes:
+            return [outcomes]
+        rows: list[Mapping[str, Any]] = []
+        for activity_id, value in outcomes.items():
+            if isinstance(value, Mapping):
+                row = dict(value)
+                supplied_id = row.setdefault("activity_id", activity_id)
+                if supplied_id != activity_id:
+                    raise OutcomeEvaluationError("outcome mapping key and activity_id disagree")
+                rows.append(row)
+            else:
+                rows.append({"activity_id": activity_id, "observed_y": value})
+        return rows
+    if isinstance(outcomes, (str, bytes)):
+        raise OutcomeEvaluationError("outcomes must be ID-keyed records")
+    try:
+        rows = list(outcomes)
+    except TypeError as exc:
+        raise OutcomeEvaluationError("outcomes must be ID-keyed records") from exc
+    if any(not isinstance(row, Mapping) for row in rows):
+        raise OutcomeEvaluationError("each outcome row must be a mapping")
+    return rows
+
+
+def _align_outcomes_by_activity_id(
+    outcomes: Any,
+    expected_id_to_fold: Mapping[Any, int],
+) -> dict[Any, float]:
+    rows = _outcome_rows(outcomes)
+    observed_by_id: dict[Any, float] = {}
+    for row in rows:
+        if "activity_id" not in row:
+            raise OutcomeEvaluationError("outcome row is missing activity_id")
+        activity_id = row["activity_id"]
+        if isinstance(activity_id, np.integer):
+            activity_id = int(activity_id)
+        if isinstance(activity_id, bool) or not isinstance(activity_id, (int, str)):
+            raise OutcomeEvaluationError("outcome activity_id must be an integer or string")
+        if activity_id in observed_by_id:
+            raise OutcomeEvaluationError("duplicate outcome activity_id")
+        outcome_fields = [field for field in ("observed_y", "y_test") if field in row]
+        if len(outcome_fields) != 1:
+            raise OutcomeEvaluationError("outcome row must contain exactly one observed value")
+        if "outer_fold" in row:
+            supplied_fold = row["outer_fold"]
+            if (
+                activity_id in expected_id_to_fold
+                and (
+                    isinstance(supplied_fold, bool)
+                    or not isinstance(supplied_fold, (int, np.integer))
+                    or int(supplied_fold) != expected_id_to_fold[activity_id]
+                )
+            ):
+                raise OutcomeEvaluationError("outcome outer_fold differs from the sealed freeze")
+        try:
+            observed = float(row[outcome_fields[0]])
+        except (TypeError, ValueError) as exc:
+            raise OutcomeEvaluationError("outcome values must be numeric") from exc
+        if not math.isfinite(observed):
+            raise OutcomeEvaluationError("outcome values must be finite")
+        observed_by_id[activity_id] = observed
+    expected_ids = set(expected_id_to_fold)
+    actual_ids = set(observed_by_id)
+    if actual_ids != expected_ids:
+        missing = expected_ids - actual_ids
+        detail = "missing" if missing else "extra"
+        raise OutcomeEvaluationError(f"outcome ID universe has {detail} activity IDs")
+    return observed_by_id
+
+
+def evaluate_postfreeze(
+    plan: PostFreezePlan,
+    outcomes: Any,
+) -> Ticket3EvaluationResult:
+    """Attach ID-keyed outcomes and compute only the frozen Ticket 3 point analyses."""
+
+    # Full seal/plan validation deliberately precedes even iteration over outcomes.
+    payload, expected = _validate_postfreeze_plan(plan)
+    observed_by_id = _align_outcomes_by_activity_id(outcomes, expected)
+    prediction_by_id = {
+        record["activity_id"]: float(record["rf_prediction"])
+        for record in payload["records"]
+    }
+
+    curves: list[CoverageCurveResult] = []
+    for method in _UNCERTAINTY_FIELDS:
+        points: list[CoveragePointResult] = []
+        for coverage in C.COVERAGE_LEVELS:
+            retention = plan.retention(method, coverage)
+            retained_ids = retention.retained_ids
+            y_true = np.asarray([observed_by_id[activity_id] for activity_id in retained_ids])
+            y_pred = np.asarray([prediction_by_id[activity_id] for activity_id in retained_ids])
+            points.append(
+                CoveragePointResult(
+                    coverage=float(coverage),
+                    retained_n=len(retained_ids),
+                    deferred_n=len(expected) - len(retained_ids),
+                    pooled_rmse=rmse(y_true, y_pred),
+                    pooled_mae=mae(y_true, y_pred),
+                    retained_ids=retained_ids,
+                    retained_counts_by_fold=retention.retained_counts_by_fold,
+                )
+            )
+        curves.append(
+            CoverageCurveResult(
+                method=method,
+                role="PRIMARY" if method == "qrf_width" else "SECONDARY",
+                points=tuple(points),
+                naurc=trapezoidal_naurc(
+                    np.asarray([point.coverage for point in points]),
+                    np.asarray([point.pooled_rmse for point in points]),
+                ),
+            )
+        )
+
+    random_draws = np.empty(plan.random_draw_count, dtype=np.float64)
+    for draw_index, retained_ids in enumerate(plan.random_retained_ids_by_draw):
+        y_true = np.asarray([observed_by_id[activity_id] for activity_id in retained_ids])
+        y_pred = np.asarray([prediction_by_id[activity_id] for activity_id in retained_ids])
+        random_draws[draw_index] = rmse(y_true, y_pred)
+    random_mean = float(random_draws.mean())
+    random_mcse = float(random_draws.std(ddof=1) / np.sqrt(plan.random_draw_count))
+    random_result = MatchedRandomResult(
+        draw_count=plan.random_draw_count,
+        seed=plan.random_seed,
+        retained_counts_by_fold=plan.random_retained_counts_by_fold,
+        mean_rmse=random_mean,
+        monte_carlo_se=random_mcse,
+        rmse_draws=_immutable_array(random_draws),
+    )
+    qrf_curve = next(curve for curve in curves if curve.method == "qrf_width")
+    qrf80 = qrf_curve.at(C.PRIMARY_COVERAGE)
+    return Ticket3EvaluationResult(
+        freeze_sha256=plan.freeze_sha256,
+        primary_method="qrf_width",
+        primary_coverage=C.PRIMARY_COVERAGE,
+        coverage_curves=tuple(curves),
+        qrf80=qrf80,
+        matched_random80=random_result,
+        rel_benefit_80=rel_benefit_80(random_mean, qrf80.pooled_rmse),
+    )
+
+
+def classify_rel_benefit_80(
+    point_estimate: float,
+    ci_lower: float,
+    ci_upper: float,
+) -> str:
+    """Apply the frozen three-state rule to a future Ticket 4 bootstrap CI."""
+
+    try:
+        point = float(point_estimate)
+        lower = float(ci_lower)
+        upper = float(ci_upper)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("point estimate and confidence bounds must be numeric") from exc
+    if not all(math.isfinite(value) for value in (point, lower, upper)) or lower > upper:
+        raise ValueError("point estimate and ordered confidence bounds must be finite")
+    if point >= C.PRACTICAL_THRESHOLD and lower > 0.0:
+        return "SUPPORTED_OPERATIONAL_SIGNAL"
+    if upper < C.PRACTICAL_THRESHOLD:
+        return "EVIDENCE_BELOW_PRACTICAL_THRESHOLD"
+    return "INCONCLUSIVE"
