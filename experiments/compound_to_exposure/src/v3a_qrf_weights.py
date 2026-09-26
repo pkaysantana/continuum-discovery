@@ -637,42 +637,77 @@ def cqr_nonconformity_scores(y_calibration: np.ndarray, lower_quantiles: np.ndar
 
 
 def conformal_correction(scores: np.ndarray, alpha: float) -> float:
-    """Return a finite, nonnegative conservative split-conformal correction."""
+    """Return the amendment-defined signed split-conformal order statistic.
+
+    The rank is ``ceil((n_cal + 1) * (1 - alpha))``.  It is deliberately not
+    expressed as a probability quantile: if the rank exceeds ``n_cal`` the
+    correction is positive infinity, and otherwise the exact kth smallest
+    signed score is returned.  In particular, negative corrections are valid.
+    """
     scores = np.asarray(scores, dtype=np.float64).reshape(-1)
     if scores.size == 0 or not np.isfinite(scores).all() or not 0.0 < alpha < 1.0:
         raise ValueError("finite nonempty scores and alpha in (0, 1) are required")
-    level = min(1.0, ceil((scores.size + 1) * (1.0 - alpha)) / scores.size)
-    return max(0.0, float(np.quantile(scores, level, method="higher")))
+    k = ceil((scores.size + 1) * (1.0 - alpha))
+    if k > scores.size:
+        return float("inf")
+    return float(np.sort(scores)[k - 1])
 
 
 def apply_conformal_correction(lower_quantiles: np.ndarray, upper_quantiles: np.ndarray,
                                correction: float):
-    """Apply a fold-constant CQR correction without changing within-fold ranking."""
+    """Return raw corrected endpoints, preserving amendment-defined empty sets.
+
+    A finite negative correction may make ``A = lower - qhat`` exceed
+    ``B = upper + qhat``.  Those endpoints are intentionally returned in that
+    order; callers interpret them as an empty prediction set.  Positive
+    infinity produces ``[-inf, +inf]``.
+    """
     lower_quantiles = np.asarray(lower_quantiles, dtype=np.float64)
     upper_quantiles = np.asarray(upper_quantiles, dtype=np.float64)
     if lower_quantiles.shape != upper_quantiles.shape or lower_quantiles.ndim != 1:
         raise ValueError("lower and upper quantiles must be aligned one-dimensional arrays")
-    if not np.isfinite(correction) or correction < 0.0:
-        raise ValueError("conformal correction must be finite and nonnegative")
+    if not np.isfinite(lower_quantiles).all() or not np.isfinite(upper_quantiles).all():
+        raise ValueError("base quantile endpoints must be finite")
+    if (lower_quantiles > upper_quantiles).any():
+        raise ValueError("base lower quantiles must not exceed base upper quantiles")
+    if np.isnan(correction) or correction == float("-inf"):
+        raise ValueError("conformal correction must be finite or positive infinity")
     calibrated_lower = lower_quantiles - correction
     calibrated_upper = upper_quantiles + correction
-    if (calibrated_lower > calibrated_upper).any():
-        raise ValueError("conformal correction produces inverted intervals")
     return calibrated_lower, calibrated_upper
 
 
 def interval_calibration_summary(y_true: np.ndarray, lower: np.ndarray,
                                  upper: np.ndarray) -> dict:
-    """Return empirical marginal coverage and mean/median interval width."""
-    y_true, lower = _metric_arrays(y_true, lower)
-    _, upper = _metric_arrays(y_true, upper)
-    if (lower > upper).any():
-        raise ValueError("lower interval bounds must not exceed upper bounds")
-    widths = upper - lower
+    """Summarise ordinary, empty, and infinite amendment-defined CQR sets."""
+    y_true = np.asarray(y_true, dtype=np.float64).reshape(-1)
+    lower = np.asarray(lower, dtype=np.float64).reshape(-1)
+    upper = np.asarray(upper, dtype=np.float64).reshape(-1)
+    if y_true.size == 0 or not (y_true.shape == lower.shape == upper.shape):
+        raise ValueError("interval inputs must be nonempty and aligned")
+    if not np.isfinite(y_true).all() or np.isnan(lower).any() or np.isnan(upper).any():
+        raise ValueError("outcomes must be finite and interval endpoints must not be NaN")
+    empty = lower > upper
+    infinite = np.isneginf(lower) & np.isposinf(upper)
+    unsupported_infinite = (~np.isfinite(lower) | ~np.isfinite(upper)) & ~infinite
+    if unsupported_infinite.any():
+        raise ValueError("infinite CQR sets must have endpoints [-infinity, +infinity]")
+    ordinary = ~empty & ~infinite
+    covered = (~empty) & (y_true >= lower) & (y_true <= upper)
+    raw_spans = upper - lower
+    widths = np.maximum(0.0, raw_spans)
     return {
-        "empirical_marginal_coverage": float(np.mean((y_true >= lower) & (y_true <= upper))),
+        "empirical_marginal_coverage": float(np.mean(covered)),
+        "n_evaluated": int(y_true.size),
+        "ordinary_finite_interval_count": int(np.sum(ordinary)),
+        "empty_set_count": int(np.sum(empty)),
+        "infinite_set_count": int(np.sum(infinite)),
         "mean_interval_width": float(np.mean(widths)),
         "median_interval_width": float(np.median(widths)),
+        "covered": covered,
+        "empty_set": empty,
+        "reported_width": widths,
+        "raw_corrected_span": raw_spans,
     }
 
 

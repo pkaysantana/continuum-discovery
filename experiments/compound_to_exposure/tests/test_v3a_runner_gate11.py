@@ -1,4 +1,4 @@
-"""Synthetic Gate 11 acceptance coverage for the v3A Ticket 1/2/3 runner.
+"""Synthetic Gate 11 acceptance coverage for the v3A Ticket 1/2/3/4 runner.
 
 Only synthetic models and outcomes are used.  The real CHEMBL3301370 outcomes
 are never supplied to the runner.
@@ -1261,14 +1261,12 @@ class TestTicket2SealExpectedUniverse:
 
 
 def test_ticket3_scope_excludes_later_analysis_stages():
-    source_path = PROJECT_ROOT / "src" / "v3a_runner.py"
-    tree = ast.parse(source_path.read_text(encoding="utf-8"))
     imported_or_called = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.ImportFrom) and node.module == "src.v3a_qrf_weights":
-            imported_or_called.update(alias.name for alias in node.names)
-        elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
-            imported_or_called.add(node.func.id)
+    for function in (prepare_postfreeze_plan, evaluate_postfreeze):
+        tree = ast.parse(inspect.getsource(function))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                imported_or_called.add(node.func.id)
     prohibited = {
         "matched_random_retention_rmse",
         "scaffold_bootstrap_indices",
@@ -1827,3 +1825,515 @@ class TestTicket3ThreeStateClassifier:
         )
         with pytest.raises(TypeError):
             classify_rel_benefit_80(0.10, 0.01, 0.20, p_value=0.001)
+
+
+# =========================================================================== Ticket 4
+def _ticket4_records():
+    rows = []
+    for fold in (1, 2):
+        for scaffold_number in (1, 2):
+            for within in (0, 1):
+                activity_id = fold * 100 + scaffold_number * 10 + within
+                rows.append(
+                    {
+                        "activity_id": activity_id,
+                        "outer_fold": fold,
+                        "scaffold_key": f"F{fold}S{scaffold_number}",
+                        "rf_prediction": float(within),
+                        "qrf_width": float(scaffold_number + within / 10),
+                        "observed_y": float(within + scaffold_number),
+                        "observed_clint": 25.0 if within == 0 else 30.0,
+                        "standard_relation": None,
+                    }
+                )
+    return rows
+
+
+class TestTicket4PrimaryBootstrap:
+    def test_scaffold_fold_multiplicity_and_exact_k_star(self):
+        records = _ticket4_records()
+        plans = runner.primary_bootstrap_plan(records, n_bootstrap=12, n_random=3, seed=20260923)
+        assert len(plans) == 12
+        saw_duplicate = False
+        for plan in plans:
+            occurrences = plan["occurrences"]
+            for fold, n_candidates in plan["candidate_counts"]:
+                assert dict(plan["retained_counts"])[fold] == math.ceil(0.8 * n_candidates)
+                assert all(item["outer_fold"] == fold for item in occurrences if item["outer_fold"] == fold)
+            ids = [item["activity_id"] for item in occurrences]
+            saw_duplicate |= len(ids) != len(set(ids))
+            for draw in plan["random_draws"]:
+                assert len(draw) == sum(count for _, count in plan["retained_counts"])
+                assert len(set(draw)) == len(draw)
+        assert saw_duplicate
+
+    def test_occurrence_identity_and_plan_are_shuffle_invariant(self):
+        records = _ticket4_records()
+        shuffled = list(reversed(records))
+        first = runner.primary_bootstrap_plan(records, n_bootstrap=4, n_random=5)
+        second = runner.primary_bootstrap_plan(shuffled, n_bootstrap=4, n_random=5)
+        assert first == second
+        identities = [
+            item["occurrence_id"] for replicate in first for item in replicate["occurrences"]
+        ]
+        assert len(identities) == len(set(identities))
+
+    def test_test_y_cannot_change_bootstrap_draws(self):
+        records = _ticket4_records()
+        altered = [dict(row, observed_y=10_000.0 - row["observed_y"]) for row in records]
+        plan_a = runner.primary_bootstrap_plan(records, n_bootstrap=3, n_random=7)
+        plan_b = runner.primary_bootstrap_plan(altered, n_bootstrap=3, n_random=7)
+        assert plan_a == plan_b
+
+    def test_reselection_uses_occurrences_not_original_mask(self):
+        records = _ticket4_records()
+        plan = runner.primary_bootstrap_plan(records, n_bootstrap=8, n_random=2)
+        replicate = next(
+            item for item in plan
+            if len({occ["activity_id"] for occ in item["occurrences"]})
+            < len(item["occurrences"])
+        )
+        retained_ids = [
+            replicate["occurrences"][index]["activity_id"]
+            for index in replicate["qrf_selected"]
+        ]
+        assert len(retained_ids) == sum(count for _, count in replicate["retained_counts"])
+        assert len(retained_ids) > len(set(retained_ids)) or any(
+            retained_ids.count(item) < [o["activity_id"] for o in replicate["occurrences"]].count(item)
+            for item in set(retained_ids)
+        )
+
+    def test_nested_rng_provenance_and_literal_metrics(self):
+        records = _ticket4_records()
+        plan = runner.primary_bootstrap_plan(records, n_bootstrap=4, n_random=6)
+        result = runner.evaluate_primary_bootstrap_plan(records, plan, n_random=6)
+        repeat = runner.run_primary_bootstrap(records, n_bootstrap=4, n_random=6)
+        assert result == repeat
+        assert result.nested_rng_provenance == (
+            "SeedSequence([20260923,b])->uint32->RandomState->permutation"
+        )
+        expected_seed = int(
+            np.random.SeedSequence([20260923, 0]).generate_state(1, dtype=np.uint32)[0]
+        )
+        assert plan[0]["nested_seed"] == expected_seed
+        for replicate in result.replicates:
+            assert replicate.rel_benefit_80 == pytest.approx(
+                (replicate.rmse_random80 - replicate.rmse_qrf80)
+                / replicate.rmse_random80
+            )
+        values = np.array([replicate.rel_benefit_80 for replicate in result.replicates])
+        assert (result.ci_lower, result.ci_upper) == pytest.approx(
+            np.percentile(values, [2.5, 97.5], method="linear")
+        )
+
+    def test_duplicate_occurrences_contribute_to_rmse(self):
+        records = _ticket4_records()
+        plan = runner.primary_bootstrap_plan(records, n_bootstrap=10, n_random=2)
+        result = runner.evaluate_primary_bootstrap_plan(records, plan, n_random=2)
+        replicate_index = next(
+            index for index, item in enumerate(plan)
+            if len({occ["activity_id"] for occ in item["occurrences"]})
+            < len(item["occurrences"])
+        )
+        replicate_plan = plan[replicate_index]
+        by_id = {row["activity_id"]: row for row in records}
+        errors = []
+        for index in replicate_plan["qrf_selected"]:
+            activity_id = replicate_plan["occurrences"][index]["activity_id"]
+            row = by_id[activity_id]
+            errors.append((row["observed_y"] - row["rf_prediction"]) ** 2)
+        assert result.replicates[replicate_index].rmse_qrf80 == pytest.approx(
+            np.sqrt(np.mean(errors))
+        )
+
+    def test_production_constants_and_classifier_wiring(self):
+        assert C.N_BOOTSTRAP == 10_000
+        assert C.N_RANDOM_DEFERRALS == 10_000
+        assert C.MASTER_SEED == 20260923
+        bootstrap = runner.run_primary_bootstrap(
+            _ticket4_records(), n_bootstrap=4, n_random=3
+        )
+        inference = runner.primary_inference(0.11, bootstrap)
+        assert inference.classification == classify_rel_benefit_80(
+            0.11, bootstrap.ci_lower, bootstrap.ci_upper
+        )
+        source = inspect.getsource(runner.run_primary_bootstrap)
+        assert ".fit(" not in source
+        assert "qrf_prediction_quantiles" not in source
+
+
+class _SyntheticCQRModel:
+    def __init__(self, heldout_fold, calls):
+        self.heldout_fold = heldout_fold
+        self.calls = calls
+
+    def predict_intervals(self, query_rows, quantile_pairs):
+        assert all("observed_y" not in row and "observed_clint" not in row for row in query_rows)
+        self.calls.append(tuple(row["activity_id"] for row in query_rows))
+        output = {}
+        for nominal, _, _ in quantile_pairs:
+            lower = []
+            upper = []
+            for row in query_rows:
+                half_width = 0.05 if row["outer_fold"] == self.heldout_fold else 0.20
+                lower.append(-half_width)
+                upper.append(half_width)
+            output[nominal] = (np.asarray(lower), np.asarray(upper))
+        return output
+
+
+class _SyntheticCQRFactory:
+    def __init__(self):
+        self.fit_ids = []
+        self.predict_calls = []
+
+    def __call__(self, proper_rows):
+        folds = {row["outer_fold"] for row in proper_rows}
+        assert len(folds) == 1
+        heldout_fold = ({1, 2} - folds).pop()
+        self.fit_ids.append(tuple(row["activity_id"] for row in proper_rows))
+        return _SyntheticCQRModel(heldout_fold, self.predict_calls)
+
+
+def _cqr_records():
+    return [
+        {
+            "activity_id": fold * 1000 + index,
+            "outer_fold": fold,
+            "scaffold_key": f"F{fold}_S{index:02d}",
+            "rf_prediction": 0.0,
+            "qrf_width": 0.1 + index / 1000,
+            "observed_y": 0.0,
+        }
+        for fold in (1, 2)
+        for index in range(25)
+    ]
+
+
+class TestTicket4CQR:
+    def test_split_fit_leakage_levels_and_reporting(self):
+        records = _cqr_records()
+        factory = _SyntheticCQRFactory()
+        result = runner.evaluate_cqr(records, factory)
+        assert C.CQR_SPLIT_SALT_SUFFIX == "_V3A_CQR_20260923"
+        assert tuple(item.nominal_coverage for item in result.coverages) == (0.80, 0.90, 0.95)
+        assert result.base_intervals == (
+            (0.80, 0.10, 0.90), (0.90, 0.05, 0.95), (0.95, 0.025, 0.975)
+        )
+        assert result.role == "SECONDARY_CALIBRATION_ONLY"
+        assert result.marginal_label == "EMPIRICAL_MARGINAL_COVERAGE"
+        assert result.canonical_triage_ranking == "ORIGINAL_FROZEN_QRF_WIDTH"
+        assert len(factory.fit_ids) == 2
+        for fold, fit_ids in zip((1, 2), factory.fit_ids):
+            assert all(activity_id // 1000 != fold for activity_id in fit_ids)
+        for metadata in result.fold_metadata:
+            assert metadata.n_proper + metadata.n_cal == 25
+            assert metadata.n_cal == 5
+            assert metadata.split_salt.startswith("_")
+
+    def test_negative_qhat_empty_sets_and_infinite_sets(self):
+        result = runner.evaluate_cqr(_cqr_records(), _SyntheticCQRFactory())
+        finite = [item for item in result.fold_metadata if item.nominal_coverage == 0.80]
+        assert all(item.qhat == pytest.approx(-0.2) for item in finite)
+        eighty = result.at(0.80)
+        assert eighty.empty_set_count == eighty.n_evaluated
+        assert eighty.empirical_marginal_coverage == 0.0
+        assert eighty.mean_final_set_width == 0.0
+        assert all(row.raw_lower_endpoint > row.raw_upper_endpoint for row in eighty.rows)
+        assert all(row.raw_corrected_span < 0.0 and not row.covered for row in eighty.rows)
+        for nominal in (0.90, 0.95):
+            coverage = result.at(nominal)
+            assert coverage.infinite_set_count == coverage.n_evaluated
+            assert coverage.empirical_marginal_coverage == 1.0
+            assert np.isposinf(coverage.mean_final_set_width)
+
+    def test_qhat_is_fold_coverage_constant_and_primary_rank_unchanged(self):
+        records = _cqr_records()
+        original_order = {
+            fold: [row["activity_id"] for row in sorted(
+                (row for row in records if row["outer_fold"] == fold),
+                key=lambda row: row["qrf_width"],
+            )]
+            for fold in (1, 2)
+        }
+        result = runner.evaluate_cqr(records, _SyntheticCQRFactory())
+        assert result.canonical_triage_ranking == "ORIGINAL_FROZEN_QRF_WIDTH"
+        assert original_order == {
+            fold: [row["activity_id"] for row in sorted(
+                (row for row in records if row["outer_fold"] == fold),
+                key=lambda row: row["qrf_width"],
+            )]
+            for fold in (1, 2)
+        }
+        assert len({(m.outer_fold, m.nominal_coverage, m.qhat) for m in result.fold_metadata}) == 6
+
+
+def _oracle_scaffold_folds(records):
+    """Independent test oracle implementing the frozen SAP greedy allocator."""
+    counts = {}
+    for row in records:
+        scaffold = row["scaffold_key"]
+        counts[scaffold] = counts.get(scaffold, 0) + 1
+    ordered = sorted(
+        counts,
+        key=lambda scaffold: (
+            -counts[scaffold],
+            hashlib.sha256((scaffold + "_V3A_20260923").encode("utf-8")).hexdigest(),
+        ),
+    )
+    sizes = {fold: 0 for fold in range(1, 6)}
+    assignment = {}
+    for scaffold in ordered:
+        fold = min(sizes, key=lambda candidate: (sizes[candidate], candidate))
+        assignment[scaffold] = fold
+        sizes[fold] += counts[scaffold]
+    return assignment
+
+
+def _sensitivity_a_synthetic_inputs():
+    records = []
+    for scaffold_index, scaffold in enumerate(("A", "B", "C", "D", "E")):
+        for within in (0, 1):
+            activity_id = 100 + scaffold_index * 10 + within
+            clint = 5.0 + scaffold_index * 8 + within
+            records.append(
+                {
+                    "activity_id": activity_id,
+                    "scaffold_key": scaffold,
+                    "observed_clint": clint,
+                    "observed_y": float(np.log10(clint)),
+                    "standard_relation": None,
+                    # Deliberately impossible primary-N744 artifacts.  A correct
+                    # Sensitivity A implementation must ignore all four fields.
+                    "outer_fold": 99,
+                    "rf_prediction": 900.0 + activity_id,
+                    "qrf_width": 700.0 + activity_id,
+                    "primary_retained": True,
+                }
+            )
+    for offset in range(4):
+        records.append(
+            {
+                "activity_id": 900 + offset,
+                "scaffold_key": "BOUNDARY",
+                "observed_clint": 3.0,
+                "observed_y": float(np.log10(3.0)),
+                "standard_relation": None,
+                "outer_fold": 99,
+                "rf_prediction": -999.0,
+                "qrf_width": 999.0,
+                "primary_retained": False,
+            }
+        )
+    primary_assignment = _oracle_scaffold_folds(records)
+    for row in records:
+        row["outer_fold"] = primary_assignment[row["scaffold_key"]]
+
+    features = np.zeros((len(records), C.MORGAN_SPEC["nBits"]), dtype=np.uint8)
+    descriptors = np.empty((len(records), len(C.DESCRIPTOR_PANEL)), dtype=np.float64)
+    for position, row in enumerate(records):
+        features[position, (position * 17 + 3) % features.shape[1]] = 1
+        features[position, (position * 29 + 11) % features.shape[1]] = 1
+        descriptors[position] = np.arange(len(C.DESCRIPTOR_PANEL), dtype=float) + position / 10
+    provenance = {
+        "protocol_version": C.PROTOCOL_VERSION,
+        "protocol_path": SAP_RELATIVE.as_posix(),
+        **{field: "0" * 64 for field in runner._HASH_PROVENANCE_FIELDS},
+    }
+    return records, features, descriptors, provenance
+
+
+@pytest.fixture(scope="module")
+def sensitivity_a_end_to_end():
+    records, features, descriptors, provenance = _sensitivity_a_synthetic_inputs()
+    records_before = json.dumps(records, sort_keys=True)
+    features_before = features.tobytes()
+    descriptors_before = descriptors.tobytes()
+    primary_freeze_like = {
+        "sha256": hashlib.sha256(records_before.encode("utf-8")).hexdigest(),
+        "plan": tuple((row["activity_id"], row["outer_fold"], row["qrf_width"]) for row in records),
+    }
+    result = runner.evaluate_sensitivity_a(
+        records,
+        features,
+        descriptors,
+        provenance=provenance,
+        n_bootstrap=3,
+        n_random=4,
+    )
+    permutation = list(reversed(range(len(records))))
+    shuffled = runner.evaluate_sensitivity_a(
+        [records[index] for index in permutation],
+        features[permutation],
+        descriptors[permutation],
+        provenance=provenance,
+        n_bootstrap=3,
+        n_random=4,
+    )
+    return {
+        "records": records,
+        "features": features,
+        "descriptors": descriptors,
+        "provenance": provenance,
+        "result": result,
+        "shuffled": shuffled,
+        "records_before": records_before,
+        "features_before": features_before,
+        "descriptors_before": descriptors_before,
+        "primary_freeze_like": primary_freeze_like,
+    }
+
+
+class TestTicket4Sensitivities:
+    def test_sensitivity_a_strict_boundaries_and_censoring(self):
+        template = _ticket4_records()[0]
+        rows = [
+            dict(template, activity_id=1, observed_clint=2.9, standard_relation=None),
+            dict(template, activity_id=2, observed_clint=3.0, standard_relation=None),
+            dict(template, activity_id=3, observed_clint=3.0001, standard_relation=None),
+            dict(template, activity_id=4, observed_clint=25.0, standard_relation=None),
+            dict(template, activity_id=5, observed_clint=149.999, standard_relation=None),
+            dict(template, activity_id=6, observed_clint=150.0, standard_relation=None),
+            dict(template, activity_id=7, observed_clint=151.0, standard_relation=None),
+            dict(template, activity_id=8, observed_clint=25.0, standard_relation="<"),
+            dict(template, activity_id=9, observed_clint=25.0, standard_relation=">"),
+        ]
+        selected = runner.strict_interior_sensitivity_rows(rows)
+        assert [row["activity_id"] for row in selected] == [3, 4, 5]
+
+    def test_sensitivity_a_recomputes_own_folds_from_independent_oracle(
+        self, sensitivity_a_end_to_end
+    ):
+        bundle = sensitivity_a_end_to_end
+        strict = [row for row in bundle["records"] if 3.0 < row["observed_clint"] < 150.0]
+        expected_scaffold_folds = _oracle_scaffold_folds(strict)
+        result = bundle["result"]
+        actual_by_id = dict(result.provenance["fold_assignment"])
+        expected_by_id = {
+            row["activity_id"]: expected_scaffold_folds[row["scaffold_key"]]
+            for row in strict
+        }
+        primary_by_id = {row["activity_id"]: row["outer_fold"] for row in strict}
+        assert actual_by_id == expected_by_id
+        assert actual_by_id != primary_by_id
+        for fit in result.provenance["fold_fits"]:
+            assert set(fit["train_ids"]).isdisjoint(fit["test_ids"])
+            train_scaffolds = {
+                row["scaffold_key"] for row in strict if row["activity_id"] in fit["train_ids"]
+            }
+            test_scaffolds = {
+                row["scaffold_key"] for row in strict if row["activity_id"] in fit["test_ids"]
+            }
+            assert train_scaffolds.isdisjoint(test_scaffolds)
+
+    def test_sensitivity_a_new_fit_and_uncertainty_match_independent_fold_oracle(
+        self, sensitivity_a_end_to_end
+    ):
+        bundle = sensitivity_a_end_to_end
+        result = bundle["result"]
+        records = bundle["records"]
+        features = bundle["features"]
+        strict = [row for row in records if 3.0 < row["observed_clint"] < 150.0]
+        expected_assignment = _oracle_scaffold_folds(strict)
+        canonical_ids = sorted(
+            (row["activity_id"] for row in strict),
+            key=lambda activity_id: (
+                hashlib.sha256((str(activity_id) + C.RETENTION_TIE_SUFFIX).encode()).hexdigest(),
+                json.dumps(activity_id, sort_keys=True),
+            ),
+        )
+        row_by_id = {row["activity_id"]: row for row in records}
+        feature_by_id = {
+            row["activity_id"]: features[position]
+            for position, row in enumerate(records)
+        }
+        heldout_fold = 1
+        train_ids = [
+            activity_id for activity_id in canonical_ids
+            if expected_assignment[row_by_id[activity_id]["scaffold_key"]] != heldout_fold
+        ]
+        test_ids = [
+            activity_id for activity_id in canonical_ids
+            if expected_assignment[row_by_id[activity_id]["scaffold_key"]] == heldout_fold
+        ]
+        X_train = np.asarray([feature_by_id[item] for item in train_ids])
+        X_test = np.asarray([feature_by_id[item] for item in test_ids])
+        y_train = np.asarray([row_by_id[item]["observed_y"] for item in train_ids])
+        independent_rf = C.make_frozen_rf()
+        independent_rf.fit(X_train, y_train)
+        expected_predictions = independent_rf.predict(X_test)
+        weights = runner.recover_forest_weights_many(
+            independent_rf, X_train, X_test, sample_weight_used=False
+        )
+        expected_widths = np.asarray([
+            runner.weighted_quantile(y_train, row_weights, 0.90)
+            - runner.weighted_quantile(y_train, row_weights, 0.10)
+            for row_weights in weights
+        ])
+        actual = {row["activity_id"]: row for row in result.oof_records}
+        assert np.asarray([actual[item]["rf_prediction"] for item in test_ids]) == pytest.approx(
+            expected_predictions
+        )
+        assert np.asarray([actual[item]["qrf_width"] for item in test_ids]) == pytest.approx(
+            expected_widths
+        )
+        assert all(actual[item]["rf_prediction"] != row_by_id[item]["rf_prediction"] for item in test_ids)
+        assert all(actual[item]["qrf_width"] != row_by_id[item]["qrf_width"] for item in test_ids)
+
+    def test_sensitivity_a_architecture_representation_order_and_primary_isolation(
+        self, sensitivity_a_end_to_end
+    ):
+        bundle = sensitivity_a_end_to_end
+        result = bundle["result"]
+        assert result.name == "SENSITIVITY_A_STRICT_INTERIOR"
+        assert result.cohort_n == 10
+        assert "SEPARATE_FIVE_FOLD_ANALYSIS" in result.interpretation_labels
+        assert result.provenance["model_specification"] == dict(C.FROZEN_RF_PARAMS)
+        assert result.provenance["representation"] == "ECFP4_2048_R2_BINARY_NOCHIRAL"
+        assert json.dumps(bundle["records"], sort_keys=True) == bundle["records_before"]
+        assert bundle["features"].tobytes() == bundle["features_before"]
+        assert bundle["descriptors"].tobytes() == bundle["descriptors_before"]
+        assert bundle["primary_freeze_like"]["sha256"] == hashlib.sha256(
+            bundle["records_before"].encode("utf-8")
+        ).hexdigest()
+        first = sorted(
+            (row["activity_id"], row["outer_fold"], row["rf_prediction"], row["qrf_width"])
+            for row in result.oof_records
+        )
+        shuffled = sorted(
+            (row["activity_id"], row["outer_fold"], row["rf_prediction"], row["qrf_width"])
+            for row in bundle["shuffled"].oof_records
+        )
+        assert first == shuffled
+
+    def test_sensitivity_a_ranking_and_bootstrap_use_own_oof(self, sensitivity_a_end_to_end):
+        result = sensitivity_a_end_to_end["result"]
+        assert result.provenance["ranking_source"] == "SENSITIVITY_A_RECOMPUTED_QRF_WIDTH_FOLD_LOCAL"
+        assert result.provenance["bootstrap_source"] == "SENSITIVITY_A_OWN_OOF_RECORDS_AND_FOLDS"
+        independently_replayed = runner.run_primary_bootstrap(
+            result.oof_records, n_bootstrap=3, n_random=4
+        )
+        assert independently_replayed == result.bootstrap
+        fold_sizes = {}
+        for row in result.oof_records:
+            fold_sizes[row["outer_fold"]] = fold_sizes.get(row["outer_fold"], 0) + 1
+        assert dict(result.qrf80.retained_counts_by_fold) == {
+            fold: math.ceil(0.8 * count) for fold, count in fold_sizes.items()
+        }
+
+    def test_sensitivity_b_boundary_labels_reranking_and_no_classifier(self):
+        records = _ticket4_records()
+        records[0]["observed_clint"] = 24.999
+        records[1]["observed_clint"] = 25.0
+        before = json.dumps(records, sort_keys=True)
+        result = runner.evaluate_sensitivity_b(records, n_bootstrap=3, n_random=4)
+        assert result.cohort_n == 7
+        assert set(result.interpretation_labels) == {
+            "EXPLORATORY", "OUTCOME_DEFINED", "DIAGNOSTIC", "NONDEPLOYABLE"
+        }
+        assert 111 in result.qrf80.retained_ids
+        assert 110 not in result.qrf80.retained_ids
+        assert not hasattr(result, "classification")
+        assert result.matched_random80.draw_count == 4
+        assert result.bootstrap.nested_rng_provenance.endswith("b starts at 1")
+        assert json.dumps(records, sort_keys=True) == before

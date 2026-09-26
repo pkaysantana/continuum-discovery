@@ -674,14 +674,49 @@ class TestConformal:
         assert summary["mean_interval_width"] >= 0.0
         assert summary["median_interval_width"] >= 0.0
 
-    def test_negative_correction_cannot_shrink_intervals(self):
-        lower = np.array([1.0, 2.0])
-        upper = np.array([3.0, 4.0])
-        with pytest.raises(ValueError, match="nonnegative"):
-            apply_conformal_correction(lower, upper, -0.01)
+    def test_signed_scores_and_negative_correction_are_preserved(self):
+        scores = cqr_nonconformity_scores(
+            np.array([1.5, 2.5]),
+            np.array([1.0, 2.0]),
+            np.array([2.0, 3.0]),
+        )
+        assert np.array_equal(scores, np.array([-0.5, -0.5]))
+        qhat = conformal_correction(scores, alpha=0.50)
+        assert qhat == -0.5
+        corrected_lower, corrected_upper = apply_conformal_correction(
+            np.array([1.0]), np.array([2.0]), qhat
+        )
+        assert corrected_lower[0] == 1.5
+        assert corrected_upper[0] == 1.5
 
-    def test_derived_correction_is_never_negative(self):
-        assert conformal_correction(np.array([-1.0, -0.5]), alpha=0.20) == 0.0
+    def test_negative_correction_can_form_empty_set_without_endpoint_swap(self):
+        lower, upper = apply_conformal_correction(
+            np.array([1.0, 2.0]), np.array([1.2, 2.2]), -0.2
+        )
+        assert np.array_equal(lower, np.array([1.2, 2.2]))
+        assert np.array_equal(upper, np.array([1.0, 2.0]))
+        summary = interval_calibration_summary(
+            np.array([1.1, 2.1]), lower, upper
+        )
+        assert summary["empty_set_count"] == 2
+        assert summary["empirical_marginal_coverage"] == 0.0
+        assert summary["n_evaluated"] == 2
+        assert np.array_equal(summary["reported_width"], np.zeros(2))
+        assert np.all(summary["raw_corrected_span"] < 0.0)
+
+    def test_exact_kth_order_statistic_and_excess_rank_infinity(self):
+        # n=4, alpha=.4 gives k=3 and exact third score 10.  The superseded
+        # np.quantile(..., method="higher") construction returned 20 here.
+        scores = np.array([-2.0, -1.0, 10.0, 20.0])
+        assert conformal_correction(scores, alpha=0.40) == 10.0
+        assert np.isposinf(conformal_correction(np.array([-1.0, -0.5]), alpha=0.20))
+        lower, upper = apply_conformal_correction(
+            np.array([1.0]), np.array([2.0]), float("inf")
+        )
+        summary = interval_calibration_summary(np.array([1.5]), lower, upper)
+        assert summary["infinite_set_count"] == 1
+        assert summary["empirical_marginal_coverage"] == 1.0
+        assert np.isposinf(summary["mean_interval_width"])
 
     @pytest.mark.parametrize("cal_fraction", [0.0, 1.0, -0.1, 1.1, np.nan])
     def test_invalid_calibration_fraction_rejected(self, cal_fraction):

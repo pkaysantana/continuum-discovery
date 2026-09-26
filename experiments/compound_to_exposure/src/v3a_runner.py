@@ -1,10 +1,12 @@
-"""Fail-closed v3A scientific runner and post-freeze point evaluation.
+"""Fail-closed v3A scientific runner and post-freeze analysis.
 
 Ticket 1 binds execution authorization to the persisted frozen inputs and provides
 a collision-safe internal run ledger.  Ticket 2 adds the five-fold model and
 uncertainty orchestration up to an immutable prediction freeze.  Ticket 3 starts
 strictly after that seal: retention and matched-random IDs are planned without
 outcomes, then outcomes are aligned by activity ID for point evaluation only.
+Ticket 4 adds pure in-memory bootstrap inference, secondary CQR, and the two
+prespecified sensitivities; it adds no persistence or lifecycle transition.
 """
 from __future__ import annotations
 
@@ -23,6 +25,7 @@ import numpy as np
 import pandas as pd
 
 from src import v3a_config as C
+from src.v3a_cohort import assign_scaffold_folds
 from src.v3a_preflight import (
     COHORT_RELATIVE,
     FEATURE_RELATIVE,
@@ -34,9 +37,14 @@ from src.v3a_preflight import (
 from src.v3a_qrf_weights import (
     ExecutionGuardError,
     QRFWeightRecoveryError,
+    apply_conformal_correction,
     check_execution_guard,
     compute_descriptor_matrix,
+    conformal_correction,
+    conformal_proper_train_cal_split,
+    cqr_nonconformity_scores,
     fit_physchem_space,
+    interval_calibration_summary,
     local_label_sd,
     mae,
     matched_random_rankings,
@@ -46,9 +54,11 @@ from src.v3a_qrf_weights import (
     recover_forest_weights_many,
     rel_benefit_80,
     rmse,
+    scaffold_bootstrap_indices,
     tanimoto_unfamiliarity,
     trapezoidal_naurc,
     tree_dispersion,
+    weighted_quantile,
 )
 
 
@@ -1760,3 +1770,1179 @@ def classify_rel_benefit_80(
     if upper < C.PRACTICAL_THRESHOLD:
         return "EVIDENCE_BELOW_PRACTICAL_THRESHOLD"
     return "INCONCLUSIVE"
+
+
+# --------------------------------------------------------------------------- Ticket 4 inference
+BOOTSTRAP_RNG_PROVENANCE = (
+    "SeedSequence([20260923,b])->uint32->RandomState->permutation"
+)
+CQR_SPLIT_ALGORITHM = "conformal_proper_train_cal_split_v1_hash_group_overshoot"
+
+
+@dataclass(frozen=True)
+class BootstrapReplicateResult:
+    """One downstream scaffold-bootstrap replicate with multiplicity retained."""
+
+    replicate_index: int
+    occurrence_ids: tuple[tuple[int, int, int, int], ...]
+    qrf_retained_occurrence_ids: tuple[tuple[int, int, int, int], ...]
+    fold_candidate_counts: tuple[tuple[int, int], ...]
+    fold_retained_counts: tuple[tuple[int, int], ...]
+    rmse_qrf80: float
+    rmse_random80: float
+    rel_benefit_80: float
+
+
+@dataclass(frozen=True)
+class BootstrapInferenceResult:
+    """Percentile inference from the frozen downstream bootstrap procedure."""
+
+    replicates: tuple[BootstrapReplicateResult, ...]
+    ci_lower: float
+    ci_upper: float
+    confidence_level: float
+    percentile_method: str
+    bootstrap_replicates: int
+    matched_random_draws_per_replicate: int
+    base_seed: int
+    nested_rng_provenance: str
+
+
+@dataclass(frozen=True)
+class PrimaryInferenceResult:
+    """Primary point estimate, CI, and the frozen three-state classification."""
+
+    point_estimate: float
+    ci_lower: float
+    ci_upper: float
+    classification: str
+    bootstrap: BootstrapInferenceResult
+
+
+@dataclass(frozen=True)
+class CQRRowResult:
+    activity_id: Any
+    outer_fold: int
+    nominal_coverage: float
+    raw_lower_endpoint: float
+    raw_upper_endpoint: float
+    raw_corrected_span: float
+    empty_set: bool
+    finite_set: bool
+    infinite_set: bool
+    covered: bool
+    reported_width: float
+
+
+@dataclass(frozen=True)
+class CQRFoldMetadata:
+    outer_fold: int
+    n_proper: int
+    n_cal: int
+    nominal_coverage: float
+    alpha: float
+    k: int
+    qhat: float
+    qhat_is_finite: bool
+    n_evaluated: int
+    ordinary_finite_interval_count: int
+    empty_set_count: int
+    infinite_set_count: int
+    empirical_marginal_coverage: float
+    mean_prediction_set_width: float
+    median_prediction_set_width: float
+    split_helper: str
+    split_salt: str
+    calibration_fraction: float
+    split_algorithm: str
+
+
+@dataclass(frozen=True)
+class CQRCoverageResult:
+    nominal_coverage: float
+    empirical_marginal_coverage: float
+    n_evaluated: int
+    mean_final_set_width: float
+    median_final_set_width: float
+    ordinary_finite_interval_count: int
+    empty_set_count: int
+    infinite_set_count: int
+    rows: tuple[CQRRowResult, ...]
+
+
+@dataclass(frozen=True)
+class CQRResult:
+    """Secondary marginal-calibration result; never a triage ranking."""
+
+    role: str
+    marginal_label: str
+    canonical_triage_ranking: str
+    base_intervals: tuple[tuple[float, float, float], ...]
+    coverages: tuple[CQRCoverageResult, ...]
+    fold_metadata: tuple[CQRFoldMetadata, ...]
+
+    def at(self, nominal_coverage: float) -> CQRCoverageResult:
+        for result in self.coverages:
+            if result.nominal_coverage == float(nominal_coverage):
+                return result
+        raise KeyError(nominal_coverage)
+
+
+@dataclass(frozen=True)
+class SensitivityResult:
+    """In-memory sensitivity result without lifecycle or persistence behavior."""
+
+    name: str
+    interpretation_labels: tuple[str, ...]
+    cohort_n: int
+    coverage_curves: tuple[CoverageCurveResult, ...]
+    qrf80: CoveragePointResult
+    matched_random80: MatchedRandomResult
+    rel_benefit_80: float
+    bootstrap: BootstrapInferenceResult
+    oof_records: tuple[Mapping[str, Any], ...] = ()
+    provenance: Mapping[str, Any] | None = None
+
+
+@dataclass(frozen=True)
+class SensitivityAPredictionInputs:
+    """Separate strict-interior five-fold inputs and training labels."""
+
+    inputs: OutcomeBlindInputs
+    outcomes_by_id: Mapping[Any, float]
+
+
+def _ticket4_rows(
+    records: Sequence[Mapping[str, Any]],
+    *,
+    require_outcome: bool,
+) -> list[dict[str, Any]]:
+    """Return canonical detached rows for downstream Ticket 4 calculations."""
+
+    required = {"activity_id", "outer_fold", "scaffold_key", "qrf_width", "rf_prediction"}
+    if require_outcome:
+        required.add("observed_y")
+    rows = [dict(record) for record in records]
+    if not rows:
+        raise OutcomeEvaluationError("Ticket 4 records are empty")
+    seen: set[Any] = set()
+    for row in rows:
+        if not required.issubset(row):
+            raise OutcomeEvaluationError("Ticket 4 record fields are incomplete")
+        activity_id = row["activity_id"]
+        if activity_id in seen:
+            raise OutcomeEvaluationError("Ticket 4 activity IDs must be unique before resampling")
+        seen.add(activity_id)
+        fold = row["outer_fold"]
+        if isinstance(fold, bool) or not isinstance(fold, (int, np.integer)):
+            raise OutcomeEvaluationError("Ticket 4 outer folds must be integers")
+        row["outer_fold"] = int(fold)
+        if not isinstance(row["scaffold_key"], str) or not row["scaffold_key"]:
+            raise OutcomeEvaluationError("Ticket 4 scaffold keys must be nonempty strings")
+        for field in ("qrf_width", "rf_prediction"):
+            row[field] = float(row[field])
+            if not math.isfinite(row[field]):
+                raise OutcomeEvaluationError(f"Ticket 4 {field} values must be finite")
+        if require_outcome:
+            row["observed_y"] = float(row["observed_y"])
+            if not math.isfinite(row["observed_y"]):
+                raise OutcomeEvaluationError("Ticket 4 outcomes must be finite")
+    rows.sort(
+        key=lambda row: (
+            row["outer_fold"],
+            row["scaffold_key"],
+            C.retention_tiebreak_hash(row["activity_id"]),
+            _activity_sort_key(row["activity_id"]),
+        )
+    )
+    return rows
+
+
+def _bootstrap_occurrences(
+    rows: Sequence[Mapping[str, Any]],
+    sample_positions: np.ndarray,
+    replicate_index: int,
+) -> list[dict[str, Any]]:
+    """Attach the frozen deterministic identity to each sampled row occurrence."""
+
+    group_sizes: dict[tuple[int, str], int] = {}
+    for row in rows:
+        key = (int(row["outer_fold"]), str(row["scaffold_key"]))
+        group_sizes[key] = group_sizes.get(key, 0) + 1
+    occurrences: list[dict[str, Any]] = []
+    sample = [int(position) for position in np.asarray(sample_positions).reshape(-1)]
+    cursor = 0
+    draw_positions: dict[int, int] = {}
+    while cursor < len(sample):
+        row = rows[sample[cursor]]
+        fold = int(row["outer_fold"])
+        scaffold = str(row["scaffold_key"])
+        size = group_sizes[(fold, scaffold)]
+        chunk = sample[cursor:cursor + size]
+        if len(chunk) != size or any(
+            int(rows[position]["outer_fold"]) != fold
+            or str(rows[position]["scaffold_key"]) != scaffold
+            for position in chunk
+        ):
+            raise OutcomeEvaluationError("bootstrap scaffold occurrence is not contiguous")
+        draw_position = draw_positions.get(fold, 0)
+        for within_position, row_position in enumerate(chunk):
+            source = rows[row_position]
+            occurrence_id = (
+                int(replicate_index), fold, draw_position, within_position
+            )
+            occurrences.append(
+                {
+                    "row_position": row_position,
+                    "activity_id": source["activity_id"],
+                    "outer_fold": fold,
+                    "scaffold_key": scaffold,
+                    "occurrence_id": occurrence_id,
+                }
+            )
+        draw_positions[fold] = draw_position + 1
+        cursor += size
+    return occurrences
+
+
+def _retention_for_occurrences(
+    rows: Sequence[Mapping[str, Any]],
+    occurrences: Sequence[Mapping[str, Any]],
+    *,
+    coverage: float = C.PRIMARY_COVERAGE,
+) -> tuple[tuple[int, ...], tuple[tuple[int, int], ...], tuple[tuple[int, int], ...]]:
+    if not 0.0 < coverage <= 1.0:
+        raise ValueError("coverage must lie in (0, 1]")
+    selected: list[int] = []
+    candidates_by_fold: list[tuple[int, int]] = []
+    retained_by_fold: list[tuple[int, int]] = []
+    for fold in sorted({int(item["outer_fold"]) for item in occurrences}):
+        candidates = [
+            index for index, item in enumerate(occurrences)
+            if int(item["outer_fold"]) == fold
+        ]
+        k = math.ceil(float(coverage) * len(candidates))
+        ranked = sorted(
+            candidates,
+            key=lambda index: (
+                float(rows[int(occurrences[index]["row_position"])]["qrf_width"]),
+                C.retention_tiebreak_hash(occurrences[index]["activity_id"]),
+                tuple(occurrences[index]["occurrence_id"]),
+            ),
+        )
+        selected.extend(ranked[:k])
+        candidates_by_fold.append((fold, len(candidates)))
+        retained_by_fold.append((fold, k))
+    return tuple(selected), tuple(candidates_by_fold), tuple(retained_by_fold)
+
+
+def nested_bootstrap_seed(replicate_index: int, *, base_seed: int = C.MASTER_SEED) -> int:
+    """Return the pinned uint32-derived nested seed for zero-based replicate ``b``."""
+
+    if isinstance(replicate_index, bool) or int(replicate_index) != replicate_index:
+        raise ValueError("replicate index must be an integer")
+    if int(replicate_index) < 0:
+        raise ValueError("replicate index must be nonnegative")
+    sequence = np.random.SeedSequence([int(base_seed), int(replicate_index)])
+    return int(sequence.generate_state(1, dtype=np.uint32)[0])
+
+
+def _random_occurrence_draws(
+    occurrences: Sequence[Mapping[str, Any]],
+    retained_counts_by_fold: Sequence[tuple[int, int]],
+    *,
+    replicate_index: int,
+    n_random: int,
+    base_seed: int,
+    sensitivity_b_one_based: bool = False,
+) -> tuple[tuple[int, ...], ...]:
+    """Literal nested matched-random reference path with one sequential RNG."""
+
+    if n_random < 1:
+        raise ValueError("matched-random draw count must be positive")
+    seed_index = replicate_index + 1 if sensitivity_b_one_based else replicate_index
+    rng = np.random.RandomState(nested_bootstrap_seed(seed_index, base_seed=base_seed))
+    counts = dict(retained_counts_by_fold)
+    candidates = {
+        fold: tuple(
+            sorted(
+                (
+                    index for index, occurrence in enumerate(occurrences)
+                    if int(occurrence["outer_fold"]) == fold
+                ),
+                key=lambda index: tuple(occurrences[index]["occurrence_id"]),
+            )
+        )
+        for fold in sorted(counts)
+    }
+    draws: list[tuple[int, ...]] = []
+    for _ in range(n_random):
+        pooled: list[int] = []
+        for fold in sorted(candidates):
+            fold_candidates = candidates[fold]
+            k = counts[fold]
+            if k > len(fold_candidates):
+                raise OutcomeEvaluationError("random retained count exceeds fold candidates")
+            permutation = rng.permutation(len(fold_candidates))[:k]
+            pooled.extend(fold_candidates[int(position)] for position in permutation)
+        draws.append(tuple(pooled))
+    return tuple(draws)
+
+
+def primary_bootstrap_plan(
+    records: Sequence[Mapping[str, Any]],
+    *,
+    n_bootstrap: int = C.N_BOOTSTRAP,
+    n_random: int = C.N_RANDOM_DEFERRALS,
+    seed: int = C.MASTER_SEED,
+) -> tuple[dict[str, Any], ...]:
+    """Build a literal complete outcome-blind plan for reduced test fixtures.
+
+    This reference path materialises every matched-random selection so tests can
+    compare plans directly.  The production-facing ``run_primary_bootstrap``
+    path below streams those draws and has bounded memory.
+    """
+
+    if n_bootstrap < 1 or n_random < 1:
+        raise ValueError("bootstrap and matched-random counts must be positive")
+    rows = _ticket4_rows(records, require_outcome=False)
+    frame = pd.DataFrame(
+        {
+            "activity_id": [row["activity_id"] for row in rows],
+            "outer_fold": [row["outer_fold"] for row in rows],
+            "scaffold_key": [row["scaffold_key"] for row in rows],
+        }
+    )
+    samples = scaffold_bootstrap_indices(frame, n_bootstrap=n_bootstrap, seed=seed)
+    plans: list[dict[str, Any]] = []
+    for replicate_index, sample in enumerate(samples):
+        occurrences = _bootstrap_occurrences(rows, sample, replicate_index)
+        selected, candidate_counts, retained_counts = _retention_for_occurrences(
+            rows, occurrences
+        )
+        random_draws = _random_occurrence_draws(
+            occurrences,
+            retained_counts,
+            replicate_index=replicate_index,
+            n_random=n_random,
+            base_seed=seed,
+        )
+        plans.append(
+            {
+                "replicate_index": replicate_index,
+                "occurrences": tuple(occurrences),
+                "qrf_selected": selected,
+                "candidate_counts": candidate_counts,
+                "retained_counts": retained_counts,
+                "random_draws": random_draws,
+                "nested_seed": nested_bootstrap_seed(replicate_index, base_seed=seed),
+            }
+        )
+    return tuple(plans)
+
+
+def evaluate_primary_bootstrap_plan(
+    records: Sequence[Mapping[str, Any]],
+    plan: Sequence[Mapping[str, Any]],
+    *,
+    n_random: int,
+    seed: int = C.MASTER_SEED,
+    percentile_method: str = "linear",
+) -> BootstrapInferenceResult:
+    """Attach outcomes after planning and evaluate bootstrap multiplicities literally."""
+
+    rows = _ticket4_rows(records, require_outcome=True)
+    by_id = {row["activity_id"]: row for row in rows}
+    results: list[BootstrapReplicateResult] = []
+    for expected_index, replicate in enumerate(plan):
+        if int(replicate["replicate_index"]) != expected_index:
+            raise OutcomeEvaluationError("bootstrap plan replicate order is invalid")
+        occurrences = tuple(replicate["occurrences"])
+        if any(occurrence["activity_id"] not in by_id for occurrence in occurrences):
+            raise OutcomeEvaluationError("bootstrap plan differs from outcome activity IDs")
+
+        def errors(indices: Sequence[int]) -> np.ndarray:
+            values = []
+            for occurrence_index in indices:
+                activity_id = occurrences[int(occurrence_index)]["activity_id"]
+                row = by_id[activity_id]
+                values.append((row["observed_y"] - row["rf_prediction"]) ** 2)
+            if not values:
+                raise OutcomeEvaluationError("bootstrap selection is empty")
+            return np.asarray(values, dtype=np.float64)
+
+        qrf_rmse = float(np.sqrt(np.mean(errors(replicate["qrf_selected"]))))
+        random_draws = tuple(replicate["random_draws"])
+        if len(random_draws) != n_random:
+            raise OutcomeEvaluationError("bootstrap random draw count is inconsistent")
+        random_rmses = np.asarray(
+            [float(np.sqrt(np.mean(errors(draw)))) for draw in random_draws],
+            dtype=np.float64,
+        )
+        random_mean = float(random_rmses.mean())
+        benefit = rel_benefit_80(random_mean, qrf_rmse)
+        results.append(
+            BootstrapReplicateResult(
+                replicate_index=expected_index,
+                occurrence_ids=tuple(
+                    tuple(occurrence["occurrence_id"]) for occurrence in occurrences
+                ),
+                qrf_retained_occurrence_ids=tuple(
+                    tuple(occurrences[index]["occurrence_id"])
+                    for index in replicate["qrf_selected"]
+                ),
+                fold_candidate_counts=tuple(replicate["candidate_counts"]),
+                fold_retained_counts=tuple(replicate["retained_counts"]),
+                rmse_qrf80=qrf_rmse,
+                rmse_random80=random_mean,
+                rel_benefit_80=benefit,
+            )
+        )
+    values = np.asarray([item.rel_benefit_80 for item in results], dtype=np.float64)
+    lower, upper = np.percentile(values, [2.5, 97.5], method=percentile_method)
+    return BootstrapInferenceResult(
+        replicates=tuple(results),
+        ci_lower=float(lower),
+        ci_upper=float(upper),
+        confidence_level=0.95,
+        percentile_method=percentile_method,
+        bootstrap_replicates=len(results),
+        matched_random_draws_per_replicate=n_random,
+        base_seed=int(seed),
+        nested_rng_provenance=BOOTSTRAP_RNG_PROVENANCE,
+    )
+
+
+def run_primary_bootstrap(
+    records: Sequence[Mapping[str, Any]],
+    *,
+    n_bootstrap: int = C.N_BOOTSTRAP,
+    n_random: int = C.N_RANDOM_DEFERRALS,
+    seed: int = C.MASTER_SEED,
+    percentile_method: str = "linear",
+) -> BootstrapInferenceResult:
+    """Run the frozen bootstrap while streaming nested draws in bounded memory."""
+
+    if n_bootstrap < 1 or n_random < 1:
+        raise ValueError("bootstrap and matched-random counts must be positive")
+    rows = _ticket4_rows(records, require_outcome=True)
+    frame = pd.DataFrame(
+        {
+            "activity_id": [row["activity_id"] for row in rows],
+            "outer_fold": [row["outer_fold"] for row in rows],
+            "scaffold_key": [row["scaffold_key"] for row in rows],
+        }
+    )
+    samples = scaffold_bootstrap_indices(frame, n_bootstrap=n_bootstrap, seed=seed)
+    results: list[BootstrapReplicateResult] = []
+    for replicate_index, sample in enumerate(samples):
+        occurrences = _bootstrap_occurrences(rows, sample, replicate_index)
+        selected, candidate_counts, retained_counts = _retention_for_occurrences(
+            rows, occurrences
+        )
+        squared_errors = np.asarray(
+            [
+                (
+                    rows[int(occurrence["row_position"])]["observed_y"]
+                    - rows[int(occurrence["row_position"])]["rf_prediction"]
+                ) ** 2
+                for occurrence in occurrences
+            ],
+            dtype=np.float64,
+        )
+        qrf_rmse = float(np.sqrt(np.mean(squared_errors[list(selected)])))
+        seed_value = nested_bootstrap_seed(replicate_index, base_seed=seed)
+        rng = np.random.RandomState(seed_value)
+        counts = dict(retained_counts)
+        candidates = {
+            fold: tuple(
+                sorted(
+                    (
+                        index for index, occurrence in enumerate(occurrences)
+                        if int(occurrence["outer_fold"]) == fold
+                    ),
+                    key=lambda index: tuple(occurrences[index]["occurrence_id"]),
+                )
+            )
+            for fold in sorted(counts)
+        }
+        random_rmses = np.empty(n_random, dtype=np.float64)
+        for draw_index in range(n_random):
+            pooled: list[int] = []
+            for fold in sorted(candidates):
+                fold_candidates = candidates[fold]
+                permutation = rng.permutation(len(fold_candidates))[:counts[fold]]
+                pooled.extend(fold_candidates[int(position)] for position in permutation)
+            random_rmses[draw_index] = float(np.sqrt(np.mean(squared_errors[pooled])))
+        random_mean = float(random_rmses.mean())
+        results.append(
+            BootstrapReplicateResult(
+                replicate_index=replicate_index,
+                occurrence_ids=tuple(tuple(item["occurrence_id"]) for item in occurrences),
+                qrf_retained_occurrence_ids=tuple(
+                    tuple(occurrences[index]["occurrence_id"]) for index in selected
+                ),
+                fold_candidate_counts=candidate_counts,
+                fold_retained_counts=retained_counts,
+                rmse_qrf80=qrf_rmse,
+                rmse_random80=random_mean,
+                rel_benefit_80=rel_benefit_80(random_mean, qrf_rmse),
+            )
+        )
+    values = np.asarray([item.rel_benefit_80 for item in results], dtype=np.float64)
+    lower, upper = np.percentile(values, [2.5, 97.5], method=percentile_method)
+    return BootstrapInferenceResult(
+        replicates=tuple(results),
+        ci_lower=float(lower),
+        ci_upper=float(upper),
+        confidence_level=0.95,
+        percentile_method=percentile_method,
+        bootstrap_replicates=n_bootstrap,
+        matched_random_draws_per_replicate=n_random,
+        base_seed=seed,
+        nested_rng_provenance=BOOTSTRAP_RNG_PROVENANCE,
+    )
+
+
+def primary_inference(
+    point_estimate: float,
+    bootstrap: BootstrapInferenceResult,
+) -> PrimaryInferenceResult:
+    """Wire the existing pure classifier to the primary percentile interval."""
+
+    if not isinstance(bootstrap, BootstrapInferenceResult):
+        raise TypeError("bootstrap must be a BootstrapInferenceResult")
+    return PrimaryInferenceResult(
+        point_estimate=float(point_estimate),
+        ci_lower=bootstrap.ci_lower,
+        ci_upper=bootstrap.ci_upper,
+        classification=classify_rel_benefit_80(
+            point_estimate, bootstrap.ci_lower, bootstrap.ci_upper
+        ),
+        bootstrap=bootstrap,
+    )
+
+
+def _blind_query_rows(rows: Sequence[Mapping[str, Any]]) -> tuple[dict[str, Any], ...]:
+    forbidden = {"observed_y", "y_test", "observed_clint", "standard_value"}
+    return tuple(
+        {key: value for key, value in row.items() if key not in forbidden}
+        for row in rows
+    )
+
+
+class ProperTrainingQRFIntervalModel:
+    """Frozen QRF fit used by the production CQR path for one outer fold."""
+
+    def __init__(self, proper_rows: tuple[Mapping[str, Any], ...]):
+        if not proper_rows or any("features" not in row or "observed_y" not in row for row in proper_rows):
+            raise OutcomeEvaluationError("CQR proper rows require features and training outcomes")
+        self._features = np.asarray([row["features"] for row in proper_rows])
+        self._outcomes = np.asarray([row["observed_y"] for row in proper_rows], dtype=np.float64)
+        if (
+            self._features.ndim != 2
+            or self._features.shape[1] != C.MORGAN_SPEC["nBits"]
+            or not np.isin(self._features, (0, 1)).all()
+            or not np.isfinite(self._outcomes).all()
+        ):
+            raise OutcomeEvaluationError("CQR proper-training representation is not frozen ECFP4")
+        self._rf = C.make_frozen_rf()
+        _validate_frozen_rf_configuration(self._rf)
+        self._rf.fit(self._features, self._outcomes)
+
+    def predict_intervals(
+        self,
+        query_rows: Sequence[Mapping[str, Any]],
+        quantile_pairs: Sequence[tuple[float, float, float]],
+    ) -> dict[float, tuple[np.ndarray, np.ndarray]]:
+        if any("features" not in row for row in query_rows):
+            raise OutcomeEvaluationError("CQR query rows require frozen ECFP4 features")
+        query = np.asarray([row["features"] for row in query_rows])
+        if query.ndim != 2 or query.shape[1] != C.MORGAN_SPEC["nBits"] or not np.isin(query, (0, 1)).all():
+            raise OutcomeEvaluationError("CQR query representation is not frozen ECFP4")
+        weights = recover_forest_weights_many(
+            self._rf, self._features, query, sample_weight_used=False
+        )
+        output: dict[float, tuple[np.ndarray, np.ndarray]] = {}
+        for nominal, low_q, high_q in quantile_pairs:
+            lower = np.asarray([
+                weighted_quantile(self._outcomes, row_weights, low_q)
+                for row_weights in weights
+            ])
+            upper = np.asarray([
+                weighted_quantile(self._outcomes, row_weights, high_q)
+                for row_weights in weights
+            ])
+            output[float(nominal)] = (lower, upper)
+        return output
+
+
+def evaluate_cqr(
+    records: Sequence[Mapping[str, Any]],
+    model_factory: Callable[[tuple[Mapping[str, Any], ...]], Any] = ProperTrainingQRFIntervalModel,
+) -> CQRResult:
+    """Run secondary CQR with proper-only fitting and delayed test-outcome access.
+
+    ``model_factory`` receives only proper-training records.  Its returned object
+    must expose ``predict_intervals(query_rows, quantile_pairs)`` and return a
+    mapping from nominal coverage to aligned ``(lower, upper)`` arrays.  Query
+    records are stripped of every outcome field before the call.
+    """
+
+    rows = _ticket4_rows(records, require_outcome=True)
+    frame = pd.DataFrame(
+        {
+            "activity_id": [row["activity_id"] for row in rows],
+            "outer_fold": [row["outer_fold"] for row in rows],
+            "scaffold_key": [row["scaffold_key"] for row in rows],
+        }
+    )
+    quantile_pairs = ((0.80, 0.10, 0.90), (0.90, 0.05, 0.95), (0.95, 0.025, 0.975))
+    by_id = {row["activity_id"]: row for row in rows}
+    all_row_results: list[CQRRowResult] = []
+    metadata: list[CQRFoldMetadata] = []
+    for fold in sorted({row["outer_fold"] for row in rows}):
+        proper_ids, calibration_ids = conformal_proper_train_cal_split(
+            frame,
+            fold,
+            cal_fraction=0.20,
+            salt=C.CQR_SPLIT_SALT_SUFFIX,
+        )
+        test_ids = {
+            row["activity_id"] for row in rows if row["outer_fold"] == fold
+        }
+        if proper_ids & calibration_ids or (proper_ids | calibration_ids) & test_ids:
+            raise OutcomeEvaluationError("CQR proper/calibration/test sets overlap")
+        outer_train_ids = {
+            row["activity_id"] for row in rows if row["outer_fold"] != fold
+        }
+        if proper_ids | calibration_ids != outer_train_ids:
+            raise OutcomeEvaluationError("CQR split does not cover outer training")
+        canonical = lambda ids: sorted(
+            ids,
+            key=lambda activity_id: (
+                C.retention_tiebreak_hash(activity_id), _activity_sort_key(activity_id)
+            ),
+        )
+        proper_rows = tuple(dict(by_id[item]) for item in canonical(proper_ids))
+        cal_rows = tuple(dict(by_id[item]) for item in canonical(calibration_ids))
+        test_rows = tuple(dict(by_id[item]) for item in canonical(test_ids))
+        model = model_factory(proper_rows)
+        if not hasattr(model, "predict_intervals"):
+            raise OutcomeEvaluationError("CQR model must provide predict_intervals")
+        combined_blind = _blind_query_rows(cal_rows + test_rows)
+        predicted = model.predict_intervals(combined_blind, quantile_pairs)
+        for nominal, _, _ in quantile_pairs:
+            if nominal not in predicted:
+                raise OutcomeEvaluationError("CQR model omitted a frozen nominal level")
+            lower_all, upper_all = predicted[nominal]
+            lower_all = np.asarray(lower_all, dtype=np.float64).reshape(-1)
+            upper_all = np.asarray(upper_all, dtype=np.float64).reshape(-1)
+            if lower_all.shape != (len(combined_blind),) or upper_all.shape != lower_all.shape:
+                raise OutcomeEvaluationError("CQR model interval output is misaligned")
+            n_cal = len(cal_rows)
+            lower_cal, lower_test = lower_all[:n_cal], lower_all[n_cal:]
+            upper_cal, upper_test = upper_all[:n_cal], upper_all[n_cal:]
+            y_cal = np.asarray([row["observed_y"] for row in cal_rows])
+            scores = cqr_nonconformity_scores(y_cal, lower_cal, upper_cal)
+            alpha = 1.0 - nominal
+            k = math.ceil((n_cal + 1) * (1.0 - alpha))
+            qhat = conformal_correction(scores, alpha)
+            corrected_lower, corrected_upper = apply_conformal_correction(
+                lower_test, upper_test, qhat
+            )
+            # Test outcomes are first touched here, after final endpoints exist.
+            y_test = np.asarray([row["observed_y"] for row in test_rows])
+            summary = interval_calibration_summary(
+                y_test, corrected_lower, corrected_upper
+            )
+            for index, row in enumerate(test_rows):
+                a = float(corrected_lower[index])
+                b = float(corrected_upper[index])
+                empty = bool(summary["empty_set"][index])
+                infinite = bool(np.isneginf(a) and np.isposinf(b))
+                all_row_results.append(
+                    CQRRowResult(
+                        activity_id=row["activity_id"],
+                        outer_fold=fold,
+                        nominal_coverage=nominal,
+                        raw_lower_endpoint=a,
+                        raw_upper_endpoint=b,
+                        raw_corrected_span=float(summary["raw_corrected_span"][index]),
+                        empty_set=empty,
+                        finite_set=not infinite,
+                        infinite_set=infinite,
+                        covered=bool(summary["covered"][index]),
+                        reported_width=float(summary["reported_width"][index]),
+                    )
+                )
+            metadata.append(
+                CQRFoldMetadata(
+                    outer_fold=fold,
+                    n_proper=len(proper_rows),
+                    n_cal=n_cal,
+                    nominal_coverage=nominal,
+                    alpha=alpha,
+                    k=k,
+                    qhat=qhat,
+                    qhat_is_finite=math.isfinite(qhat),
+                    n_evaluated=summary["n_evaluated"],
+                    ordinary_finite_interval_count=summary["ordinary_finite_interval_count"],
+                    empty_set_count=summary["empty_set_count"],
+                    infinite_set_count=summary["infinite_set_count"],
+                    empirical_marginal_coverage=summary["empirical_marginal_coverage"],
+                    mean_prediction_set_width=summary["mean_interval_width"],
+                    median_prediction_set_width=summary["median_interval_width"],
+                    split_helper="conformal_proper_train_cal_split",
+                    split_salt=C.CQR_SPLIT_SALT_SUFFIX,
+                    calibration_fraction=0.20,
+                    split_algorithm=CQR_SPLIT_ALGORITHM,
+                )
+            )
+    coverage_results: list[CQRCoverageResult] = []
+    for nominal, _, _ in quantile_pairs:
+        selected = tuple(row for row in all_row_results if row.nominal_coverage == nominal)
+        widths = np.asarray([row.reported_width for row in selected])
+        coverage_results.append(
+            CQRCoverageResult(
+                nominal_coverage=nominal,
+                empirical_marginal_coverage=float(np.mean([row.covered for row in selected])),
+                n_evaluated=len(selected),
+                mean_final_set_width=float(np.mean(widths)),
+                median_final_set_width=float(np.median(widths)),
+                ordinary_finite_interval_count=sum(
+                    row.finite_set and not row.empty_set for row in selected
+                ),
+                empty_set_count=sum(row.empty_set for row in selected),
+                infinite_set_count=sum(row.infinite_set for row in selected),
+                rows=selected,
+            )
+        )
+    return CQRResult(
+        role="SECONDARY_CALIBRATION_ONLY",
+        marginal_label="EMPIRICAL_MARGINAL_COVERAGE",
+        canonical_triage_ranking="ORIGINAL_FROZEN_QRF_WIDTH",
+        base_intervals=quantile_pairs,
+        coverages=tuple(coverage_results),
+        fold_metadata=tuple(metadata),
+    )
+
+
+def strict_interior_sensitivity_rows(
+    records: Sequence[Mapping[str, Any]],
+) -> tuple[dict[str, Any], ...]:
+    """Select exact quantitative ``3 < CLint < 150`` rows for Sensitivity A."""
+
+    selected: list[dict[str, Any]] = []
+    for record in records:
+        row = dict(record)
+        if "observed_clint" not in row:
+            raise OutcomeEvaluationError("Sensitivity A requires original-scale CLint")
+        relation = row.get("standard_relation")
+        if relation is not None and not (isinstance(relation, float) and math.isnan(relation)):
+            continue
+        value = float(row["observed_clint"])
+        if math.isfinite(value) and C.CLINT_LOW < value < C.CLINT_HIGH:
+            selected.append(row)
+    return tuple(selected)
+
+
+def prepare_sensitivity_a_prediction_inputs(
+    records: Sequence[Mapping[str, Any]],
+    features: np.ndarray,
+    descriptors: np.ndarray,
+    *,
+    provenance: Mapping[str, Any],
+) -> SensitivityAPredictionInputs:
+    """Build a separate strict-interior five-fold model input without touching N744."""
+
+    source = [dict(row) for row in records]
+    features = np.asarray(features)
+    descriptors = np.asarray(descriptors, dtype=np.float64)
+    if features.shape[0] != len(source) or descriptors.shape[0] != len(source):
+        raise OutcomeEvaluationError("Sensitivity A source arrays are not row aligned")
+    selected_positions: list[int] = []
+    for position, row in enumerate(source):
+        relation = row.get("standard_relation")
+        exact = relation is None or (isinstance(relation, float) and math.isnan(relation))
+        if "observed_clint" not in row or "observed_y" not in row:
+            raise OutcomeEvaluationError("Sensitivity A requires CLint and log-scale outcome")
+        clint = float(row["observed_clint"])
+        if exact and math.isfinite(clint) and C.CLINT_LOW < clint < C.CLINT_HIGH:
+            selected_positions.append(position)
+    if not selected_positions:
+        raise OutcomeEvaluationError("Sensitivity A strict-interior cohort is empty")
+    # Canonicalise before fitting: sklearn bootstrap indices are positional, so
+    # leaving rows in caller order would make equivalent shuffled inputs produce
+    # different forests despite the same fixed seed.
+    selected_positions.sort(
+        key=lambda position: (
+            C.retention_tiebreak_hash(source[position].get("activity_id")),
+            _activity_sort_key(source[position].get("activity_id")),
+        )
+    )
+    selected = [source[position] for position in selected_positions]
+    if any("activity_id" not in row or "scaffold_key" not in row for row in selected):
+        raise OutcomeEvaluationError("Sensitivity A keys are incomplete")
+    assignment = assign_scaffold_folds(
+        [str(row["scaffold_key"]) for row in selected], n_folds=C.N_FOLDS
+    )
+    inputs = OutcomeBlindInputs(
+        activity_ids=tuple(row["activity_id"] for row in selected),
+        outer_folds=tuple(assignment[str(row["scaffold_key"])] for row in selected),
+        scaffold_keys=tuple(str(row["scaffold_key"]) for row in selected),
+        features=_immutable_array(features[selected_positions]),
+        descriptors=_immutable_array(descriptors[selected_positions]),
+        provenance=dict(provenance),
+    )
+    _validate_outcome_blind_inputs(inputs)
+    outcomes = {
+        row["activity_id"]: float(row["observed_y"])
+        for row in selected
+    }
+    if not all(math.isfinite(value) for value in outcomes.values()):
+        raise OutcomeEvaluationError("Sensitivity A outcomes must be finite")
+    return SensitivityAPredictionInputs(inputs=inputs, outcomes_by_id=outcomes)
+
+
+def orchestrate_sensitivity_a_predictions(
+    prepared: SensitivityAPredictionInputs,
+    *,
+    rf_factory: Callable[[], Any] = C.make_frozen_rf,
+    audit_hook: Callable[[str, Mapping[str, Any]], None] | None = None,
+) -> PredictionFreeze:
+    """Fit the separate frozen-architecture Sensitivity-A five-fold analysis."""
+
+    if not isinstance(prepared, SensitivityAPredictionInputs):
+        raise TypeError("prepared must be SensitivityAPredictionInputs")
+
+    def training_outcomes(_fold: int, train_ids: tuple[Any, ...]) -> list[float]:
+        return [prepared.outcomes_by_id[activity_id] for activity_id in train_ids]
+
+    return orchestrate_outcome_blind_predictions(
+        prepared.inputs,
+        training_outcomes,
+        rf_factory=rf_factory,
+        audit_hook=audit_hook,
+    )
+
+
+def _sensitivity_curves(
+    records: Sequence[Mapping[str, Any]],
+) -> tuple[CoverageCurveResult, ...]:
+    rows = _ticket4_rows(records, require_outcome=True)
+    methods = tuple(method for method in _UNCERTAINTY_FIELDS if all(method in row for row in rows))
+    if "qrf_width" not in methods:
+        raise OutcomeEvaluationError("sensitivity records require frozen QRF width")
+    curves: list[CoverageCurveResult] = []
+    for method in methods:
+        points: list[CoveragePointResult] = []
+        for coverage in C.COVERAGE_LEVELS:
+            retained: list[dict[str, Any]] = []
+            counts: list[tuple[int, int]] = []
+            for fold in sorted({row["outer_fold"] for row in rows}):
+                candidates = [row for row in rows if row["outer_fold"] == fold]
+                k = math.ceil(float(coverage) * len(candidates))
+                ranked = sorted(
+                    candidates,
+                    key=lambda row: (
+                        float(row[method]),
+                        C.retention_tiebreak_hash(row["activity_id"]),
+                        _activity_sort_key(row["activity_id"]),
+                    ),
+                )
+                retained.extend(ranked[:k])
+                counts.append((fold, k))
+            y_true = np.asarray([row["observed_y"] for row in retained])
+            y_pred = np.asarray([row["rf_prediction"] for row in retained])
+            points.append(
+                CoveragePointResult(
+                    coverage=float(coverage),
+                    retained_n=len(retained),
+                    deferred_n=len(rows) - len(retained),
+                    pooled_rmse=rmse(y_true, y_pred),
+                    pooled_mae=mae(y_true, y_pred),
+                    retained_ids=tuple(row["activity_id"] for row in retained),
+                    retained_counts_by_fold=tuple(counts),
+                )
+            )
+        curves.append(
+            CoverageCurveResult(
+                method=method,
+                role="FOCAL_DIAGNOSTIC" if method == "qrf_width" else "SECONDARY_DIAGNOSTIC",
+                points=tuple(points),
+                naurc=trapezoidal_naurc(
+                    np.asarray([point.coverage for point in points]),
+                    np.asarray([point.pooled_rmse for point in points]),
+                ),
+            )
+        )
+    return tuple(curves)
+
+
+def _point_matched_random(
+    records: Sequence[Mapping[str, Any]],
+    qrf80: CoveragePointResult,
+    *,
+    n_random: int,
+    seed: int,
+) -> MatchedRandomResult:
+    rows = _ticket4_rows(records, require_outcome=True)
+    fold_ids = {
+        fold: [row["activity_id"] for row in rows if row["outer_fold"] == fold]
+        for fold in sorted({row["outer_fold"] for row in rows})
+    }
+    samples = matched_random_rankings(
+        fold_ids, n_random=n_random, seed=seed, coverage=C.PRIMARY_COVERAGE
+    )
+    by_id = {row["activity_id"]: row for row in rows}
+    draws = np.empty(n_random, dtype=np.float64)
+    expected = dict(qrf80.retained_counts_by_fold)
+    for draw_index in range(n_random):
+        selected: list[Any] = []
+        for fold in sorted(samples):
+            fold_selected = samples[fold][draw_index]
+            if len(fold_selected) != expected[fold]:
+                raise OutcomeEvaluationError("sensitivity random count differs from QRF80")
+            canonical_ids = [
+                int(item) if isinstance(item, np.integer) else item
+                for item in fold_selected
+            ]
+            selected.extend(sorted(canonical_ids, key=_activity_sort_key))
+        draws[draw_index] = rmse(
+            np.asarray([by_id[item]["observed_y"] for item in selected]),
+            np.asarray([by_id[item]["rf_prediction"] for item in selected]),
+        )
+    return MatchedRandomResult(
+        draw_count=n_random,
+        seed=seed,
+        retained_counts_by_fold=qrf80.retained_counts_by_fold,
+        mean_rmse=float(draws.mean()),
+        monte_carlo_se=0.0 if n_random == 1 else float(draws.std(ddof=1) / np.sqrt(n_random)),
+        rmse_draws=_immutable_array(draws),
+    )
+
+
+def evaluate_sensitivity_a(
+    exact_cohort_records: Sequence[Mapping[str, Any]],
+    features: np.ndarray,
+    descriptors: np.ndarray,
+    *,
+    provenance: Mapping[str, Any],
+    n_bootstrap: int = C.N_BOOTSTRAP,
+    n_random: int = C.N_RANDOM_DEFERRALS,
+    seed: int = C.MASTER_SEED,
+    rf_factory: Callable[[], Any] = C.make_frozen_rf,
+) -> SensitivityResult:
+    """Run the complete separate strict-interior five-fold sensitivity analysis.
+
+    Primary N744 fold labels, OOF predictions, uncertainties, and retention
+    metadata in ``exact_cohort_records`` are deliberately ignored.  The strict
+    cohort is canonically rebuilt, assigned its own scaffold folds, and passed
+    through the same frozen primary model/uncertainty orchestration before any
+    downstream ranking or bootstrap evaluation.
+    """
+
+    source = [dict(row) for row in exact_cohort_records]
+    prepared = prepare_sensitivity_a_prediction_inputs(
+        source,
+        features,
+        descriptors,
+        provenance=provenance,
+    )
+    fold_fits: list[dict[str, Any]] = []
+
+    def audit(event: str, detail: Mapping[str, Any]) -> None:
+        if event == "fold_completed":
+            fold_fits.append(dict(detail))
+
+    sensitivity_freeze = orchestrate_sensitivity_a_predictions(
+        prepared,
+        rf_factory=rf_factory,
+        audit_hook=audit,
+    )
+    predicted_records = sensitivity_freeze.read_payload()["records"]
+    strict_by_id = {
+        row["activity_id"]: row
+        for row in strict_interior_sensitivity_rows(source)
+    }
+    scaffold_by_id = dict(
+        zip(prepared.inputs.activity_ids, prepared.inputs.scaffold_keys)
+    )
+    records: list[dict[str, Any]] = []
+    for prediction in predicted_records:
+        activity_id = prediction["activity_id"]
+        source_row = strict_by_id[activity_id]
+        records.append(
+            {
+                **prediction,
+                "scaffold_key": scaffold_by_id[activity_id],
+                "observed_y": float(source_row["observed_y"]),
+                "observed_clint": float(source_row["observed_clint"]),
+                "standard_relation": source_row.get("standard_relation"),
+            }
+        )
+    if len(records) != len(prepared.inputs.activity_ids):
+        raise OutcomeEvaluationError("Sensitivity A OOF prediction universe is incomplete")
+
+    curves = _sensitivity_curves(records)
+    qrf80 = next(curve for curve in curves if curve.method == "qrf_width").at(0.80)
+    random_result = _point_matched_random(
+        records, qrf80, n_random=n_random, seed=seed
+    )
+    bootstrap = run_primary_bootstrap(
+        records, n_bootstrap=n_bootstrap, n_random=n_random, seed=seed
+    )
+    return SensitivityResult(
+        name="SENSITIVITY_A_STRICT_INTERIOR",
+        interpretation_labels=("SENSITIVITY", "STRICT_INTERIOR", "SEPARATE_FIVE_FOLD_ANALYSIS"),
+        cohort_n=len(records),
+        coverage_curves=curves,
+        qrf80=qrf80,
+        matched_random80=random_result,
+        rel_benefit_80=rel_benefit_80(random_result.mean_rmse, qrf80.pooled_rmse),
+        bootstrap=bootstrap,
+        oof_records=tuple(dict(row) for row in records),
+        provenance={
+            "cohort_rule": "standard_relation IS NULL and 3 < observed_clint < 150",
+            "cohort_n": len(records),
+            "fold_assignment": tuple(
+                sorted(
+                    zip(prepared.inputs.activity_ids, prepared.inputs.outer_folds),
+                    key=lambda item: _activity_sort_key(item[0]),
+                )
+            ),
+            "model_specification": dict(C.FROZEN_RF_PARAMS),
+            "representation": C.REPRESENTATION.value,
+            "oof_origin": "SENSITIVITY_A_SEPARATE_STRICT_INTERIOR_FIVE_FOLD_REFIT",
+            "ranking_source": "SENSITIVITY_A_RECOMPUTED_QRF_WIDTH_FOLD_LOCAL",
+            "bootstrap_source": "SENSITIVITY_A_OWN_OOF_RECORDS_AND_FOLDS",
+            "prediction_artifact_sha256": sensitivity_freeze.sha256,
+            "fold_fits": tuple(fold_fits),
+        },
+    )
+
+
+def _sensitivity_b_bootstrap(
+    records: Sequence[Mapping[str, Any]],
+    *,
+    n_bootstrap: int,
+    n_random: int,
+    seed: int,
+) -> BootstrapInferenceResult:
+    """Sensitivity-B bootstrap with one-based nested substreams from its amendment."""
+
+    all_rows = _ticket4_rows(records, require_outcome=True)
+    plan_rows = [
+        {key: value for key, value in row.items() if key != "observed_y"}
+        for row in all_rows
+    ]
+    frame = pd.DataFrame(
+        {
+            "activity_id": [row["activity_id"] for row in all_rows],
+            "outer_fold": [row["outer_fold"] for row in all_rows],
+            "scaffold_key": [row["scaffold_key"] for row in all_rows],
+        }
+    )
+    samples = scaffold_bootstrap_indices(frame, n_bootstrap=n_bootstrap, seed=seed)
+    results: list[BootstrapReplicateResult] = []
+    for replicate_index, sample in enumerate(samples):
+        all_occurrences = _bootstrap_occurrences(plan_rows, sample, replicate_index)
+        occurrences = tuple(
+            occurrence for occurrence in all_occurrences
+            if float(all_rows[int(occurrence["row_position"])]["observed_clint"]) >= 25.0
+        )
+        if not occurrences:
+            raise OutcomeEvaluationError("Sensitivity B bootstrap replicate has no eligible rows")
+        selected, candidate_counts, retained_counts = _retention_for_occurrences(
+            plan_rows, occurrences
+        )
+        random_draws = _random_occurrence_draws(
+            occurrences,
+            retained_counts,
+            replicate_index=replicate_index,
+            n_random=n_random,
+            base_seed=seed,
+            sensitivity_b_one_based=True,
+        )
+
+        def squared(indices: Sequence[int]) -> np.ndarray:
+            return np.asarray(
+                [
+                    (
+                        all_rows[int(occurrences[index]["row_position"])]["observed_y"]
+                        - all_rows[int(occurrences[index]["row_position"])]["rf_prediction"]
+                    ) ** 2
+                    for index in indices
+                ]
+            )
+
+        qrf_rmse = float(np.sqrt(np.mean(squared(selected))))
+        random_mean = float(np.mean([
+            float(np.sqrt(np.mean(squared(draw)))) for draw in random_draws
+        ]))
+        results.append(
+            BootstrapReplicateResult(
+                replicate_index=replicate_index,
+                occurrence_ids=tuple(tuple(item["occurrence_id"]) for item in occurrences),
+                qrf_retained_occurrence_ids=tuple(
+                    tuple(occurrences[index]["occurrence_id"]) for index in selected
+                ),
+                fold_candidate_counts=candidate_counts,
+                fold_retained_counts=retained_counts,
+                rmse_qrf80=qrf_rmse,
+                rmse_random80=random_mean,
+                rel_benefit_80=rel_benefit_80(random_mean, qrf_rmse),
+            )
+        )
+    values = np.asarray([item.rel_benefit_80 for item in results])
+    lower, upper = np.percentile(values, [2.5, 97.5], method="linear")
+    return BootstrapInferenceResult(
+        replicates=tuple(results),
+        ci_lower=float(lower),
+        ci_upper=float(upper),
+        confidence_level=0.95,
+        percentile_method="linear",
+        bootstrap_replicates=n_bootstrap,
+        matched_random_draws_per_replicate=n_random,
+        base_seed=seed,
+        nested_rng_provenance=(
+            "SensitivityB:SeedSequence([20260923,b])->uint32->RandomState->permutation; b starts at 1"
+        ),
+    )
+
+
+def evaluate_sensitivity_b(
+    frozen_primary_records: Sequence[Mapping[str, Any]],
+    *,
+    n_bootstrap: int = C.N_BOOTSTRAP,
+    n_random: int = C.N_RANDOM_DEFERRALS,
+    seed: int = C.MASTER_SEED,
+) -> SensitivityResult:
+    """Run the post-freeze, outcome-defined, nondeployable CLint >= 25 diagnostic."""
+
+    original = [dict(row) for row in frozen_primary_records]
+    for row in original:
+        if "observed_clint" not in row or not math.isfinite(float(row["observed_clint"])):
+            raise OutcomeEvaluationError("Sensitivity B requires finite original-scale CLint")
+    subgroup = tuple(row for row in original if float(row["observed_clint"]) >= 25.0)
+    if not subgroup:
+        raise OutcomeEvaluationError("Sensitivity B subgroup is empty")
+    curves = _sensitivity_curves(subgroup)
+    qrf80 = next(curve for curve in curves if curve.method == "qrf_width").at(0.80)
+    random_result = _point_matched_random(
+        subgroup, qrf80, n_random=n_random, seed=seed
+    )
+    bootstrap = _sensitivity_b_bootstrap(
+        original, n_bootstrap=n_bootstrap, n_random=n_random, seed=seed
+    )
+    return SensitivityResult(
+        name="SENSITIVITY_B_CLINT_GE_25",
+        interpretation_labels=("EXPLORATORY", "OUTCOME_DEFINED", "DIAGNOSTIC", "NONDEPLOYABLE"),
+        cohort_n=len(subgroup),
+        coverage_curves=curves,
+        qrf80=qrf80,
+        matched_random80=random_result,
+        rel_benefit_80=rel_benefit_80(random_result.mean_rmse, qrf80.pooled_rmse),
+        bootstrap=bootstrap,
+    )
