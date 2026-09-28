@@ -1,4 +1,4 @@
-"""Synthetic Gate 11 acceptance coverage for the v3A Ticket 1/2/3/4 runner.
+"""Synthetic Gate 11 acceptance coverage for the v3A Ticket 1/2/3/4/5 runner.
 
 Only synthetic models and outcomes are used.  The real CHEMBL3301370 outcomes
 are never supplied to the runner.
@@ -32,6 +32,9 @@ from src.v3a_preflight import (
 )
 from src.v3a_runner import (
     LEDGER_FILENAME,
+    FINAL_MANIFEST_FILENAME,
+    FINAL_RESULT_FILENAME,
+    PREDICTION_FREEZE_FILENAME,
     SCIENTIFIC_RUNS_RELATIVE,
     FrozenArtifactError,
     InternalRunStatus,
@@ -44,6 +47,8 @@ from src.v3a_runner import (
     ProtectedRunPathError,
     RunAuthorizationError,
     RunCollisionError,
+    FinalResultCollisionError,
+    FinalResultError,
     abort_run,
     authorize_run,
     initialize_run_ledger,
@@ -59,6 +64,10 @@ from src.v3a_runner import (
     classify_rel_benefit_80,
     evaluate_postfreeze,
     prepare_postfreeze_plan,
+    build_final_result_package,
+    seal_final_result,
+    validate_final_result_payload,
+    verify_sealed_scientific_run,
 )
 from src.v3a_qrf_weights import (
     matched_random_rankings,
@@ -69,16 +78,17 @@ from src.v3a_qrf_weights import (
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-FROZEN_RELATIVES = (
+FROZEN_RELATIVES = tuple(dict.fromkeys((
     SAP_RELATIVE,
     COHORT_RELATIVE,
     SPLIT_RELATIVE,
     FEATURE_RELATIVE,
     MANIFEST_RELATIVE,
     STATE_RELATIVE,
-)
+    *runner.AUTHORITY_RELATIVES,
+)))
 FIXED_TIME = "2026-09-24T12:00:00Z"
-FIXED_COMMIT = "1" * 40
+FIXED_COMMIT = "2a24fdf83998e07b889b9046330c3d12a8858506"
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -331,6 +341,23 @@ class TestRunNamespaceAndLedger:
             _ledger(ready_project, tmp_path)
         assert ledger.ledger_path.read_bytes() == original
 
+    def test_hash_shaped_caller_commit_cannot_override_executing_checkout(
+        self, ready_project
+    ):
+        artifacts = load_frozen_artifacts(ready_project)
+        with pytest.raises(runner.RunnerError, match="executing checkout HEAD"):
+            initialize_run_ledger(
+                ready_project / SCIENTIFIC_RUNS_RELATIVE,
+                "forged-code-identity",
+                artifacts=artifacts,
+                git_commit="f" * 40,
+                start_timestamp=FIXED_TIME,
+                authorization_requested=True,
+            )
+        assert not (
+            ready_project / SCIENTIFIC_RUNS_RELATIVE / "forged-code-identity"
+        ).exists()
+
     def test_ledger_schema_is_complete_and_canonical(self, ready_project, tmp_path):
         second_project = tmp_path / "second-synthetic-project"
         shutil.copytree(ready_project, second_project)
@@ -357,11 +384,16 @@ class TestRunNamespaceAndLedger:
         payload = first.read()
         assert set(payload) == {
             "abort_reason",
+            "artifact_hashes",
             "authorization_passed",
             "authorization_requested",
+            "completion_timestamp",
             "environment_summary",
+            "final_manifest_reference",
+            "final_manifest_sha256",
             "git_commit",
             "independent_audit_recorded",
+            "lifecycle_events",
             "manifest_reference",
             "manifest_sha256",
             "preflight_state",
@@ -584,6 +616,117 @@ def ticket2_synthetic_runs():
         "a": _run_synthetic_ticket2(inputs, "radically-low-test-y"),
         "b": _run_synthetic_ticket2(inputs, "radically-high-test-y"),
     }
+
+
+class TestGate11NegativeControlsQ1ToQ4:
+    def test_test_y_cannot_change_descriptor_scaling(self, ticket2_synthetic_runs):
+        inputs = ticket2_synthetic_runs["inputs"]
+        train_mask = np.asarray(inputs.outer_folds) != 1
+        train_descriptors = inputs.descriptors[train_mask]
+        test_descriptors = inputs.descriptors[~train_mask]
+        test_y_candidates = (
+            np.zeros((~train_mask).sum()),
+            np.full((~train_mask).sum(), 1_000_000.0),
+        )
+        labels_seen = []
+
+        def descriptor_stage(test_y):
+            rows = [
+                {"is_train": True, "descriptors": row, "y": float(index)}
+                for index, row in enumerate(train_descriptors)
+            ] + [
+                {"is_train": False, "descriptors": row, "y": float(label)}
+                for row, label in zip(test_descriptors, test_y)
+            ]
+            labels_seen.append(tuple(row["y"] for row in rows if not row["is_train"]))
+            if not np.isfinite([row["y"] for row in rows]).all():
+                raise AssertionError("synthetic labels must be finite")
+            selected = np.asarray([row["descriptors"] for row in rows if row["is_train"]])
+            scaler, scaled = runner.fit_physchem_space(selected)
+            distances = tuple(
+                runner.physchem_knn_distance(
+                    row["descriptors"], scaled, scaler.mean_, scaler.scale_, k=C.PHYSCHEM_KNN
+                )
+                for row in rows if not row["is_train"]
+            )
+            return scaler.mean_.copy(), scaler.scale_.copy(), distances
+
+        observed = [descriptor_stage(test_y) for test_y in test_y_candidates]
+        assert labels_seen[0] != labels_seen[1]
+        assert observed[0][0].tobytes() == observed[1][0].tobytes()
+        assert observed[0][1].tobytes() == observed[1][1].tobytes()
+        assert observed[0][2] == observed[1][2]
+
+    def test_test_compound_cannot_improve_tanimoto(self, ticket2_synthetic_runs):
+        query = np.asarray([1, 1, 0, 0], dtype=np.uint8)
+        outer_training = np.asarray(
+            [[1, 0, 1, 0], [0, 1, 0, 1]], dtype=np.uint8
+        )
+        training_only_score = runner.tanimoto_unfamiliarity(query, outer_training)
+        leaked_score = runner.tanimoto_unfamiliarity(
+            query, np.vstack([outer_training, query])
+        )
+        assert training_only_score > 0.0
+        assert leaked_score == 0.0
+        for _event, audit in ticket2_synthetic_runs["a"]["audits"]:
+            assert set(audit["test_ids"]).isdisjoint(audit["tanimoto_reference_ids"])
+
+    def test_test_y_cannot_change_local_sd(self):
+        weights = np.asarray([0.2, 0.3, 0.5])
+        y_train = np.asarray([1.0, 4.0, 9.0])
+        test_y_candidates = (np.asarray([0.0, 0.0]), np.asarray([1000.0, 1000.0]))
+        labels_seen = []
+
+        def local_sd_stage(test_y):
+            rows = [
+                {"is_train": True, "weight": float(weight), "y": float(label)}
+                for weight, label in zip(weights, y_train)
+            ] + [
+                {"is_train": False, "weight": None, "y": float(label)}
+                for label in test_y
+            ]
+            labels_seen.append(tuple(row["y"] for row in rows if not row["is_train"]))
+            if not np.isfinite([row["y"] for row in rows]).all():
+                raise AssertionError("synthetic labels must be finite")
+            training = [row for row in rows if row["is_train"]]
+            return runner.local_label_sd(
+                np.asarray([row["weight"] for row in training]),
+                np.asarray([row["y"] for row in training]),
+            )
+
+        observed = [local_sd_stage(test_y) for test_y in test_y_candidates]
+        assert labels_seen[0] != labels_seen[1]
+        assert observed[0] == observed[1]
+        assert observed[0] > 0.0
+
+    def test_test_y_cannot_change_qrf_width(self):
+        weights = np.asarray([0.1, 0.2, 0.3, 0.4])
+        y_train = np.asarray([1.0, 2.0, 8.0, 16.0])
+        test_y_candidates = (np.asarray([-1000.0]), np.asarray([1000.0]))
+        labels_seen = []
+
+        def qrf_stage(test_y):
+            rows = [
+                {"is_train": True, "weight": float(weight), "y": float(label)}
+                for weight, label in zip(weights, y_train)
+            ] + [
+                {"is_train": False, "weight": None, "y": float(label)}
+                for label in test_y
+            ]
+            labels_seen.append(tuple(row["y"] for row in rows if not row["is_train"]))
+            if not np.isfinite([row["y"] for row in rows]).all():
+                raise AssertionError("synthetic labels must be finite")
+            training = [row for row in rows if row["is_train"]]
+            return runner.qrf_prediction_quantiles(
+                np.asarray([row["weight"] for row in training]),
+                np.asarray([row["y"] for row in training]),
+                quantiles=(0.10, 0.90),
+            )
+
+        quantiles = [qrf_stage(test_y) for test_y in test_y_candidates]
+        assert labels_seen[0] != labels_seen[1]
+        assert quantiles[0] == quantiles[1]
+        assert quantiles[0]["Q90"] - quantiles[0]["Q10"] > 0.0
 
 
 class TestTicket2OuterFoldOrchestration:
@@ -1733,7 +1876,7 @@ class TestTicket3MatchedRandomAndEstimand:
             ticket3_bundle["plan"].random_retained_ids_by_draw
         )
 
-    def test_outcomes_cannot_change_random_or_qrf_retained_ids(
+    def test_test_y_cannot_change_retained_ids(
         self, ticket3_bundle, ticket3_results
     ):
         draws_before = ticket3_bundle["plan"].random_retained_ids_by_draw
@@ -2337,3 +2480,720 @@ class TestTicket4Sensitivities:
         assert result.matched_random80.draw_count == 4
         assert result.bootstrap.nested_rng_provenance.endswith("b starts at 1")
         assert json.dumps(records, sort_keys=True) == before
+
+
+# =========================================================================== Ticket 5
+def _ticket5_primary_records(ticket3_bundle):
+    outcomes = {row["activity_id"]: row["observed_y"] for row in ticket3_bundle["outcomes"]}
+    return [
+        {
+            **record,
+            "scaffold_key": f"F{record['outer_fold']}_S{record['activity_id']}",
+            "observed_y": outcomes[record["activity_id"]],
+            "observed_clint": float(25 + record["activity_id"] % 17),
+            "standard_relation": None,
+        }
+        for record in ticket3_bundle["payload"]["records"]
+    ]
+
+
+@pytest.fixture(scope="module")
+def ticket5_components(ticket3_bundle, sensitivity_a_end_to_end):
+    primary_records = _ticket5_primary_records(ticket3_bundle)
+    bootstrap = runner.run_primary_bootstrap(
+        primary_records, n_bootstrap=3, n_random=4
+    )
+    return {
+        "bootstrap": bootstrap,
+        "cqr": runner.evaluate_cqr(_cqr_records(), _SyntheticCQRFactory()),
+        "sensitivity_a": sensitivity_a_end_to_end["result"],
+        "sensitivity_b": runner.evaluate_sensitivity_b(
+            _ticket4_records(), n_bootstrap=3, n_random=4
+        ),
+    }
+
+
+def _authorized_prediction_freeze(artifacts, ticket3_bundle):
+    payload = ticket3_bundle["freeze"].read_payload()
+    records = payload["records"]
+    expected = {record["activity_id"]: record["outer_fold"] for record in records}
+    freeze = build_prediction_freeze(
+        records,
+        expected_activity_ids=tuple(expected),
+        expected_outer_folds=tuple(expected.values()),
+        provenance=runner._prediction_provenance(artifacts),
+    )
+    return freeze, expected
+
+
+@pytest.fixture
+def ticket5_running_bundle(ready_project, tmp_path, ticket3_bundle, ticket5_components):
+    artifacts = load_frozen_artifacts(ready_project)
+    ledger = initialize_run_ledger(
+        ready_project / SCIENTIFIC_RUNS_RELATIVE,
+        "ticket5-synthetic-run",
+        artifacts=artifacts,
+        git_commit=FIXED_COMMIT,
+        start_timestamp=FIXED_TIME,
+        authorization_requested=True,
+        environment_summary={"z": 2, "a": 1},
+    )
+    authorize_run(ready_project, execute_scientific_analysis=True, ledger=ledger)
+    start_run(ledger)
+    freeze, expected = _authorized_prediction_freeze(artifacts, ticket3_bundle)
+    sealed_freeze = seal_prediction_freeze(
+        freeze,
+        ledger.run_directory / PREDICTION_FREEZE_FILENAME,
+        expected_id_to_fold=expected,
+    )
+    plan = prepare_postfreeze_plan(sealed_freeze, expected_id_to_fold=expected)
+    point = evaluate_postfreeze(plan, ticket3_bundle["outcomes"])
+    primary = runner.primary_inference(point.rel_benefit_80, ticket5_components["bootstrap"])
+    package = build_final_result_package(
+        ledger=ledger,
+        artifacts=artifacts,
+        sealed_freeze=sealed_freeze,
+        postfreeze_plan=plan,
+        point_result=point,
+        primary=primary,
+        cqr=ticket5_components["cqr"],
+        sensitivity_a=ticket5_components["sensitivity_a"],
+        sensitivity_b=ticket5_components["sensitivity_b"],
+    )
+    return {
+        "artifacts": artifacts,
+        "ledger": ledger,
+        "freeze": freeze,
+        "sealed_freeze": sealed_freeze,
+        "expected": expected,
+        "plan": plan,
+        "point": point,
+        "primary": primary,
+        "package": package,
+        **ticket5_components,
+    }
+
+
+def _seal_ticket5_bundle(bundle):
+    return seal_final_result(
+        bundle["package"],
+        ledger=bundle["ledger"],
+        artifacts=bundle["artifacts"],
+        sealed_freeze=bundle["sealed_freeze"],
+        completion_timestamp="2026-09-27T12:00:00Z",
+    )
+
+
+class TestGate11Ticket5Serialization91To96:
+    def test_gate11_91_prediction_freeze_schema_and_hash_deterministic(
+        self, ticket5_running_bundle
+    ):
+        bundle = ticket5_running_bundle
+        payload = bundle["freeze"].read_payload()
+        rebuilt = build_prediction_freeze(
+            list(reversed(payload["records"])),
+            expected_activity_ids=tuple(reversed(tuple(bundle["expected"]))),
+            expected_outer_folds=tuple(
+                bundle["expected"][item] for item in reversed(tuple(bundle["expected"]))
+            ),
+            provenance=dict(reversed(list(payload["provenance"].items()))),
+        )
+        assert rebuilt.canonical_bytes == bundle["freeze"].canonical_bytes
+        assert rebuilt.sha256 == hashlib.sha256(rebuilt.canonical_bytes).hexdigest()
+
+    def test_gate11_92_outcome_results_separate_from_prediction_freeze(
+        self, ticket5_running_bundle
+    ):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        freeze_payload = json.loads(sealed.prediction_freeze_path.read_text(encoding="utf-8"))
+        result_payload = json.loads(sealed.result_path.read_text(encoding="utf-8"))
+        assert sealed.prediction_freeze_path != sealed.result_path
+        assert sealed.prediction_freeze_sha256 != sealed.result_sha256
+        assert all("observed_y" not in record for record in freeze_payload["records"])
+        assert set(result_payload["scientific_content"]["outputs"]) == {
+            "primary", "sensitivity_a", "sensitivity_b", "cqr"
+        }
+
+    def test_gate11_93_scientific_results_cannot_overwrite_preflight(
+        self, ticket5_running_bundle, ready_project
+    ):
+        protected = {
+            relative: (ready_project / relative).read_bytes()
+            for relative in FROZEN_RELATIVES
+        }
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        assert sealed.result_path.parent == ticket5_running_bundle["ledger"].run_directory
+        assert all((ready_project / relative).read_bytes() == data for relative, data in protected.items())
+
+    def test_gate11_94_result_records_all_frozen_hashes(self, ticket5_running_bundle):
+        payload = ticket5_running_bundle["package"].read_payload()
+        context = payload["scientific_content"]["context"]
+        assert context["git_commit"] == FIXED_COMMIT
+        assert context["preflight_manifest_sha256"] == C.sha256_file(
+            ticket5_running_bundle["artifacts"].manifest_path
+        )
+        assert context["prediction_freeze_sha256"] == ticket5_running_bundle["sealed_freeze"].sha256
+        assert context["cohort_sha256"] == ticket5_running_bundle["artifacts"].manifest["cohort_sha256"]
+        assert context["split_sha256"] == ticket5_running_bundle["artifacts"].manifest["split_sha256"]
+        assert context["feature_sha256"] == ticket5_running_bundle["artifacts"].manifest["feature_sha256"]
+        assert len(context["authority_documents"]) == len(runner.AUTHORITY_RELATIVES)
+        for document in context["authority_documents"]:
+            assert document["sha256"] == C.sha256_file(
+                ticket5_running_bundle["artifacts"].project_root / document["path"]
+            )
+
+    def test_gate11_95_partial_run_not_marked_complete(
+        self, ticket5_running_bundle, monkeypatch
+    ):
+        def fail_after_prefix(descriptor, data):
+            assert runner.os.write(descriptor, data[:23]) == 23
+            raise OSError("injected result interruption")
+
+        monkeypatch.setattr(runner, "_write_final_temp", fail_after_prefix)
+        with pytest.raises(FinalResultError, match="could not be staged"):
+            _seal_ticket5_bundle(ticket5_running_bundle)
+        ledger = ticket5_running_bundle["ledger"]
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_RUNNING.value
+        assert not (ledger.run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (ledger.run_directory / FINAL_MANIFEST_FILENAME).exists()
+        assert not any(path.suffix == ".tmp" for path in ledger.run_directory.iterdir())
+
+    def test_gate11_96_failed_fold_blocks_final_sealing(
+        self, ready_project
+    ):
+        artifacts = load_frozen_artifacts(ready_project)
+        inputs = replace(_synthetic_inputs(), provenance=runner._prediction_provenance(artifacts))
+        ledger = initialize_run_ledger(
+            ready_project / SCIENTIFIC_RUNS_RELATIVE,
+            "failed-fold-run",
+            artifacts=artifacts,
+            git_commit=FIXED_COMMIT,
+            start_timestamp=FIXED_TIME,
+            authorization_requested=True,
+        )
+        accessed = {"outcomes": 0}
+
+        def failing_training(fold, train_ids):
+            if fold == 3:
+                raise RuntimeError("synthetic fold 3 failure")
+            return {item: float(item % 13) / 10 for item in train_ids}
+
+        def forbidden_outcomes():
+            accessed["outcomes"] += 1
+            raise AssertionError("outcomes must not be accessed after a failed fold")
+
+        with pytest.raises(RuntimeError, match="fold 3"):
+            runner.orchestrate_full_scientific_run(
+                project_root=ready_project,
+                ledger=ledger,
+                inputs=inputs,
+                training_outcome_provider=failing_training,
+                outcome_provider=forbidden_outcomes,
+                completion_timestamp="2026-09-27T12:00:00Z",
+                execute_scientific_analysis=True,
+                n_bootstrap=2,
+                n_random=3,
+            )
+        assert accessed["outcomes"] == 0
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_ABORTED.value
+        assert not (ledger.run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (ledger.run_directory / FINAL_MANIFEST_FILENAME).exists()
+
+    def test_mismatched_frozen_input_provenance_blocks_all_model_and_outcome_access(
+        self, ready_project
+    ):
+        artifacts = load_frozen_artifacts(ready_project)
+        provenance = runner._prediction_provenance(artifacts)
+        bad_inputs = replace(
+            _synthetic_inputs(),
+            provenance={**provenance, "feature_sha256": "f" * 64},
+        )
+        ledger = initialize_run_ledger(
+            ready_project / SCIENTIFIC_RUNS_RELATIVE,
+            "wrong-input-provenance",
+            artifacts=artifacts,
+            git_commit=FIXED_COMMIT,
+            start_timestamp=FIXED_TIME,
+            authorization_requested=True,
+        )
+        calls = {"training": 0, "outcomes": 0}
+
+        def training_provider(_fold, _ids):
+            calls["training"] += 1
+            raise AssertionError("model fitting must not begin")
+
+        def outcome_provider():
+            calls["outcomes"] += 1
+            raise AssertionError("outcomes must not be accessed")
+
+        with pytest.raises(RunAuthorizationError, match="outcome-blind inputs"):
+            runner.orchestrate_full_scientific_run(
+                project_root=ready_project,
+                ledger=ledger,
+                inputs=bad_inputs,
+                training_outcome_provider=training_provider,
+                outcome_provider=outcome_provider,
+                completion_timestamp="2026-09-27T12:00:00Z",
+                execute_scientific_analysis=True,
+                n_bootstrap=2,
+                n_random=3,
+            )
+        assert calls == {"training": 0, "outcomes": 0}
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_ABORTED.value
+
+
+class TestGate11Ticket5Lifecycle97To100:
+    def test_gate11_97_completed_run_gets_immutable_run_id(self, ticket5_running_bundle):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        manifest = json.loads(sealed.manifest_path.read_text(encoding="utf-8"))
+        assert sealed.run_id == manifest["run_id"] == sealed.run_directory.name
+        assert sealed.verify()
+
+    def test_gate11_98_completed_run_cannot_be_overwritten(self, ticket5_running_bundle):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        before = {
+            path: path.read_bytes()
+            for path in (sealed.result_path, sealed.manifest_path, sealed.prediction_freeze_path)
+        }
+        ledger_before = sealed.ledger_path.read_bytes()
+        with pytest.raises((LifecycleTransitionError, FinalResultCollisionError)):
+            _seal_ticket5_bundle(ticket5_running_bundle)
+        with pytest.raises(LifecycleTransitionError, match="before execution starts"):
+            authorize_run(
+                ticket5_running_bundle["artifacts"].project_root,
+                execute_scientific_analysis=True,
+                ledger=ticket5_running_bundle["ledger"],
+            )
+        assert all(path.read_bytes() == data for path, data in before.items())
+        assert sealed.ledger_path.read_bytes() == ledger_before
+
+    def test_gate11_99_rerun_requires_new_provenance_record(
+        self, ticket5_running_bundle
+    ):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        artifacts = ticket5_running_bundle["artifacts"]
+        with pytest.raises(RunCollisionError):
+            initialize_run_ledger(
+                artifacts.project_root / SCIENTIFIC_RUNS_RELATIVE,
+                sealed.run_id,
+                artifacts=artifacts,
+                git_commit=FIXED_COMMIT,
+                start_timestamp=FIXED_TIME,
+                authorization_requested=True,
+            )
+        rerun = initialize_run_ledger(
+            artifacts.project_root / SCIENTIFIC_RUNS_RELATIVE,
+            "ticket5-synthetic-rerun",
+            artifacts=artifacts,
+            git_commit=FIXED_COMMIT,
+            start_timestamp="2026-09-27T13:00:00Z",
+            authorization_requested=True,
+        )
+        assert rerun.run_id != sealed.run_id
+        assert rerun.ledger_path != sealed.ledger_path
+        assert sealed.verify()
+
+    def test_gate11_100_execution_ledger_is_complete(self, ticket5_running_bundle):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        payload = ticket5_running_bundle["ledger"].read()
+        assert payload["status"] == InternalRunStatus.EXECUTION_COMPLETED.value
+        assert payload["completion_timestamp"] == "2026-09-27T12:00:00Z"
+        assert payload["git_commit"] == FIXED_COMMIT
+        assert payload["manifest_sha256"]
+        assert payload["final_manifest_sha256"] == sealed.manifest_sha256
+        assert payload["environment_summary"] == {"a": 1, "z": 2}
+        assert set(payload["artifact_hashes"]) == {"prediction_freeze", "scientific_result"}
+        assert [event["event"] for event in payload["lifecycle_events"]] == [
+            "RUN_INITIALIZED", "AUTHORIZATION_PASSED", "EXECUTION_STARTED", "EXECUTION_COMPLETED"
+        ]
+
+
+class TestTicket5DeterminismAndAdversarialFinalization:
+    def test_canonical_special_float_bytes_and_sha_match_independent_known_oracle(self):
+        value = {"z": -0.0, "nested": {"b": 2}, "a": float("inf")}
+        expected = b'{"a":{"$v3a_float":"+infinity"},"nested":{"b":2},"z":0.0}\n'
+        assert runner._canonical_value_bytes(value) == expected
+        assert runner._value_sha256(value) == (
+            "4a205c6f7f6da947a795e8ddfa5091d876949402efc6dbfbae728ce9e7e181a2"
+        )
+
+    def test_final_result_is_deterministic_strict_json_with_explicit_infinities(
+        self, ticket5_running_bundle
+    ):
+        first = ticket5_running_bundle["package"]
+        second = build_final_result_package(
+            ledger=ticket5_running_bundle["ledger"],
+            artifacts=ticket5_running_bundle["artifacts"],
+            sealed_freeze=ticket5_running_bundle["sealed_freeze"],
+            postfreeze_plan=ticket5_running_bundle["plan"],
+            point_result=ticket5_running_bundle["point"],
+            primary=ticket5_running_bundle["primary"],
+            cqr=ticket5_running_bundle["cqr"],
+            sensitivity_a=ticket5_running_bundle["sensitivity_a"],
+            sensitivity_b=ticket5_running_bundle["sensitivity_b"],
+        )
+        assert first.canonical_bytes == second.canonical_bytes
+        assert first.sha256 == hashlib.sha256(first.canonical_bytes).hexdigest()
+        assert b"NaN" not in first.canonical_bytes
+        assert b"Infinity" not in first.canonical_bytes
+        assert b'"$v3a_float":"+infinity"' in first.canonical_bytes
+
+    def test_changed_random_plan_is_rejected(self, ticket5_running_bundle):
+        plan = ticket5_running_bundle["plan"]
+        draws = list(plan.random_retained_ids_by_draw)
+        draws[0] = tuple(reversed(draws[0]))
+        forged = replace(plan, random_retained_ids_by_draw=tuple(draws))
+        with pytest.raises(OutcomeEvaluationError, match="canonical seeded draw stream"):
+            build_final_result_package(
+                ledger=ticket5_running_bundle["ledger"],
+                artifacts=ticket5_running_bundle["artifacts"],
+                sealed_freeze=ticket5_running_bundle["sealed_freeze"],
+                postfreeze_plan=forged,
+                point_result=ticket5_running_bundle["point"],
+                primary=ticket5_running_bundle["primary"],
+                cqr=ticket5_running_bundle["cqr"],
+                sensitivity_a=ticket5_running_bundle["sensitivity_a"],
+                sensitivity_b=ticket5_running_bundle["sensitivity_b"],
+            )
+
+    def test_incomplete_result_wrong_run_id_and_bad_classification_rejected(
+        self, ticket5_running_bundle
+    ):
+        payload = ticket5_running_bundle["package"].read_payload()
+        incomplete = json.loads(json.dumps(payload))
+        incomplete["scientific_content"]["outputs"].pop("cqr")
+        incomplete["scientific_content_sha256"] = runner._value_sha256(
+            incomplete["scientific_content"]
+        )
+        with pytest.raises(FinalResultError, match="namespaces"):
+            validate_final_result_payload(incomplete)
+        with pytest.raises(FinalResultError, match="run_id"):
+            validate_final_result_payload(payload, expected_run_id="another-run")
+        expected = classify_rel_benefit_80(
+            payload["scientific_content"]["outputs"]["primary"]["point_estimate"],
+            payload["scientific_content"]["outputs"]["primary"]["bootstrap"]["ci_lower"],
+            payload["scientific_content"]["outputs"]["primary"]["bootstrap"]["ci_upper"],
+        )
+        inconsistent = json.loads(json.dumps(payload))
+        inconsistent["scientific_content"]["outputs"]["primary"]["classification"] = (
+            "INCONCLUSIVE"
+            if expected != "INCONCLUSIVE"
+            else "SUPPORTED_OPERATIONAL_SIGNAL"
+        )
+        inconsistent["scientific_content_sha256"] = runner._value_sha256(
+            inconsistent["scientific_content"]
+        )
+        with pytest.raises(FinalResultError, match="classification"):
+            validate_final_result_payload(inconsistent)
+        forged_primary = replace(
+            ticket5_running_bundle["primary"],
+            ci_lower=ticket5_running_bundle["primary"].ci_lower - 0.5,
+        )
+        with pytest.raises(FinalResultError, match="confidence interval"):
+            build_final_result_package(
+                ledger=ticket5_running_bundle["ledger"],
+                artifacts=ticket5_running_bundle["artifacts"],
+                sealed_freeze=ticket5_running_bundle["sealed_freeze"],
+                postfreeze_plan=ticket5_running_bundle["plan"],
+                point_result=ticket5_running_bundle["point"],
+                primary=forged_primary,
+                cqr=ticket5_running_bundle["cqr"],
+                sensitivity_a=ticket5_running_bundle["sensitivity_a"],
+                sensitivity_b=ticket5_running_bundle["sensitivity_b"],
+            )
+
+    @pytest.mark.parametrize(
+        "mutator,match",
+        [
+            (
+                lambda payload: payload["scientific_content"]["outputs"]["primary"][
+                    "bootstrap"
+                ].pop("base_seed"),
+                "bootstrap.*schema",
+            ),
+            (
+                lambda payload: payload["scientific_content"]["outputs"]["primary"][
+                    "qrf80"
+                ].__setitem__(
+                    "retained_n",
+                    payload["scientific_content"]["outputs"]["primary"]["qrf80"][
+                        "retained_n"
+                    ] + 1,
+                ),
+                "cohort size|retained_ids length",
+            ),
+        ],
+    )
+    def test_nested_schema_and_consistency_tampering_is_rejected_before_sealing(
+        self, ticket5_running_bundle, mutator, match
+    ):
+        original = ticket5_running_bundle["package"]
+        payload = original.read_payload()
+        mutator(payload)
+        payload["scientific_content_sha256"] = runner._value_sha256(
+            payload["scientific_content"]
+        )
+        malicious_bytes = runner._canonical_value_bytes(payload)
+        malicious = replace(
+            original,
+            canonical_bytes=malicious_bytes,
+            sha256=hashlib.sha256(malicious_bytes).hexdigest(),
+            scientific_content_sha256=payload["scientific_content_sha256"],
+        )
+        ledger = ticket5_running_bundle["ledger"]
+        with pytest.raises(FinalResultError, match=match):
+            seal_final_result(
+                malicious,
+                ledger=ledger,
+                artifacts=ticket5_running_bundle["artifacts"],
+                sealed_freeze=ticket5_running_bundle["sealed_freeze"],
+                completion_timestamp="2026-09-27T12:00:00Z",
+            )
+        assert not (ledger.run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (ledger.run_directory / FINAL_MANIFEST_FILENAME).exists()
+
+    def test_changed_prediction_freeze_after_final_sealing_is_rejected(
+        self, ticket5_running_bundle
+    ):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        sealed.prediction_freeze_path.write_bytes(
+            sealed.prediction_freeze_path.read_bytes() + b" "
+        )
+        with pytest.raises(FinalResultError, match="prediction-freeze mutation"):
+            verify_sealed_scientific_run(sealed)
+
+    @pytest.mark.parametrize("filename", [FINAL_RESULT_FILENAME, FINAL_MANIFEST_FILENAME])
+    def test_existing_final_destination_collision_is_directly_rejected(
+        self, ticket5_running_bundle, filename
+    ):
+        ledger = ticket5_running_bundle["ledger"]
+        destination = ledger.run_directory / filename
+        sentinel = b"pre-existing-final-destination"
+        destination.write_bytes(sentinel)
+        with pytest.raises(FinalResultCollisionError, match="already exists"):
+            _seal_ticket5_bundle(ticket5_running_bundle)
+        assert destination.read_bytes() == sentinel
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_RUNNING.value
+        counterpart = (
+            FINAL_MANIFEST_FILENAME if filename == FINAL_RESULT_FILENAME else FINAL_RESULT_FILENAME
+        )
+        assert not (ledger.run_directory / counterpart).exists()
+
+    def test_manifest_result_hash_mismatch_is_directly_rejected(
+        self, ticket5_running_bundle
+    ):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        manifest = json.loads(sealed.manifest_path.read_text(encoding="utf-8"))
+        result_entry = next(
+            entry for entry in manifest["artifacts"]
+            if entry["logical_name"] == "scientific_result"
+        )
+        result_entry["sha256"] = sealed.prediction_freeze_sha256
+        forged_bytes = runner._canonical_value_bytes(manifest)
+        sealed.manifest_path.write_bytes(forged_bytes)
+        forged_handle = replace(
+            sealed,
+            manifest_sha256=hashlib.sha256(forged_bytes).hexdigest(),
+        )
+        with pytest.raises(FinalResultError, match="artifact hash or size mismatch"):
+            verify_sealed_scientific_run(forged_handle)
+
+    def test_sibling_and_symlink_run_directory_substitution_rejected_before_writes(
+        self, ticket5_running_bundle, monkeypatch
+    ):
+        bundle = ticket5_running_bundle
+        sibling = bundle["artifacts"].project_root / "scientific_runs" / "v3a-sibling"
+        sibling.mkdir(parents=True)
+        forged_ledger_path = sibling / LEDGER_FILENAME
+        shutil.copy2(bundle["ledger"].ledger_path, forged_ledger_path)
+        forged_ledger = replace(
+            bundle["ledger"], run_directory=sibling, ledger_path=forged_ledger_path
+        )
+        with pytest.raises(ProtectedRunPathError, match="canonical run-ID path"):
+            seal_final_result(
+                bundle["package"],
+                ledger=forged_ledger,
+                artifacts=bundle["artifacts"],
+                sealed_freeze=bundle["sealed_freeze"],
+                completion_timestamp="2026-09-27T12:00:00Z",
+            )
+        original_is_symlink = Path.is_symlink
+
+        def report_run_as_symlink(path):
+            if path == bundle["ledger"].run_directory:
+                return True
+            return original_is_symlink(path)
+
+        monkeypatch.setattr(Path, "is_symlink", report_run_as_symlink)
+        with pytest.raises(ProtectedRunPathError, match="symlink"):
+            _seal_ticket5_bundle(bundle)
+        assert not (bundle["ledger"].run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (bundle["ledger"].run_directory / FINAL_MANIFEST_FILENAME).exists()
+
+    def test_executing_checkout_identity_is_revalidated_before_publication(
+        self, ticket5_running_bundle, monkeypatch
+    ):
+        monkeypatch.setattr(runner, "executing_checkout_commit", lambda: "f" * 40)
+        with pytest.raises(FinalResultError, match="executing checkout HEAD"):
+            _seal_ticket5_bundle(ticket5_running_bundle)
+        ledger = ticket5_running_bundle["ledger"]
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_RUNNING.value
+        assert not (ledger.run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (ledger.run_directory / FINAL_MANIFEST_FILENAME).exists()
+
+    def test_manifest_hash_mismatch_path_escape_and_sealed_mutation_rejected(
+        self, ticket5_running_bundle
+    ):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        original_manifest = sealed.manifest_path.read_bytes()
+        manifest = json.loads(original_manifest)
+        manifest["artifacts"][0]["relative_path"] = "../escape.json"
+        sealed.manifest_path.write_bytes(runner._canonical_value_bytes(manifest))
+        with pytest.raises((FinalResultError, ProtectedRunPathError)):
+            verify_sealed_scientific_run(replace(
+                sealed, manifest_sha256=C.sha256_file(sealed.manifest_path)
+            ))
+        sealed.manifest_path.write_bytes(original_manifest)
+        sealed.result_path.write_bytes(sealed.result_path.read_bytes() + b" ")
+        assert sealed.verify() is False
+
+    def test_wrong_protocol_and_code_identity_in_manifest_are_rejected(
+        self, ticket5_running_bundle
+    ):
+        sealed = _seal_ticket5_bundle(ticket5_running_bundle)
+        original = json.loads(sealed.manifest_path.read_text(encoding="utf-8"))
+        wrong_protocol = json.loads(json.dumps(original))
+        wrong_protocol["protocol_version"] = "V3A-UNAUTHORIZED-PROTOCOL"
+        with pytest.raises(FinalResultError, match="protocol version"):
+            runner._verify_manifest_artifacts(
+                wrong_protocol, sealed.run_directory, expected_run_id=sealed.run_id
+            )
+        wrong_commit = json.loads(json.dumps(original))
+        wrong_commit["git_commit"] = "f" * 40
+        with pytest.raises(FinalResultError, match="git_commit"):
+            runner._verify_manifest_artifacts(
+                wrong_commit, sealed.run_directory, expected_run_id=sealed.run_id
+            )
+
+    def test_interrupted_result_publication_rolls_back_manifest_and_completion(
+        self, ticket5_running_bundle, monkeypatch
+    ):
+        def fail_publication(_staged, _destination, *, label):
+            assert label == "scientific result"
+            raise FinalResultError("injected result publication failure")
+
+        monkeypatch.setattr(runner, "_publish_staged_no_clobber", fail_publication)
+        with pytest.raises(FinalResultError, match="result publication"):
+            _seal_ticket5_bundle(ticket5_running_bundle)
+        ledger = ticket5_running_bundle["ledger"]
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_RUNNING.value
+        assert not (ledger.run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (ledger.run_directory / FINAL_MANIFEST_FILENAME).exists()
+        assert not any(path.suffix == ".staged" for path in ledger.run_directory.iterdir())
+
+    def test_interrupted_manifest_publication_never_exposes_final_result(
+        self, ticket5_running_bundle, monkeypatch
+    ):
+        def fail_manifest(_data, _destination, *, label):
+            assert label == "final manifest"
+            raise FinalResultError("injected manifest publication failure")
+
+        monkeypatch.setattr(runner, "_seal_bytes_no_clobber", fail_manifest)
+        with pytest.raises(FinalResultError, match="manifest publication"):
+            _seal_ticket5_bundle(ticket5_running_bundle)
+        ledger = ticket5_running_bundle["ledger"]
+        assert ledger.read()["status"] == InternalRunStatus.EXECUTION_RUNNING.value
+        assert not (ledger.run_directory / FINAL_RESULT_FILENAME).exists()
+        assert not (ledger.run_directory / FINAL_MANIFEST_FILENAME).exists()
+        assert not any(path.suffix == ".staged" for path in ledger.run_directory.iterdir())
+
+
+class _FiveFoldSyntheticCQRModel:
+    def predict_intervals(self, query_rows, quantile_pairs):
+        assert all("observed_y" not in row and "observed_clint" not in row for row in query_rows)
+        centers = np.asarray([row["rf_prediction"] for row in query_rows], dtype=float)
+        return {
+            nominal: (centers - (1.0 + nominal), centers + (1.0 + nominal))
+            for nominal, _low, _high in quantile_pairs
+        }
+
+
+def _five_fold_cqr_factory(proper_rows):
+    assert proper_rows
+    return _FiveFoldSyntheticCQRModel()
+
+
+def test_ticket5_full_synthetic_end_to_end_and_q1_to_q6_orchestration(ready_project):
+    artifacts = load_frozen_artifacts(ready_project)
+    inputs = replace(_synthetic_inputs(), provenance=runner._prediction_provenance(artifacts))
+    ledger = initialize_run_ledger(
+        ready_project / SCIENTIFIC_RUNS_RELATIVE,
+        "full-synthetic-ticket5",
+        artifacts=artifacts,
+        git_commit=FIXED_COMMIT,
+        start_timestamp=FIXED_TIME,
+        authorization_requested=True,
+        environment_summary={"fixture": "synthetic-only"},
+    )
+    outcome_values = {
+        activity_id: float(np.log10(25.0 + position))
+        for position, activity_id in enumerate(inputs.activity_ids)
+    }
+    outcome_access = {"count": 0}
+    events = []
+
+    def training_provider(fold, train_ids):
+        assert all(dict(zip(inputs.activity_ids, inputs.outer_folds))[item] != fold for item in train_ids)
+        return {item: outcome_values[item] for item in train_ids}
+
+    def outcome_provider():
+        outcome_access["count"] += 1
+        freeze_path = ledger.run_directory / PREDICTION_FREEZE_FILENAME
+        assert freeze_path.is_file()
+        assert "prediction_freeze_sealed" in events
+        return [
+            {
+                "activity_id": activity_id,
+                "outer_fold": fold,
+                "observed_y": outcome_values[activity_id],
+                "observed_clint": float(25.0 + position),
+                "standard_relation": None,
+            }
+            for position, (activity_id, fold) in enumerate(
+                zip(inputs.activity_ids, inputs.outer_folds)
+            )
+        ]
+
+    result = runner.orchestrate_full_scientific_run(
+        project_root=ready_project,
+        ledger=ledger,
+        inputs=inputs,
+        training_outcome_provider=training_provider,
+        outcome_provider=outcome_provider,
+        completion_timestamp="2026-09-27T14:00:00Z",
+        execute_scientific_analysis=True,
+        cqr_model_factory=_five_fold_cqr_factory,
+        n_bootstrap=2,
+        n_random=3,
+        audit_hook=lambda event, _detail: events.append(event),
+    )
+    assert outcome_access["count"] == 1
+    assert events.index("prediction_freeze_sealed") < events.index("outcomes_accessed_after_freeze")
+    assert events.index("primary_frozen") < events.index("sensitivities_completed")
+    assert result.prediction_freeze.verify()
+    assert result.sealed_run.verify()
+    assert ledger.read()["status"] == InternalRunStatus.EXECUTION_COMPLETED.value
+    final = json.loads(result.sealed_run.result_path.read_text(encoding="utf-8"))
+    outputs = final["scientific_content"]["outputs"]
+    assert set(outputs) == {"primary", "sensitivity_a", "sensitivity_b", "cqr"}
+    assert "classification" in outputs["primary"]
+    assert "classification" not in outputs["sensitivity_b"]
+    assert outputs["cqr"]["canonical_triage_ranking"] == "ORIGINAL_FROZEN_QRF_WIDTH"
+    serialized_bootstrap = outputs["primary"]["bootstrap"]
+    assert serialized_bootstrap["base_seed"] == C.MASTER_SEED
+    assert serialized_bootstrap["nested_rng_provenance"] == runner.BOOTSTRAP_RNG_PROVENANCE
+    assert serialized_bootstrap["bootstrap_replicates"] == 2
+    assert serialized_bootstrap["matched_random_draws_per_replicate"] == 3
+    assert serialized_bootstrap["detailed_replicates_sha256"] == runner._value_sha256(
+        result.primary_inference.bootstrap.replicates
+    )

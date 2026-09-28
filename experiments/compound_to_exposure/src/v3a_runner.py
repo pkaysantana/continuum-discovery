@@ -6,7 +6,8 @@ uncertainty orchestration up to an immutable prediction freeze.  Ticket 3 starts
 strictly after that seal: retention and matched-random IDs are planned without
 outcomes, then outcomes are aligned by activity ID for point evaluation only.
 Ticket 4 adds pure in-memory bootstrap inference, secondary CQR, and the two
-prespecified sensitivities; it adds no persistence or lifecycle transition.
+prespecified sensitivities.  Ticket 5 adds deterministic final serialization,
+artifact-bound manifests, terminal sealing, and full fail-closed orchestration.
 """
 from __future__ import annotations
 
@@ -15,8 +16,9 @@ import json
 import math
 import os
 import re
+import subprocess
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, fields, is_dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -66,8 +68,23 @@ SCIENTIFIC_RUNS_RELATIVE = Path("scientific_runs/v3a")
 LEDGER_FILENAME = "execution_ledger.json"
 LEDGER_SCHEMA_VERSION = 1
 PREDICTION_FREEZE_SCHEMA_VERSION = 1
+FINAL_RESULT_FILENAME = "scientific_result.json"
+FINAL_MANIFEST_FILENAME = "run_manifest.json"
+FINAL_RESULT_SCHEMA_VERSION = 1
+FINAL_MANIFEST_SCHEMA_VERSION = 1
+PREDICTION_FREEZE_FILENAME = "prediction_freeze.json"
+AUTHORITY_RELATIVES = (
+    SAP_RELATIVE,
+    Path("docs/V3A_GATE11_ACCEPTANCE_TEST_SPEC.md"),
+    Path("docs/V3A_3A1_RC_FREEZE_CHECKLIST.md"),
+    Path("docs/V3A_PRIMARY_BOOTSTRAP_PREEXECUTION_AMENDMENT_2026-09-26.md"),
+    Path("docs/V3A_SENSITIVITY_B_PREEXECUTION_AMENDMENT_2026-09-25.md"),
+    Path("docs/V3A_CQR_PREEXECUTION_AMENDMENT_2026-09-26.md"),
+)
 _RUN_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}\Z")
 _SHA256_RE = re.compile(r"[0-9a-f]{64}\Z")
+_GIT_COMMIT_RE = re.compile(r"[0-9a-f]{40}(?:[0-9a-f]{24})?\Z")
+_SPECIAL_FLOAT_KEY = "$v3a_float"
 
 _UNCERTAINTY_FIELDS = (
     "qrf_width",
@@ -163,12 +180,21 @@ class OutcomeEvaluationError(RunnerError):
     """Post-freeze outcome access or evaluation violated the Ticket 3 contract."""
 
 
+class FinalResultError(RunnerError):
+    """Final result serialization, validation, or sealing failed closed."""
+
+
+class FinalResultCollisionError(FinalResultError):
+    """A final result or manifest destination already exists."""
+
+
 class InternalRunStatus(str, Enum):
     """Internal-only lifecycle vocabulary; never written to frozen state."""
 
     RUNNER_IMPLEMENTED_NOT_AUDITED = "RUNNER_IMPLEMENTED_NOT_AUDITED"
     EXECUTION_RUNNING = "EXECUTION_RUNNING"
     EXECUTION_ABORTED = "EXECUTION_ABORTED"
+    EXECUTION_COMPLETED = "EXECUTION_COMPLETED"
 
 
 @dataclass(frozen=True)
@@ -574,7 +600,7 @@ def validate_internal_transition(
     current: InternalRunStatus | str,
     target: InternalRunStatus | str,
 ) -> InternalRunStatus:
-    """Validate only the lifecycle edges reachable in Ticket 1."""
+    """Validate the monotonic internal runner lifecycle."""
 
     current_status = _normalise_status(current)
     target_status = _normalise_status(target)
@@ -583,8 +609,12 @@ def validate_internal_transition(
             InternalRunStatus.EXECUTION_RUNNING,
             InternalRunStatus.EXECUTION_ABORTED,
         },
-        InternalRunStatus.EXECUTION_RUNNING: {InternalRunStatus.EXECUTION_ABORTED},
+        InternalRunStatus.EXECUTION_RUNNING: {
+            InternalRunStatus.EXECUTION_ABORTED,
+            InternalRunStatus.EXECUTION_COMPLETED,
+        },
         InternalRunStatus.EXECUTION_ABORTED: set(),
+        InternalRunStatus.EXECUTION_COMPLETED: set(),
     }
     if target_status not in allowed[current_status]:
         raise LifecycleTransitionError(
@@ -596,6 +626,24 @@ def validate_internal_transition(
 def _validate_run_id(run_id: str) -> None:
     if not isinstance(run_id, str) or _RUN_ID_RE.fullmatch(run_id) is None or run_id in {".", ".."}:
         raise ProtectedRunPathError("run_id must be one safe filesystem component")
+
+
+def executing_checkout_commit() -> str:
+    """Return the commit of the checkout that supplies this runner module."""
+
+    try:
+        completed = subprocess.run(
+            ["git", "-C", str(Path(__file__).resolve().parent), "rev-parse", "--verify", "HEAD"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as exc:
+        raise RunnerError("executing checkout commit could not be determined") from exc
+    commit = completed.stdout.strip()
+    if completed.returncode != 0 or _GIT_COMMIT_RE.fullmatch(commit) is None:
+        raise RunnerError("executing checkout commit could not be determined")
+    return commit
 
 
 def _is_relative_to(path: Path, parent: Path) -> bool:
@@ -649,8 +697,11 @@ def initialize_run_ledger(
 ) -> RunLedger:
     """Atomically claim a new run ID and write its minimal canonical JSON ledger."""
 
-    if not isinstance(git_commit, str) or not git_commit.strip():
-        raise RunnerError("git_commit is required")
+    if not isinstance(git_commit, str) or _GIT_COMMIT_RE.fullmatch(git_commit) is None:
+        raise RunnerError("git_commit must be a lowercase 40- or 64-character hex identity")
+    executing_commit = executing_checkout_commit()
+    if git_commit != executing_commit:
+        raise RunnerError("git_commit differs from the executing checkout HEAD")
     if not isinstance(start_timestamp, str) or not start_timestamp.strip():
         raise RunnerError("start_timestamp is required")
     if authorization_requested is not True and authorization_requested is not False:
@@ -672,7 +723,11 @@ def initialize_run_ledger(
         "authorization_passed": False,
         "authorization_requested": authorization_requested,
         "environment_summary": environment,
-        "git_commit": git_commit,
+        "artifact_hashes": {},
+        "completion_timestamp": None,
+        "final_manifest_reference": None,
+        "final_manifest_sha256": None,
+        "git_commit": executing_commit,
         "independent_audit_recorded": artifacts.state.get("independent_audit_recorded"),
         "manifest_reference": MANIFEST_RELATIVE.as_posix(),
         "manifest_sha256": artifacts.manifest_sha256,
@@ -682,6 +737,13 @@ def initialize_run_ledger(
         "scientific_execution_allowed": artifacts.state.get("scientific_execution_allowed"),
         "start_timestamp": start_timestamp,
         "status": InternalRunStatus.RUNNER_IMPLEMENTED_NOT_AUDITED.value,
+        "lifecycle_events": [
+            {
+                "event": "RUN_INITIALIZED",
+                "status": InternalRunStatus.RUNNER_IMPLEMENTED_NOT_AUDITED.value,
+                "timestamp": start_timestamp,
+            }
+        ],
     }
     _canonical_json_bytes(payload)
 
@@ -721,15 +783,29 @@ def _record_authorization(
     abort_reason: str | None,
 ) -> None:
     payload = _validated_ledger_payload(ledger)
+    if payload.get("status") != InternalRunStatus.RUNNER_IMPLEMENTED_NOT_AUDITED.value:
+        raise LifecycleTransitionError(
+            "authorization may only be recorded before execution starts"
+        )
     payload["authorization_requested"] = requested
     payload["authorization_passed"] = passed
     if passed:
         payload["abort_reason"] = None
+        payload["lifecycle_events"].append(
+            {"event": "AUTHORIZATION_PASSED", "status": payload["status"]}
+        )
     else:
         payload["status"] = validate_internal_transition(
             payload["status"], InternalRunStatus.EXECUTION_ABORTED
         ).value
         payload["abort_reason"] = abort_reason or "authorization failed"
+        payload["lifecycle_events"].append(
+            {
+                "event": "AUTHORIZATION_FAILED",
+                "status": payload["status"],
+                "reason": payload["abort_reason"],
+            }
+        )
     _atomic_write_json(payload, ledger.ledger_path)
 
 
@@ -743,6 +819,9 @@ def start_run(ledger: RunLedger) -> None:
     if payload.get("authorization_requested") is not True or payload.get("authorization_passed") is not True:
         raise RunAuthorizationError("Execution blocked: ledger is not authorized")
     payload["status"] = target_status.value
+    payload["lifecycle_events"].append(
+        {"event": "EXECUTION_STARTED", "status": target_status.value}
+    )
     _atomic_write_json(payload, ledger.ledger_path)
 
 
@@ -756,6 +835,9 @@ def abort_run(ledger: RunLedger, reason: str) -> None:
         payload["status"], InternalRunStatus.EXECUTION_ABORTED
     ).value
     payload["abort_reason"] = reason
+    payload["lifecycle_events"].append(
+        {"event": "EXECUTION_ABORTED", "status": payload["status"], "reason": reason}
+    )
     _atomic_write_json(payload, ledger.ledger_path)
 
 
@@ -1912,6 +1994,56 @@ class SensitivityAPredictionInputs:
     outcomes_by_id: Mapping[Any, float]
 
 
+@dataclass(frozen=True)
+class FinalResultPackage:
+    """Validated deterministic bytes for the complete scientific result package."""
+
+    canonical_bytes: bytes
+    sha256: str
+    scientific_content_sha256: str
+    run_id: str
+
+    def read_payload(self) -> dict[str, Any]:
+        return json.loads(self.canonical_bytes.decode("utf-8"))
+
+
+@dataclass(frozen=True)
+class SealedScientificRun:
+    """Paths and hashes for one terminal no-clobber run seal."""
+
+    run_id: str
+    run_directory: Path
+    result_path: Path
+    result_sha256: str
+    manifest_path: Path
+    manifest_sha256: str
+    scientific_content_sha256: str
+    prediction_freeze_path: Path
+    prediction_freeze_sha256: str
+    ledger_path: Path
+
+    def verify(self) -> bool:
+        try:
+            verify_sealed_scientific_run(self)
+        except (OSError, ValueError, RunnerError):
+            return False
+        return True
+
+
+@dataclass(frozen=True)
+class FullOrchestrationResult:
+    """Complete synthetic/authorized runner output returned only after sealing."""
+
+    sealed_run: SealedScientificRun
+    prediction_freeze: SealedPredictionFreeze
+    postfreeze_plan: PostFreezePlan
+    point_result: Ticket3EvaluationResult
+    primary_inference: PrimaryInferenceResult
+    cqr: CQRResult
+    sensitivity_a: SensitivityResult
+    sensitivity_b: SensitivityResult
+
+
 def _ticket4_rows(
     records: Sequence[Mapping[str, Any]],
     *,
@@ -2946,3 +3078,1727 @@ def evaluate_sensitivity_b(
         rel_benefit_80=rel_benefit_80(random_result.mean_rmse, qrf80.pooled_rmse),
         bootstrap=bootstrap,
     )
+
+
+# --------------------------------------------------------------------------- Ticket 5 serialization
+def _canonical_scientific_value(value: Any, *, label: str = "scientific value") -> Any:
+    """Return a JSON-safe deterministic value with explicit special-float tags.
+
+    Amendment-valid infinities are encoded as tagged objects so the artifact is
+    strict JSON.  NaN is never a scientific result.  Signed zero is normalised
+    because its sign carries no protocol meaning and must not perturb hashes.
+    """
+
+    if isinstance(value, np.generic):
+        value = value.item()
+    if is_dataclass(value) and not isinstance(value, type):
+        value = {field.name: getattr(value, field.name) for field in fields(value)}
+    if isinstance(value, np.ndarray):
+        value = value.tolist()
+    if isinstance(value, Mapping):
+        normalised: dict[str, Any] = {}
+        for key, item in value.items():
+            if not isinstance(key, str):
+                raise FinalResultError(f"{label} mapping keys must be strings")
+            normalised[key] = _canonical_scientific_value(
+                item, label=f"{label}.{key}"
+            )
+        return normalised
+    if isinstance(value, (list, tuple)):
+        return [
+            _canonical_scientific_value(item, label=f"{label}[{index}]")
+            for index, item in enumerate(value)
+        ]
+    if isinstance(value, set):
+        raise FinalResultError(f"{label} may not contain an unordered set")
+    if isinstance(value, Path):
+        return value.as_posix()
+    if isinstance(value, float):
+        if math.isnan(value):
+            raise FinalResultError(f"{label} may not contain NaN")
+        if math.isinf(value):
+            return {_SPECIAL_FLOAT_KEY: "+infinity" if value > 0 else "-infinity"}
+        return 0.0 if value == 0.0 else value
+    if value is None or isinstance(value, (str, int, bool)):
+        return value
+    raise FinalResultError(f"{label} has unsupported type {type(value).__name__}")
+
+
+def _canonical_value_bytes(value: Any) -> bytes:
+    normalised = _canonical_scientific_value(value)
+    try:
+        serialized = json.dumps(
+            normalised,
+            ensure_ascii=False,
+            allow_nan=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+    except (TypeError, ValueError) as exc:
+        raise FinalResultError("scientific value is not canonical-JSON serializable") from exc
+    return (serialized + "\n").encode("utf-8")
+
+
+def _value_sha256(value: Any) -> str:
+    return hashlib.sha256(_canonical_value_bytes(value)).hexdigest()
+
+
+def _coverage_point_payload(point: CoveragePointResult) -> dict[str, Any]:
+    return {
+        "coverage": point.coverage,
+        "deferred_n": point.deferred_n,
+        "pooled_mae": point.pooled_mae,
+        "pooled_rmse": point.pooled_rmse,
+        "retained_counts_by_fold": point.retained_counts_by_fold,
+        "retained_ids": point.retained_ids,
+        "retained_n": point.retained_n,
+    }
+
+
+def _coverage_curves_payload(
+    curves: Sequence[CoverageCurveResult],
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "method": curve.method,
+            "naurc": curve.naurc,
+            "points": [_coverage_point_payload(point) for point in curve.points],
+            "role": curve.role,
+        }
+        for curve in curves
+    ]
+
+
+def _matched_random_payload(result: MatchedRandomResult) -> dict[str, Any]:
+    draws = np.asarray(result.rmse_draws, dtype=np.float64).reshape(-1)
+    if draws.size != result.draw_count or not np.isfinite(draws).all():
+        raise FinalResultError("matched-random draws are incomplete or nonfinite")
+    return {
+        "draw_count": result.draw_count,
+        "mean_rmse": result.mean_rmse,
+        "monte_carlo_se": result.monte_carlo_se,
+        "retained_counts_by_fold": result.retained_counts_by_fold,
+        "rmse_draws_sha256": _value_sha256(draws.tolist()),
+        "seed": result.seed,
+    }
+
+
+def _bootstrap_payload(result: BootstrapInferenceResult) -> dict[str, Any]:
+    if len(result.replicates) != result.bootstrap_replicates:
+        raise FinalResultError("bootstrap replicate count is incomplete")
+    summaries = [
+        {
+            "fold_candidate_counts": replicate.fold_candidate_counts,
+            "fold_retained_counts": replicate.fold_retained_counts,
+            "rel_benefit_80": replicate.rel_benefit_80,
+            "replicate_index": replicate.replicate_index,
+            "rmse_qrf80": replicate.rmse_qrf80,
+            "rmse_random80": replicate.rmse_random80,
+        }
+        for replicate in result.replicates
+    ]
+    return {
+        "base_seed": result.base_seed,
+        "bootstrap_replicates": result.bootstrap_replicates,
+        "ci_lower": result.ci_lower,
+        "ci_upper": result.ci_upper,
+        "confidence_level": result.confidence_level,
+        "detailed_replicates_sha256": _value_sha256(result.replicates),
+        "matched_random_draws_per_replicate": result.matched_random_draws_per_replicate,
+        "nested_rng_provenance": result.nested_rng_provenance,
+        "percentile_method": result.percentile_method,
+        "replicate_summaries": summaries,
+    }
+
+
+def _sensitivity_payload(result: SensitivityResult) -> dict[str, Any]:
+    payload = {
+        "bootstrap": _bootstrap_payload(result.bootstrap),
+        "cohort_n": result.cohort_n,
+        "coverage_curves": _coverage_curves_payload(result.coverage_curves),
+        "interpretation_labels": result.interpretation_labels,
+        "matched_random80": _matched_random_payload(result.matched_random80),
+        "name": result.name,
+        "qrf80": _coverage_point_payload(result.qrf80),
+        "rel_benefit_80": result.rel_benefit_80,
+    }
+    if result.oof_records:
+        payload["oof_records_sha256"] = _value_sha256(result.oof_records)
+    if result.provenance is not None:
+        payload["provenance"] = result.provenance
+    return payload
+
+
+def _authority_document_hashes(artifacts: FrozenArtifacts) -> list[dict[str, str]]:
+    documents: list[dict[str, str]] = []
+    for relative in AUTHORITY_RELATIVES:
+        path = _required_regular_file(artifacts.project_root, relative)
+        documents.append({"path": relative.as_posix(), "sha256": C.sha256_file(path)})
+    sap = next(item for item in documents if item["path"] == SAP_RELATIVE.as_posix())
+    if sap["sha256"] != artifacts.manifest.get("sap_sha256"):
+        raise FinalResultError("authoritative SAP differs from the frozen manifest")
+    return documents
+
+
+def _random_plan_sha256(plan: PostFreezePlan) -> str:
+    _validate_postfreeze_plan(plan)
+    payload = {
+        "freeze_sha256": plan.freeze_sha256,
+        "random_draw_count": plan.random_draw_count,
+        "random_retained_counts_by_fold": plan.random_retained_counts_by_fold,
+        "random_retained_ids_by_draw": plan.random_retained_ids_by_draw,
+        "random_seed": plan.random_seed,
+        "retention_sets": plan.retention_sets,
+    }
+    return _value_sha256(payload)
+
+
+def _validate_result_components(
+    *,
+    point_result: Ticket3EvaluationResult,
+    primary: PrimaryInferenceResult,
+    cqr: CQRResult,
+    sensitivity_a: SensitivityResult,
+    sensitivity_b: SensitivityResult,
+    freeze_sha256: str,
+) -> None:
+    if point_result.freeze_sha256 != freeze_sha256:
+        raise FinalResultError("primary point result does not match prediction freeze")
+    if primary.point_estimate != point_result.rel_benefit_80:
+        raise FinalResultError("primary point estimate differs from point evaluation")
+    if (
+        primary.ci_lower != primary.bootstrap.ci_lower
+        or primary.ci_upper != primary.bootstrap.ci_upper
+    ):
+        raise FinalResultError("primary confidence interval differs from bootstrap inference")
+    expected_classification = classify_rel_benefit_80(
+        primary.point_estimate, primary.ci_lower, primary.ci_upper
+    )
+    if primary.classification != expected_classification:
+        raise FinalResultError("primary classification is inconsistent with the frozen rule")
+    if cqr.role != "SECONDARY_CALIBRATION_ONLY":
+        raise FinalResultError("CQR role is not secondary calibration only")
+    if cqr.canonical_triage_ranking != "ORIGINAL_FROZEN_QRF_WIDTH":
+        raise FinalResultError("CQR cannot replace the primary QRF ranking")
+    if sensitivity_a.name != "SENSITIVITY_A_STRICT_INTERIOR":
+        raise FinalResultError("Sensitivity A result identity mismatch")
+    if sensitivity_b.name != "SENSITIVITY_B_CLINT_GE_25":
+        raise FinalResultError("Sensitivity B result identity mismatch")
+    required_b_labels = {"EXPLORATORY", "OUTCOME_DEFINED", "DIAGNOSTIC", "NONDEPLOYABLE"}
+    if set(sensitivity_b.interpretation_labels) != required_b_labels:
+        raise FinalResultError("Sensitivity B diagnostic labels are incomplete")
+
+
+def build_final_result_package(
+    *,
+    ledger: RunLedger,
+    artifacts: FrozenArtifacts,
+    sealed_freeze: SealedPredictionFreeze,
+    postfreeze_plan: PostFreezePlan,
+    point_result: Ticket3EvaluationResult,
+    primary: PrimaryInferenceResult,
+    cqr: CQRResult,
+    sensitivity_a: SensitivityResult,
+    sensitivity_b: SensitivityResult,
+) -> FinalResultPackage:
+    """Validate already-computed outputs and serialize them without recomputation."""
+
+    ledger_payload = _validated_ledger_payload(ledger)
+    if ledger_payload.get("status") != InternalRunStatus.EXECUTION_RUNNING.value:
+        raise LifecycleTransitionError("final result requires an execution-running ledger")
+    if ledger_payload.get("authorization_passed") is not True:
+        raise RunAuthorizationError("final result requires recorded authorization")
+    if ledger_payload.get("git_commit") != executing_checkout_commit():
+        raise FinalResultError("ledger commit differs from the executing checkout HEAD")
+    if ledger_payload.get("manifest_sha256") != artifacts.manifest_sha256:
+        raise FinalResultError("ledger and preflight manifest identities differ")
+    if C.sha256_file(artifacts.manifest_path) != artifacts.manifest_sha256:
+        raise FinalResultError("preflight manifest changed during execution")
+    authorize_run(artifacts.project_root, execute_scientific_analysis=True)
+    payload, _expected = _validated_sealed_payload(
+        sealed_freeze, dict(postfreeze_plan.expected_id_to_fold)
+    )
+    if postfreeze_plan.sealed_freeze.path.resolve() != sealed_freeze.path.resolve():
+        raise FinalResultError("post-freeze plan references a different prediction artifact")
+    if payload.get("provenance") != _prediction_provenance(artifacts):
+        raise FinalResultError("prediction freeze does not match authorized frozen inputs")
+    random_plan_sha256 = _random_plan_sha256(postfreeze_plan)
+    _validate_result_components(
+        point_result=point_result,
+        primary=primary,
+        cqr=cqr,
+        sensitivity_a=sensitivity_a,
+        sensitivity_b=sensitivity_b,
+        freeze_sha256=sealed_freeze.sha256,
+    )
+
+    environment = _canonical_scientific_value(
+        ledger_payload.get("environment_summary"), label="environment_summary"
+    )
+    context = {
+        "authority_documents": _authority_document_hashes(artifacts),
+        "cohort_sha256": artifacts.manifest.get("cohort_sha256"),
+        "environment": environment,
+        "environment_sha256": _value_sha256(environment),
+        "feature_file_sha256": artifacts.manifest.get("feature_file_sha256"),
+        "feature_sha256": artifacts.manifest.get("feature_sha256"),
+        "git_commit": ledger_payload.get("git_commit"),
+        "preflight_manifest_sha256": artifacts.manifest_sha256,
+        "prediction_freeze_sha256": sealed_freeze.sha256,
+        "protocol_path": artifacts.manifest.get("protocol_path"),
+        "protocol_version": C.PROTOCOL_VERSION,
+        "random_plan_sha256": random_plan_sha256,
+        "run_id": ledger.run_id,
+        "split_sha256": artifacts.manifest.get("split_sha256"),
+    }
+    primary_payload = {
+        "bootstrap": _bootstrap_payload(primary.bootstrap),
+        "classification": primary.classification,
+        "coverage_curves": _coverage_curves_payload(point_result.coverage_curves),
+        "matched_random80": _matched_random_payload(point_result.matched_random80),
+        "point_estimate": primary.point_estimate,
+        "primary_coverage": point_result.primary_coverage,
+        "primary_method": point_result.primary_method,
+        "qrf80": _coverage_point_payload(point_result.qrf80),
+    }
+    scientific_content = _canonical_scientific_value(
+        {
+            "context": context,
+            "outputs": {
+                "cqr": cqr,
+                "primary": primary_payload,
+                "sensitivity_a": _sensitivity_payload(sensitivity_a),
+                "sensitivity_b": _sensitivity_payload(sensitivity_b),
+            },
+        },
+        label="scientific_content",
+    )
+    content_sha256 = _value_sha256(scientific_content)
+    final_payload = {
+        "run_id": ledger.run_id,
+        "schema_version": FINAL_RESULT_SCHEMA_VERSION,
+        "scientific_content": scientific_content,
+        "scientific_content_sha256": content_sha256,
+    }
+    canonical_bytes = _canonical_value_bytes(final_payload)
+    package = FinalResultPackage(
+        canonical_bytes=canonical_bytes,
+        sha256=hashlib.sha256(canonical_bytes).hexdigest(),
+        scientific_content_sha256=content_sha256,
+        run_id=ledger.run_id,
+    )
+    validate_final_result_payload(package.read_payload(), expected_run_id=ledger.run_id)
+    return package
+
+
+def _validate_special_float_tags(value: Any) -> None:
+    if isinstance(value, dict):
+        if _SPECIAL_FLOAT_KEY in value:
+            if set(value) != {_SPECIAL_FLOAT_KEY} or value[_SPECIAL_FLOAT_KEY] not in {
+                "+infinity", "-infinity"
+            }:
+                raise FinalResultError("invalid special-float representation")
+            return
+        for item in value.values():
+            _validate_special_float_tags(item)
+    elif isinstance(value, list):
+        for item in value:
+            _validate_special_float_tags(item)
+
+
+def _contains_special_float_tag(value: Any) -> bool:
+    if isinstance(value, Mapping):
+        return _SPECIAL_FLOAT_KEY in value or any(
+            _contains_special_float_tag(item) for item in value.values()
+        )
+    if isinstance(value, list):
+        return any(_contains_special_float_tag(item) for item in value)
+    return False
+
+
+def _schema_object(value: Any, required: set[str], label: str) -> Mapping[str, Any]:
+    if not isinstance(value, Mapping) or set(value) != required:
+        raise FinalResultError(f"{label} schema is incomplete or unexpected")
+    return value
+
+
+def _schema_int(value: Any, label: str, *, minimum: int = 0) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
+        raise FinalResultError(f"{label} must be an integer >= {minimum}")
+    return value
+
+
+def _schema_float(value: Any, label: str, *, allow_infinite: bool = False) -> float:
+    if isinstance(value, bool):
+        raise FinalResultError(f"{label} must be numeric")
+    if isinstance(value, Mapping):
+        if (
+            allow_infinite
+            and set(value) == {_SPECIAL_FLOAT_KEY}
+            and value[_SPECIAL_FLOAT_KEY] in {"+infinity", "-infinity"}
+        ):
+            return math.inf if value[_SPECIAL_FLOAT_KEY] == "+infinity" else -math.inf
+        raise FinalResultError(f"{label} has an invalid special-float value")
+    if not isinstance(value, (int, float)):
+        raise FinalResultError(f"{label} must be numeric")
+    number = float(value)
+    if math.isnan(number) or (math.isinf(number) and not allow_infinite):
+        raise FinalResultError(f"{label} must be finite")
+    return number
+
+
+def _schema_sha256(value: Any, label: str) -> str:
+    if not isinstance(value, str) or _SHA256_RE.fullmatch(value) is None:
+        raise FinalResultError(f"{label} must be a lowercase SHA-256")
+    return value
+
+
+def _schema_fold_counts(value: Any, label: str) -> dict[int, int]:
+    if not isinstance(value, list) or not value:
+        raise FinalResultError(f"{label} must be a nonempty fold-count list")
+    counts: dict[int, int] = {}
+    for index, pair in enumerate(value):
+        if not isinstance(pair, list) or len(pair) != 2:
+            raise FinalResultError(f"{label}[{index}] must be a fold/count pair")
+        fold = _schema_int(pair[0], f"{label}[{index}].fold", minimum=1)
+        count = _schema_int(pair[1], f"{label}[{index}].count")
+        if fold in counts:
+            raise FinalResultError(f"{label} contains a duplicate fold")
+        counts[fold] = count
+    if list(counts) != sorted(counts):
+        raise FinalResultError(f"{label} folds must be ordered")
+    return counts
+
+
+def _validate_coverage_point(
+    value: Any, label: str, *, expected_n: int | None = None
+) -> tuple[Mapping[str, Any], int]:
+    point = _schema_object(
+        value,
+        {
+            "coverage", "deferred_n", "pooled_mae", "pooled_rmse",
+            "retained_counts_by_fold", "retained_ids", "retained_n",
+        },
+        label,
+    )
+    coverage = _schema_float(point["coverage"], f"{label}.coverage")
+    if coverage not in C.COVERAGE_LEVELS:
+        raise FinalResultError(f"{label}.coverage is not frozen")
+    retained_n = _schema_int(point["retained_n"], f"{label}.retained_n")
+    deferred_n = _schema_int(point["deferred_n"], f"{label}.deferred_n")
+    cohort_n = retained_n + deferred_n
+    if expected_n is not None and cohort_n != expected_n:
+        raise FinalResultError(f"{label} cohort size is inconsistent")
+    retained_ids = point["retained_ids"]
+    if not isinstance(retained_ids, list) or len(retained_ids) != retained_n:
+        raise FinalResultError(f"{label}.retained_ids length is inconsistent")
+    if any(isinstance(item, bool) or not isinstance(item, (int, str)) for item in retained_ids):
+        raise FinalResultError(f"{label}.retained_ids contains an invalid ID")
+    if len(set(retained_ids)) != len(retained_ids):
+        raise FinalResultError(f"{label}.retained_ids contains duplicates")
+    counts = _schema_fold_counts(
+        point["retained_counts_by_fold"], f"{label}.retained_counts_by_fold"
+    )
+    if sum(counts.values()) != retained_n:
+        raise FinalResultError(f"{label} retained fold counts are inconsistent")
+    if _schema_float(point["pooled_mae"], f"{label}.pooled_mae") < 0.0:
+        raise FinalResultError(f"{label}.pooled_mae must be nonnegative")
+    if _schema_float(point["pooled_rmse"], f"{label}.pooled_rmse") < 0.0:
+        raise FinalResultError(f"{label}.pooled_rmse must be nonnegative")
+    return point, cohort_n
+
+
+def _validate_coverage_curves(
+    value: Any, label: str, *, sensitivity: bool
+) -> tuple[dict[str, Mapping[str, Any]], int]:
+    if (
+        not isinstance(value, list)
+        or not value
+        or (not sensitivity and len(value) != len(_UNCERTAINTY_FIELDS))
+        or (sensitivity and len(value) > len(_UNCERTAINTY_FIELDS))
+    ):
+        raise FinalResultError(f"{label} must contain every frozen uncertainty method")
+    curves: dict[str, Mapping[str, Any]] = {}
+    cohort_n: int | None = None
+    for index, raw_curve in enumerate(value):
+        curve_label = f"{label}[{index}]"
+        curve = _schema_object(raw_curve, {"method", "naurc", "points", "role"}, curve_label)
+        method = curve["method"]
+        expected_method = (
+            method in _UNCERTAINTY_FIELDS
+            and list(_UNCERTAINTY_FIELDS).index(method) == index
+        ) if sensitivity else method == _UNCERTAINTY_FIELDS[index]
+        if not expected_method or method in curves:
+            raise FinalResultError(f"{label} method order or identity is invalid")
+        expected_role = (
+            "FOCAL_DIAGNOSTIC" if method == "qrf_width" else "SECONDARY_DIAGNOSTIC"
+        ) if sensitivity else ("PRIMARY" if method == "qrf_width" else "SECONDARY")
+        if curve["role"] != expected_role:
+            raise FinalResultError(f"{curve_label}.role is invalid")
+        if _schema_float(curve["naurc"], f"{curve_label}.naurc") < 0.0:
+            raise FinalResultError(f"{curve_label}.naurc must be nonnegative")
+        points = curve["points"]
+        if not isinstance(points, list) or len(points) != len(C.COVERAGE_LEVELS):
+            raise FinalResultError(f"{curve_label}.points is incomplete")
+        for point_index, raw_point in enumerate(points):
+            point, point_n = _validate_coverage_point(
+                raw_point,
+                f"{curve_label}.points[{point_index}]",
+                expected_n=cohort_n,
+            )
+            if point["coverage"] != C.COVERAGE_LEVELS[point_index]:
+                raise FinalResultError(f"{curve_label} coverage order is invalid")
+            if cohort_n is None:
+                cohort_n = point_n
+        curves[method] = curve
+    if cohort_n is None:
+        raise FinalResultError(f"{label} contains no coverage points")
+    return curves, cohort_n
+
+
+def _validate_matched_random(
+    value: Any,
+    label: str,
+    *,
+    expected_counts: Any,
+) -> Mapping[str, Any]:
+    result = _schema_object(
+        value,
+        {
+            "draw_count", "mean_rmse", "monte_carlo_se", "retained_counts_by_fold",
+            "rmse_draws_sha256", "seed",
+        },
+        label,
+    )
+    _schema_int(result["draw_count"], f"{label}.draw_count", minimum=1)
+    if _schema_float(result["mean_rmse"], f"{label}.mean_rmse") < 0.0:
+        raise FinalResultError(f"{label}.mean_rmse must be nonnegative")
+    if _schema_float(result["monte_carlo_se"], f"{label}.monte_carlo_se") < 0.0:
+        raise FinalResultError(f"{label}.monte_carlo_se must be nonnegative")
+    _schema_int(result["seed"], f"{label}.seed")
+    _schema_sha256(result["rmse_draws_sha256"], f"{label}.rmse_draws_sha256")
+    _schema_fold_counts(result["retained_counts_by_fold"], f"{label}.retained_counts_by_fold")
+    if result["retained_counts_by_fold"] != expected_counts:
+        raise FinalResultError(f"{label} retained counts differ from QRF80")
+    return result
+
+
+def _validate_bootstrap(value: Any, label: str, *, sensitivity_b: bool = False) -> Mapping[str, Any]:
+    result = _schema_object(
+        value,
+        {
+            "base_seed", "bootstrap_replicates", "ci_lower", "ci_upper",
+            "confidence_level", "detailed_replicates_sha256",
+            "matched_random_draws_per_replicate", "nested_rng_provenance",
+            "percentile_method", "replicate_summaries",
+        },
+        label,
+    )
+    if result["base_seed"] != C.MASTER_SEED:
+        raise FinalResultError(f"{label}.base_seed differs from the frozen seed")
+    replicate_count = _schema_int(
+        result["bootstrap_replicates"], f"{label}.bootstrap_replicates", minimum=1
+    )
+    _schema_int(
+        result["matched_random_draws_per_replicate"],
+        f"{label}.matched_random_draws_per_replicate",
+        minimum=1,
+    )
+    lower = _schema_float(result["ci_lower"], f"{label}.ci_lower")
+    upper = _schema_float(result["ci_upper"], f"{label}.ci_upper")
+    if lower > upper:
+        raise FinalResultError(f"{label} confidence interval is unordered")
+    if result["confidence_level"] != 0.95 or result["percentile_method"] != "linear":
+        raise FinalResultError(f"{label} confidence contract is invalid")
+    expected_rng = (
+        "SensitivityB:SeedSequence([20260923,b])->uint32->RandomState->permutation; b starts at 1"
+        if sensitivity_b
+        else BOOTSTRAP_RNG_PROVENANCE
+    )
+    if result["nested_rng_provenance"] != expected_rng:
+        raise FinalResultError(f"{label} RNG provenance is invalid")
+    _schema_sha256(
+        result["detailed_replicates_sha256"], f"{label}.detailed_replicates_sha256"
+    )
+    summaries = result["replicate_summaries"]
+    if not isinstance(summaries, list) or len(summaries) != replicate_count:
+        raise FinalResultError(f"{label}.replicate_summaries is incomplete")
+    for index, raw_summary in enumerate(summaries):
+        summary_label = f"{label}.replicate_summaries[{index}]"
+        summary = _schema_object(
+            raw_summary,
+            {
+                "fold_candidate_counts", "fold_retained_counts", "rel_benefit_80",
+                "replicate_index", "rmse_qrf80", "rmse_random80",
+            },
+            summary_label,
+        )
+        if summary["replicate_index"] != index:
+            raise FinalResultError(f"{summary_label}.replicate_index is invalid")
+        candidates = _schema_fold_counts(
+            summary["fold_candidate_counts"], f"{summary_label}.fold_candidate_counts"
+        )
+        retained = _schema_fold_counts(
+            summary["fold_retained_counts"], f"{summary_label}.fold_retained_counts"
+        )
+        if set(candidates) != set(retained) or any(
+            retained[fold] > candidates[fold] for fold in candidates
+        ):
+            raise FinalResultError(f"{summary_label} fold counts are inconsistent")
+        qrf_rmse = _schema_float(summary["rmse_qrf80"], f"{summary_label}.rmse_qrf80")
+        random_rmse = _schema_float(summary["rmse_random80"], f"{summary_label}.rmse_random80")
+        benefit = _schema_float(summary["rel_benefit_80"], f"{summary_label}.rel_benefit_80")
+        if qrf_rmse < 0.0 or random_rmse <= 0.0 or not math.isclose(
+            benefit, (random_rmse - qrf_rmse) / random_rmse, rel_tol=1e-12, abs_tol=1e-12
+        ):
+            raise FinalResultError(f"{summary_label} estimand is inconsistent")
+    return result
+
+
+def _validate_primary_output(value: Any) -> None:
+    primary = _schema_object(
+        value,
+        {
+            "bootstrap", "classification", "coverage_curves", "matched_random80",
+            "point_estimate", "primary_coverage", "primary_method", "qrf80",
+        },
+        "primary",
+    )
+    if primary["primary_method"] != "qrf_width" or primary["primary_coverage"] != C.PRIMARY_COVERAGE:
+        raise FinalResultError("primary method or coverage is invalid")
+    curves, cohort_n = _validate_coverage_curves(
+        primary["coverage_curves"], "primary.coverage_curves", sensitivity=False
+    )
+    qrf80, qrf_n = _validate_coverage_point(
+        primary["qrf80"], "primary.qrf80", expected_n=cohort_n
+    )
+    qrf_point = next(
+        point for point in curves["qrf_width"]["points"]
+        if point["coverage"] == C.PRIMARY_COVERAGE
+    )
+    if qrf80 != qrf_point or qrf_n != cohort_n:
+        raise FinalResultError("primary.qrf80 differs from the frozen coverage curve")
+    random = _validate_matched_random(
+        primary["matched_random80"],
+        "primary.matched_random80",
+        expected_counts=qrf80["retained_counts_by_fold"],
+    )
+    point = _schema_float(primary["point_estimate"], "primary.point_estimate")
+    random_rmse = float(random["mean_rmse"])
+    expected_point = (random_rmse - float(qrf80["pooled_rmse"])) / random_rmse
+    if random_rmse <= 0.0 or not math.isclose(point, expected_point, rel_tol=1e-12, abs_tol=1e-12):
+        raise FinalResultError("primary point estimate is inconsistent")
+    bootstrap = _validate_bootstrap(primary["bootstrap"], "primary.bootstrap")
+    expected_classification = classify_rel_benefit_80(
+        point, bootstrap["ci_lower"], bootstrap["ci_upper"]
+    )
+    if primary["classification"] != expected_classification:
+        raise FinalResultError("serialized primary classification is inconsistent")
+
+
+def _validate_sensitivity_output(value: Any, *, sensitivity_b: bool) -> None:
+    name = "sensitivity_b" if sensitivity_b else "sensitivity_a"
+    required = {
+        "bootstrap", "cohort_n", "coverage_curves", "interpretation_labels",
+        "matched_random80", "name", "qrf80", "rel_benefit_80",
+    }
+    if not sensitivity_b:
+        required |= {"oof_records_sha256", "provenance"}
+    result = _schema_object(value, required, name)
+    expected_name = "SENSITIVITY_B_CLINT_GE_25" if sensitivity_b else "SENSITIVITY_A_STRICT_INTERIOR"
+    if result["name"] != expected_name:
+        raise FinalResultError(f"{name}.name is invalid")
+    expected_labels = (
+        ["EXPLORATORY", "OUTCOME_DEFINED", "DIAGNOSTIC", "NONDEPLOYABLE"]
+        if sensitivity_b
+        else ["SENSITIVITY", "STRICT_INTERIOR", "SEPARATE_FIVE_FOLD_ANALYSIS"]
+    )
+    if result["interpretation_labels"] != expected_labels:
+        raise FinalResultError(f"{name}.interpretation_labels is invalid")
+    cohort_n = _schema_int(result["cohort_n"], f"{name}.cohort_n", minimum=1)
+    curves, curves_n = _validate_coverage_curves(
+        result["coverage_curves"], f"{name}.coverage_curves", sensitivity=True
+    )
+    if curves_n != cohort_n:
+        raise FinalResultError(f"{name} cohort size differs from coverage curves")
+    qrf80, _ = _validate_coverage_point(
+        result["qrf80"], f"{name}.qrf80", expected_n=cohort_n
+    )
+    qrf_point = next(
+        point for point in curves["qrf_width"]["points"]
+        if point["coverage"] == C.PRIMARY_COVERAGE
+    )
+    if qrf80 != qrf_point:
+        raise FinalResultError(f"{name}.qrf80 differs from its coverage curve")
+    random = _validate_matched_random(
+        result["matched_random80"],
+        f"{name}.matched_random80",
+        expected_counts=qrf80["retained_counts_by_fold"],
+    )
+    benefit = _schema_float(result["rel_benefit_80"], f"{name}.rel_benefit_80")
+    random_rmse = float(random["mean_rmse"])
+    expected_benefit = (random_rmse - float(qrf80["pooled_rmse"])) / random_rmse
+    if random_rmse <= 0.0 or not math.isclose(
+        benefit, expected_benefit, rel_tol=1e-12, abs_tol=1e-12
+    ):
+        raise FinalResultError(f"{name} point estimate is inconsistent")
+    _validate_bootstrap(result["bootstrap"], f"{name}.bootstrap", sensitivity_b=sensitivity_b)
+    if not sensitivity_b:
+        _schema_sha256(result["oof_records_sha256"], f"{name}.oof_records_sha256")
+        provenance = _schema_object(
+            result["provenance"],
+            {
+                "bootstrap_source", "cohort_n", "cohort_rule", "fold_assignment",
+                "fold_fits", "model_specification", "oof_origin",
+                "prediction_artifact_sha256", "ranking_source", "representation",
+            },
+            f"{name}.provenance",
+        )
+        if provenance["cohort_n"] != cohort_n:
+            raise FinalResultError(f"{name}.provenance cohort size is inconsistent")
+        _schema_sha256(
+            provenance["prediction_artifact_sha256"],
+            f"{name}.provenance.prediction_artifact_sha256",
+        )
+        if provenance["model_specification"] != dict(C.FROZEN_RF_PARAMS):
+            raise FinalResultError(f"{name}.provenance model specification is invalid")
+        if provenance["representation"] != C.REPRESENTATION.value:
+            raise FinalResultError(f"{name}.provenance representation is invalid")
+        expected_provenance_strings = {
+            "cohort_rule": "standard_relation IS NULL and 3 < observed_clint < 150",
+            "oof_origin": "SENSITIVITY_A_SEPARATE_STRICT_INTERIOR_FIVE_FOLD_REFIT",
+            "ranking_source": "SENSITIVITY_A_RECOMPUTED_QRF_WIDTH_FOLD_LOCAL",
+            "bootstrap_source": "SENSITIVITY_A_OWN_OOF_RECORDS_AND_FOLDS",
+        }
+        if any(provenance[key] != expected for key, expected in expected_provenance_strings.items()):
+            raise FinalResultError(f"{name}.provenance scientific identity is invalid")
+        assignments = provenance["fold_assignment"]
+        if not isinstance(assignments, list) or len(assignments) != cohort_n:
+            raise FinalResultError(f"{name}.provenance fold assignment is incomplete")
+        assignment_ids: set[Any] = set()
+        assignment_folds: set[int] = set()
+        for index, pair in enumerate(assignments):
+            if not isinstance(pair, list) or len(pair) != 2:
+                raise FinalResultError(f"{name}.provenance fold assignment row is invalid")
+            activity_id, fold_value = pair
+            if isinstance(activity_id, bool) or not isinstance(activity_id, (int, str)):
+                raise FinalResultError(f"{name}.provenance fold assignment ID is invalid")
+            fold = _schema_int(
+                fold_value, f"{name}.provenance.fold_assignment[{index}].fold", minimum=1
+            )
+            if activity_id in assignment_ids:
+                raise FinalResultError(f"{name}.provenance fold assignment has duplicate IDs")
+            assignment_ids.add(activity_id)
+            assignment_folds.add(fold)
+        fold_fits = provenance["fold_fits"]
+        if not isinstance(fold_fits, list) or len(fold_fits) != len(assignment_folds):
+            raise FinalResultError(f"{name}.provenance fold fits are incomplete")
+        fit_fields = {
+            "descriptor_knn_reference_ids", "descriptor_scaler_fit_ids", "local_label_ids",
+            "outer_fold", "qrf_prediction_max_error", "qrf_weight_ids",
+            "qrf_weight_sum_max_error", "tanimoto_reference_ids", "test_ids", "train_ids",
+        }
+        seen_fits: set[int] = set()
+        for index, raw_fit in enumerate(fold_fits):
+            fit_label = f"{name}.provenance.fold_fits[{index}]"
+            fit = _schema_object(raw_fit, fit_fields, fit_label)
+            fold = _schema_int(fit["outer_fold"], f"{fit_label}.outer_fold", minimum=1)
+            if fold in seen_fits or fold not in assignment_folds:
+                raise FinalResultError(f"{fit_label}.outer_fold is invalid")
+            seen_fits.add(fold)
+            train_ids = fit["train_ids"]
+            test_ids = fit["test_ids"]
+            if not isinstance(train_ids, list) or not isinstance(test_ids, list):
+                raise FinalResultError(f"{fit_label} train/test IDs are invalid")
+            if set(train_ids) & set(test_ids) or set(train_ids) | set(test_ids) != assignment_ids:
+                raise FinalResultError(f"{fit_label} train/test partition is inconsistent")
+            for reference_key in (
+                "descriptor_knn_reference_ids", "descriptor_scaler_fit_ids", "local_label_ids",
+                "qrf_weight_ids", "tanimoto_reference_ids",
+            ):
+                if fit[reference_key] != train_ids:
+                    raise FinalResultError(f"{fit_label}.{reference_key} is not training-only")
+            if _schema_float(
+                fit["qrf_weight_sum_max_error"], f"{fit_label}.qrf_weight_sum_max_error"
+            ) >= C.WEIGHT_SUM_TOL:
+                raise FinalResultError(f"{fit_label} QRF weight invariant failed")
+            if _schema_float(
+                fit["qrf_prediction_max_error"], f"{fit_label}.qrf_prediction_max_error"
+            ) >= C.WEIGHT_MEAN_TOL:
+                raise FinalResultError(f"{fit_label} QRF prediction invariant failed")
+
+
+def _validate_cqr_output(value: Any) -> None:
+    cqr = _schema_object(
+        value,
+        {
+            "base_intervals", "canonical_triage_ranking", "coverages", "fold_metadata",
+            "marginal_label", "role",
+        },
+        "cqr",
+    )
+    if (
+        cqr["role"] != "SECONDARY_CALIBRATION_ONLY"
+        or cqr["marginal_label"] != "EMPIRICAL_MARGINAL_COVERAGE"
+        or cqr["canonical_triage_ranking"] != "ORIGINAL_FROZEN_QRF_WIDTH"
+    ):
+        raise FinalResultError("serialized CQR role or ranking is invalid")
+    expected_intervals = [[0.80, 0.10, 0.90], [0.90, 0.05, 0.95], [0.95, 0.025, 0.975]]
+    if cqr["base_intervals"] != expected_intervals:
+        raise FinalResultError("cqr.base_intervals differs from the frozen contract")
+    coverages = cqr["coverages"]
+    if not isinstance(coverages, list) or len(coverages) != len(C.CONFORMAL_LEVELS):
+        raise FinalResultError("cqr.coverages is incomplete")
+    coverage_by_nominal: dict[float, Mapping[str, Any]] = {}
+    for index, raw_coverage in enumerate(coverages):
+        label = f"cqr.coverages[{index}]"
+        coverage = _schema_object(
+            raw_coverage,
+            {
+                "empty_set_count", "empirical_marginal_coverage", "infinite_set_count",
+                "mean_final_set_width", "median_final_set_width", "n_evaluated",
+                "ordinary_finite_interval_count", "nominal_coverage", "rows",
+            },
+            label,
+        )
+        nominal = _schema_float(coverage["nominal_coverage"], f"{label}.nominal_coverage")
+        if nominal != C.CONFORMAL_LEVELS[index]:
+            raise FinalResultError(f"{label}.nominal_coverage is invalid")
+        coverage_by_nominal[nominal] = coverage
+        n_evaluated = _schema_int(coverage["n_evaluated"], f"{label}.n_evaluated", minimum=1)
+        ordinary = _schema_int(
+            coverage["ordinary_finite_interval_count"],
+            f"{label}.ordinary_finite_interval_count",
+        )
+        empty = _schema_int(coverage["empty_set_count"], f"{label}.empty_set_count")
+        infinite = _schema_int(coverage["infinite_set_count"], f"{label}.infinite_set_count")
+        if ordinary + empty + infinite != n_evaluated:
+            raise FinalResultError(f"{label} set counts are inconsistent")
+        empirical = _schema_float(
+            coverage["empirical_marginal_coverage"], f"{label}.empirical_marginal_coverage"
+        )
+        if not 0.0 <= empirical <= 1.0:
+            raise FinalResultError(f"{label}.empirical_marginal_coverage is invalid")
+        _schema_float(
+            coverage["mean_final_set_width"], f"{label}.mean_final_set_width", allow_infinite=True
+        )
+        _schema_float(
+            coverage["median_final_set_width"],
+            f"{label}.median_final_set_width",
+            allow_infinite=True,
+        )
+        rows = coverage["rows"]
+        if not isinstance(rows, list) or len(rows) != n_evaluated:
+            raise FinalResultError(f"{label}.rows is incomplete")
+        covered_n = 0
+        row_counts = {"ordinary": 0, "empty": 0, "infinite": 0}
+        for row_index, raw_row in enumerate(rows):
+            row_label = f"{label}.rows[{row_index}]"
+            row = _schema_object(
+                raw_row,
+                {
+                    "activity_id", "covered", "empty_set", "finite_set", "infinite_set",
+                    "nominal_coverage", "outer_fold", "raw_corrected_span",
+                    "raw_lower_endpoint", "raw_upper_endpoint", "reported_width",
+                },
+                row_label,
+            )
+            if row["nominal_coverage"] != nominal:
+                raise FinalResultError(f"{row_label}.nominal_coverage is inconsistent")
+            if isinstance(row["activity_id"], bool) or not isinstance(
+                row["activity_id"], (int, str)
+            ):
+                raise FinalResultError(f"{row_label}.activity_id is invalid")
+            _schema_int(row["outer_fold"], f"{row_label}.outer_fold", minimum=1)
+            for flag in ("covered", "empty_set", "finite_set", "infinite_set"):
+                if not isinstance(row[flag], bool):
+                    raise FinalResultError(f"{row_label}.{flag} must be boolean")
+            if row["empty_set"] and row["infinite_set"]:
+                raise FinalResultError(f"{row_label} cannot be both empty and infinite")
+            if row["finite_set"] != (not row["infinite_set"]):
+                raise FinalResultError(f"{row_label}.finite_set is inconsistent")
+            _schema_float(row["raw_lower_endpoint"], f"{row_label}.raw_lower_endpoint", allow_infinite=True)
+            _schema_float(row["raw_upper_endpoint"], f"{row_label}.raw_upper_endpoint", allow_infinite=True)
+            _schema_float(row["raw_corrected_span"], f"{row_label}.raw_corrected_span", allow_infinite=True)
+            _schema_float(row["reported_width"], f"{row_label}.reported_width", allow_infinite=True)
+            covered_n += int(row["covered"])
+            row_counts["empty" if row["empty_set"] else "infinite" if row["infinite_set"] else "ordinary"] += 1
+        if row_counts != {"ordinary": ordinary, "empty": empty, "infinite": infinite}:
+            raise FinalResultError(f"{label} row classifications differ from counts")
+        if not math.isclose(empirical, covered_n / n_evaluated, rel_tol=1e-12, abs_tol=1e-12):
+            raise FinalResultError(f"{label} empirical coverage is inconsistent")
+    metadata = cqr["fold_metadata"]
+    if not isinstance(metadata, list) or not metadata:
+        raise FinalResultError("cqr.fold_metadata is incomplete")
+    metadata_fields = {
+        "alpha", "calibration_fraction", "empirical_marginal_coverage", "empty_set_count",
+        "infinite_set_count", "k", "mean_prediction_set_width",
+        "median_prediction_set_width", "n_cal", "n_evaluated", "n_proper",
+        "nominal_coverage", "ordinary_finite_interval_count", "outer_fold", "qhat",
+        "qhat_is_finite", "split_algorithm", "split_helper", "split_salt",
+    }
+    seen: set[tuple[int, float]] = set()
+    for index, raw_metadata in enumerate(metadata):
+        label = f"cqr.fold_metadata[{index}]"
+        item = _schema_object(raw_metadata, metadata_fields, label)
+        fold = _schema_int(item["outer_fold"], f"{label}.outer_fold", minimum=1)
+        nominal = _schema_float(item["nominal_coverage"], f"{label}.nominal_coverage")
+        if nominal not in C.CONFORMAL_LEVELS or (fold, nominal) in seen:
+            raise FinalResultError(f"{label} fold/coverage identity is invalid")
+        seen.add((fold, nominal))
+        n_evaluated = _schema_int(item["n_evaluated"], f"{label}.n_evaluated", minimum=1)
+        ordinary = _schema_int(item["ordinary_finite_interval_count"], f"{label}.ordinary_finite_interval_count")
+        empty = _schema_int(item["empty_set_count"], f"{label}.empty_set_count")
+        infinite = _schema_int(item["infinite_set_count"], f"{label}.infinite_set_count")
+        if ordinary + empty + infinite != n_evaluated:
+            raise FinalResultError(f"{label} set counts are inconsistent")
+        _schema_int(item["n_proper"], f"{label}.n_proper", minimum=1)
+        n_cal = _schema_int(item["n_cal"], f"{label}.n_cal", minimum=1)
+        _schema_int(item["k"], f"{label}.k", minimum=1)
+        alpha = _schema_float(item["alpha"], f"{label}.alpha")
+        calibration_fraction = _schema_float(
+            item["calibration_fraction"], f"{label}.calibration_fraction"
+        )
+        if calibration_fraction != 0.20 or not math.isclose(
+            alpha, 1.0 - nominal, rel_tol=0.0, abs_tol=1e-12
+        ):
+            raise FinalResultError(f"{label} calibration contract is invalid")
+        qhat = _schema_float(item["qhat"], f"{label}.qhat", allow_infinite=True)
+        if item["qhat_is_finite"] is not math.isfinite(qhat):
+            raise FinalResultError(f"{label}.qhat_is_finite is inconsistent")
+        empirical = _schema_float(
+            item["empirical_marginal_coverage"], f"{label}.empirical_marginal_coverage"
+        )
+        if not 0.0 <= empirical <= 1.0:
+            raise FinalResultError(f"{label}.empirical_marginal_coverage is invalid")
+        _schema_float(
+            item["mean_prediction_set_width"],
+            f"{label}.mean_prediction_set_width",
+            allow_infinite=True,
+        )
+        _schema_float(
+            item["median_prediction_set_width"],
+            f"{label}.median_prediction_set_width",
+            allow_infinite=True,
+        )
+        if item["split_helper"] != "conformal_proper_train_cal_split" or item["split_salt"] != C.CQR_SPLIT_SALT_SUFFIX or item["split_algorithm"] != CQR_SPLIT_ALGORITHM:
+            raise FinalResultError(f"{label} split provenance is invalid")
+    folds = {fold for fold, _nominal in seen}
+    if seen != {(fold, nominal) for fold in folds for nominal in C.CONFORMAL_LEVELS}:
+        raise FinalResultError("cqr.fold_metadata does not cover every fold and level")
+    for nominal, coverage in coverage_by_nominal.items():
+        selected = [item for item in metadata if item["nominal_coverage"] == nominal]
+        if (
+            sum(item["n_evaluated"] for item in selected) != coverage["n_evaluated"]
+            or sum(item["ordinary_finite_interval_count"] for item in selected)
+            != coverage["ordinary_finite_interval_count"]
+            or sum(item["empty_set_count"] for item in selected) != coverage["empty_set_count"]
+            or sum(item["infinite_set_count"] for item in selected)
+            != coverage["infinite_set_count"]
+        ):
+            raise FinalResultError("cqr fold metadata differs from pooled coverage counts")
+
+
+def _validate_final_outputs(outputs: Mapping[str, Any]) -> None:
+    _validate_primary_output(outputs["primary"])
+    _validate_sensitivity_output(outputs["sensitivity_a"], sensitivity_b=False)
+    _validate_sensitivity_output(outputs["sensitivity_b"], sensitivity_b=True)
+    _validate_cqr_output(outputs["cqr"])
+
+
+def validate_final_result_payload(
+    payload: Mapping[str, Any], *, expected_run_id: str | None = None
+) -> None:
+    """Validate the final schema and scientific isolation without recomputing science."""
+
+    required = {
+        "run_id", "schema_version", "scientific_content", "scientific_content_sha256"
+    }
+    if not isinstance(payload, Mapping) or set(payload) != required:
+        raise FinalResultError("final result fields are incomplete or unexpected")
+    if payload.get("schema_version") != FINAL_RESULT_SCHEMA_VERSION:
+        raise FinalResultError("final result schema version mismatch")
+    run_id = payload.get("run_id")
+    _validate_run_id(run_id)
+    if expected_run_id is not None and run_id != expected_run_id:
+        raise FinalResultError("final result run_id mismatch")
+    content = payload.get("scientific_content")
+    if not isinstance(content, Mapping):
+        raise FinalResultError("scientific_content must be an object")
+    if payload.get("scientific_content_sha256") != _value_sha256(content):
+        raise FinalResultError("scientific content hash mismatch")
+    _validate_special_float_tags(content)
+    if set(content) != {"context", "outputs"}:
+        raise FinalResultError("scientific content namespaces are invalid")
+    context = content["context"]
+    outputs = content["outputs"]
+    if not isinstance(context, Mapping) or context.get("run_id") != run_id:
+        raise FinalResultError("scientific context run_id mismatch")
+    required_context = {
+        "authority_documents", "cohort_sha256", "environment", "environment_sha256",
+        "feature_file_sha256", "feature_sha256", "git_commit",
+        "preflight_manifest_sha256", "prediction_freeze_sha256", "protocol_path",
+        "protocol_version", "random_plan_sha256", "run_id", "split_sha256",
+    }
+    if set(context) != required_context:
+        raise FinalResultError("scientific context fields are incomplete or unexpected")
+    if context.get("protocol_version") != C.PROTOCOL_VERSION:
+        raise FinalResultError("scientific context protocol version mismatch")
+    if context.get("protocol_path") != SAP_RELATIVE.as_posix():
+        raise FinalResultError("scientific context protocol path mismatch")
+    if _GIT_COMMIT_RE.fullmatch(str(context.get("git_commit", ""))) is None:
+        raise FinalResultError("scientific context commit identity is invalid")
+    for key in (
+        "cohort_sha256", "environment_sha256", "feature_file_sha256", "feature_sha256",
+        "preflight_manifest_sha256", "prediction_freeze_sha256", "random_plan_sha256",
+        "split_sha256",
+    ):
+        if _SHA256_RE.fullmatch(str(context.get(key, ""))) is None:
+            raise FinalResultError(f"scientific context {key} is invalid")
+    if context["environment_sha256"] != _value_sha256(context["environment"]):
+        raise FinalResultError("scientific context environment hash mismatch")
+    documents = context.get("authority_documents")
+    expected_paths = [path.as_posix() for path in AUTHORITY_RELATIVES]
+    if (
+        not isinstance(documents, list)
+        or any(not isinstance(item, Mapping) for item in documents)
+        or [item.get("path") for item in documents] != expected_paths
+    ):
+        raise FinalResultError("scientific context authority documents are incomplete")
+    if any(
+        not isinstance(item, Mapping)
+        or set(item) != {"path", "sha256"}
+        or _SHA256_RE.fullmatch(str(item.get("sha256", ""))) is None
+        for item in documents
+    ):
+        raise FinalResultError("scientific context authority document identity is invalid")
+    if not isinstance(outputs, Mapping) or set(outputs) != {
+        "primary", "sensitivity_a", "sensitivity_b", "cqr"
+    }:
+        raise FinalResultError("scientific output namespaces are incomplete")
+    _validate_final_outputs(outputs)
+    primary = outputs["primary"]
+    if not isinstance(primary, Mapping):
+        raise FinalResultError("primary output must be an object")
+    expected_classification = classify_rel_benefit_80(
+        primary.get("point_estimate"),
+        primary.get("bootstrap", {}).get("ci_lower"),
+        primary.get("bootstrap", {}).get("ci_upper"),
+    )
+    if primary.get("classification") != expected_classification:
+        raise FinalResultError("serialized primary classification is inconsistent")
+    sensitivity_b = outputs["sensitivity_b"]
+    if not isinstance(sensitivity_b, Mapping) or "classification" in sensitivity_b:
+        raise FinalResultError("Sensitivity B must not carry primary classification")
+    for namespace in ("primary", "sensitivity_a", "sensitivity_b"):
+        if _contains_special_float_tag(outputs[namespace]):
+            raise FinalResultError(
+                f"special floats are not permitted in the {namespace} output"
+            )
+    labels = set(sensitivity_b.get("interpretation_labels", []))
+    if labels != {"EXPLORATORY", "OUTCOME_DEFINED", "DIAGNOSTIC", "NONDEPLOYABLE"}:
+        raise FinalResultError("serialized Sensitivity B labels are invalid")
+    cqr = outputs["cqr"]
+    if (
+        not isinstance(cqr, Mapping)
+        or cqr.get("role") != "SECONDARY_CALIBRATION_ONLY"
+        or cqr.get("canonical_triage_ranking") != "ORIGINAL_FROZEN_QRF_WIDTH"
+    ):
+        raise FinalResultError("serialized CQR role or ranking is invalid")
+
+
+# --------------------------------------------------------------------------- Ticket 5 manifest and sealing
+def _write_final_temp(descriptor: int, data: bytes) -> None:
+    with os.fdopen(descriptor, "wb", closefd=False) as handle:
+        handle.write(data)
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def _seal_bytes_no_clobber(data: bytes, destination: Path, *, label: str) -> str:
+    destination = Path(destination)
+    if destination.parent.is_symlink() or not destination.parent.is_dir():
+        raise ProtectedRunPathError(f"{label} parent directory is unsafe")
+    if os.path.lexists(destination):
+        raise FinalResultCollisionError(f"{label} already exists: {destination}")
+    descriptor: int | None = None
+    temporary_path: Path | None = None
+    linked = False
+    try:
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=f".{destination.name}.", suffix=".tmp", dir=destination.parent
+        )
+        temporary_path = Path(temporary_name)
+        _write_final_temp(descriptor, data)
+        os.close(descriptor)
+        descriptor = None
+        os.link(temporary_path, destination)
+        linked = True
+        persisted = destination.read_bytes()
+        if persisted != data:
+            raise FinalResultError(f"{label} persisted bytes differ from validated bytes")
+        return hashlib.sha256(persisted).hexdigest()
+    except FileExistsError as exc:
+        raise FinalResultCollisionError(f"{label} already exists: {destination}") from exc
+    except Exception as exc:
+        if linked:
+            try:
+                if temporary_path is not None and os.path.samefile(temporary_path, destination):
+                    destination.unlink()
+            except OSError:
+                pass
+        if isinstance(exc, FinalResultError):
+            raise
+        raise FinalResultError(f"{label} could not be sealed: {destination}") from exc
+    finally:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+        if temporary_path is not None:
+            try:
+                temporary_path.unlink()
+            except FileNotFoundError:
+                pass
+            except OSError as exc:
+                raise FinalResultError(
+                    f"{label} temporary artifact could not be removed: {temporary_path}"
+                ) from exc
+
+
+def _stage_bytes(data: bytes, destination: Path, *, label: str) -> tuple[Path, str]:
+    """Write and validate hidden same-filesystem bytes without publishing them."""
+
+    destination = Path(destination)
+    if destination.parent.is_symlink() or not destination.parent.is_dir():
+        raise ProtectedRunPathError(f"{label} parent directory is unsafe")
+    descriptor: int | None = None
+    temporary_path: Path | None = None
+    try:
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=f".{destination.name}.", suffix=".staged", dir=destination.parent
+        )
+        temporary_path = Path(temporary_name)
+        _write_final_temp(descriptor, data)
+        os.close(descriptor)
+        descriptor = None
+        persisted = temporary_path.read_bytes()
+        if persisted != data:
+            raise FinalResultError(f"{label} staged bytes differ from validated bytes")
+        return temporary_path, hashlib.sha256(persisted).hexdigest()
+    except Exception as exc:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+        if temporary_path is not None:
+            try:
+                temporary_path.unlink()
+            except OSError:
+                pass
+        if isinstance(exc, OSError):
+            raise FinalResultError(f"{label} could not be staged: {destination}") from exc
+        raise
+
+
+def _publish_staged_no_clobber(staged_path: Path, destination: Path, *, label: str) -> str:
+    """Atomically publish validated staged bytes without replacing a destination."""
+
+    if os.path.lexists(destination):
+        raise FinalResultCollisionError(f"{label} already exists: {destination}")
+    linked = False
+    try:
+        os.link(staged_path, destination)
+        linked = True
+        staged_hash = C.sha256_file(staged_path)
+        if C.sha256_file(destination) != staged_hash:
+            raise FinalResultError(f"{label} published hash differs from staged bytes")
+        return staged_hash
+    except FileExistsError as exc:
+        raise FinalResultCollisionError(f"{label} already exists: {destination}") from exc
+    except Exception as exc:
+        if linked:
+            try:
+                if os.path.samefile(staged_path, destination):
+                    destination.unlink()
+            except OSError:
+                pass
+        if isinstance(exc, FinalResultError):
+            raise
+        raise FinalResultError(f"{label} could not be published: {destination}") from exc
+
+
+def _run_relative_path(path: Path, run_directory: Path) -> str:
+    resolved = path.resolve()
+    root = run_directory.resolve()
+    if not _is_relative_to(resolved, root) or resolved == root:
+        raise ProtectedRunPathError("artifact path escaped its run directory")
+    return resolved.relative_to(root).as_posix()
+
+
+def _manifest_artifact_path(run_directory: Path, relative: Any) -> Path:
+    if not isinstance(relative, str) or not relative or "\\" in relative:
+        raise FinalResultError("manifest artifact path must be normalized POSIX relative text")
+    candidate_relative = Path(relative)
+    if candidate_relative.is_absolute() or ".." in candidate_relative.parts:
+        raise ProtectedRunPathError("manifest artifact path escaped its run directory")
+    candidate = (run_directory / candidate_relative).resolve()
+    if not _is_relative_to(candidate, run_directory.resolve()) or candidate == run_directory.resolve():
+        raise ProtectedRunPathError("manifest artifact path escaped its run directory")
+    return candidate
+
+
+def _validate_publication_run_directory(ledger: RunLedger, artifacts: FrozenArtifacts) -> Path:
+    """Revalidate lexical and resolved containment immediately before publication."""
+
+    _validate_run_id(ledger.run_id)
+    canonical_root = (artifacts.project_root / SCIENTIFIC_RUNS_RELATIVE).resolve()
+    lexical_run = Path(os.path.abspath(ledger.run_directory))
+    expected_run = canonical_root / ledger.run_id
+    if lexical_run != expected_run:
+        raise ProtectedRunPathError("ledger run directory is not its canonical run-ID path")
+    if lexical_run.is_symlink() or not lexical_run.is_dir():
+        raise ProtectedRunPathError("ledger run directory is missing or is a symlink")
+    resolved_run = lexical_run.resolve()
+    if resolved_run != expected_run or resolved_run.parent != canonical_root:
+        raise ProtectedRunPathError("ledger run directory escaped the canonical scientific root")
+    expected_ledger = resolved_run / LEDGER_FILENAME
+    if ledger.ledger_path.resolve() != expected_ledger or ledger.ledger_path.is_symlink():
+        raise ProtectedRunPathError("execution ledger path escaped its canonical run directory")
+    return resolved_run
+
+
+def _build_final_manifest(
+    *,
+    ledger_payload: Mapping[str, Any],
+    package: FinalResultPackage,
+    result_path: Path,
+    result_byte_count: int,
+    result_sha256: str,
+    sealed_freeze: SealedPredictionFreeze,
+    completion_timestamp: str,
+    authority_documents: Sequence[Mapping[str, str]],
+) -> dict[str, Any]:
+    run_directory = result_path.parent.resolve()
+    artifacts = [
+        {
+            "byte_count": sealed_freeze.path.stat().st_size,
+            "logical_name": "prediction_freeze",
+            "relative_path": _run_relative_path(sealed_freeze.path, run_directory),
+            "sha256": C.sha256_file(sealed_freeze.path),
+        },
+        {
+            "byte_count": result_byte_count,
+            "logical_name": "scientific_result",
+            "relative_path": _run_relative_path(result_path, run_directory),
+            "sha256": result_sha256,
+        },
+    ]
+    return _canonical_scientific_value(
+        {
+            "artifacts": artifacts,
+            "authority_documents": authority_documents,
+            "completion_timestamp": completion_timestamp,
+            "environment_sha256": _value_sha256(ledger_payload["environment_summary"]),
+            "git_commit": ledger_payload["git_commit"],
+            "preflight_manifest_reference": ledger_payload["manifest_reference"],
+            "preflight_manifest_sha256": ledger_payload["manifest_sha256"],
+            "protocol_version": C.PROTOCOL_VERSION,
+            "run_id": package.run_id,
+            "schema_version": FINAL_MANIFEST_SCHEMA_VERSION,
+            "scientific_content_sha256": package.scientific_content_sha256,
+        },
+        label="final_manifest",
+    )
+
+
+def _validate_staged_manifest(
+    manifest: Mapping[str, Any],
+    *,
+    package: FinalResultPackage,
+    sealed_freeze: SealedPredictionFreeze,
+) -> None:
+    """Validate every binding before any final result filename is published."""
+
+    required = {
+        "artifacts", "authority_documents", "completion_timestamp", "environment_sha256",
+        "git_commit", "preflight_manifest_reference", "preflight_manifest_sha256",
+        "protocol_version", "run_id", "schema_version", "scientific_content_sha256",
+    }
+    if not isinstance(manifest, Mapping) or set(manifest) != required:
+        raise FinalResultError("staged final manifest fields are incomplete or unexpected")
+    if manifest["run_id"] != package.run_id:
+        raise FinalResultError("staged final manifest run_id mismatch")
+    entries = manifest.get("artifacts")
+    if not isinstance(entries, list) or len(entries) != 2:
+        raise FinalResultError("staged final manifest artifacts are incomplete")
+    by_name = {
+        entry.get("logical_name"): entry
+        for entry in entries
+        if isinstance(entry, Mapping)
+    }
+    if set(by_name) != {"prediction_freeze", "scientific_result"} or len(by_name) != len(entries):
+        raise FinalResultError("staged final manifest logical artifacts are invalid")
+    result_entry = _schema_object(
+        by_name["scientific_result"],
+        {"byte_count", "logical_name", "relative_path", "sha256"},
+        "staged scientific-result entry",
+    )
+    freeze_entry = _schema_object(
+        by_name["prediction_freeze"],
+        {"byte_count", "logical_name", "relative_path", "sha256"},
+        "staged prediction-freeze entry",
+    )
+    if (
+        result_entry["relative_path"] != FINAL_RESULT_FILENAME
+        or result_entry["sha256"] != package.sha256
+        or result_entry["byte_count"] != len(package.canonical_bytes)
+    ):
+        raise FinalResultError("staged scientific-result binding is inconsistent")
+    if (
+        freeze_entry["relative_path"] != PREDICTION_FREEZE_FILENAME
+        or freeze_entry["sha256"] != sealed_freeze.sha256
+        or freeze_entry["byte_count"] != len(sealed_freeze.canonical_bytes)
+    ):
+        raise FinalResultError("staged prediction-freeze binding is inconsistent")
+    payload = package.read_payload()
+    validate_final_result_payload(payload, expected_run_id=package.run_id)
+    context = payload["scientific_content"]["context"]
+    bindings = {
+        "authority_documents": context["authority_documents"],
+        "environment_sha256": context["environment_sha256"],
+        "git_commit": context["git_commit"],
+        "preflight_manifest_sha256": context["preflight_manifest_sha256"],
+        "protocol_version": context["protocol_version"],
+        "scientific_content_sha256": package.scientific_content_sha256,
+    }
+    if any(manifest.get(key) != expected for key, expected in bindings.items()):
+        raise FinalResultError("staged manifest differs from scientific result context")
+
+
+def _verify_manifest_artifacts(
+    manifest: Mapping[str, Any], run_directory: Path, *, expected_run_id: str
+) -> dict[str, str]:
+    required = {
+        "artifacts", "authority_documents", "completion_timestamp", "environment_sha256",
+        "git_commit", "preflight_manifest_reference", "preflight_manifest_sha256",
+        "protocol_version", "run_id", "schema_version", "scientific_content_sha256",
+    }
+    if not isinstance(manifest, Mapping) or set(manifest) != required:
+        raise FinalResultError("final manifest fields are incomplete or unexpected")
+    if manifest.get("schema_version") != FINAL_MANIFEST_SCHEMA_VERSION:
+        raise FinalResultError("final manifest schema version mismatch")
+    if manifest.get("run_id") != expected_run_id:
+        raise FinalResultError("final manifest run_id mismatch")
+    if manifest.get("protocol_version") != C.PROTOCOL_VERSION:
+        raise FinalResultError("final manifest protocol version mismatch")
+    if manifest.get("preflight_manifest_reference") != MANIFEST_RELATIVE.as_posix():
+        raise FinalResultError("final manifest preflight reference mismatch")
+    if _GIT_COMMIT_RE.fullmatch(str(manifest.get("git_commit", ""))) is None:
+        raise FinalResultError("final manifest commit identity is invalid")
+    if not isinstance(manifest.get("completion_timestamp"), str) or not manifest[
+        "completion_timestamp"
+    ].strip():
+        raise FinalResultError("final manifest completion timestamp is missing")
+    for key in ("environment_sha256", "preflight_manifest_sha256", "scientific_content_sha256"):
+        if _SHA256_RE.fullmatch(str(manifest.get(key, ""))) is None:
+            raise FinalResultError(f"final manifest {key} is invalid")
+    entries = manifest.get("artifacts")
+    if not isinstance(entries, list) or len(entries) != 2:
+        raise FinalResultError("final manifest required artifacts are incomplete")
+    logical_names = [entry.get("logical_name") for entry in entries if isinstance(entry, Mapping)]
+    if len(logical_names) != len(entries) or len(set(logical_names)) != len(entries):
+        raise FinalResultError("final manifest has duplicate logical artifacts")
+    if set(logical_names) != {"prediction_freeze", "scientific_result"}:
+        raise FinalResultError("final manifest required logical artifacts are missing")
+    hashes: dict[str, str] = {}
+    for entry in entries:
+        if set(entry) != {"byte_count", "logical_name", "relative_path", "sha256"}:
+            raise FinalResultError("final manifest artifact entry is invalid")
+        path = _manifest_artifact_path(run_directory, entry["relative_path"])
+        if path.is_symlink() or not path.is_file():
+            raise FinalResultError("final manifest artifact is missing or not a regular file")
+        actual_hash = C.sha256_file(path)
+        if actual_hash != entry.get("sha256") or path.stat().st_size != entry.get("byte_count"):
+            raise FinalResultError("final manifest artifact hash or size mismatch")
+        hashes[entry["logical_name"]] = actual_hash
+    result_entry = next(entry for entry in entries if entry["logical_name"] == "scientific_result")
+    result_path = _manifest_artifact_path(run_directory, result_entry["relative_path"])
+    try:
+        result_payload = json.loads(result_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise FinalResultError("scientific result artifact is invalid JSON") from exc
+    validate_final_result_payload(result_payload, expected_run_id=expected_run_id)
+    if result_payload["scientific_content_sha256"] != manifest.get("scientific_content_sha256"):
+        raise FinalResultError("result scientific-content hash differs from manifest")
+    context = result_payload["scientific_content"]["context"]
+    cross_bindings = {
+        "authority_documents": "authority_documents",
+        "environment_sha256": "environment_sha256",
+        "git_commit": "git_commit",
+        "preflight_manifest_sha256": "preflight_manifest_sha256",
+        "protocol_version": "protocol_version",
+    }
+    for manifest_key, context_key in cross_bindings.items():
+        if manifest.get(manifest_key) != context.get(context_key):
+            raise FinalResultError(
+                f"final manifest {manifest_key} differs from scientific result context"
+            )
+    if hashes.get("prediction_freeze") != context.get("prediction_freeze_sha256"):
+        raise FinalResultError("prediction freeze identity differs from scientific result context")
+    return hashes
+
+
+def _complete_run(
+    ledger: RunLedger,
+    *,
+    completion_timestamp: str,
+    manifest_path: Path,
+    manifest_sha256: str,
+    artifact_hashes: Mapping[str, str],
+) -> None:
+    if not isinstance(completion_timestamp, str) or not completion_timestamp.strip():
+        raise FinalResultError("completion timestamp is required")
+    payload = _validated_ledger_payload(ledger)
+    payload["status"] = validate_internal_transition(
+        payload["status"], InternalRunStatus.EXECUTION_COMPLETED
+    ).value
+    payload["abort_reason"] = None
+    payload["artifact_hashes"] = dict(artifact_hashes)
+    payload["completion_timestamp"] = completion_timestamp
+    payload["final_manifest_reference"] = _run_relative_path(
+        manifest_path, ledger.run_directory
+    )
+    payload["final_manifest_sha256"] = manifest_sha256
+    payload["lifecycle_events"].append(
+        {
+            "event": "EXECUTION_COMPLETED",
+            "status": InternalRunStatus.EXECUTION_COMPLETED.value,
+            "timestamp": completion_timestamp,
+        }
+    )
+    _atomic_write_json(payload, ledger.ledger_path)
+
+
+def seal_final_result(
+    package: FinalResultPackage,
+    *,
+    ledger: RunLedger,
+    artifacts: FrozenArtifacts,
+    sealed_freeze: SealedPredictionFreeze,
+    completion_timestamp: str,
+) -> SealedScientificRun:
+    """Stage privately; publish the final result only after manifest and completion."""
+
+    if not isinstance(package, FinalResultPackage):
+        raise FinalResultError("a validated FinalResultPackage is required")
+    if package.run_id != ledger.run_id:
+        raise FinalResultError("result package and ledger run_id differ")
+    if hashlib.sha256(package.canonical_bytes).hexdigest() != package.sha256:
+        raise FinalResultError("result package bytes do not match their SHA-256")
+    validate_final_result_payload(package.read_payload(), expected_run_id=ledger.run_id)
+    ledger_payload = _validated_ledger_payload(ledger)
+    if ledger_payload.get("status") != InternalRunStatus.EXECUTION_RUNNING.value:
+        raise LifecycleTransitionError("result sealing requires an execution-running ledger")
+    if ledger_payload.get("git_commit") != executing_checkout_commit():
+        raise FinalResultError("ledger commit differs from the executing checkout HEAD")
+    run_directory = _validate_publication_run_directory(ledger, artifacts)
+    expected_freeze_path = ledger.run_directory / PREDICTION_FREEZE_FILENAME
+    if sealed_freeze.path.resolve() != expected_freeze_path.resolve():
+        raise ProtectedRunPathError("prediction freeze is not inside the current run directory")
+    if not sealed_freeze.verify():
+        raise FinalResultError("prediction freeze failed revalidation before finalization")
+
+    result_path = ledger.run_directory / FINAL_RESULT_FILENAME
+    manifest_path = ledger.run_directory / FINAL_MANIFEST_FILENAME
+    if os.path.lexists(result_path) or os.path.lexists(manifest_path):
+        raise FinalResultCollisionError("final result destination already exists")
+    staged_result: Path | None = None
+    manifest_published = False
+    ledger_completed = False
+    result_published = False
+    manifest_hash = ""
+    result_hash = ""
+    try:
+        _validate_publication_run_directory(ledger, artifacts)
+        staged_result, result_hash = _stage_bytes(
+            package.canonical_bytes, result_path, label="scientific result"
+        )
+        if result_hash != package.sha256:
+            raise FinalResultError("staged scientific result hash mismatch")
+        final_manifest = _build_final_manifest(
+            ledger_payload=ledger_payload,
+            package=package,
+            result_path=result_path,
+            result_byte_count=len(package.canonical_bytes),
+            result_sha256=result_hash,
+            sealed_freeze=sealed_freeze,
+            completion_timestamp=completion_timestamp,
+            authority_documents=_authority_document_hashes(artifacts),
+        )
+        _validate_staged_manifest(
+            final_manifest, package=package, sealed_freeze=sealed_freeze
+        )
+        manifest_bytes = _canonical_value_bytes(final_manifest)
+
+        _validate_publication_run_directory(ledger, artifacts)
+        manifest_hash = _seal_bytes_no_clobber(
+            manifest_bytes, manifest_path, label="final manifest"
+        )
+        manifest_published = True
+        artifact_hashes = {
+            "prediction_freeze": sealed_freeze.sha256,
+            "scientific_result": result_hash,
+        }
+
+        _validate_publication_run_directory(ledger, artifacts)
+        _complete_run(
+            ledger,
+            completion_timestamp=completion_timestamp,
+            manifest_path=manifest_path,
+            manifest_sha256=manifest_hash,
+            artifact_hashes=artifact_hashes,
+        )
+        ledger_completed = True
+
+        # Publication of this final filename is deliberately the last state change.
+        _validate_publication_run_directory(ledger, artifacts)
+        published_hash = _publish_staged_no_clobber(
+            staged_result, result_path, label="scientific result"
+        )
+        result_published = True
+        if published_hash != result_hash:
+            raise FinalResultError("published scientific result hash mismatch")
+
+        sealed = SealedScientificRun(
+            run_id=ledger.run_id,
+            run_directory=run_directory,
+            result_path=result_path,
+            result_sha256=result_hash,
+            manifest_path=manifest_path,
+            manifest_sha256=manifest_hash,
+            scientific_content_sha256=package.scientific_content_sha256,
+            prediction_freeze_path=sealed_freeze.path,
+            prediction_freeze_sha256=sealed_freeze.sha256,
+            ledger_path=ledger.ledger_path,
+        )
+        verify_sealed_scientific_run(sealed)
+        return sealed
+    except Exception as exc:
+        rollback_error: Exception | None = None
+        try:
+            _validate_publication_run_directory(ledger, artifacts)
+            if result_published and result_path.is_file() and not result_path.is_symlink():
+                if C.sha256_file(result_path) != result_hash:
+                    raise FinalResultError("refusing to remove a changed failed result")
+                result_path.unlink()
+            if ledger_completed:
+                _atomic_write_json(ledger_payload, ledger.ledger_path)
+            if manifest_published and manifest_path.is_file() and not manifest_path.is_symlink():
+                if C.sha256_file(manifest_path) != manifest_hash:
+                    raise FinalResultError("refusing to remove a changed failed manifest")
+                manifest_path.unlink()
+        except Exception as rollback_exc:
+            rollback_error = rollback_exc
+        if rollback_error is not None:
+            raise FinalResultError("failed finalization could not be rolled back safely") from exc
+        raise
+    finally:
+        if staged_result is not None:
+            try:
+                staged_result.unlink()
+            except FileNotFoundError:
+                pass
+
+
+def verify_sealed_scientific_run(sealed: SealedScientificRun) -> None:
+    """Recompute every final binding and reject any post-seal mutation."""
+
+    if not isinstance(sealed, SealedScientificRun):
+        raise FinalResultError("sealed scientific run handle is required")
+    if sealed.result_path.resolve() != (sealed.run_directory / FINAL_RESULT_FILENAME).resolve():
+        raise ProtectedRunPathError("sealed result path escaped its run directory")
+    if sealed.manifest_path.resolve() != (sealed.run_directory / FINAL_MANIFEST_FILENAME).resolve():
+        raise ProtectedRunPathError("sealed manifest path escaped its run directory")
+    if sealed.prediction_freeze_path.resolve() != (
+        sealed.run_directory / PREDICTION_FREEZE_FILENAME
+    ).resolve():
+        raise ProtectedRunPathError("sealed prediction path escaped its run directory")
+    if C.sha256_file(sealed.result_path) != sealed.result_sha256:
+        raise FinalResultError("sealed result mutation detected")
+    if C.sha256_file(sealed.manifest_path) != sealed.manifest_sha256:
+        raise FinalResultError("sealed manifest mutation detected")
+    if C.sha256_file(sealed.prediction_freeze_path) != sealed.prediction_freeze_sha256:
+        raise FinalResultError("sealed prediction-freeze mutation detected")
+    manifest = _read_json_object(sealed.manifest_path, "final run manifest")
+    hashes = _verify_manifest_artifacts(
+        manifest, sealed.run_directory, expected_run_id=sealed.run_id
+    )
+    if hashes.get("scientific_result") != sealed.result_sha256:
+        raise FinalResultError("sealed result handle differs from manifest")
+    if manifest.get("scientific_content_sha256") != sealed.scientific_content_sha256:
+        raise FinalResultError("sealed scientific content identity mismatch")
+    ledger = _read_json_object(sealed.ledger_path, "execution ledger")
+    if ledger.get("run_id") != sealed.run_id:
+        raise FinalResultError("execution ledger run_id mismatch")
+    if ledger.get("status") != InternalRunStatus.EXECUTION_COMPLETED.value:
+        raise LifecycleTransitionError("sealed run ledger is not completed")
+    if ledger.get("final_manifest_sha256") != sealed.manifest_sha256:
+        raise FinalResultError("execution ledger manifest binding mismatch")
+    if ledger.get("artifact_hashes") != hashes:
+        raise FinalResultError("execution ledger artifact bindings mismatch")
+
+
+# --------------------------------------------------------------------------- Ticket 5 full orchestration
+def orchestrate_full_scientific_run(
+    *,
+    project_root: Path,
+    ledger: RunLedger,
+    inputs: OutcomeBlindInputs,
+    training_outcome_provider: Callable[
+        [int, tuple[Any, ...]], Sequence[float] | Mapping[Any, float]
+    ],
+    outcome_provider: Callable[[], Any],
+    completion_timestamp: str,
+    execute_scientific_analysis: bool,
+    rf_factory: Callable[[], Any] = C.make_frozen_rf,
+    cqr_model_factory: Callable[[tuple[Mapping[str, Any], ...]], Any] = ProperTrainingQRFIntervalModel,
+    n_bootstrap: int = C.N_BOOTSTRAP,
+    n_random: int = C.N_RANDOM_DEFERRALS,
+    audit_hook: Callable[[str, Mapping[str, Any]], None] | None = None,
+) -> FullOrchestrationResult:
+    """Execute the future runner sequence; tests supply synthetic authorized fixtures only."""
+
+    def audit(event: str, **detail: Any) -> None:
+        if audit_hook is not None:
+            audit_hook(event, detail)
+
+    try:
+        artifacts = authorize_run(
+            project_root,
+            execute_scientific_analysis=execute_scientific_analysis,
+            ledger=ledger,
+        )
+        _validate_run_root(ledger.run_directory.parent, artifacts.project_root)
+        if dict(inputs.provenance) != _prediction_provenance(artifacts):
+            raise RunAuthorizationError(
+                "Execution blocked: outcome-blind inputs differ from authorized frozen inputs"
+            )
+        audit("authorization_validated", run_id=ledger.run_id)
+        start_run(ledger)
+        audit("execution_started", run_id=ledger.run_id)
+        freeze = orchestrate_outcome_blind_predictions(
+            inputs, training_outcome_provider, rf_factory=rf_factory
+        )
+        sealed_freeze = seal_prediction_freeze(
+            freeze,
+            ledger.run_directory / PREDICTION_FREEZE_FILENAME,
+            expected_id_to_fold=dict(zip(inputs.activity_ids, inputs.outer_folds)),
+        )
+        audit("prediction_freeze_sealed", sha256=sealed_freeze.sha256)
+        plan = prepare_postfreeze_plan(
+            sealed_freeze,
+            expected_id_to_fold=dict(zip(inputs.activity_ids, inputs.outer_folds)),
+        )
+        audit("postfreeze_plan_frozen", sha256=_random_plan_sha256(plan))
+
+        # This is deliberately the first call to the full outer-test outcome provider.
+        supplied_outcomes = _outcome_rows(outcome_provider())
+        audit("outcomes_accessed_after_freeze", sha256=sealed_freeze.sha256)
+        point = evaluate_postfreeze(plan, supplied_outcomes)
+        outcome_rows = supplied_outcomes
+        outcome_by_id = {row.get("activity_id"): dict(row) for row in outcome_rows}
+        if len(outcome_by_id) != len(outcome_rows):
+            raise OutcomeEvaluationError("duplicate full-orchestration outcome activity_id")
+        sealed_payload = json.loads(sealed_freeze.canonical_bytes.decode("utf-8"))
+        prediction_by_id = {
+            row["activity_id"]: row for row in sealed_payload["records"]
+        }
+        scientific_records: list[dict[str, Any]] = []
+        for position, activity_id in enumerate(inputs.activity_ids):
+            outcome = outcome_by_id.get(activity_id)
+            if outcome is None or "observed_clint" not in outcome:
+                raise OutcomeEvaluationError(
+                    "full orchestration requires ID-keyed observed_y and observed_clint"
+                )
+            observed_field = "observed_y" if "observed_y" in outcome else "y_test"
+            if observed_field not in outcome:
+                raise OutcomeEvaluationError("full orchestration outcome is missing observed_y")
+            scientific_records.append(
+                {
+                    **prediction_by_id[activity_id],
+                    "features": np.asarray(inputs.features[position]).tolist(),
+                    "observed_clint": float(outcome["observed_clint"]),
+                    "observed_y": float(outcome[observed_field]),
+                    "scaffold_key": inputs.scaffold_keys[position],
+                    "standard_relation": outcome.get("standard_relation"),
+                }
+            )
+
+        bootstrap = run_primary_bootstrap(
+            scientific_records,
+            n_bootstrap=n_bootstrap,
+            n_random=n_random,
+            seed=C.MASTER_SEED,
+        )
+        primary = primary_inference(point.rel_benefit_80, bootstrap)
+        audit("primary_frozen", classification=primary.classification)
+        cqr = evaluate_cqr(scientific_records, cqr_model_factory)
+        sensitivity_a = evaluate_sensitivity_a(
+            scientific_records,
+            np.asarray(inputs.features),
+            np.asarray(inputs.descriptors),
+            provenance=inputs.provenance,
+            n_bootstrap=n_bootstrap,
+            n_random=n_random,
+            seed=C.MASTER_SEED,
+            rf_factory=rf_factory,
+        )
+        sensitivity_b = evaluate_sensitivity_b(
+            scientific_records,
+            n_bootstrap=n_bootstrap,
+            n_random=n_random,
+            seed=C.MASTER_SEED,
+        )
+        audit("sensitivities_completed")
+        package = build_final_result_package(
+            ledger=ledger,
+            artifacts=artifacts,
+            sealed_freeze=sealed_freeze,
+            postfreeze_plan=plan,
+            point_result=point,
+            primary=primary,
+            cqr=cqr,
+            sensitivity_a=sensitivity_a,
+            sensitivity_b=sensitivity_b,
+        )
+        sealed_run = seal_final_result(
+            package,
+            ledger=ledger,
+            artifacts=artifacts,
+            sealed_freeze=sealed_freeze,
+            completion_timestamp=completion_timestamp,
+        )
+        audit("result_sealed", manifest_sha256=sealed_run.manifest_sha256)
+        return FullOrchestrationResult(
+            sealed_run=sealed_run,
+            prediction_freeze=sealed_freeze,
+            postfreeze_plan=plan,
+            point_result=point,
+            primary_inference=primary,
+            cqr=cqr,
+            sensitivity_a=sensitivity_a,
+            sensitivity_b=sensitivity_b,
+        )
+    except Exception as exc:
+        try:
+            if ledger.read().get("status") in {
+                InternalRunStatus.RUNNER_IMPLEMENTED_NOT_AUDITED.value,
+                InternalRunStatus.EXECUTION_RUNNING.value,
+            }:
+                abort_run(ledger, f"{type(exc).__name__}: {exc}")
+        except Exception:
+            pass
+        raise
