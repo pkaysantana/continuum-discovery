@@ -1,34 +1,49 @@
 # GSK development-only recovery checkpoint
 
-Status: IMPLEMENTED; scientific execution NOT AUTHORISED. Synthetic tests NOT RUN
-on this laptop because scikit-learn is unavailable. No new predictive finding.
-
-Sprint checks (2026-10-13): dependency-free AST parsing passed for all three Python
-files; 11 synthetic test methods counted statically. Git comparison against the
-starting checkpoint showed no changes under `experiments/compound_to_exposure/`.
-The four new files remain uncommitted; neither branch's commit pointer advanced.
-Syntax validation is not a substitute for executing the synthetic tests.
+Status: VALIDATED; scientific execution NOT AUTHORISED in this sprint. All 24
+synthetic tests passed (11 harness + 13 extractor tests, exit code 0). Original
+harness committed and pushed at commit `1aa7f6e557b9c0d8f28653f5ef34092d1d9f10e3`.
+No real-data modelling executed; no new predictive finding.
 
 Starting checkpoint: `49e94153a78224eb274ace540085d7a4d483605f` on
 `wip/v3a-ticket5-pass2fa-codex-quota-handoff-2026-10-01`.
+Harness commit: `1aa7f6e557b9c0d8f28653f5ef34092d1d9f10e3`.
 Working branch: `dev/gsk-development-validation-2026-10-13`.
 
 ## Boundaries
 
-Everything under `experiments/compound_to_exposure/` remains unchanged, including
+Everything under `experiments/compound_to_exposure/` remains untouched, including
 `data/`, `splits/`, `manifests/`, `results/`, `reports/`, `docs/`, `src/`, and `state/`.
-In particular preserve the protected run
+In particular, the protected run
 `manifests/runs/2026-09-18T215009395468_0000-4c110e67/`, both execution-state JSONs,
-V1 outputs, and all V3A freeze artifacts. Neither historical runner is imported.
-No protected outcomes were loaded in this sprint. No installs or model execution.
+V1 outputs, and all V3A freeze artifacts remain strictly unmodified. Neither historical
+runner is imported. No protected outcomes were loaded.
 
-`harness.py` has no file loader, CLI, data discovery or result writer. It takes
-only an explicit in-memory input bundle. Development execution defaults to
-blocked and requires separate user approval before passing
-`approve_development=True`. This flag is a workflow guard, not a security sandbox:
-the caller is trusted to supply an independently reviewed bundle. Source hash
-syntax and record consistency do not authenticate arbitrary caller-supplied data.
-A reviewed development-only extraction step remains a prerequisite to real use.
+`harness.py` takes only an explicit in-memory input bundle. Development execution
+defaults to blocked and requires explicit approval via `approve_development=True`.
+This flag is a workflow guard, not a security sandbox: the caller is trusted to
+supply an independently reviewed bundle.
+
+### Data access boundary and limitation
+The extractor (`extractor.py`) reads:
+- Master partition: `splits/master_partition.csv` (SHA-256: `971f78aa2a86b0a45c79d52dcb3fca64895289dd7c72b547797b273b067cb90a`)
+- ChEMBL interim sources: `data/interim/CHEMBL3301370_rows.csv` (`fc1ea6fa15736449a75f578b2ff3e97661b8079d087aae000ed3ed508223ab37`),
+  `CHEMBL3301371_rows.csv` (`2c7578045d930d287de37f9da74d38cd978f5f7228b781e4bf2dc4c726bbe924`),
+  `CHEMBL3301372_rows.csv` (`b3164bb3efb7a4c270dcbc2308e54573e728044a516eff1121d0522a3e1066d4`).
+
+Protected holdout prediction files are never accessed:
+`experiments/compound_to_exposure/manifests/runs/2026-09-18T215009395468_0000-4c110e67/primary_holdout_predictions.csv`.
+Holdout exclusion is derived entirely from the master partition (all 250 holdout
+partition rows, covering the 149 evaluated in V2), which is the authoritative,
+pre-execution boundary.
+
+**Explicit limitation:** The interim CSV files contain CLint outcome values for
+all activity IDs in the partition, including censored and holdout rows. The extractor
+enforces the boundary by building the allowlist strictly from the 582 `partition=cv`,
+`status=INTERIOR_OBSERVED` rows *before* opening the interim files, and parsing outcome
+fields only for allowlisted IDs. Holdout CLint values are never parsed into memory.
+However, because holdout values physically reside in the interim files on disk,
+this boundary is a Python-level data-access control, not OS-level filesystem isolation.
 
 ## Scientific choices
 
@@ -69,7 +84,8 @@ All source paths below are relative to `experiments/compound_to_exposure/`.
 | V2 bootstrap | Reported CI [0.0227499, 0.0945252] | UNRESOLVED provenance; do not claim significant improvement | `reports/V2_FINAL_INTERPRETATION.md:41` |
 | Structural characterisation | Holdout nearest-training Tanimoto median 0.52; two similarities of 1.0 | DOCUMENTED; scaffold-disjoint does not imply unfamiliar fingerprints | `reports/ECFP4_TANIMOTO_PREFREEZE_CHECK.md:17` |
 | V3A | QRF/CQR/inference implementation | NOT EXECUTED; state remains pre-execution | `state/v3a_execution_state.json:1` |
-| This sprint | Isolated harness and 11 synthetic test methods | IMPLEMENTED, execution blocked by missing dependency; no scientific results | this directory |
+| Sprint 1 | Isolated harness and 11 synthetic tests | COMMITTED and PUSHED (`1aa7f6e5`); tests passed | `application_development/gsk_clearance/` |
+| Sprint 2 | Input extractor and 13 adversarial tests | IMPLEMENTED and PASSED (13/13); prospective design verified | this directory |
 
 Important: 0.2005 is R-squared, not Pearson R. V2 holdout was reserved from V2
 tuning, but the underlying dataset had prior V1 analyses (V2 SAP line 28).
@@ -78,70 +94,68 @@ censored, and 13 historically boundary-ambiguous rows. Thus 1089 = 1102 - 13,
 whereas 731 is the strict-interior regression cohort. These are not interchangeable.
 The retained V2 result does not establish in-vivo PK, clinical exposure or efficacy.
 
-## Synthetic checks and environment
+## Synthetic checks and runtime environment
 
-Run from the repository root in an already approved compatible environment:
+A project-local virtual environment (`.venv`) was configured without administrator
+privileges. scikit-learn 1.9.1 was installed to satisfy harness dependencies.
+
+### Actual runtime versions vs historical locked environment
+
+| Package | Historical lock (`requirements.txt`) | Current `.venv` runtime | Notes |
+|---|---|---|---|
+| Python | 3.12 (assumed) | 3.12.10 (AMD64) | Matches minor version |
+| scikit-learn | 1.9.1 | 1.9.1 | Exact match |
+| NumPy | 2.2.6 | 2.5.3 | Runtime is newer than lock |
+| SciPy | 1.17.1 | 1.18.1 | Runtime is newer than lock |
+| RDKit | 2025.3.6 | 2026.09.1 | Newer; emits deprecation warning on `GetMorganFingerprintAsBitVect` favoring `MorganGenerator` |
+
+These version differences must be retained and reported in any execution receipt.
+The current environment does not claim byte-for-byte numerical identity with the
+historical execution environment.
+
+### Running the synthetic tests
+
+Run both test suites from the repository root:
 
 ```powershell
-python -B -m unittest application_development.gsk_clearance.test_harness -v
+# 1. Harness synthetic unit tests (11 tests)
+.\.venv\Scripts\python.exe -B -m unittest application_development.gsk_clearance.test_harness -v
+
+# 2. Extractor adversarial tests (13 tests)
+.\.venv\Scripts\python.exe -B -m unittest application_development.gsk_clearance.test_extractor -v
 ```
 
-No pytest dependency is required. Required imports: NumPy, RDKit, SciPy and
-scikit-learn. Current laptop: Python 3.12.10; NumPy, SciPy and RDKit discoverable;
-scikit-learn absent. This sprint does not install dependencies. Historical package
-pins are documented in the existing project; do not claim the laptop reproduces
-that environment. Select and record a compatible isolated environment before
-running the tests, and retain actual versions from `runtime` in any future result.
+Both suites execute with exit code 0 and require no network access or real data.
 
-The tests cover exact feature matrices reaching every fit; 12/2048 dimensions;
-the adversarial `'r1' in 'P3'` defect; applied and fitted hyperparameters;
-scaffold isolation; training-only imputation/scaling and baselines; fold outcome
-perturbations; log transformation, MAE, RMSE, Pearson R, Spearman, R-squared and
-undefined cases; provenance failures; holdout rejection; bounded trees and repeatability.
+The tests cover:
+- Exact feature matrix dimensions (12 R1, 2048 R2) and descriptor names.
+- Adversarial substring routing defect (`'r1' in 'P3'`).
+- Applied and reported hyperparameters from fitted estimators.
+- Cross-fold scaffold isolation and cross-fold mutation rejection.
+- Training-only imputer/scaler fitting and training-only mean/median baselines.
+- Target transformation log10 and metric definitions (MAE, RMSE, Pearson r, Spearman rho, R-squared).
+- Repeatability across duplicate executions with identical seeds.
+- Fail-closed behavior for tampered partitions, mismatched source checksums, duplicate molecular IDs, wrong scaffold assignments, qualified/censored relations, missing assay values, invalid SMILES, incomplete allowlists, allowlist poisoning / holdout access attempts, and unexpected units.
 
-Dependency-free syntax check (does not execute imports or tests):
+## Prospective experiment design (Task D)
 
+The existing harness and extractor support the fixed design:
+- **Cohort**: 582 strictly interior development compounds (`partition == 'cv'`, `status == 'INTERIOR_OBSERVED'`).
+- **Folds**: 5 frozen scaffold-grouped folds (sizes: 115, 120, 115, 117, 115).
+- **Representations**: 12 RDKit physicochemical descriptors (R1) and Morgan radius-2, 2048-bit binary fingerprints (R2).
+- **Pipelines**: 4 combinations (R1 Ridge, R2 Ridge, R1 RF, R2 RF) plus 2 training-only baselines (mean, median).
+- **Fits budget**: 20 learned fits total (4 pipelines x 5 folds; 10 RF fits = 1,000 trees total).
+- **Hyperparameters**: Fixed; no hyperparameter grid/random search.
+  - Ridge: `alpha=1.0`, solver=`lsqr`, `tol=1e-4`, `max_iter=10000`.
+  - RF: `n_estimators=100`, `max_features='sqrt'`, `min_samples_leaf=3`, `max_depth=None`, `bootstrap=True`, `criterion='squared_error'`, `min_samples_split=2`, `random_state=20261013`, `n_jobs=1`.
+- **Metrics**: Pooled OOF log10 MAE, RMSE, Pearson r, Spearman rho, R-squared.
+- **Resource bounds**: CPU-only (`OMP_NUM_THREADS=1`, `OPENBLAS_NUM_THREADS=1`, `MKL_NUM_THREADS=1`), <2 GB RAM, 15-minute wall clock limit.
+
+Execution command (requires explicit authorization; DO NOT run without approval):
 ```powershell
-python -B -c "import ast,pathlib; paths=list(pathlib.Path('application_development/gsk_clearance').glob('*.py')); [ast.parse(p.read_text(encoding='utf-8')) for p in paths]; print('Syntax OK:',len(paths),'files')"
+$env:OMP_NUM_THREADS="1"; $env:OPENBLAS_NUM_THREADS="1"; $env:MKL_NUM_THREADS="1"
+.\.venv\Scripts\python.exe -c "from application_development.gsk_clearance.extractor import extract; from application_development.gsk_clearance.harness import evaluate, Configuration; bundle = extract('.'); result = evaluate(bundle['records'], bundle['provenance'], Configuration(), approve_development=True); print('Status:', result['status'], 'Fits:', len(result['fitted_configurations']))"
 ```
-
-## Next-session experiment plan: approval required
-
-1. First obtain a compatible environment and pass all synthetic tests. Any failure
-   stops preparation; do not modify frozen code to make tests pass.
-2. Request separate explicit execution approval for the following fixed experiment.
-   Prepare an independently reviewed bundle of ONLY the 582 V2 strict-interior CV
-   IDs, with original folds 0..4 of sizes 115/120/115/117/115. Inspect only identity,
-   partition, scaffold and fold columns of the master partition to form an allowlist.
-   An approved streaming extractor must filter IDs BEFORE parsing outcome fields;
-   never use `get_cohorts()` or load the full source into a modelling dataframe.
-   No feature or outcome extraction for the 149 protected IDs is permitted.
-3. Preserve the source SMILES, null qualifier, units and frozen assignments.
-   A second reviewer/check must reconcile the allowlist to the authoritative split,
-   verify source/split hashes and exclude every protected ID. The extractor is NOT
-   implemented or run in this sprint. Without it, real evaluation stays blocked.
-4. Evaluate exactly four combinations on identical frozen CV folds: R1/R2 x
-   Ridge/RF. Ridge alpha=1, solver=lsqr, tol=1e-4, max_iter=10000. RF: 100 trees,
-   max_features=sqrt, min_samples_leaf=3, max_depth=None, bootstrap=True,
-   criterion=squared_error, min_samples_split=2, seed=20261013, n_jobs=1.
-   These are prospective development settings, NOT retrospectively repaired V2.
-   Include fold-training mean/median baselines. No grid search or model selection.
-5. Bound work to 20 learned fits (10 RF fits = 1000 trees), single-thread BLAS and
-   estimator execution, no GPU or cloud, no nested CV, bootstrap or repeated seeds.
-   Set OMP_NUM_THREADS=1, OPENBLAS_NUM_THREADS=1 and MKL_NUM_THREADS=1 BEFORE Python.
-   Use a supervised 15-minute wall-clock / 2-GB process budget. Stop on any limit,
-   dependency mismatch, provenance failure, leakage, nonfinite output or incomplete
-   folds. The external watchdog is a prerequisite, not provided by this in-memory API.
-   Do not relax settings or cherry-pick completed folds after seeing performance.
-6. Keep outputs only under a new, nonexisting application-development run directory:
-   `inputs_manifest.json`, `configuration.json`, `oof_predictions.csv`,
-   `metrics.json`, and `receipt.json` with code/file hashes, commit AND dirty-source
-   hashes, runtime versions, seeds, complete row/fold identities, fitted settings,
-   elapsed resources and input digests. A no-overwrite writer must be reviewed
-   before real execution; the present harness returns an in-memory result only.
-7. Label every result EXPLORATORY_DEVELOPMENT_ONLY. All 582 observations serve as
-   validation once and training four times. No protected claim, tuned final refit,
-   V2 result replacement, V3A execution or persisted-state update is allowed.
 
 ## Application description
 
@@ -150,6 +164,7 @@ human liver microsomal intrinsic-clearance prediction. The project combines
 chemical data curation, scaffold-aware evaluation and critical analysis of model
 limitations. Historical results show modest predictive signal; provenance audits
 identified feature-routing and parameter-recording defects that restrict the
-conclusions. This development sprint adds an isolated validation harness and
-synthetic correctness tests to make future exploratory comparisons reviewable.
-It does not claim experimental validation or independently authored implementation.
+conclusions. This development sprint adds an isolated validation harness,
+authoritative input extractor, and 24 synthetic correctness tests to make future
+exploratory comparisons reviewable. It does not claim experimental validation or
+independently authored implementation.
