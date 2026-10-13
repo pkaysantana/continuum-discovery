@@ -10,7 +10,7 @@ import uuid
 
 from src.dataset import get_cohorts
 from src.representations import get_r1_descriptors, get_r1_vector, get_r2_morgan
-from src.pipelines import get_pipeline_grids, tie_break_candidates, get_p0a_baseline, get_p0b_baseline
+from src.pipelines import get_pipeline_grids, tie_break_candidates, get_p0a_baseline, get_p0b_baseline, representation_for
 from src.metrics import (log10_mae, log10_rmse, spearman_corr, r_squared,
                          two_fold_proportion, paired_scaffold_cluster_bootstrap,
                          tail_concordance, boundary_violation_loss)
@@ -136,6 +136,9 @@ def _build_candidate(p_id, params, mean_mae):
         c['max_depth'] = None
         c['random_state'] = 0
     return c
+
+def _select_representation(pipeline_id, X_r1, X_r2):
+    return X_r1 if representation_for(pipeline_id) == 'R1' else X_r2
 
 EXPERIMENT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -290,9 +293,9 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
                 train_mask = cv_mask & (df_primary['cv_fold'] != fold)
                 val_mask = cv_mask & (df_primary['cv_fold'] == fold)
                 
-                X_tr = X_r1[train_mask] if 'r1' in p_id else X_r2[train_mask]
+                X_tr = _select_representation(p_id, X_r1, X_r2)[train_mask]
                 y_tr = y[train_mask]
-                X_val = X_r1[val_mask] if 'r1' in p_id else X_r2[val_mask]
+                X_val = _select_representation(p_id, X_r1, X_r2)[val_mask]
                 
                 model = MockPredictor() if dry_run else base_pipe
                 model.fit(X_tr, y_tr)
@@ -313,7 +316,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
     manifest['candidate_results'] = candidate_results
     
     final_model = MockPredictor() if dry_run else pipelines[best_candidate['pipeline_id']][0]
-    X_cv = X_r1[cv_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2[cv_mask]
+    X_cv = _select_representation(best_candidate['pipeline_id'], X_r1, X_r2)[cv_mask]
     final_model.fit(X_cv, y[cv_mask])
 
     manifest_path = run_dir / "selection_manifest.json"
@@ -331,7 +334,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
         raise
         
     try:
-        X_h = X_r1[holdout_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2[holdout_mask]
+        X_h = _select_representation(best_candidate['pipeline_id'], X_r1, X_r2)[holdout_mask]
         preds_holdout = final_model.predict(X_h)
         
         preds_path = run_dir / "primary_holdout_predictions.csv"
@@ -362,11 +365,17 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             tail_fold_mask = (df_tail['partition'] == 'cv') & (df_tail['cv_fold'] == fold)
             
             if tail_fold_mask.sum() > 0 and int_val_mask.sum() > 0:
-                X_int_val = X_r1[int_val_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2[int_val_mask]
+                X_int_val = _select_representation(best_candidate['pipeline_id'], X_r1, X_r2)[int_val_mask]
                 if synthetic_data and 'representations_tail' in synthetic_data:
-                    X_tail_val = synthetic_data['representations_tail'][0 if 'r1' in best_candidate['pipeline_id'] else 1][tail_fold_mask]
+                    X_tail_val = _select_representation(best_candidate['pipeline_id'], *synthetic_data['representations_tail'])[tail_fold_mask]
                 else:
-                    X_tail_val = np.array([get_r1_vector(s) if 'r1' in best_candidate['pipeline_id'] else get_r2_morgan(s) for s in df_tail[tail_fold_mask][CHEMBL_STRUCTURE_COLUMN]])
+                    tail_pipeline_id = best_candidate['pipeline_id']
+                    tail_smiles = df_tail[tail_fold_mask][CHEMBL_STRUCTURE_COLUMN]
+                    X_tail_val = _select_representation(
+                        tail_pipeline_id,
+                        np.array([get_r1_vector(s) for s in tail_smiles]) if representation_for(tail_pipeline_id) == 'R1' else None,
+                        np.array([get_r2_morgan(s) for s in tail_smiles]) if representation_for(tail_pipeline_id) == 'R2' else None
+                    )
                 
                 preds_int = model.predict(X_int_val)
                 preds_tail = model.predict(X_tail_val)
@@ -387,9 +396,15 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
         tail_h_mask = df_tail['partition'] == 'holdout'
         if tail_h_mask.sum() > 0 and holdout_mask.sum() > 0:
             if synthetic_data and 'representations_tail' in synthetic_data:
-                X_tail_h = synthetic_data['representations_tail'][0 if 'r1' in best_candidate['pipeline_id'] else 1][tail_h_mask]
+                X_tail_h = _select_representation(best_candidate['pipeline_id'], *synthetic_data['representations_tail'])[tail_h_mask]
             else:
-                X_tail_h = np.array([get_r1_vector(s) if 'r1' in best_candidate['pipeline_id'] else get_r2_morgan(s) for s in df_tail[tail_h_mask][CHEMBL_STRUCTURE_COLUMN]])
+                tail_pipeline_id = best_candidate['pipeline_id']
+                tail_smiles = df_tail[tail_h_mask][CHEMBL_STRUCTURE_COLUMN]
+                X_tail_h = _select_representation(
+                    tail_pipeline_id,
+                    np.array([get_r1_vector(s) for s in tail_smiles]) if representation_for(tail_pipeline_id) == 'R1' else None,
+                    np.array([get_r2_morgan(s) for s in tail_smiles]) if representation_for(tail_pipeline_id) == 'R2' else None
+                )
             
             preds_tail_h = final_model.predict(X_tail_h)
             
@@ -428,8 +443,8 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             train_mask = cv_mask & (df_primary['cv_fold'] != fold)
             train_ambig_mask = cv_ambig_mask & (df_ambig['cv_fold'] != fold)
             
-            X_tr = X_r1[train_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2[train_mask]
-            X_ambig = X_r1_ambig[train_ambig_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2_ambig[train_ambig_mask]
+            X_tr = _select_representation(best_candidate['pipeline_id'], X_r1, X_r2)[train_mask]
+            X_ambig = _select_representation(best_candidate['pipeline_id'], X_r1_ambig, X_r2_ambig)[train_ambig_mask]
             
             X_tr_comb = np.vstack([X_tr, X_ambig]) if len(X_ambig) > 0 else X_tr
             y_tr_comb = np.concatenate([y[train_mask], y_ambig_exact[train_ambig_mask]]) if len(X_ambig) > 0 else y[train_mask]
@@ -438,7 +453,7 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             fold_models_sensA[fold] = model
             
         final_sens_model = MockPredictor() if dry_run else pipelines[best_candidate['pipeline_id']][0]
-        X_cv_comb = np.vstack([X_cv, X_r1_ambig[cv_ambig_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2_ambig[cv_ambig_mask]]) if cv_ambig_mask.sum() > 0 else X_cv
+        X_cv_comb = np.vstack([X_cv, _select_representation(best_candidate['pipeline_id'], X_r1_ambig, X_r2_ambig)[cv_ambig_mask]]) if cv_ambig_mask.sum() > 0 else X_cv
         y_cv_comb = np.concatenate([y[cv_mask], y_ambig_exact[cv_ambig_mask]]) if cv_ambig_mask.sum() > 0 else y[cv_mask]
         
         final_sens_model.fit(X_cv_comb, y_cv_comb)
@@ -460,12 +475,12 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             
             ambig_fold_mask = (df_ambig['partition'] == 'cv') & (df_ambig['cv_fold'] == fold)
             if ambig_fold_mask.sum() > 0:
-                X_ambig = X_r1_ambig[ambig_fold_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2_ambig[ambig_fold_mask]
+                X_ambig = _select_representation(best_candidate['pipeline_id'], X_r1_ambig, X_r2_ambig)[ambig_fold_mask]
                 preds_ambig.extend(model.predict(X_ambig))
                 
         h_ambig_mask = df_ambig['partition'] == 'holdout'
         if h_ambig_mask.sum() > 0:
-            X_ambig_h = X_r1_ambig[h_ambig_mask] if 'r1' in best_candidate['pipeline_id'] else X_r2_ambig[h_ambig_mask]
+            X_ambig_h = _select_representation(best_candidate['pipeline_id'], X_r1_ambig, X_r2_ambig)[h_ambig_mask]
             preds_ambig.extend(final_model.predict(X_ambig_h))
             
         ledger.complete_stage('SENSITIVITY_B')
@@ -600,8 +615,8 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
                         train_mask = cv_mask_b1 & (df_bio1['cv_fold'] != fold)
                         val_mask = cv_mask_b1 & (df_bio1['cv_fold'] == fold)
                         
-                        X_tr = X_b1_r1[train_mask] if 'r1' in p_id else X_b1_r2[train_mask]
-                        X_val = X_b1_r1[val_mask] if 'r1' in p_id else X_b1_r2[val_mask]
+                        X_tr = _select_representation(p_id, X_b1_r1, X_b1_r2)[train_mask]
+                        X_val = _select_representation(p_id, X_b1_r1, X_b1_r2)[val_mask]
                         model.fit(X_tr, y_b1[train_mask])
                         preds = model.predict(X_val)
                         fold_maes.append(log10_mae(y_b1[val_mask], preds))
@@ -627,8 +642,8 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
                 model = MockPredictor() if dry_run else base_pipe
                 train_mask = cv_mask_b2 & (df_bio2['cv_fold'] != fold)
                 val_mask = cv_mask_b2 & (df_bio2['cv_fold'] == fold)
-                X_tr = X_b2_r1[train_mask] if 'r1' in p_id else X_b2_r2[train_mask]
-                X_val = X_b2_r1[val_mask] if 'r1' in p_id else X_b2_r2[val_mask]
+                X_tr = _select_representation(p_id, X_b2_r1, X_b2_r2)[train_mask]
+                X_val = _select_representation(p_id, X_b2_r1, X_b2_r2)[val_mask]
                 model.fit(X_tr, y_b2[train_mask])
                 preds = model.predict(X_val)
             
