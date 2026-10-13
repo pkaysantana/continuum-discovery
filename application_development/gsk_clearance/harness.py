@@ -9,6 +9,7 @@ import importlib.metadata
 import json
 import platform
 import re
+import warnings
 
 import numpy as np
 from rdkit import Chem
@@ -30,7 +31,7 @@ REPRESENTATIONS = {
     "descriptor_rf": "R1", "morgan_rf": "R2",
 }
 TARGET = "log10(CLint expressed in uL/min/mg)"
-RECORD_FIELDS = {"id", "smiles", "scaffold", "fold", "partition", "relation", "clint"}
+RECORD_FIELDS = {"activity_id", "id", "smiles", "scaffold", "fold", "partition", "relation", "clint"}
 
 
 def digest(value):
@@ -86,17 +87,17 @@ def transform_target(clint):
 
 
 def validate_bundle(records, provenance, *, approve_development=False):
-    required = {"kind", "source_commit", "source_sha256", "partition_sha256",
-                "records_sha256", "assignments", "target", "representation_policy"}
+    required = {"kind", "id_scaffold_fold_sha256", "records_sha256", "assignments", "target", "representation_policy"}
     if set(provenance) != required:
         raise ValueError("missing or unexpected provenance fields")
     if provenance["kind"] not in {"synthetic", "development"}:
         raise ValueError("unknown data provenance kind")
-    if provenance["kind"] == "development" and approve_development is not True:
-        raise PermissionError("real development execution needs separate explicit approval")
-    if not re.fullmatch(r"[0-9a-f]{40}", provenance["source_commit"]):
-        raise ValueError("source commit is required")
-    for field in ("source_sha256", "partition_sha256", "records_sha256"):
+    if provenance["kind"] == "development":
+        if approve_development is not True:
+            raise PermissionError("real development execution needs separate explicit approval")
+        from .export import verify_development_bundle
+        verify_development_bundle(records, provenance)
+    for field in ("id_scaffold_fold_sha256", "records_sha256"):
         if not re.fullmatch(r"[0-9a-f]{64}", provenance[field]):
             raise ValueError("invalid provenance hash")
     if provenance["target"] != TARGET or provenance["representation_policy"] != "V2_R1_12_R2_2048_NOCHIRAL":
@@ -106,13 +107,16 @@ def validate_bundle(records, provenance, *, approve_development=False):
     assignments = provenance["assignments"]
     if not isinstance(assignments, dict) or len(assignments) != len(records):
         raise ValueError("incomplete frozen assignments")
-    ids, identities, group_folds = set(), set(), {}
+    ids, activities, identities, group_folds = set(), set(), set(), {}
     for row in records:
         if set(row) != RECORD_FIELDS:
             raise ValueError("unexpected record schema")
         if not isinstance(row["id"], str) or not row["id"] or row["id"] in ids:
             raise ValueError("duplicate or invalid ID")
         ids.add(row["id"])
+        if not isinstance(row["activity_id"], str) or not row["activity_id"] or row["activity_id"] in activities:
+            raise ValueError("duplicate or invalid activity ID")
+        activities.add(row["activity_id"])
         if provenance["kind"] == "synthetic" and not row["id"].startswith("SYN_"):
             raise ValueError("synthetic fixtures must use SYN_ IDs")
         if row["partition"] != "cv" or row["relation"] not in (None, ""):
@@ -133,6 +137,8 @@ def validate_bundle(records, provenance, *, approve_development=False):
     folds = {row["fold"] for row in records}
     if len(folds) < 2 or len(folds) > 5:
         raise ValueError("require 2..5 frozen folds")
+    if digest(assignments) != provenance["id_scaffold_fold_sha256"]:
+        raise ValueError("assignment digest mismatch")
     if provenance["kind"] == "development":
         counts = [sum(r["fold"] == f for r in records) for f in range(5)]
         if len(records) != 582 or folds != set(range(5)) or counts != [115, 120, 115, 117, 115]:
@@ -193,31 +199,48 @@ def metrics(y, predicted):
 def evaluate(records, provenance, config=Configuration(), *, approve_development=False):
     """No selection or holdout evaluation. Return all four models and two baselines.
 
-    Caller must supply an independently reviewed development-only bundle; its
-    declared source hashes are recorded, not authenticated against on-disk data.
+    Development bundles must match the independently pinned on-disk export and
+    receipt. Synthetic fixtures remain a trusted testing API, not a sandbox.
     """
     validate_bundle(records, provenance, approve_development=approve_development)
     config.validate()
+    if provenance["kind"] == "development" and config != Configuration():
+        raise PermissionError("real development configuration is frozen")
     x = feature_matrices(records)
     y = transform_target([r["clint"] for r in records])
     folds = np.asarray([r["fold"] for r in records])
     predictions = {name: np.full(len(y), np.nan) for name in
                    [*REPRESENTATIONS, "mean_baseline", "median_baseline"]}
     fitted = []
+    baselines = []
     for fold in sorted(set(folds)):
         train, valid = folds != fold, folds == fold
         if np.isnan(x["R1"][train]).all(axis=0).any():
             raise ValueError("training fold has an entirely missing descriptor")
         for name, representation in REPRESENTATIONS.items():
             model = model_spec(name, representation, config)
-            model.fit(x[representation][train], y[train])
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always")
+                model.fit(x[representation][train], y[train])
             predictions[name][valid] = model.predict(x[representation][valid])
+            preprocessing_state = {}
+            for step, transformer in model.steps[:-1]:
+                preprocessing_state[step] = {attr: getattr(transformer, attr).tolist()
+                    for attr in ("statistics_", "mean_", "scale_", "variances_") if hasattr(transformer, attr)}
+                if step == "variance":
+                    preprocessing_state[step]["retained_mask"] = transformer.get_support().tolist()
             fitted.append({"fold": int(fold), "pipeline": name, "representation": representation,
                            "input_columns": int(x[representation].shape[1]),
+                           "estimator_input_columns": int(model.named_steps["estimator"].n_features_in_),
+                           "estimator_class": type(model.named_steps["estimator"]).__name__,
                            "estimator_params": model.named_steps["estimator"].get_params(deep=False),
-                           "preprocessing": [step for step, _ in model.steps[:-1]]})
+                           "preprocessing": [step for step, _ in model.steps[:-1]],
+                           "preprocessing_state": preprocessing_state,
+                           "warnings": [{"category": w.category.__name__, "message": str(w.message)} for w in caught]})
         predictions["mean_baseline"][valid] = y[train].mean()
         predictions["median_baseline"][valid] = np.median(y[train])
+        baselines.append({"fold": int(fold), "train_n": int(train.sum()), "validation_n": int(valid.sum()),
+                          "mean_log10": float(y[train].mean()), "median_log10": float(np.median(y[train]))})
     return {"status": "EXPLORATORY_DEVELOPMENT_ONLY", "data_provenance": provenance,
             "requested_configuration": asdict(config), "fitted_configurations": fitted,
             "runtime": {"python": platform.python_version(), **{
@@ -225,6 +248,13 @@ def evaluate(records, provenance, config=Configuration(), *, approve_development
             "representation": {"R1": list(R1_PROPERTIES), "R2": {
                 "radius": 2, "bits": 2048, "binary": True, "useChirality": False}},
             "row_order": [r["id"] for r in records], "folds": folds.tolist(),
+            "activity_ids": [r["activity_id"] for r in records],
+            "baseline_constants": baselines,
+            "descriptor_quality": {"names": list(R1_PROPERTIES),
+                "nonfinite_per_column": np.isnan(x["R1"]).sum(axis=0).tolist(),
+                "nonfinite_per_row": np.isnan(x["R1"]).sum(axis=1).tolist()},
             "observed_log10": y.tolist(),
             "predictions": {k: v.tolist() for k, v in predictions.items()},
-            "pooled_oof_metrics": {k: metrics(y, v) for k, v in predictions.items()}}
+            "pooled_oof_metrics": {k: metrics(y, v) for k, v in predictions.items()},
+            "per_fold_metrics": {str(f): {k: metrics(y[folds == f], v[folds == f])
+                for k, v in predictions.items()} for f in sorted(set(folds))}}

@@ -12,12 +12,11 @@ def fixture():
     smiles = ["c1ccccc1", "Cc1ccccc1", "Oc1ccccc1",
               "c1ccncc1", "Cc1ccncc1", "Oc1ccncc1",
               "C1CCCCC1", "CC1CCCCC1", "OC1CCCCC1"]
-    rows = [{"id": f"SYN_{i}", "smiles": s, "scaffold": h.scaffold_key(s),
+    rows = [{"activity_id": f"SYN_ACT_{i}", "id": f"SYN_{i}", "smiles": s, "scaffold": h.scaffold_key(s),
              "fold": i//3, "partition": "cv", "relation": None,
              "clint": float(10+8*i)} for i, s in enumerate(smiles)]
-    provenance = {"kind": "synthetic", "source_commit": "0"*40,
-                  "source_sha256": h.digest({"fixture": "nine synthetic molecules v1"}),
-                  "partition_sha256": h.digest([r["fold"] for r in rows]),
+    provenance = {"kind": "synthetic",
+                  "id_scaffold_fold_sha256": h.digest({r["id"]: [r["scaffold"], r["fold"]] for r in rows}),
                   "records_sha256": h.digest(rows),
                   "assignments": {r["id"]: [r["scaffold"], r["fold"]] for r in rows},
                   "target": h.TARGET, "representation_policy": "V2_R1_12_R2_2048_NOCHIRAL"}

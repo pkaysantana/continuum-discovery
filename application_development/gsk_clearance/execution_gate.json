@@ -1,0 +1,15 @@
+{
+  "status": "NOT_READY",
+  "approval_reference": null,
+  "approved_code_revision": null,
+  "approved_code_sha256": null,
+  "export_path": null,
+  "export_sha256": null,
+  "receipt_path": null,
+  "receipt_sha256": null,
+  "input_manifest_canonical_sha256": null,
+  "configuration_sha256": null,
+  "filesystem_isolation": {"status": "NOT_VERIFIED"},
+  "memory_limit": {"status": "NOT_VERIFIED", "required_bytes": 2000000000},
+  "wall_seconds": 900
+}
