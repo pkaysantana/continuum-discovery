@@ -54,3 +54,38 @@ receipt-only commit records that anchor's literal SHA in PREREGISTRATION.md;
 this avoids the impossible requirement for a commit to contain its own hash.
 No scientific definition changes in that receipt. Later changes need a new
 dated amendment and commit; never amend or move this anchor after execution.
+
+## Amendment 10 (post-execution record correction)
+
+This amendment is documentation-only. It changes no scientific definition, no
+endpoint, no config, no input and no result.
+
+Analyses A and B were executed on 2026-09-16 (commits `3a33dd2` and `20a24af`),
+after the preregistration anchor `ff685f1`. README.md was authored at that anchor
+and stated that no detector had been run; it was never updated after execution,
+so the repository's entry-point file contradicted its own committed results and
+`PROJECT_STATUS.md` for the remainder of the project.
+
+Corrected in this amendment:
+
+1. README status now records Analyses A and B as complete, states that the
+   preregistered primary endpoint (centroid <= 4.0 A within top five) was met in
+   zero executed arms, and reproduces the per-arm numbers from
+   `results/analysis_a/` and `results/analysis_b/summary.json` without restating
+   or reinterpreting them.
+2. README now records that P2Rank 2.5.1 and Lacuna 1.2.0 were run, replacing the
+   pre-execution sentence that listed both as not run. The same sentence's
+   statement that no docking, Boltz, RFdiffusion, ProteinMPNN, ESMFold or design
+   was run remains true and is retained.
+3. The `manifests/environment_plan.json` row no longer says "neither detector
+   installed"; it now points to the run receipts that record their installation
+   and use.
+4. The independent second-system outcome (`NO_VALID_CANDIDATE_YET`) is now
+   stated in the README rather than only in
+   `experiments/independent_oncology_benchmark/`.
+
+Not changed by this amendment: PREREGISTRATION.md, PROTOCOL.md, configs/,
+data/raw/, data/processed/, manifests/runs/, manifests/pre_review/, src/, tests/
+and every file under results/. The preregistration anchor is not amended or
+moved. No historical result value was edited, recomputed or rerun; no detector
+was executed for this amendment.

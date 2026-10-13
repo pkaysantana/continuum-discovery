@@ -1,5 +1,13 @@
 # Compound-to-Exposure: In Vitro HLM Clearance Prediction
 
+> **Evidence status:** results in this experiment differ in how strongly they are
+> evidenced. [`EVIDENCE_STATUS.md`](EVIDENCE_STATUS.md) classifies each one as
+> verified-artefact, reported-only, defect-affected or not-executed, and is
+> authoritative on status. Read it before quoting any number here -- in
+> particular, the V2 protected-holdout metrics (MAE 0.296 / RMSE 0.369 /
+> R2 0.201) are reported-only and describe an ECFP4 model, not a descriptor
+> model. No uncertainty-quantification or GSK-development result exists.
+
 ## Scientific Question
 How well can simple 2D molecular representations predict experimentally reported human liver microsomal intrinsic clearance under chemically held-out validation, and where do those predictions fail?
 
