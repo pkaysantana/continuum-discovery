@@ -140,6 +140,40 @@ def _build_candidate(p_id, params, mean_mae):
 def _select_representation(pipeline_id, X_r1, X_r2):
     return X_r1 if representation_for(pipeline_id) == 'R1' else X_r2
 
+def _biogen_b1_candidates(pipelines, X_r1, X_r2, y, cv_mask, fold_assignments, cv_folds, dry_run):
+    b1_candidate_results = []
+    for p_id, (base_pipe, grid) in pipelines.items():
+        if p_id not in ['P1', 'P2', 'P3', 'P4']: continue
+        params_list = [{'alpha': 1.0}] if p_id in ['P1', 'P2'] else [{'max_features': 'sqrt', 'min_samples_leaf': 1}]
+
+        for params in params_list:
+            fold_maes = []
+            for fold in cv_folds:
+                model = MockPredictor() if dry_run else base_pipe
+                train_mask = cv_mask & (fold_assignments != fold)
+                val_mask = cv_mask & (fold_assignments == fold)
+
+                X_tr = _select_representation(p_id, X_r1, X_r2)[train_mask]
+                X_val = _select_representation(p_id, X_r1, X_r2)[val_mask]
+                model.fit(X_tr, y[train_mask])
+                preds = model.predict(X_val)
+                fold_maes.append(log10_mae(y[val_mask], preds))
+
+            b1_candidate_results.append(_build_candidate(p_id, params, np.mean(fold_maes)))
+
+    return b1_candidate_results
+
+def _biogen_b2_fit(pipelines, p_id, X_r1, X_r2, y, cv_mask, fold_assignments, cv_folds, dry_run):
+    base_pipe = pipelines[p_id][0]
+    for fold in cv_folds:
+        model = MockPredictor() if dry_run else base_pipe
+        train_mask = cv_mask & (fold_assignments != fold)
+        val_mask = cv_mask & (fold_assignments == fold)
+        X_tr = _select_representation(p_id, X_r1, X_r2)[train_mask]
+        X_val = _select_representation(p_id, X_r1, X_r2)[val_mask]
+        model.fit(X_tr, y[train_mask])
+        preds = model.predict(X_val)
+
 EXPERIMENT_ROOT = Path(__file__).resolve().parent.parent
 
 def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False, synthetic_data = None, state_file = None, preflight: bool = False):
@@ -602,27 +636,11 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             X_b1_r1 = np.array([get_r1_vector(s) for s in df_bio1[BIOGEN_STRUCTURE_COLUMN]])
             X_b1_r2 = np.array([get_r2_morgan(s) for s in df_bio1[BIOGEN_STRUCTURE_COLUMN]])
             
-            b1_candidate_results = []
-            
-            for p_id, (base_pipe, grid) in pipelines.items():
-                if p_id not in ['P1', 'P2', 'P3', 'P4']: continue
-                params_list = [{'alpha': 1.0}] if p_id in ['P1', 'P2'] else [{'max_features': 'sqrt', 'min_samples_leaf': 1}]
-                
-                for params in params_list:
-                    fold_maes = []
-                    for fold in b1_cv_folds:
-                        model = MockPredictor() if dry_run else base_pipe
-                        train_mask = cv_mask_b1 & (df_bio1['cv_fold'] != fold)
-                        val_mask = cv_mask_b1 & (df_bio1['cv_fold'] == fold)
-                        
-                        X_tr = _select_representation(p_id, X_b1_r1, X_b1_r2)[train_mask]
-                        X_val = _select_representation(p_id, X_b1_r1, X_b1_r2)[val_mask]
-                        model.fit(X_tr, y_b1[train_mask])
-                        preds = model.predict(X_val)
-                        fold_maes.append(log10_mae(y_b1[val_mask], preds))
-                        
-                    b1_candidate_results.append(_build_candidate(p_id, params, np.mean(fold_maes)))
-                    
+            b1_candidate_results = _biogen_b1_candidates(
+                pipelines, X_b1_r1, X_b1_r2, y_b1, cv_mask_b1,
+                df_bio1['cv_fold'], b1_cv_folds, dry_run
+            )
+
             b1_best_candidate = b1_candidate_results[0]
             for cand in b1_candidate_results[1:]:
                 if tie_break_candidates(cand, b1_best_candidate):
@@ -636,16 +654,10 @@ def execute_v2(run_dir: Path, master_partition_path: Path, dry_run: bool = False
             X_b2_r2 = np.array([get_r2_morgan(s) for s in df_bio2[BIOGEN_STRUCTURE_COLUMN]])
             
             p_id = b1_best_candidate['pipeline_id']
-            base_pipe = pipelines[p_id][0]
-            
-            for fold in b2_cv_folds:
-                model = MockPredictor() if dry_run else base_pipe
-                train_mask = cv_mask_b2 & (df_bio2['cv_fold'] != fold)
-                val_mask = cv_mask_b2 & (df_bio2['cv_fold'] == fold)
-                X_tr = _select_representation(p_id, X_b2_r1, X_b2_r2)[train_mask]
-                X_val = _select_representation(p_id, X_b2_r1, X_b2_r2)[val_mask]
-                model.fit(X_tr, y_b2[train_mask])
-                preds = model.predict(X_val)
+            _biogen_b2_fit(
+                pipelines, p_id, X_b2_r1, X_b2_r2, y_b2, cv_mask_b2,
+                df_bio2['cv_fold'], b2_cv_folds, dry_run
+            )
             
         ledger.complete_stage('BIOGEN')
     except Exception as e:
