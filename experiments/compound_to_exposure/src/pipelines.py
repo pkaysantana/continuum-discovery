@@ -57,6 +57,14 @@ def get_pipeline_grids():
         'P4': (get_p4_pipeline(), RF_GRID)
     }
 
+PIPELINE_REPRESENTATION = {'P1': 'R1', 'P2': 'R2', 'P3': 'R1', 'P4': 'R2'}
+
+def representation_for(pipeline_id: str) -> str:
+    try:
+        return PIPELINE_REPRESENTATION[pipeline_id]
+    except KeyError:
+        raise ValueError(f"Unknown pipeline id {pipeline_id!r}; no default representation") from None
+
 def tie_break_candidates(candidate_a, candidate_b):
     """
     Candidate format: dict with keys:
@@ -82,8 +90,8 @@ def tie_break_candidates(candidate_a, candidate_b):
         return family_a == 'Ridge'
         
     # 3. R1 descriptors > R2 Morgan
-    rep_a = 'R1' if candidate_a['pipeline_id'] in ['P1', 'P3'] else 'R2'
-    rep_b = 'R1' if candidate_b['pipeline_id'] in ['P1', 'P3'] else 'R2'
+    rep_a = representation_for(candidate_a['pipeline_id'])
+    rep_b = representation_for(candidate_b['pipeline_id'])
     if rep_a != rep_b:
         return rep_a == 'R1'
         
@@ -104,4 +112,3 @@ def tie_break_candidates(candidate_a, candidate_b):
             
     # 5. Lowest pipeline ID P1 < P2 < P3 < P4
     return candidate_a['pipeline_id'] < candidate_b['pipeline_id']
-
